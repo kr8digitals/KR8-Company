@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
 import PageHero from '@/components/PageHero';
+import Duo from '@/components/Duo';
 import ReferralSignup from '@/components/ReferralSignup';
 import ReferralCalc from '@/components/ReferralCalc';
 import { Icon } from '@/components/ui';
@@ -29,15 +30,26 @@ export default function ReferralsPage() {
         eyebrow="Referrals"
         title={<>You may not have the skill.<br /><span className="text-grad">You have the people.</span></>}
         lede={site.referrals.lede}
-        crumbs={[{ label: 'Referrals' }]}
+       
         aside={
-          <div className="panel" style={{ minWidth: 300 }}>
-            <div className="tag" style={{ color: 'var(--magenta)' }}>Open to everyone</div>
-            <p style={{ fontSize: 14, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.6 }}>
-              Students, drivers, teachers, ex-clients, strangers. No follower count, no application review,
-              no fee.
-            </p>
-            <a href="#join" className="btn-primary btn-sm" style={{ marginTop: 16 }}>Create my link <Icon name="arrow" size={15} /></a>
+          <div>
+            <figure style={{ margin: 0 }}>
+              <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/img/sites/vegas-card.webp" alt="A live site KR8 Digitals built — the kind of work a referral brings in" />
+              </div>
+              <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>
+                A referral is usually a business with a site like this one to fix.
+              </figcaption>
+            </figure>
+            <div className="panel" style={{ marginTop: 14, padding: 22 }}>
+              <div className="tag" style={{ color: 'var(--magenta)' }}>Open to everyone</div>
+              <p style={{ fontSize: 13.5, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.6 }}>
+                Students, drivers, teachers, ex-clients, strangers. No follower count, no application review,
+                no fee.
+              </p>
+              <a href="#join" className="btn-primary btn-sm" style={{ marginTop: 14 }}>Create my link <Icon name="arrow" size={15} /></a>
+            </div>
           </div>
         }
       />
@@ -121,6 +133,30 @@ export default function ReferralsPage() {
           </div>
         </div>
       </section>
+
+      <Duo
+        eyebrow="Who to introduce"
+        title="The person whose website you would be embarrassed to share."
+        body={
+          <>
+            <p>
+              Every referral we have paid came from somebody noticing the same thing you notice: a good
+              business being let down by the thing that represents it online. You do not need to sell
+              anything. You need one sentence and a link.
+            </p>
+            <p>
+              And you do not need the skill. That is the entire point of this page.
+            </p>
+          </>
+        }
+        media={[
+          { src: '/img/sites/tastia-card.webp', alt: 'A restaurant site built by KR8 Digitals', caption: 'The kind of work a referral pays for' },
+          { src: '/img/sites/rapha-card.webp', alt: 'A hospital site built by KR8 Digitals' },
+        ]}
+        cta={{ label: 'See what we build', href: '/services' }}
+        secondary={{ label: 'Open the referral dashboard', href: '/referrals/dashboard' }}
+        flip
+      />
 
       <section className="section section--tight">
         <div className="wrap">

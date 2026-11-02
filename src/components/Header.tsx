@@ -59,7 +59,7 @@ export default function Header() {
         <div className="scroll-progress" ref={barRef} aria-hidden />
         <nav className="nav" aria-label="Primary">
           <Link href="/" className="logo">
-            KR8<span className="g">Digitals</span><span className="sr-only"> — home</span>
+            KR8<span className="g" style={{ marginLeft: 7 }}>Digitals</span><span className="sr-only"> — home</span>
           </Link>
 
           <div className="nav-links">
@@ -101,7 +101,7 @@ export default function Header() {
 
           <div className="nav-right">
             <Link href="/contact" className="btn-nav" onClick={() => track('cta_click', { label: 'get_a_quote', where: 'header' })}>
-              Get a quote
+              Work with us
             </Link>
           </div>
 
@@ -134,7 +134,7 @@ export default function Header() {
           </a>
         </div>
         <Link href="/contact" className="btn-primary" style={{ marginTop: 22, justifyContent: 'center' }} tabIndex={open ? 0 : -1}>
-          Get a quote
+          Work with us
         </Link>
       </div>
     </>

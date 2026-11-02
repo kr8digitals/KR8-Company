@@ -2,10 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { formatMoney } from '@/lib/rates';
+import site from '../../data/site.json';
+import sitesData from '../../data/sites.json';
 
 type Lead = any;
 type Data = {
   driver: string;
+  settings?: Record<string, unknown>;
   leads: Lead[];
   referrals: any[];
   commissions: any[];
@@ -169,7 +172,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
         {tab === 'Orders' && <Orders data={data} act={act} />}
         {tab === 'Conversations' && <Conversations data={data} act={act} />}
         {tab === 'Analytics' && <Analytics data={data} />}
-        {tab === 'Content' && <Content />}
+        {tab === 'Content' && <Content data={data} />}
       </main>
     </div></div>
   );
@@ -518,15 +521,110 @@ const CONTENT_FIELDS = [
   { k: 'hostName', label: 'Host display name', hint: 'Currently "Ada" — three candidates were proposed. Timfire picks the final one.', type: 'text' },
   { k: 'hostAvatar', label: 'Host avatar asset', hint: 'A face needs a real person or an approved illustration. Until then the host uses an abstract mark.', type: 'text' },
   { k: 'teamFeeUsd', label: 'Team enrolment fee (USD)', hint: 'Unapproved. Nothing is charged before this is published and shown on the join page.', type: 'number' },
-  { k: 'priceListApproved', label: 'Public price list approved?', hint: 'Turns on the pricing display across the five service pages.', type: 'text' },
-  { k: 'heroVideoUrl', label: 'Hero showreel (mp4 URL)', hint: 'A real reel from client work. Optional — the 3D stage runs without it.', type: 'text' },
-  { k: 'nextCohortDate', label: 'Next cohort start date', hint: 'Shown on Programs and the Academy card.', type: 'text' },
+  { k: 'priceListApproved', label: 'Public price list approved? (yes / no)', hint: 'Flipping this to yes also publishes prices on the services pages once settings.publicPriceDisplay is on.', type: 'text' },
+  { k: 'founderPhotos', label: 'Founder photography confirmed?', hint: 'The three portraits are the ones KR8 publishes. Confirm they are the images to keep using.', type: 'text' },
+  { k: 'partnerLogos', label: 'Partner logo files', hint: 'Upload links for Motion Verse, CHIGOMA and Next Gen Scholars. Slots hold the monogram until then.', type: 'text' },
+  { k: 'socialLinks', label: 'Social links (comma separated)', hint: 'Instagram, X, YouTube, LinkedIn. The footer hides any that are empty.', type: 'text' },
+  { k: 'openRoles', label: 'Open roles (one per line)', hint: 'Shown on Join the Team and Programs. Empty means the page says no roles are published.', type: 'text' },
 ];
 
-function Content() {
+function Content({ data }: { data: Data }) {
   const [vals, setVals] = useState<Record<string, string>>({});
   const [saved, setSaved] = useState(false);
+  const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [invStatus, setInvStatus] = useState<'all' | 'live' | 'for-sale'>('all');
+
+  useEffect(() => {
+    const st = (data.settings || {}) as Record<string, unknown>;
+    const c: Record<string, boolean> = {};
+    for (const item of site.neededFromClient) c[item.id] = Boolean(st[`received:${item.id}`]);
+    setChecked(c);
+  }, [data.settings]);
+
+  const toggle = async (id: string) => {
+    const next = !checked[id];
+    setChecked((c) => ({ ...c, [id]: next }));
+    await fetch('/api/admin/action', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ op: 'settings.save', patch: { [`received:${id}`]: next } }),
+    });
+  };
+
+  const sites = invStatus === 'all' ? sitesData.sites : sitesData.sites.filter((s) => s.status === invStatus);
+
   return (
+    <>
+    <div className="admin-card">
+      <div className="tag" style={{ color: 'var(--magenta)' }}>Content registry</div>
+      <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 22, fontWeight: 800, marginTop: 8 }}>
+        Needed from Timfire — {Object.values(checked).filter(Boolean).length} of {site.neededFromClient.length} received
+      </h2>
+      <p style={{ marginTop: 10, fontSize: 13.5, color: 'var(--t-muted)', lineHeight: 1.65, maxWidth: 700 }}>
+        Each row is a place the public site refuses to invent something. Tick it when the answer arrives; the
+        tick is stored against the settings record, so the team can see what is still outstanding.
+      </p>
+      <div className="tbl-wrap" style={{ marginTop: 18 }}>
+        <table className="tbl">
+          <thead><tr><th>Got it</th><th>Area</th><th>What is needed</th><th>Status</th></tr></thead>
+          <tbody>
+            {site.neededFromClient.map((n) => (
+              <tr key={n.id}>
+                <td>
+                  <input
+                    type="checkbox"
+                    aria-label={`Mark ${n.item} as received`}
+                    checked={Boolean(checked[n.id])}
+                    onChange={() => toggle(n.id)}
+                  />
+                </td>
+                <td><b>{n.area}</b></td>
+                <td style={{ color: 'var(--t-muted)' }}>{n.item}</td>
+                <td>
+                  <span className={`badge-status ${checked[n.id] ? 'paid' : 'pending'}`}>
+                    {checked[n.id] ? 'received' : 'pending'}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div className="admin-card">
+      <div className="tag" style={{ color: 'var(--magenta)' }}>Portfolio inventory</div>
+      <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 22, fontWeight: 800, marginTop: 8 }}>
+        {sitesData.sites.length} deployed sites · {sitesData.sites.filter((s) => s.status === 'for-sale').length} for sale
+      </h2>
+      <p style={{ marginTop: 10, fontSize: 13.5, color: 'var(--t-muted)', lineHeight: 1.65, maxWidth: 700 }}>
+        The public portfolio is generated from <code>data/sites.json</code>. Status and price are edited there
+        and deployed — this table is the live check that the account and the site agree.
+      </p>
+      <div className="filters" style={{ marginTop: 16 }}>
+        {(['all', 'live', 'for-sale'] as const).map((k) => (
+          <button key={k} aria-pressed={invStatus === k} onClick={() => setInvStatus(k)}>
+            {k === 'all' ? 'Everything' : k === 'live' ? 'Live for clients' : 'For sale'}
+          </button>
+        ))}
+      </div>
+      <div className="tbl-wrap" style={{ marginTop: 14 }}>
+        <table className="tbl">
+          <thead><tr><th>Site</th><th>Category</th><th>Status</th><th className="num">Price (USD)</th><th>Open</th></tr></thead>
+          <tbody>
+            {sites.map((x) => (
+              <tr key={x.slug}>
+                <td><b>{x.name}</b></td>
+                <td style={{ color: 'var(--t-muted)' }}>{x.category}</td>
+                <td><span className={`badge-status ${x.status === 'live' ? 'paid' : 'pending'}`}>{x.status === 'live' ? 'live' : 'for sale'}</span></td>
+                <td className="num">{x.priceUsd ? `$${x.priceUsd}` : '—'}</td>
+                <td><a href={x.url} target="_blank" rel="noopener noreferrer">↗</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div className="admin-card">
       <div className="tag" style={{ color: 'var(--magenta)' }}>Needed from Timfire</div>
       <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 22, fontWeight: 800, marginTop: 8 }}>
@@ -567,5 +665,6 @@ function Content() {
         {saved && <span style={{ fontSize: 13, color: 'var(--lilac)' }}>Saved to the datastore.</span>}
       </div>
     </div>
+    </>
   );
 }

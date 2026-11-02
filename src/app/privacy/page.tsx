@@ -49,7 +49,7 @@ const SECTIONS = [
 export default function Privacy() {
   return (
     <>
-      <PageHero eyebrow="Legal" title={<>Privacy notice</>} lede="The short version: we collect what a conversation needs, we do not sell it, and you can ask us to delete it." crumbs={[{ label: 'Privacy' }]} />
+      <PageHero eyebrow="Legal" title={<>Privacy notice</>} lede="The short version: we collect what a conversation needs, we do not sell it, and you can ask us to delete it." />
       <section className="section" style={{ paddingTop: 10 }}>
         <div className="wrap" style={{ maxWidth: 860 }}>
           <p className="meta-row" style={{ marginBottom: 40 }}><span><b>Last updated</b> 2 November 2026</span><span><b>Controller</b> KR8 Digitals</span><span><b>Contact</b> {site.company.email}</span></p>

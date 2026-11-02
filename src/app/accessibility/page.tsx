@@ -15,7 +15,7 @@ export default function Accessibility() {
         eyebrow="Accessibility"
         title={<>Built to be used by everyone who arrives</>}
         lede="We train people who have never owned a laptop on a phone with a slow connection. It would be strange to build a site they cannot use."
-        crumbs={[{ label: 'Accessibility' }]}
+       
       />
       <section className="section" style={{ paddingTop: 10 }}>
         <div className="wrap" style={{ maxWidth: 860 }}>

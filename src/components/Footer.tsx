@@ -11,17 +11,25 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot-map">
           <div className="foot-brand">
-            <Link href="/" className="logo">KR8<span className="g">Digitals</span><span className="sr-only"> — home</span></Link>
-            <p>{site.company.shortDescription}</p>
+            <Link href="/" className="logo">KR8<span className="g" style={{ marginLeft: 7 }}>Digitals</span><span className="sr-only"> — home</span></Link>
+            <p>
+              A creative company building websites, brands, films, AI systems and SEO optimisation — and
+              training the people who build them next. Work with us, learn with us, or partner with us.
+            </p>
             <div className="foot-parent" style={{ marginTop: 16 }}>
-              <b>KR8 Digitals</b> · Lagos &amp; Global Remote
+              <b>KR8 Digitals</b> · {site.company.email}
             </div>
             <div className="foot-socials">
-              {site.company.socials.map((s) => (
+              {site.company.socials.filter((s) => s.href).map((s) => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
                   <SocialIcon name={s.icon} />
                 </a>
               ))}
+              {site.company.socials.filter((s) => s.href).length === 0 && (
+                <span style={{ fontSize: 12, color: 'var(--t-faint)', letterSpacing: '.02em' }}>
+                  Social links to be added
+                </span>
+              )}
             </div>
           </div>
 
@@ -64,7 +72,7 @@ export default function Footer() {
         </div>
 
         <div className="foot-bottom">
-          <span>© {year} KR8 Digitals. Built for creators.</span>
+          <span>© {year} KR8 Digitals. All rights reserved.</span>
           <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>

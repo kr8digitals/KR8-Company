@@ -36,12 +36,12 @@ const KNOWLEDGE: { k: string[]; a: string; links?: Link[] }[] = [
   },
   {
     k: ['free', 'tuition', 'scholarship', 'pay for school', 'academy cost'],
-    a: 'KR8 Academy is tuition-free, permanently. Seven tracks, eight weeks each, live classes Monday, Wednesday and Friday from 8 to 9pm WAT. There is no graduation fee either — the certificate and the verifiable KR8 ID are included.',
+    a: 'KR8 Academy is free. Seven tracks including graphic design, video editing, web development, content creation, social media management and digital marketing. No tuition, and no fee for the certificate or the verifiable KR8 ID at the end.',
     links: [{ label: 'Apply to the Academy', href: APPLY, outbound: true }],
   },
   {
     k: ['track', 'course', 'learn what', 'curriculum', 'design', 'video', 'coding', 'develop'],
-    a: 'The Academy runs seven tracks: Graphic Design with Stevenson of Motion Verse, Video Editing & Animation with Daniel of Creative Expression, Website Development with Timfire, Front-End Development, Content Creation, Social Media Management and Digital Marketing. Every one is eight weeks and free.',
+    a: 'The Academy runs seven tracks, including Graphic Design with Stevenson of Motion Verse, Video Editing with Daniel of CHIGOMA, Website Development, Front-End Development, Content Creation, Social Media Management and Digital Marketing. Every one is free.',
     links: [{ label: 'See the seven tracks', href: TRACKS, outbound: true }],
   },
   {
@@ -51,13 +51,13 @@ const KNOWLEDGE: { k: string[]; a: string; links?: Link[] }[] = [
   },
   {
     k: ['partner', 'sponsor', 'collaborate', 'hire graduates', 'csr'],
-    a: 'Partners teach, fund, hire or host with us. Motion Verse and Chigoma teach their crafts free, Next Gen Scholars prepares students for WAEC and JAMB, and brands sponsor cohorts or take graduates on placement. There is a page that lays out all four routes.',
+    a: 'Partners teach, fund, hire or host with us. Motion Verse and CHIGOMA teach their crafts free, Next Gen Scholars runs the academic door, and brands fund cohorts, host sessions or hire from the training. There is a page that lays out all four routes.',
     links: [{ label: 'Partnership routes', href: '/partners' }],
   },
   {
     k: ['job', 'work', 'hiring', 'apply team', 'vacancy', 'role', 'salary', 'paid'],
-    a: 'KR8 hires a paid team. You enrol, spend thirty days in the Consistency Drill, then thirty days of team training on real client work — after sixty days you are paid monthly. Roles include a general manager, a Tribe manager, a social media manager, and editors, designers and developers.',
-    links: [{ label: 'Open roles', href: '/about/join-the-team' }],
+    a: 'The route in is a portfolio review, then live projects with people who have shipped. Open roles are published on the Join the Team page — and if none are listed, write to us anyway; we are always looking at work.',
+    links: [{ label: 'Join the team', href: '/about/join-the-team' }],
   },
   {
     k: ['referral', 'commission', 'refer', 'earn', 'affiliate'],
@@ -71,7 +71,7 @@ const KNOWLEDGE: { k: string[]; a: string; links?: Link[] }[] = [
   },
   {
     k: ['video', 'edit', 'motion', 'advert', 'reel'],
-    a: 'Video work is led by Daniel of Creative Expression through Chigoma: adverts, social cutdowns, school promos and motion graphics, edited for retention rather than for a showreel.',
+    a: 'Video work is led by Daniel under the name CHIGOMA: adverts, social cutdowns, testimonials and motion graphics, cut for retention rather than for a showreel. Four real cuts play on the video service page.',
     links: [{ label: 'Video service', href: '/services/video-editing' }],
   },
   {
@@ -87,31 +87,31 @@ const KNOWLEDGE: { k: string[]; a: string; links?: Link[] }[] = [
   {
     k: ['seo', 'google', 'found', 'search', 'rank', 'visibility'],
     a: 'Search work starts with the technical foundation — speed, indexing, structure — because nothing else matters if Google cannot read the site. Then local and intent-led pages, then measurable reporting monthly. No one can honestly guarantee a ranking; we guarantee the work.',
-    links: [{ label: 'Search visibility service', href: '/services/seo' }],
+    links: [{ label: 'SEO Optimisation', href: '/services/seo' }],
   },
   {
     k: ['tribe', 'community', 'belong', 'friends', 'network'],
-    a: 'The Tribe is open to everyone — no KR8 ID, no test. Designers, editors, developers, founders and people who have not made anything yet. Critique over clout, paid gigs moving through the community first, and a monthly Creator Hangout.',
+    a: 'The Tribe is the community where people who train with us keep working together after the cohort ends: critique, leads, and the company of people building the same thing. It lives at tribe.kr8digitals.com.',
     links: [{ label: 'About the Tribe', href: '/programs#tribe' }],
   },
   {
     k: ['mindset', 'event', 'session', 'speak', 'shift'],
-    a: 'Mindset Shift runs live every two weeks, 9pm to midnight WAT. It is the conversation most creative education skips: what the work pays, how to price it, and how to survive the years before the work is good.',
+    a: 'Mindset Shift is the gathering we run to change what a young person believes is possible for themselves. Dates, venue and speakers are published on the Programs page as each edition is confirmed.',
     links: [{ label: 'Mindset Shift', href: '/programs#mindset-shift' }],
   },
   {
     k: ['who', 'about', 'founder', 'timfire', 'stevenson', 'daniel', 'company'],
-    a: 'KR8 Digitals was founded by Kenneth Timothy Iziogo — Timfire — with co-founders Stevenson of Motion Verse and Daniel of Chigoma. Three practitioners who teach what they sell.',
+    a: 'KR8 Digitals was founded by Kenneth Timothy Iziogo — Timfire — with co-founders Stevenson of Motion Verse and Daniel of CHIGOMA. Three practitioners, one company.',
     links: [{ label: 'About KR8', href: '/about' }],
   },
   {
     k: ['where', 'location', 'lagos', 'abakaliki', 'address', 'office'],
-    a: 'KR8 Digitals works out of Lagos and Abakaliki, and delivers remotely. Classes are online, so where you are is not a barrier.',
+    a: 'We work with clients and students wherever they are, and the team works round the clock across time zones — so a message at an odd hour is not wasted. I do not have a street address to give you.',
     links: [{ label: 'Contact', href: '/contact' }],
   },
   {
     k: ['contact', 'phone', 'whatsapp', 'email', 'call', 'reach'],
-    a: 'The fastest route is WhatsApp — +234 812 568 7509. You can also email kr8digitals01@gmail.com, or send a quote request and the team replies within one working day.',
+    a: 'The fastest route is WhatsApp — +234 812 568 7509. You can also email kr8digitals01@gmail.com, or send the form on the contact page and the team answers in the order messages arrive.',
     links: [{ label: 'Contact the team', href: '/contact' }],
   },
 ];
@@ -241,8 +241,8 @@ export function reply(userText: string, ctx: Ctx): HostReply {
     if (/(web|code|develop|frontend|program)/.test(t)) {
       return {
         state: 'done',
-        say: `Website Development is taught by Timfire himself, and Front-End Development by Chimnonyerem Mercy. Both are eight weeks, live and free — and both are taught on real briefs rather than tutorials.`,
-        chips: [{ label: 'Apply for a web track', value: '__apply' }, { label: 'See all seven tracks', value: '__tracks' }],
+        say: `Website Development and Front-End Development run inside the free training, taught on real briefs rather than tutorials. The track list and admissions live on the Academy site.`,
+        chips: [{ label: 'Apply for a web track', value: '__apply' }, { label: 'See the tracks', value: '__tracks' }],
         links: [{ label: 'Apply free', href: APPLY, outbound: true }],
       };
     }
@@ -262,8 +262,8 @@ export function reply(userText: string, ctx: Ctx): HostReply {
   if (state === 'job') {
     return {
       state: 'done',
-      say: `KR8 pays a team monthly rather than buying freelance pieces. The route in is sixty days: thirty in the Consistency Drill, thirty of training on live client work. It is a paid training enrolment, not a job fee — the terms are published in full before anyone pays anything.`,
-      chips: [{ label: 'See open roles', value: '__roles' }, { label: 'How joining works', value: '__joining' }],
+      say: `The route in is a portfolio review, then live projects with people who have shipped. Roles are published on the Join the Team page as they open — and if none are listed, write to us anyway.`,
+      chips: [{ label: 'How joining works', value: '__joining' }, { label: 'See open roles', value: '__roles' }],
       links: [{ label: 'Join the team', href: '/about/join-the-team' }],
     };
   }
@@ -271,8 +271,8 @@ export function reply(userText: string, ctx: Ctx): HostReply {
   if (state === 'community') {
     return {
       state: 'done',
-      say: `The Tribe is the room. No ID, no test — designers, editors, developers and people who have not started yet. Its own site is not open yet, so I'll take your name and you'll be in the first wave rather than the queue.`,
-      chips: [{ label: 'Join the Tribe list', value: '__tribe' }, { label: 'See what the Tribe does', value: '__tribepage' }],
+      say: `The Tribe is the room where people who train with us keep working together — critique, leads and company. It has its own address; I can open it for you.`,
+      chips: [{ label: 'Open the Tribe site', value: '__tribe' }, { label: 'See what the Tribe does', value: '__tribepage' }],
       links: [{ label: 'About the Tribe', href: '/programs#tribe' }],
     };
   }
@@ -280,7 +280,7 @@ export function reply(userText: string, ctx: Ctx): HostReply {
   if (state === 'exploring') {
     return {
       state: 'done',
-      say: `Then let me give you the shortest version. KR8 Digitals is a creative institution: a free school, a working community, an event series and a studio that builds for clients. Five doors, one company. Which one sounds most like you?`,
+      say: `Then the short version: KR8 Digitals is a creative company that builds websites, brands, films and systems for clients — and runs free training for the people who want to build them next. Which part is most like you?`,
       chips: SKILL_CHIPS,
       links: [{ label: 'Our work', href: '/services/website-design#work' }],
     };
@@ -338,7 +338,7 @@ export function openers(state: HostState): HostReply {
     case 'learner':
       return {
         state: 'learner_track',
-        say: `That is the best reason to be here. Everything the Academy teaches is free — eight weeks, live, with a certificate at the end. What draws you?`,
+        say: `That is the best reason to be here. Everything the Academy teaches is free — a live cohort, and a verifiable certificate at the end. What draws you?`,
         chips: [
           { label: 'Graphic design', value: 'design' },
           { label: 'Video editing', value: 'video' },

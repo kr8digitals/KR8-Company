@@ -2,113 +2,138 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import services from '../../../../data/services.json';
-import portfolio from '../../../../data/portfolio.json';
 import site from '../../../../data/site.json';
 import PageHero, { ClosingCTA } from '@/components/PageHero';
-import { Icon, WorkRail } from '@/components/ui';
-import LeadForm from '@/components/LeadForm';
-import ForSale from '@/components/ForSale';
-import Pricing from '@/components/Pricing';
-
-type Params = { params: Promise<{ slug: string }> };
+import { Icon, Price, WhatsAppLink } from '@/components/ui';
+import Showcase from '@/components/Showcase';
+import Duo from '@/components/Duo';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const s = services.find((x) => x.slug === slug);
   if (!s) return { title: 'Service not found' };
   return {
-    title: `${s.name} — ${s.tagline}`,
+    title: `${s.name} — KR8 Digitals`,
     description: s.summary,
     alternates: { canonical: `/services/${s.slug}` },
-    openGraph: { title: `${s.name} · KR8 Digitals`, description: s.summary },
   };
 }
 
-export default async function ServicePage({ params }: Params) {
+const HERO_ART: Record<string, { src: string; alt: string }> = {
+  'website-design': { src: '/img/sites/cirenes-card.webp', alt: 'Cirenes Hotels — a live site built by KR8 Digitals' },
+  'brand-graphic-design': { src: '/img/brand/city-fashion-stores-card.webp', alt: 'City Fashion Stores flyer by KR8 Digitals in association with Motion Verse' },
+  'video-editing': { src: '/video/story-03-poster.webp', alt: 'Poster frame from a KR8 Digitals film' },
+  'ai-automation': { src: '/img/sites/jev-card.webp', alt: 'The Jev form router' },
+  seo: { src: '/img/sites/prime-stem-full.webp', alt: 'Prime STEM Nigeria — a structured multi-page site' },
+};
+
+const GALLERY_TITLE: Record<string, { eyebrow: string; title: string; lede: string }> = {
+  'website-design': {
+    eyebrow: 'The portfolio',
+    title: 'Every site, from the live deployment.',
+    lede: 'Screenshots taken from the running sites, not from design files. 22 deployments across hotels, food, organisations, businesses and personal brands. Live for a client or for sale — the badge tells you which.',
+  },
+  'brand-graphic-design': {
+    eyebrow: 'The gallery',
+    title: 'Client artwork, credited to the people who made it.',
+    lede: 'Event, product, retail and social work for named businesses. Open any piece full size — the artwork carries the credit: KR8 Digitals in association with Motion Verse.',
+  },
+  'video-editing': {
+    eyebrow: 'The films',
+    title: 'Real cuts. They play here.',
+    lede: 'Shot on a phone, cut properly: captions, pacing and a poster frame that earns the tap. CHIGOMA’s video work joins this gallery once the files are supplied.',
+  },
+  'ai-automation': {
+    eyebrow: 'Working systems',
+    title: 'Two things that are actually running.',
+    lede: 'Not a slide about AI. The assistant in the corner of this site and the form router that decides where a message belongs — both live, both pressable.',
+  },
+  seo: {
+    eyebrow: 'The method',
+    title: 'The process, in the open.',
+    lede: 'What we do, in the order we do it. No mystery, no black box, no promise about a position we cannot control.',
+  },
+};
+
+export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const s = services.find((x) => x.slug === slug);
   if (!s) notFound();
 
-  const related = portfolio.filter((p) => p.live && p.shot && (p.services || []).includes(s.name)).slice(0, 6);
-  const others = services.filter((x) => x.slug !== s.slug);
-  const index = services.findIndex((x) => x.slug === s.slug);
-  const next = services[(index + 1) % services.length];
+  const art = HERO_ART[s.slug];
+  const g = GALLERY_TITLE[s.slug];
+  const display = site.settings.publicPriceDisplay;
 
   return (
     <>
       <PageHero
-        eyebrow={s.short}
-        title={<>{s.tagline}</>}
+        eyebrow={`Service · ${s.short}`}
+        title={<>{s.name.split(' ').slice(0, 2).join(' ')}<br /><span className="text-grad">{s.name.split(' ').slice(2).join(' ') || s.tagline}</span></>}
         lede={s.summary}
-        crumbs={[{ label: 'Services', href: '/services' }, { label: s.short }]}
-        accent={s.credit ? `${s.credit}.` : undefined}
         aside={
-          <div className="panel" style={{ minWidth: 290 }}>
-            <div className="tag" style={{ color: 'var(--magenta)' }}>Who this is for</div>
-            <p style={{ fontSize: 14.5, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.65 }}>{s.forWhom}</p>
-            <Link href={`/contact?service=${s.slug}`} className="btn-primary btn-sm" style={{ marginTop: 20 }}>
-              Get a quote <Icon name="arrow" size={15} />
-            </Link>
-          </div>
+          <figure style={{ margin: 0, position: 'relative' }}>
+            <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={art.src} alt={art.alt} />
+            </div>
+            <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>{art.alt}</figcaption>
+          </figure>
         }
       />
 
-      {/* problem ------------------------------------------------------------ */}
-      <section className="section" style={{ paddingTop: 24 }}>
-        <div className="wrap">
-          <div className="story">
-            <div className="reveal up">
-              <div className="eyebrow">The problem</div>
-              <h2 className="section-title" style={{ fontSize: 42, marginTop: 12 }}>What is actually going wrong</h2>
-            </div>
-            <div className="prose-lg reveal up" data-delay="60">
-              <p>{s.problem}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* approach / outcomes ------------------------------------------------ */}
-      <section className="section section--tight" style={{ borderTop: '1px solid var(--hair-soft)', borderBottom: '1px solid var(--hair-soft)' }}>
+      {/* ------------------------------------------------------- WHAT IT IS FOR */}
+      <section className="section" style={{ paddingTop: 60 }}>
         <div className="wrap">
           <div className="grid g2 grid--loose">
             <div className="reveal up">
-              <div className="eyebrow">How we work</div>
-              <h2 className="section-title" style={{ fontSize: 34, marginTop: 12, marginBottom: 26 }}>Our approach, in plain terms</h2>
-              <ol style={{ display: 'grid', gap: 20 }}>
-                {s.approach.map((a, i) => (
-                  <li key={a} style={{ display: 'flex', gap: 16 }}>
-                    <span className="step-num" style={{ flex: 'none' }}>{String(i + 1).padStart(2, '0')}</span>
-                    <span style={{ fontSize: 15.5, lineHeight: 1.65, color: 'var(--t-body)' }}>{a}</span>
-                  </li>
-                ))}
-              </ol>
+              <div className="eyebrow">Who it is for</div>
+              <p className="prose-lg" style={{ marginTop: 14 }}>{s.forWhom}</p>
             </div>
-            <div className="reveal up" data-delay="80">
-              <div className="eyebrow">What you get</div>
-              <h2 className="section-title" style={{ fontSize: 34, marginTop: 12, marginBottom: 26 }}>Outcomes and deliverables</h2>
-              <ul className="price-list">
-                {s.outcomes.map((o) => <li key={o}><Icon name="check" size={16} /> {o}</li>)}
-              </ul>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 26 }}>
-                {s.deliverables.map((d) => <span className="pill" key={d}>{d}</span>)}
-              </div>
+            <div className="reveal up">
+              <div className="eyebrow">The problem it solves</div>
+              <p className="prose-lg" style={{ marginTop: 14 }}>{s.problem}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* process ------------------------------------------------------------ */}
-      <section className="section">
+      {/* --------------------------------------------------------- THE GALLERY */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }} id="work">
         <div className="wrap">
-          <div className="reveal up">
-            <div className="eyebrow">The process</div>
-            <h2 className="section-title">Four steps, no mystery</h2>
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">{g.eyebrow}</div>
+              <h2 className="section-title">{g.title}</h2>
+              <p className="section-lede">{g.lede}</p>
+            </div>
           </div>
+          <Showcase
+            mode={s.gallery as 'sites' | 'flyers' | 'videos' | 'ai' | 'seo'}
+            showPrices={display}
+            filters={s.gallery === 'sites' || s.gallery === 'flyers'}
+          />
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------- HOW */}
+      <Duo
+        eyebrow="How we work"
+        title="Four steps, and you know where you are at each one."
+        body={<p>{s.approach[0]}</p>}
+        bullets={s.approach.slice(1)}
+        media={[
+          { src: '/img/sites/monabliss-full.webp', alt: 'Monabliss Hotels — a live site built by KR8 Digitals', caption: 'Built, deployed, handed over' },
+          { src: '/img/team/founder-timfire-wide.jpg', alt: 'A working session at KR8 Digitals' },
+        ]}
+        flip
+      />
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="wrap">
           <div className="steps steps--row reveal up">
             {s.process.map((p) => (
               <div className="step" key={p.n}>
@@ -121,94 +146,103 @@ export default async function ServicePage({ params }: Params) {
         </div>
       </section>
 
-      {/* work ---------------------------------------------------------------- */}
-      {related.length > 0 && (
-        <section className="section section--tight" id="work" style={{ borderTop: '1px solid var(--hair-soft)' }}>
-          <div className="wrap">
-            <div className="sec-head reveal up">
-              <div>
-                <div className="eyebrow">Proof</div>
-                <h2 className="section-title">This service, already delivered</h2>
+      {/* --------------------------------------------------------- OUTCOMES */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="grid g2 grid--loose">
+            <div className="reveal up">
+              <div className="eyebrow">What you end up with</div>
+              <h2 className="section-title" style={{ marginTop: 10 }}>Outcomes</h2>
+              <ul className="price-list" style={{ marginTop: 20 }}>
+                {s.outcomes.map((o) => (
+                  <li key={o}><Icon name="check" size={16} /> {o}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="reveal up">
+              <div className="eyebrow">Deliverables</div>
+              <h2 className="section-title" style={{ marginTop: 10 }}>In the box</h2>
+              <ul className="price-list" style={{ marginTop: 20 }}>
+                {s.deliverables.map((d) => (
+                  <li key={d}><Icon name="check" size={16} /> {d}</li>
+                ))}
+              </ul>
+              <div className="panel" style={{ marginTop: 24, padding: 22 }}>
+                <div className="eyebrow">Price</div>
+                {display ? (
+                  <div style={{ marginTop: 10 }}>
+                    <Price usd={s.slug === 'seo' ? 250 : 900} code="USD" rates={{ USD: 1 }} showUsd={false} />
+                    <p style={{ fontSize: 12.5, color: 'var(--t-faint)', marginTop: 6 }}>
+                      Starting price. Final quote depends on scope; switch currency at checkout.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <p style={{ fontSize: 14, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.6 }}>
+                      <b>Fixed prices are set and waiting on approval.</b> They are not published yet. Ask and
+                      you will get the number in writing, the same day.
+                    </p>
+                    <Link href={`/contact?service=${s.slug}`} className="btn-primary btn-sm" style={{ marginTop: 16 }}>
+                      Request a quote <Icon name="arrow" size={15} />
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
-          <WorkRail
-            items={related.map((w) => ({
-              name: w.name, category: w.category, shot: w.shot, href: w.url || undefined, meta: `${w.kind} · ${w.year}`,
-            }))}
-          />
-        </section>
-      )}
+        </div>
+      </section>
 
-      <Pricing slug={s.slug} />
-
-      {/* for sale ------------------------------------------------------------ */}
-      {(s.slug === 'website-design') && <ForSale />}
-
-      {/* faqs ---------------------------------------------------------------- */}
-      <section className="section">
-        <div className="wrap" style={{ maxWidth: 900 }}>
-          <div className="reveal up">
-            <div className="eyebrow">Questions we actually get asked</div>
-            <h2 className="section-title" style={{ marginBottom: 32 }}>Before you ask</h2>
+      {/* ------------------------------------------------------------- FAQS */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="split reveal up" style={{ alignItems: 'end', marginBottom: 26 }}>
+            <div>
+              <div className="eyebrow">Questions</div>
+              <h2 className="section-title">Answered before you ask.</h2>
+            </div>
           </div>
-          <div className="reveal up">
+          <div className="faq reveal up">
             {s.faqs.map((f) => (
-              <details className="faq" key={f.q}>
-                <summary>{f.q}<span aria-hidden>+</span></summary>
-                <p>{f.a}</p>
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <div className="faq-body">{f.a}</div>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* quote -------------------------------------------------------------- */}
-      <section className="section" id="quote" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+      <section className="section" style={{ paddingTop: 0 }}>
         <div className="wrap">
-          <div className="split">
-            <div className="reveal up" style={{ maxWidth: 420 }}>
-              <div className="eyebrow">Get a figure</div>
-              <h2 className="section-title" style={{ fontSize: 40 }}>
-                Tell us what {s.short.toLowerCase()} has to achieve
-              </h2>
-              <p className="section-lede">
-                One paragraph on what is failing now is enough. You will get a scope, a fixed figure and a
-                date — or an honest answer that this is not the right service for you.
-              </p>
-              <div className="meta-row" style={{ marginTop: 26 }}>
-                <span><b>Reply time</b> within one working day</span>
-                <span><b>Call</b> {site.company.phone}</span>
-              </div>
-            </div>
-            <div className="reveal up" data-delay="60">
-              <LeadForm variant="quote" defaultService={s.name} siteId={`svc-${s.slug}`} compact />
+          <div className="cta-band reveal up">
+            <div className="eyebrow eyebrow--lilac">Next step</div>
+            <h2>{s.cta}.</h2>
+            <p>
+              Tell us what has to happen and when. You will get a reply from a person, a price in writing and
+              a date — not a discovery call that goes nowhere.
+            </p>
+            <div className="actions" style={{ marginTop: 28 }}>
+              <Link href={`/contact?service=${s.slug}`} className="btn-primary">
+                Work with us <Icon name="arrow" size={17} />
+              </Link>
+              <WhatsAppLink
+                number={site.company.whatsapp}
+                text={`Hi KR8 Digitals — I need help with ${s.name.toLowerCase()}.`}
+                label="WhatsApp the team"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* next service -------------------------------------------------------- */}
-      <section className="section section--tight" style={{ borderTop: '1px solid var(--hair-soft)' }}>
-        <div className="wrap">
-          <div className="sec-head">
-            <div>
-              <div className="eyebrow">Also from the studio</div>
-              <h2 className="section-title" style={{ fontSize: 34 }}>Other services</h2>
-            </div>
-            <Link href={`/services/${next.slug}`} className="btn-link">Next: {next.short} <Icon name="arrow" size={15} /></Link>
-          </div>
-          <div className="grid g4" style={{ marginTop: 34 }}>
-            {others.map((o) => (
-              <Link key={o.slug} href={`/services/${o.slug}`} className="card card--hover">
-                <div className="icon-box" style={{ width: 40, height: 40 }}><Icon name={o.icon} size={18} /></div>
-                <h3 style={{ fontSize: 17, marginTop: 14 }}>{o.short}</h3>
-                <p style={{ fontSize: 13, marginTop: 6 }}>{o.tagline}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ClosingCTA
+        title="Not this one?"
+        copy="Five services, one company. If the thing you need is on another page, open it here."
+        cta="All services"
+        href="/services"
+        secondary={{ label: 'See the portfolio', href: '/services/website-design#portfolio' }}
+      />
     </>
   );
 }

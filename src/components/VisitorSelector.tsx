@@ -1,89 +1,80 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/track';
 import { Icon } from './ui';
 
-type Opt = { id: string; label: string; sub: string; href: string; out?: boolean; say: string };
+type Opt = { id: string; label: string; sub: string; href: string; out?: boolean; icon: string };
 
 const OPTS: Opt[] = [
   {
-    id: 'business', label: 'I run a business', sub: 'You need a site, a brand or a system that earns.',
-    href: '/services', say: 'Start with what you need built. Five services, fixed prices, real examples.',
+    id: 'business',
+    label: 'I run a business or organisation',
+    sub: 'See what we build, then ask for a quote.',
+    href: '/services',
+    icon: 'monitor',
   },
   {
-    id: 'learner', label: 'I want to learn a skill', sub: 'Free, eight weeks, taught by working practitioners.',
-    href: 'https://academy.kr8digitals.com/apply', out: true, say: 'Applications for the fifth cohort are open now. Seven tracks, no tuition.',
+    id: 'learner',
+    label: 'I want to learn a skill',
+    sub: 'Free training in digital skills and academics.',
+    href: '/programs',
+    icon: 'palette',
   },
   {
-    id: 'work', label: 'I am looking for work', sub: 'A paid team, trained on real client contracts.',
-    href: '/about/join-the-team', say: 'Sixty days of training, then paid monthly. The terms are published in full.',
+    id: 'work',
+    label: 'I am looking for work',
+    sub: 'The route from training into the team.',
+    href: '/about/join-the-team',
+    icon: 'check',
   },
   {
-    id: 'community', label: 'I want community', sub: 'The Tribe: critique, leads and company.',
-    href: '/programs#tribe', say: 'Open to everyone, including people who have not made anything yet.',
+    id: 'community',
+    label: 'I am looking for community',
+    sub: 'The Tribe: people building the same thing you are.',
+    href: '/programs#tribe',
+    icon: 'film',
   },
   {
-    id: 'exploring', label: 'Just exploring', sub: 'See the work and decide from there.',
-    href: '/services/website-design#work', say: 'The portfolio is the fastest way to understand what we actually do.',
+    id: 'exploring',
+    label: 'I am just exploring',
+    sub: 'Start with who we are and who is behind it.',
+    href: '/about',
+    icon: 'search',
   },
 ];
 
 export default function VisitorSelector() {
-  const [picked, setPicked] = useState<string | null>(null);
-  const active = OPTS.find((o) => o.id === picked);
-
   return (
     <section className="section" id="start" style={{ borderTop: '1px solid var(--hair-soft)' }}>
       <div className="wrap">
         <div className="reveal up" style={{ maxWidth: 760 }}>
-          <div className="eyebrow">One last question</div>
-          <h2 className="section-title">Which one is you?</h2>
+          <div className="eyebrow">Pick a door</div>
+          <h2 className="section-title">How can we help you?</h2>
           <p className="section-lede">
-            Every answer leads to a real place to go next. Nobody leaves this site the way they came.
+            Five ways in. Each one goes straight to the page that answers it — no menu hunting.
           </p>
         </div>
 
-        <div className="reveal up" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 36 }}>
+        <div className="ways" style={{ marginTop: 36 }}>
           {OPTS.map((o) => (
-            <button
+            <Link
               key={o.id}
-              className="pill"
-              aria-pressed={picked === o.id}
-              onClick={() => { setPicked(o.id); track('visitor_selector', { choice: o.id }); }}
-              style={{
-                padding: '13px 20px', fontSize: 14, letterSpacing: 0, textTransform: 'none',
-                background: picked === o.id ? 'var(--grad)' : 'transparent',
-                borderColor: picked === o.id ? 'transparent' : 'var(--hair)',
-                color: '#fff', fontWeight: 600,
-              }}
+              href={o.href}
+              className="way"
+              onClick={() => track('visitor_selector', { choice: o.id })}
+              style={{ display: 'block', textDecoration: 'none' }}
             >
-              {o.label}
-            </button>
+              <span style={{ display: 'inline-flex', color: 'var(--magenta)', marginBottom: 10 }}>
+                <Icon name={o.icon} size={20} />
+              </span>
+              <b>{o.label}</b>
+              <span>{o.sub}</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 12, fontSize: 12, fontWeight: 600, color: 'var(--lilac)' }}>
+                Take me there <Icon name="arrow" size={13} />
+              </span>
+            </Link>
           ))}
-        </div>
-
-        <div style={{ marginTop: 26, minHeight: 108 }}>
-          {active ? (
-            <div className="card reveal up" style={{ maxWidth: 620 }}>
-              <div className="tag" style={{ color: 'var(--magenta)' }}>Your next step</div>
-              <p style={{ marginTop: 8, color: '#fff', fontSize: 16, lineHeight: 1.65 }}>{active.say}</p>
-              {active.out ? (
-                <a href={active.href} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm" style={{ marginTop: 18 }}>
-                  {active.label} <span className="arrow-out">↗</span>
-                </a>
-              ) : (
-                <Link href={active.href} className="btn-primary btn-sm" style={{ marginTop: 18 }}>
-                  Take me there <Icon name="arrow" size={16} />
-                </Link>
-              )}
-            </div>
-          ) : (
-            <p style={{ fontSize: 13.5, color: 'var(--t-faint)' }}>
-              Choose one above and we will point you at the exact page — no menu hunting.
-            </p>
-          )}
         </div>
       </div>
     </section>

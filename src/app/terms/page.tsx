@@ -50,7 +50,7 @@ const SECTIONS = [
 export default function Terms() {
   return (
     <>
-      <PageHero eyebrow="Legal" title={<>Terms of service</>} lede="Plain terms: a fixed scope, a fixed price, and you own what you paid for." crumbs={[{ label: 'Terms' }]} />
+      <PageHero eyebrow="Legal" title={<>Terms of service</>} lede="Plain terms: a fixed scope, a fixed price, and you own what you paid for." />
       <section className="section" style={{ paddingTop: 10 }}>
         <div className="wrap" style={{ maxWidth: 860 }}>
           <p className="meta-row" style={{ marginBottom: 40 }}><span><b>Last updated</b> 2 November 2026</span><span><b>Contact</b> {site.company.email}</span></p>

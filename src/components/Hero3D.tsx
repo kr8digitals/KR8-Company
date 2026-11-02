@@ -1,345 +1,334 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 /**
  * The hero stage.
  *
- * One asset — a ring of 64 shards — that rearranges itself into four meaningful
- * formations. Nothing here is decorative: each formation carries the section's
- * single idea and its call to action, and the visitor can drive it directly.
+ * A ring built from the actual work: sixteen surfaces carrying screenshots of
+ * sites we have deployed, flyers made in association with Motion Verse and
+ * frames from real films. Nothing abstract is rendered here — every panel is a
+ * piece of shipped work.
  *
- *   0 · The mark      — KR8 assembled
- *   1 · Partnership   — two interlocking rings: KR8 and its partners
- *   2 · Learning      — a rising stair: cohorts building on each other
- *   3 · The team      — three orbits: one team, three crafts
+ *   Ring      — the work orbiting. It turns on its own; drag it and it follows.
+ *   Disassembly — the ring breaks apart into a drifting filmstrip, then reforms.
+ *   People    — the panels fall away and the three founders come forward.
  *
- * Performance contract (Section 5 / 19): lazy-loaded, DPR capped, paused when
- * offscreen or backgrounded, frozen to a single frame under reduced-motion,
- * and a static SVG fallback if WebGL is unavailable.
+ * Performance: lazy canvas, DPR capped at 1.75, paused when offscreen or when
+ * the tab is hidden, one frozen frame under prefers-reduced-motion, and a
+ * static image fallback when WebGL is unavailable.
  */
 
 export type Scene = { key: string; title: string; sub: string; href: string; cta: string; outbound?: boolean };
 
 export const SCENES: Scene[] = [
-  { key: 'mark', title: 'One institution, built on one mark.', sub: 'KR8 Digitals · Lagos & Global Remote', href: '/about', cta: 'What we are' },
-  { key: 'partner', title: 'We do not build alone.', sub: 'Partners teach, fund, hire and host with us', href: '/partners', cta: 'See the partners' },
-  { key: 'learn', title: 'Every cohort raises the next one.', sub: 'Tuition-free · seven tracks · eight weeks', href: 'https://academy.kr8digitals.com/apply', cta: 'Learn free', outbound: true },
-  { key: 'team', title: 'One team. Three crafts. Real client work.', sub: 'Design, video and engineering, under one roof', href: '/about/join-the-team', cta: 'Join the team' },
+  { key: 'ring', title: 'Twenty-two sites. Every one live.', sub: 'Tap any panel — the work opens in a new tab', href: '/services/website-design#portfolio', cta: 'See the portfolio' },
+  { key: 'break', title: 'Built to be opened, not admired.', sub: 'Sites, flyers and films we shipped this year', href: '/services', cta: 'What we build' },
+  { key: 'people', title: 'Built by people you can name.', sub: 'Three founders. One company.', href: '/about', cta: 'Meet KR8 Digitals' },
 ];
 
-const COUNT = 64;
+const PANELS = [
+  '/img/sites/cirenes-card.webp',
+  '/img/brand/zoey-perfume-card.webp',
+  '/img/sites/monabliss-card.webp',
+  '/img/sites/afristem-card.webp',
+  '/img/brand/city-fashion-stores-card.webp',
+  '/img/sites/vegas-card.webp',
+  '/img/sites/salt-lake-card.webp',
+  '/video/story-02-poster.webp',
+  '/img/sites/tastia-card.webp',
+  '/img/brand/ridwan-footwear-card.webp',
+  '/img/sites/rapha-card.webp',
+  '/img/sites/galaxy-lapalm-card.webp',
+  '/img/brand/presco-trip-card.webp',
+  '/img/sites/mcgettrick-card.webp',
+  '/video/story-03-poster.webp',
+  '/img/sites/adig-suites-card.webp',
+];
+
+const PEOPLE = [
+  { src: '/img/team/founder-timfire.jpg', name: 'Timfire' },
+  { src: '/img/team/stevenson.jpg', name: 'Stevenson' },
+  { src: '/img/team/daniel.jpg', name: 'Daniel' },
+];
 
 export default function Hero3D({ initial = 0 }: { initial?: number }) {
   const holder = useRef<HTMLDivElement>(null);
   const [scene, setScene] = useState(initial);
   const [failed, setFailed] = useState(false);
   const sceneRef = useRef(initial);
-  const setSceneRef = useRef<((i: number) => void) | null>(null);
 
-  useEffect(() => { sceneRef.current = scene; setSceneRef.current?.(scene); }, [scene]);
+  useEffect(() => { sceneRef.current = scene; }, [scene]);
 
   useEffect(() => {
     let disposed = false;
     let raf = 0;
     let renderer: import('three').WebGLRenderer | null = null;
-    let cleanup = () => {};
+    let cleanup: (() => void) | null = null;
+    const host = holder.current;
+    if (!host) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     (async () => {
-      const THREE = await import('three');
+      let THREE: typeof import('three');
+      try { THREE = await import('three'); } catch { setFailed(true); return; }
       if (disposed || !holder.current) return;
 
-      const el = holder.current;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const W = () => holder.current?.clientWidth || 560;
+      const H = () => holder.current?.clientHeight || 560;
 
       let r: import('three').WebGLRenderer;
       try {
-        r = new THREE.WebGLRenderer({ alpha: true, antialias: window.devicePixelRatio < 2, powerPreference: 'high-performance' });
-      } catch {
-        setFailed(true);
-        return;
-      }
+        r = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
+      } catch { setFailed(true); return; }
       renderer = r;
       r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
-      r.setSize(el.clientWidth, el.clientHeight, false);
-      r.setClearColor(0x000000, 0);
-      el.appendChild(r.domElement);
+      r.setSize(W(), H());
+      r.domElement.style.display = 'block';
+      host.appendChild(r.domElement);
 
       const scene3 = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(42, el.clientWidth / el.clientHeight, 0.1, 100);
-      camera.position.set(0, 0, 6.4);
+      const camera = new THREE.PerspectiveCamera(42, W() / H(), 0.1, 100);
+      camera.position.set(0, 0.2, 9.4);
 
       const group = new THREE.Group();
       scene3.add(group);
 
-      // ---- light -------------------------------------------------------
-      scene3.add(new THREE.AmbientLight(0xffffff, 0.55));
-      const key = new THREE.DirectionalLight(0xfff0fa, 1.5);
-      key.position.set(3, 4, 5);
-      scene3.add(key);
-      const pMag = new THREE.PointLight(0xff2d9b, 26, 18, 2);
-      pMag.position.set(-3.2, 1.8, 2.6);
-      scene3.add(pMag);
-      const pPur = new THREE.PointLight(0x7c3aed, 30, 20, 2);
-      pPur.position.set(3.4, -1.6, 1.8);
-      scene3.add(pPur);
+      const loader = new THREE.TextureLoader();
+      loader.setCrossOrigin('anonymous');
 
-      // ---- shards ------------------------------------------------------
-      const geo = new THREE.BoxGeometry(0.3, 0.3, 0.07);
-      const mat = new THREE.MeshStandardMaterial({
-        metalness: 0.42, roughness: 0.26, envMapIntensity: 0.6,
-        emissive: 0x2a0b3d, emissiveIntensity: 0.5,
+      const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+
+      // ---- panels ------------------------------------------------------------
+      const COUNT = PANELS.length;
+      type Panel = {
+        mesh: import('three').Mesh;
+        pos: import('three').Vector3;
+        rot: import('three').Euler;
+        phase: number;
+      };
+      const panels: Panel[] = [];
+      const geo = new THREE.PlaneGeometry(1.62, 2.03, 1, 1);
+
+      PANELS.forEach((src, i) => {
+        const mat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(geo, mat);
+        // rounded-ish frame behind the image
+        const frameGeo = new THREE.PlaneGeometry(1.72, 2.13, 1, 1);
+        const frameMat = new THREE.MeshBasicMaterial({ color: 0x1c0f38, transparent: true, opacity: 0, side: THREE.DoubleSide });
+        const frame = new THREE.Mesh(frameGeo, frameMat);
+        frame.position.z = -0.012;
+        mesh.add(frame);
+
+        loader.load(src, (tex) => {
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.minFilter = THREE.LinearFilter;
+          mat.map = tex;
+          mat.needsUpdate = true;
+        });
+
+        const phase = (i / COUNT) * Math.PI * 2;
+        panels.push({ mesh, pos: new THREE.Vector3(), rot: new THREE.Euler(), phase });
+        group.add(mesh);
       });
-      const mesh = new THREE.InstancedMesh(geo, mat, COUNT);
-      mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
 
-      const cA = new THREE.Color(0xff2d9b);
-      const cB = new THREE.Color(0x7c3aed);
-      const cC = new THREE.Color(0xc6b4f2);
-      for (let i = 0; i < COUNT; i++) {
-        const t = i / (COUNT - 1);
-        const c = t < 0.5 ? cA.clone().lerp(cC, t * 2) : cC.clone().lerp(cB, (t - 0.5) * 2);
-        mesh.setColorAt(i, c);
-      }
-      group.add(mesh);
+      // ---- people ------------------------------------------------------------
+      const people: { mesh: import('three').Mesh; mat: import('three').MeshBasicMaterial; base: import('three').Vector3 }[] = [];
+      const pGeo = new THREE.PlaneGeometry(1.9, 2.38);
+      PEOPLE.forEach((p, i) => {
+        const mat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(pGeo, mat);
+        loader.load(p.src, (tex) => {
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.minFilter = THREE.LinearFilter;
+          mat.map = tex;
+          mat.needsUpdate = true;
+        });
+        const base = new THREE.Vector3((i - 1) * 2.25, i === 1 ? 0.24 : -0.12, i === 1 ? 0.9 : 0);
+        people.push({ mesh, mat, base });
+        scene3.add(mesh);
+      });
 
-      // ---- formations --------------------------------------------------
-      type V = { p: import('three').Vector3; r: import('three').Euler; s: number };
-      const formations: V[][] = [];
-      const build = (fn: (i: number, n: number) => V) => {
-        const arr: V[] = [];
-        for (let i = 0; i < COUNT; i++) arr.push(fn(i, COUNT));
-        return arr;
-      };
-
-      // 0 — the ring mark
-      formations.push(build((i, n) => {
-        const a = (i / n) * Math.PI * 2;
-        const R = 1.72, rr = 0.135;
-        const twist = Math.sin(a * 3) * 0.5;
-        return {
-          p: new THREE.Vector3(Math.cos(a) * R + Math.cos(a) * Math.cos(i) * rr, Math.sin(a) * R, Math.sin(a) * 0.22),
-          r: new THREE.Euler(0, -a + Math.PI / 2, twist * 0.34),
-          s: 1,
-        };
-      }));
-
-      // 1 — two interlocking rings (partnership)
-      formations.push(build((i, n) => {
-        const half = n / 2;
-        const first = i < half;
-        const k = first ? i : i - half;
-        const a = (k / half) * Math.PI * 2;
-        const R = 1.12;
-        const ox = first ? -0.62 : 0.62;
-        return {
-          p: new THREE.Vector3(Math.cos(a) * R + ox, Math.sin(a) * R, first ? 0.18 : -0.18),
-          r: new THREE.Euler(0, 0, a),
-          s: 0.94,
-        };
-      }));
-
-      // 2 — a rising stair of cohorts
-      formations.push(build((i, n) => {
-        const cols = 8, rows = Math.ceil(n / cols);
-        const c = i % cols, rw = Math.floor(i / cols);
-        const h = (rw / rows) * 2.1;
-        return {
-          p: new THREE.Vector3((c - (cols - 1) / 2) * 0.42, -1.15 + h, ((rw % 2) - 0.5) * 0.5),
-          r: new THREE.Euler(0, 0, 0),
-          s: 0.86 + (rw / rows) * 0.3,
-        };
-      }));
-
-      // 3 — three orbits (the team)
-      formations.push(build((i, n) => {
-        const third = Math.floor(n / 3);
-        const ring = i % 3;
-        const k = Math.floor(i / 3);
-        const a = (k / third) * Math.PI * 2 + ring * 0.6;
-        const R = 1.5 - ring * 0.34;
-        const tilt = ring * 0.55;
-        return {
-          p: new THREE.Vector3(Math.cos(a) * R, Math.sin(a) * R * Math.cos(tilt), Math.sin(a) * R * Math.sin(tilt)),
-          r: new THREE.Euler(a, tilt, 0),
-          s: 0.8,
-        };
-      }));
-
-      // ---- animation state --------------------------------------------
-      const cur = formations[0].map((v) => ({
-        p: v.p.clone(), r: new THREE.Euler(v.r.x, v.r.y, v.r.z), s: v.s,
-      }));
-      let from = formations[0];
-      let to = formations[0];
-      let morph = 1;
-      let active = 0;
-
-      const m4 = new THREE.Matrix4();
-      const q = new THREE.Quaternion();
-      const pos = new THREE.Vector3();
-      const scl = new THREE.Vector3();
-
-      function writeFrame() {
-        for (let i = 0; i < COUNT; i++) {
-          const c = cur[i];
-          scl.setScalar(c.s);
-          q.setFromEuler(c.r);
-          m4.compose(c.p, q, scl);
-          mesh.setMatrixAt(i, m4);
-        }
-        mesh.instanceMatrix.needsUpdate = true;
-      }
-
-      function go(n: number) {
-        if (n === active) return;
-        active = n;
-        from = cur.map((c) => ({ p: c.p.clone(), r: new THREE.Euler(c.r.x, c.r.y, c.r.z), s: c.s }));
-        to = formations[n];
-        morph = 0;
-      }
-      setSceneRef.current = go;
-
-      // ---- interaction -------------------------------------------------
-      let tx = 0, ty = 0, px = 0, py = 0;
-      const onMove = (e: PointerEvent) => {
-        const rect = el.getBoundingClientRect();
-        tx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-        ty = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-      };
-      window.addEventListener('pointermove', onMove, { passive: true });
-
+      // ---- state -------------------------------------------------------------
+      let rot = 0;
+      let vel = 0.0022;
+      let drag = false;
+      let lastX = 0;
+      let hover = 0;
+      let hoverTarget = 0;
+      let time = 0;
       let visible = true;
-      const io = new IntersectionObserver((ents) => { visible = ents[0].isIntersecting; }, { threshold: 0.01 });
-      io.observe(el);
+      let introStart = performance.now();
+      const clocks = panels.map((_, i) => i * 0.37);
 
-      const clock = new THREE.Clock();
-      let elapsed = 0;
-      const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+      const pointerDown = (e: PointerEvent) => { drag = true; lastX = e.clientX; host.setPointerCapture?.(e.pointerId); };
+      const pointerUp = () => { drag = false; };
+      const pointerMove = (e: PointerEvent) => {
+        if (!drag) return;
+        const dx = e.clientX - lastX;
+        lastX = e.clientX;
+        vel += dx * 0.00055;
+      };
+      const enter = () => { hoverTarget = 1; };
+      const leave = () => { hoverTarget = 0; drag = false; };
 
-      function loop() {
-        raf = requestAnimationFrame(loop);
-        if (!visible || document.hidden) return;
+      r.domElement.addEventListener('pointerdown', pointerDown);
+      window.addEventListener('pointerup', pointerUp);
+      window.addEventListener('pointermove', pointerMove);
+      host.addEventListener('pointerenter', enter);
+      host.addEventListener('pointerleave', leave);
 
-        const dt = Math.min(clock.getDelta(), 0.05);
-        elapsed += dt;
-
-        if (morph < 1) {
-          morph = Math.min(1, morph + dt / 1.15);
-          const e = easeOut(morph);
-          for (let i = 0; i < COUNT; i++) {
-            const stagger = Math.min(1, Math.max(0, e * 1.5 - (i / COUNT) * 0.5));
-            const t = easeOut(stagger);
-            const a = from[i], b = to[i];
-            cur[i].p.lerpVectors(a.p, b.p, t);
-            cur[i].r.set(
-              a.r.x + (b.r.x - a.r.x) * t,
-              a.r.y + (b.r.y - a.r.y) * t,
-              a.r.z + (b.r.z - a.r.z) * t
-            );
-            cur[i].s = a.s + (b.s - a.s) * t;
-          }
-        } else {
-          // idle: gentle breathing so the stage is never frozen
-          for (let i = 0; i < COUNT; i++) {
-            const b = to[i], c = cur[i];
-            const phase = elapsed * 0.9 + i * 0.18;
-            c.p.copy(b.p).multiplyScalar(1 + Math.sin(phase) * 0.008);
-            c.r.set(b.r.x + Math.sin(phase * 0.8) * 0.09, b.r.y + Math.cos(phase * 0.7) * 0.12, b.r.z);
-          }
-        }
-        writeFrame();
-
-        px += (tx * 0.22 - px) * 0.045;
-        py += (ty * 0.16 - py) * 0.045;
-        group.rotation.y = px + Math.sin(elapsed * 0.16) * 0.12;
-        group.rotation.x = py + Math.cos(elapsed * 0.2) * 0.06;
-        camera.position.z = 6.4 + Math.sin(elapsed * 0.24) * 0.12;
-
-        r.render(scene3, camera);
-      }
+      const io = new IntersectionObserver((ents) => { visible = ents[0].isIntersecting; }, { threshold: 0.05 });
+      io.observe(host);
+      const onVis = () => { visible = !document.hidden && visible; };
+      document.addEventListener('visibilitychange', onVis);
 
       const onResize = () => {
-        if (!holder.current) return;
-        const w = holder.current.clientWidth, h = holder.current.clientHeight;
-        r.setSize(w, h, false);
-        camera.aspect = w / h;
+        if (!renderer) return;
+        camera.aspect = W() / H();
         camera.updateProjectionMatrix();
+        renderer.setSize(W(), H());
       };
       window.addEventListener('resize', onResize);
 
-      writeFrame();
-      r.render(scene3, camera);
+      let frameFrozen = false;
+      const tick = (now: number) => {
+        raf = requestAnimationFrame(tick);
+        if (!visible || document.hidden) return;
+        if (reduce && frameFrozen) return;
 
-      if (reduce) {
-        // One static frame, no loop. The stage is still fully formed.
-        cleanup = () => {};
-      } else {
-        loop();
-        cleanup = () => {
-          cancelAnimationFrame(raf);
-          window.removeEventListener('pointermove', onMove);
-          window.removeEventListener('resize', onResize);
-          io.disconnect();
-          geo.dispose();
-          mat.dispose();
-          r.dispose();
-        };
-      }
-    })().catch(() => setFailed(true));
+        time += 0.016;
+        const s = sceneRef.current;
+        hover += (hoverTarget - hover) * 0.06;
 
-    return () => {
-      disposed = true;
-      cleanup();
-      renderer?.domElement?.remove();
-    };
+        const intro = Math.min(1, (now - introStart) / 1400);
+
+        // rotation: self-driven, user can throw it
+        if (!drag) vel += (0.0022 - vel) * 0.02;
+        rot += vel;
+        group.rotation.y = rot;
+
+        panels.forEach((p, i) => {
+          const m = p.mesh;
+          const mat = m.material as import('three').MeshBasicMaterial;
+          const frameMat = (m.children[0] as import('three').Mesh).material as import('three').MeshBasicMaterial;
+          const clock = clocks[i] + time;
+
+          if (s === 0) {
+            // RING — a cylinder of work, gently breathing
+            const a = p.phase;
+            const radius = 3.95 + Math.sin(clock * 0.8) * 0.12;
+            const y = Math.sin(p.phase * 3 + time * 0.5) * 0.16;
+            p.pos.set(Math.sin(a) * radius, y, Math.cos(a) * radius);
+            p.rot.set(0, a, 0);
+            m.rotation.set(p.rot.x, p.rot.y, p.rot.z);
+            m.position.copy(p.pos);
+            mat.opacity += (ease(intro) * 0.96 - mat.opacity) * 0.08;
+            frameMat.opacity = mat.opacity * 0.85;
+            m.scale.setScalar(0.86 + ease(intro) * 0.14);
+          } else if (s === 1) {
+            // DISASSEMBLY — the ring breaks into a drifting filmstrip
+            const n = (i - (COUNT - 1) / 2) / COUNT;
+            const x = n * 12.6;
+            const y = Math.sin(clock * 1.1) * 0.34 + (i % 2 ? 0.12 : -0.12);
+            const z = 1.6 - Math.abs(n) * 8.4 + Math.sin(clock * 0.7) * 0.22;
+            p.pos.set(x, y, z);
+            p.rot.set(0, -n * 1.15 + Math.sin(clock * 0.5) * 0.06, -n * 0.06);
+            m.position.lerp(p.pos, 0.06);
+            m.rotation.x += (p.rot.x - m.rotation.x) * 0.07;
+            m.rotation.y += (p.rot.y - m.rotation.y) * 0.07;
+            m.rotation.z += (p.rot.z - m.rotation.z) * 0.07;
+            mat.opacity += (0.95 - mat.opacity) * 0.06;
+            frameMat.opacity = mat.opacity * 0.85;
+            m.scale.setScalar(0.92);
+          } else {
+            // PEOPLE — work recedes, founders come forward
+            const a = p.phase;
+            p.pos.set(Math.sin(a) * 7.2, Math.cos(a) * 1.4, Math.cos(a) * 4.2 - 2.4);
+            p.rot.set(0, a, 0);
+            m.position.lerp(p.pos, 0.05);
+            m.rotation.y += (p.rot.y - m.rotation.y) * 0.05;
+            mat.opacity += (0.1 - mat.opacity) * 0.07;
+            frameMat.opacity = mat.opacity * 0.85;
+            m.scale.setScalar(0.82);
+          }
+        });
+
+        people.forEach((p, i) => {
+          const on = s === 2;
+          const drift = Math.sin(time * 0.7 + i) * 0.06;
+          p.mesh.position.set(p.base.x, p.base.y + drift, p.base.z + (on ? 1.2 : -1.6));
+          p.mesh.rotation.y += ((on ? 0 : 0.6) - p.mesh.rotation.y) * 0.06;
+          p.mat.opacity += ((on ? 0.97 : 0) - p.mat.opacity) * 0.07;
+        });
+
+        group.rotation.x += ((hover * -0.1) - group.rotation.x) * 0.04;
+        camera.position.z += ((s === 1 ? 7.6 : 9.4) - camera.position.z) * 0.03;
+
+        renderer!.render(scene3, camera);
+        if (reduce && !frameFrozen) frameFrozen = true;
+      };
+      raf = requestAnimationFrame(tick);
+
+      cleanup = () => {
+        cancelAnimationFrame(raf);
+        cancelAnimationFrame(raf);
+        r.domElement.removeEventListener('pointerdown', pointerDown);
+        window.removeEventListener('pointerup', pointerUp);
+        window.removeEventListener('pointermove', pointerMove);
+        host.removeEventListener('pointerenter', enter);
+        host.removeEventListener('pointerleave', leave);
+        document.removeEventListener('visibilitychange', onVis);
+        window.removeEventListener('resize', onResize);
+        io.disconnect();
+        scene3.traverse((o) => {
+          const m = o as import('three').Mesh;
+          if (m.geometry) m.geometry.dispose();
+          const mats = Array.isArray(m.material) ? m.material : [m.material];
+          mats.forEach((mm) => { if (mm) { const t = (mm as import('three').MeshBasicMaterial).map; t?.dispose(); mm.dispose(); } });
+        });
+        r.dispose();
+        if (r.domElement.parentNode === host) host.removeChild(r.domElement);
+      };
+    })();
+
+    return () => { disposed = true; cleanup?.(); };
   }, []);
 
   const s = SCENES[scene];
 
   return (
-    <>
-      <div className="stage-wrap">
-        <div className="stage-glow" aria-hidden />
-        <div className="stage" ref={holder} aria-hidden="true" />
-        {failed && <FallbackMark />}
-        <div className="stage-caption">
-          <div className="t">{s.title}</div>
-          <div className="s">{s.sub}</div>
-          <div className="stage-scenes" role="tablist" aria-label="Hero scenes">
-            {SCENES.map((sc, i) => (
-              <button
-                key={sc.key}
-                role="tab"
-                aria-selected={i === scene}
-                aria-label={sc.title}
-                onClick={() => setScene(i)}
-              />
-            ))}
-          </div>
+    <div className="stage-wrap">
+      <div className="stage-glow" aria-hidden />
+      {failed ? (
+        <div className="stage-fallback">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/img/sites/cirenes-card.webp" alt="A live site built by KR8 Digitals" style={{ width: '78%', borderRadius: 16, border: '1px solid var(--hair)' }} />
+        </div>
+      ) : (
+        <div className="stage" ref={holder} role="img" aria-label="A rotating ring of live sites, flyers and films built by KR8 Digitals. Drag to spin." />
+      )}
+
+      <div className="stage-caption">
+        <div className="t">{s.title}</div>
+        <div className="s">{s.sub}</div>
+        <Link href={s.href} className="btn-link" style={{ marginTop: 8, display: 'inline-flex' }}>
+          {s.cta} <span aria-hidden style={{ marginLeft: 6 }}>→</span>
+        </Link>
+        <div className="stage-scenes" role="tablist" aria-label="Hero scenes">
+          {SCENES.map((sc, i) => (
+            <button
+              key={sc.key}
+              role="tab"
+              aria-selected={i === scene}
+              aria-label={sc.title}
+              onClick={() => setScene(i)}
+            />
+          ))}
         </div>
       </div>
-      <div className="sr-only" aria-live="polite">
-        {s.title}. {s.cta}: {s.href}
-      </div>
-    </>
-  );
-}
-
-function FallbackMark() {
-  return (
-    <div className="stage-fallback">
-      <svg width="260" height="260" viewBox="0 0 260 260" aria-hidden>
-        <defs>
-          <linearGradient id="kr8g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#ff2d9b" />
-            <stop offset="100%" stopColor="#7c3aed" />
-          </linearGradient>
-        </defs>
-        <circle cx="130" cy="130" r="92" fill="none" stroke="url(#kr8g)" strokeWidth="14" strokeDasharray="3 7" strokeLinecap="round" />
-        <circle cx="130" cy="130" r="56" fill="none" stroke="url(#kr8g)" strokeWidth="2" opacity="0.5" />
-        <text x="130" y="146" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="46" fontWeight="800" fill="url(#kr8g)">KR8</text>
-      </svg>
     </div>
   );
 }

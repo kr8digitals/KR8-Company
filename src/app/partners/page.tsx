@@ -3,92 +3,195 @@ import type { Metadata } from 'next';
 import partners from '../../../data/partners.json';
 import PageHero, { ClosingCTA } from '@/components/PageHero';
 import { Icon } from '@/components/ui';
+import Duo from '@/components/Duo';
+import WaysToPartner from '@/components/WaysToPartner';
 
 export const metadata: Metadata = {
-  title: 'Partners — teach, fund, hire and host with us',
+  title: 'Partners — we do not build alone',
   description:
-    'Motion Verse, Chigoma, Next Gen Scholars and HIS Battle Axe. Four partners with named people, defined contributions and a written record of what has been delivered.',
+    'Motion Verse and CHIGOMA are co-founders of KR8 Digitals. Next Gen Scholars runs the academic door. Four ways to partner: teach, fund, hire or host.',
   alternates: { canonical: '/partners' },
 };
 
-const ROUTES = [
-  { t: 'Teach', d: 'Bring a craft you already sell into a track. You keep your studio; we keep the standard.', who: 'Studios and senior practitioners' },
-  { t: 'Fund', d: 'Sponsor a cohort, a track, or a single student through hardware and data.', who: 'Brands, foundations, individuals' },
-  { t: 'Hire', d: 'Take graduates on placement or straight into a role. You get people already delivering live work.', who: 'Employers and agencies' },
-  { t: 'Host', d: 'Give the room. Schools and hubs across Ebonyi, Enugu and Lagos host Mindset Shift and cohort meetups.', who: 'Schools, hubs, churches, NGOs' },
-];
+export default function Partners() {
+  const coFounders = partners.filter((p) => p.group === 'co-founders');
+  const rest = partners.filter((p) => p.group !== 'co-founders');
 
-export default function PartnersPage() {
   return (
     <>
       <PageHero
         eyebrow="Partners"
-        title={<>We do not build alone.<br /><span className="text-grad">And we do not do logo walls.</span></>}
-        lede="A partner here has a named person, a stated contribution, and a record of what has actually been delivered. If we cannot write that down, the partnership is not real yet."
-        crumbs={[{ label: 'Partners' }]}
+        title={<>We do not<br /><span className="text-grad">build alone.</span></>}
+        lede="Every partner on this page is named, their contribution is stated, and the record of it exists in the work. Nothing here is a logo wall — it is a list of people who did something specific."
+        aside={
+          <div className="grid" style={{ gap: 12 }}>
+            <div className="logo-slot">
+              <span className="logo-slot__mark">{coFounders.map((p) => p.mark).join(' · ')}</span>
+              <b>{coFounders.map((p) => p.name).join(' + ')}</b>
+              <small>Co-founding group</small>
+            </div>
+            {rest.map((p) => (
+              <div className="logo-slot" key={p.slug}>
+                <span className="logo-slot__mark">{p.mark}</span>
+                <b>{p.name}</b>
+                <small>{p.role}</small>
+              </div>
+            ))}
+          </div>
+        }
       />
 
-      <section className="section" style={{ paddingTop: 10 }}>
+      {/* ------------------------------------------------------------- RECORD */}
+      <section className="section" style={{ paddingTop: 56 }}>
         <div className="wrap">
-          <div className="grid g2 grid--loose">
-            {partners.map((p, i) => (
-              <article key={p.slug} className="card card--hover reveal up" data-delay={i * 60}>
-                <div className="partner-hero" style={{ marginBottom: 22 }}>
-                  {p.logo ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={p.logo} alt={`${p.name} logo`} style={{ width: 96, height: 96, objectFit: 'contain', borderRadius: 16, background: 'rgba(255,255,255,.04)' }} />
-                  ) : (
-                    <div className="partner-mark">{p.mark}</div>
-                  )}
-                  <div>
-                    <div className="tag">{p.type}</div>
-                    <h3 style={{ fontSize: 24, marginTop: 6 }}>{p.name}</h3>
-                    <div style={{ fontSize: 13, color: 'var(--lilac)', marginTop: 4 }}>{p.person} · since {p.partnershipSince}</div>
+          <div className="reveal up" style={{ maxWidth: 880 }}>
+            <div className="eyebrow">How a partnership is recorded here</div>
+            <p className="prose-lg" style={{ marginTop: 14 }}>
+              A partner is a named person with a stated contribution and a record you can check. Not a logo.
+              Motion Verse and CHIGOMA are co-founders — they made the company and they make the work.
+              Next Gen Scholars runs the academic door. If a partner&rsquo;s contribution is not documented
+              yet, this page says so instead of inventing one.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------- CO-FOUNDERS */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Co-founding group</div>
+              <h2 className="section-title">Motion Verse + CHIGOMA</h2>
+              <p className="section-lede">
+                Two practices, one co-founding pair. Design and video, credited on the work, teaching the
+                crafts inside the free training.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid g2 grid--loose" style={{ marginTop: 40 }}>
+            {coFounders.map((p) => (
+              <article className="gal-card" key={p.slug}>
+                <div className="gal-card__shot" style={{ display: 'grid', placeItems: 'center', background: 'radial-gradient(120% 120% at 20% 0%, rgba(255,45,155,.18), transparent 60%), #140b29' }}>
+                  <span className="logo-slot__mark" style={{ fontSize: 46 }}>{p.mark}</span>
+                </div>
+                <div className="gal-card__body">
+                  <div className="gal-card__top">
+                    <span className="pill">{p.type}</span>
+                    <span className="tag">{p.teaches || p.role}</span>
+                  </div>
+                  <h3 style={{ fontSize: 22 }}>{p.name}</h3>
+                  <div style={{ fontSize: 12.5, color: 'var(--lilac)', letterSpacing: '.06em', textTransform: 'uppercase', fontWeight: 600 }}>{p.person}</div>
+                  <p style={{ marginTop: 6 }}>{p.blurb}</p>
+                  <div className="gal-card__credit">Record: {p.record}</div>
+                  <div className="gal-card__foot">
+                    <Link href={p.href} className="btn-link">Read the chapter <Icon name="arrow" size={14} /></Link>
                   </div>
                 </div>
-                <p>{p.blurb}</p>
-                <div className="meta-row" style={{ marginTop: 18 }}>
-                  <span><b>Contributes</b> {p.contribution}</span>
-                  {p.teaches && <span><b>Teaches</b> {p.teaches}</span>}
-                </div>
-                <Link href={p.href} className="btn-link" style={{ marginTop: 20, display: 'inline-flex' }}>
-                  Read the record <Icon name="arrow" size={14} />
-                </Link>
-                {p.logoNeeded && (
-                  <p style={{ marginTop: 14, fontSize: 11.5, color: 'var(--t-faint)' }}>
-                    Wordmark shown while the partner supplies a vector logo.
-                  </p>
-                )}
               </article>
             ))}
+          </div>
+          <div className="notice notice--neutral reveal up" style={{ marginTop: 22 }}>
+            <b>Logo files pending.</b> The slots above hold the mark until the partner supplies artwork — the
+            page does not fake a logo it does not have.
           </div>
         </div>
       </section>
 
-      <section className="section section--tight" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+      {/* ------------------------------------------------------ OTHER PARTNERS */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
         <div className="wrap">
-          <div className="reveal up" style={{ maxWidth: 720 }}>
-            <div className="eyebrow">Four ways to partner</div>
-            <h2 className="section-title">What extending access actually looks like</h2>
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Other partners</div>
+              <h2 className="section-title">Next, and next.</h2>
+              <p className="section-lede">
+                Named people, stated contributions. Where the contribution has not been documented, the card
+                says so.
+              </p>
+            </div>
+            <Link href="/contact?partner=1" className="btn-link">Become a partner <Icon name="arrow" size={15} /></Link>
           </div>
-          <div className="grid g4" style={{ marginTop: 44 }}>
-            {ROUTES.map((r, i) => (
-              <article className="card reveal up" data-delay={i * 50} key={r.t}>
-                <div className="door__verb text-grad" style={{ fontSize: 15 }}>{r.t}</div>
-                <p style={{ marginTop: 10 }}>{r.d}</p>
-                <div className="tag" style={{ marginTop: 14, color: 'var(--t-faint)' }}>{r.who}</div>
+
+          <div className="gal__grid gal__grid--brand" style={{ marginTop: 40 }}>
+            {rest.map((p) => (
+              <article className="gal-card" key={p.slug}>
+                <div className="gal-card__shot" style={{ display: 'grid', placeItems: 'center', background: '#140b29' }}>
+                  <span className="logo-slot__mark" style={{ fontSize: 30 }}>{p.mark}</span>
+                </div>
+                <div className="gal-card__body">
+                  <div className="gal-card__top"><span className="tag">{p.role}</span></div>
+                  <h3>{p.name}</h3>
+                  <p>{p.blurb}</p>
+                  <div className="gal-card__foot">
+                    <Link href={p.href} className="btn-link">Read more <Icon name="arrow" size={14} /></Link>
+                  </div>
+                </div>
               </article>
             ))}
+            <div className="logo-slot" style={{ minHeight: 240 }}>
+              <span className="logo-slot__mark">+</span>
+              <b>Your name here</b>
+              <small>Four ways in below</small>
+            </div>
+            <div className="logo-slot" style={{ minHeight: 240, borderStyle: 'dotted' }}>
+              <span className="logo-slot__mark">?</span>
+              <b>More to be documented</b>
+              <small>Partners awaiting a written chapter</small>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ------------------------------------------------------------- WAYS */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }} id="ways">
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Four ways to partner</div>
+              <h2 className="section-title">Teach, fund, hire or host.</h2>
+              <p className="section-lede">
+                Pick the one that is actually you. Each comes with a specific list of what you would give and
+                what we would do with it.
+              </p>
+            </div>
+          </div>
+          <div style={{ marginTop: 40 }}>
+            <WaysToPartner />
+          </div>
+        </div>
+      </section>
+
+      <Duo
+        eyebrow="Tell us what you can bring"
+        title="Partnership starts with a sentence, not a deck."
+        body={
+          <>
+            <p>
+              Tell us what you have — a craft, a budget, a room, a vacancy — and what you would want out of it.
+              We will tell you honestly whether it is useful, and if it is, who will own it.
+            </p>
+            <p>
+              Partners who teach are held to the same standard as the work: if the students cannot do the thing
+              at the end, the partnership is not working.
+            </p>
+          </>
+        }
+        media={[
+          { src: '/img/brand/presco-trip-full.webp', alt: 'Event artwork made in association with Motion Verse', caption: 'Event work · Motion Verse' },
+          { src: '/img/sites/prime-stem-full.webp', alt: 'Prime STEM Nigeria — a partner programme site' },
+        ]}
+        cta={{ label: 'Tell us what you can bring', href: '/contact?partner=1' }}
+        secondary={{ label: 'See all programmes', href: '/programs' }}
+        flip
+      />
 
       <ClosingCTA
-        title="Tell us what you can bring."
-        copy="Teaching, funding, placement or a room. One form, read by a person, answered within a working day."
-        cta="Start a partnership"
-        href="/contact?type=partner"
-        secondary={{ label: 'See the team', href: '/about' }}
+        title="We do not build alone."
+        copy="One form, one reply. If you would rather talk, WhatsApp is on the right."
+        cta="Talk to us"
+        secondary={{ label: 'Read the referral terms', href: '/referrals' }}
       />
     </>
   );

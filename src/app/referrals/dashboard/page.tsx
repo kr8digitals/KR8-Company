@@ -15,7 +15,7 @@ export default function DashboardPage() {
         eyebrow="Referrals"
         title={<>Your ledger</>}
         lede="Every introduction you have made, what stage it is at, and what it is worth. Nothing hidden behind a support ticket."
-        crumbs={[{ label: 'Referrals', href: '/referrals' }, { label: 'Dashboard' }]}
+       
       />
       <section className="section" style={{ paddingTop: 10 }}>
         <div className="wrap">

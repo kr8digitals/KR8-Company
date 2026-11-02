@@ -1,49 +1,53 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import services from '../../../data/services.json';
-import portfolio from '../../../data/portfolio.json';
+import sitesData from '../../../data/sites.json';
 import site from '../../../data/site.json';
 import PageHero, { ClosingCTA } from '@/components/PageHero';
 import { Icon } from '@/components/ui';
+import Showcase from '@/components/Showcase';
+import Duo from '@/components/Duo';
 
 export const metadata: Metadata = {
-  title: 'Services — websites, brand, video, AI and search',
+  title: 'Services — websites, brand, video, AI and SEO',
   description:
-    'Five services from one studio: website design and development, brand and graphic design, video editing and motion, AI automation, and search visibility. Built by the people who teach them.',
+    'Website design and development, brand and graphic design, video editing, AI automation and SEO optimisation. Every service backed by live work you can open: 22 deployed sites, client flyers, real films.',
   alternates: { canonical: '/services' },
 };
 
 const QUESTIONS = [
-  { q: 'Nobody can find us online.', a: 'Search visibility', href: '/services/seo' },
+  { q: 'Nobody can find us online.', a: 'SEO Optimisation', href: '/services/seo' },
   { q: 'Our website is slow and embarrassing.', a: 'Website design', href: '/services/website-design' },
   { q: 'We look like every other business.', a: 'Brand & design', href: '/services/brand-graphic-design' },
-  { q: 'Our video gets no engagement.', a: 'Video & motion', href: '/services/video-editing' },
-  { q: 'We reply to the same questions all day.', a: 'AI automation', href: '/services/ai-automation' },
+  { q: 'Our video gets no engagement.', a: 'Video editing', href: '/services/video-editing' },
+  { q: 'We answer the same question all day.', a: 'AI & automation', href: '/services/ai-automation' },
 ];
 
 export default function ServicesIndex() {
-  const live = portfolio.filter((p) => p.live && p.url);
+  const { sitesForSale, sitesLive } = site.proof;
   return (
     <>
       <PageHero
         eyebrow="Services"
-        title={<>Five things we build.<br /><span className="text-grad">One studio that builds them.</span></>}
-        lede="Most agencies sell you a package. We would rather sell you the outcome you actually described. Each service below states what it is for, what it costs in effort, and what it produces."
-        crumbs={[{ label: 'Services' }]}
+        title={<>Five things we build.<br /><span className="text-grad">All of them already built.</span></>}
+        lede="We are not going to describe the work and ask you to imagine it. Every service below has live proof attached: websites running on their own domains, flyers designed for named clients, films that play on this page, and systems you can press."
         aside={
           <div className="panel" style={{ minWidth: 280 }}>
-            <div className="tag" style={{ color: 'var(--magenta)' }}>Start with the symptom</div>
-            <p style={{ fontSize: 14, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.6 }}>
-              {live.length} live builds · {site.proof.clients} clients worked with
+            <div className="tag" style={{ color: 'var(--magenta)' }}>On this account now</div>
+            <p style={{ fontSize: 14, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.7 }}>
+              <b>{sitesLive}</b> sites deployed · <b>{sitesForSale}</b> finished and for sale<br />
+              <b>{sitesData.flyers.length}</b> client flyers · <b>{sitesData.videos.length}</b> films on this page
             </p>
-            <Link href="/contact" className="btn-primary btn-sm" style={{ marginTop: 18 }}>Get a quote <Icon name="arrow" size={15} /></Link>
+            <Link href="/contact" className="btn-primary btn-sm" style={{ marginTop: 18 }}>
+              Work with us <Icon name="arrow" size={15} />
+            </Link>
           </div>
         }
       />
 
       <section className="section" style={{ paddingTop: 56 }}>
         <div className="wrap">
-          <div className="eyebrow reveal up">Find your problem</div>
+          <div className="eyebrow reveal up">Start with the symptom</div>
           <div className="grid g3 reveal up" style={{ marginTop: 22, gap: 14 }}>
             {QUESTIONS.map((q) => (
               <Link key={q.q} href={q.href} className="panel panel--row">
@@ -58,72 +62,119 @@ export default function ServicesIndex() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <div className="grid g2 grid--loose">
-            {services.map((s, i) => (
-              <article key={s.slug} className="card card--hover reveal up" data-delay={i * 60}>
+            {services.map((s) => (
+              <Link key={s.slug} href={`/services/${s.slug}`} className="card card--hover reveal up">
+                <div className="icon-box"><Icon name={s.icon} /></div>
                 <div className="card-top">
-                  <div className="icon-box"><Icon name={s.icon} /></div>
-                  <span className="tag">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="pill">Service {String(s.order).padStart(2, '0')}</span>
                 </div>
-                <h3 style={{ fontSize: 26 }}>{s.name}</h3>
-                <p style={{ marginTop: 6, color: 'var(--lilac)', fontSize: 14.5 }}>{s.tagline}</p>
-                <p style={{ marginTop: 14 }}>{s.summary}</p>
-                <ul className="price-list" style={{ marginTop: 18 }}>
-                  {s.outcomes.slice(0, 3).map((o) => (
-                    <li key={o}><Icon name="check" size={15} /> {o}</li>
-                  ))}
-                </ul>
-                <div style={{ marginTop: 22, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-                  <Link href={`/services/${s.slug}`} className="btn-link">Full detail <Icon name="arrow" size={14} /></Link>
-                  <Link href={`/contact?service=${s.slug}`} className="btn-link" style={{ color: 'var(--t-muted)' }}>Get a quote</Link>
+                <h3>{s.name}</h3>
+                <p style={{ marginTop: 8 }}>{s.summary}</p>
+                <div style={{ marginTop: 18, display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: 'var(--magenta)' }}>
+                  Open the service <Icon name="arrow" size={14} />
                 </div>
-                {s.credit && <p style={{ marginTop: 18, fontSize: 12, color: 'var(--t-faint)' }}>{s.credit}</p>}
-              </article>
+              </Link>
             ))}
-            <article className="card reveal up" data-delay="320" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'linear-gradient(160deg, rgba(255,45,155,.14), rgba(124,58,237,.14))' }}>
-              <h3 style={{ fontSize: 26 }}>Not sure which one?</h3>
-              <p style={{ marginTop: 12 }}>
-                Describe the problem in plain words. We will tell you what it actually is — even when the
-                answer is &ldquo;you do not need any of these yet&rdquo;.
+            <div className="card reveal up" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div className="tag" style={{ color: 'var(--magenta)' }}>Not sure which one</div>
+              <h3 style={{ marginTop: 10 }}>Describe the problem instead.</h3>
+              <p style={{ marginTop: 8 }}>
+                You do not need to know whether it is SEO or a rebuild. Tell us what is not happening and we
+                will tell you what it will take — in writing, before you pay anything.
               </p>
-              <div style={{ marginTop: 22, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                <Link href="/contact" className="btn-primary btn-sm">Describe it <Icon name="arrow" size={15} /></Link>
-                <button className="btn-ghost btn-sm" data-host-open="1">Ask Ada</button>
-              </div>
-            </article>
+              <Link href="/contact" className="btn-primary btn-sm" style={{ marginTop: 20, alignSelf: 'flex-start' }}>
+                Work with us <Icon name="arrow" size={15} />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section section--tight" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+      {/* ------------------------------------------------ WEBSITES: FULL BOOK */}
+      <section className="section" id="portfolio" style={{ borderTop: '1px solid var(--hair-soft)' }}>
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">How every engagement runs</div>
-              <h2 className="section-title">The same four steps, whatever you buy</h2>
+              <div className="eyebrow">Website design · the portfolio</div>
+              <h2 className="section-title">
+                {sitesLive} live sites.<br />
+                <span className="text-grad">{sitesForSale} of them are still for sale.</span>
+              </h2>
+              <p className="section-lede">
+                Every card is a real deployment from our own account — hotels, restaurants and bakeries,
+                organisations and non-profits, businesses, personal and brand work. Filter it, open one, or buy
+                one and we will put your name on it.
+              </p>
             </div>
+            <Link href="/services/website-design" className="btn-link">Website service <Icon name="arrow" size={15} /></Link>
           </div>
-          <div className="steps steps--row reveal up">
-            {[
-              { n: '01', t: 'Diagnostic', d: 'We look at what you have, what it is costing you, and what would have to be true for this to work.' },
-              { n: '02', t: 'Scope & price', d: 'A written scope, a fixed figure, a date. No hourly drift and no surprise invoice.' },
-              { n: '03', t: 'Build', d: 'You get a preview link you can open on your own phone from day one, and a weekly update.' },
-              { n: '04', t: 'Handover', d: 'Files, access, documentation and a walkthrough. You own what you paid for.' },
-            ].map((s) => (
-              <div className="step" key={s.n}>
-                <div className="step-num">{s.n}</div>
-                <div className="step-title">{s.t}</div>
-                <p>{s.d}</p>
-              </div>
-            ))}
-          </div>
+          <Showcase mode="sites" showPrices={site.settings.publicPriceDisplay} />
         </div>
       </section>
 
+      {/* ------------------------------------------------------- BRAND GALLERY */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Brand &amp; graphic design</div>
+              <h2 className="section-title">Client flyers, in association with Motion Verse.</h2>
+              <p className="section-lede">
+                Real artwork for named businesses. Open any of them at full size — the credit is on the work
+                because it is true: KR8 Digitals in association with Motion Verse.
+              </p>
+            </div>
+            <Link href="/services/brand-graphic-design" className="btn-link">Brand service <Icon name="arrow" size={15} /></Link>
+          </div>
+          <Showcase mode="flyers" filters={false} />
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------- FILM GALLERY */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Video editing</div>
+              <h2 className="section-title">Films that play, not screenshots of films.</h2>
+              <p className="section-lede">
+                Press play. These are real cuts made from real footage, streaming from this site. CHIGOMA&apos;s
+                video work takes its own place in this gallery as soon as the files are supplied.
+              </p>
+            </div>
+            <Link href="/services/video-editing" className="btn-link">Video service <Icon name="arrow" size={15} /></Link>
+          </div>
+          <Showcase mode="videos" filters={false} />
+        </div>
+      </section>
+
+      <Duo
+        eyebrow="SEO Optimisation"
+        title="Be the answer when somebody searches."
+        body={
+          <p>
+            Search rewards structure, not adjectives. We fix the floor first — titles, descriptions,
+            structured data, sitemap, speed, mobile — then build a page for every service and every place you
+            actually serve. You get a monthly record of what changed and what moved.
+          </p>
+        }
+        bullets={[
+          'A real title and description on every route',
+          'Structured data so search and social show the right thing',
+          'A page per service instead of one crowded home page',
+          'Reporting on what was done, not just a rank screenshot',
+        ]}
+        media={[
+          { src: '/img/sites/afristem-school-full.webp', alt: 'AFRISTEM Digital Science School — a structured multi-page site', caption: 'Structure: a page for each programme' },
+          { src: '/img/sites/mcgettrick-full.webp', alt: 'McGettrick Pastoral Centre site' },
+        ]}
+        cta={{ label: 'Ask for an audit', href: '/contact?service=seo' }}
+      />
+
       <ClosingCTA
-        title="Tell us what you need built."
-        copy="Send one paragraph. You get a scope, a fixed figure and a date — or an honest no with a better direction."
-        cta="Start a project"
-        secondary={{ label: 'See the work', href: '/services/website-design#work' }}
+        title="Tell us what has to happen."
+        copy="One form, one reply from a person, and a price you can hold us to. If you would rather talk first, WhatsApp is one tap away."
+        cta="Work with us"
       />
     </>
   );

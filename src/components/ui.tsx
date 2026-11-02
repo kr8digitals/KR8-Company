@@ -94,9 +94,9 @@ export function useCurrency(): Cur {
 
 export function CurrencyPicker({ code, setCode }: { code: string; setCode: (c: string) => void }) {
   return (
-    <label className="pill" style={{ cursor: 'pointer', padding: 0, border: '1px solid var(--hair)' }} title="Show prices in your currency">
-      <span className="sr-only">Display currency</span>
+    <span className="pill" style={{ cursor: 'pointer', padding: 0, border: '1px solid var(--hair)' }} title="Show prices in your currency">
       <select
+        aria-label={`Display currency: ${code}`}
         value={code}
         onChange={(e) => setCode(e.target.value)}
         style={{ background: 'transparent', border: 0, padding: '8px 12px', fontSize: 12, fontWeight: 600, letterSpacing: '.06em', textTransform: 'uppercase', color: 'inherit', cursor: 'pointer' }}
@@ -105,7 +105,7 @@ export function CurrencyPicker({ code, setCode }: { code: string; setCode: (c: s
           <option key={c} value={c}>{c}</option>
         ))}
       </select>
-    </label>
+    </span>
   );
 }
 

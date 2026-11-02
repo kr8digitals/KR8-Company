@@ -10,8 +10,8 @@ type Variant = 'quote' | 'buy-site' | 'partner' | 'team' | 'contact' | 'mindshif
 
 const COPY: Record<Variant, { title: string; blurb: string; cta: string; wa: string }> = {
   quote: {
-    title: 'Tell us what you need built',
-    blurb: 'A sentence about the project is enough to start. You will get a scope and a fixed figure — not a range designed to sound agreeable.',
+    title: 'What are you trying to make happen?',
+    blurb: 'A sentence is enough to start. You will get a scope, a fixed figure and a date — from the person who would build it.',
     cta: 'Send the brief',
     wa: 'Hi KR8 Digitals — I would like a quote for a project.',
   },
@@ -23,7 +23,7 @@ const COPY: Record<Variant, { title: string; blurb: string; cta: string; wa: str
   },
   partner: {
     title: 'Start a partnership',
-    blurb: 'Tell us what you can bring. We read every one and reply within a working day.',
+    blurb: 'Tell us what you can bring — a craft, a budget, a room, a vacancy — and what you would want out of it.',
     cta: 'Send the enquiry',
     wa: 'Hi KR8 Digitals — I would like to explore a partnership.',
   },
@@ -35,19 +35,19 @@ const COPY: Record<Variant, { title: string; blurb: string; cta: string; wa: str
   },
   contact: {
     title: 'Message the team',
-    blurb: 'One form, routed to whoever can actually answer it.',
+    blurb: 'Say what is going on and we will come back to you — by email, or on WhatsApp if you leave a number.',
     cta: 'Send message',
     wa: 'Hi KR8 Digitals — I have a question.',
   },
   mindshift: {
-    title: 'Request an invitation',
-    blurb: 'Mindset Shift runs every two weeks. Leave your details and we will send the joining link before the next edition.',
+    title: 'Register interest',
+    blurb: 'Leave your details and you will get the date, venue, speakers and joining details as soon as the next edition is confirmed.',
     cta: 'Request invitation',
     wa: 'Hi KR8 Digitals — I would like an invitation to Mindset Shift.',
   },
   tribe: {
-    title: 'Join the Tribe list',
-    blurb: 'The Tribe site is opening soon. Leave your details and you will be in the first wave, not the queue.',
+    title: 'Ask about the Tribe',
+    blurb: 'The Tribe lives at its own address. Leave your details if you would like an introduction.',
     cta: 'Add me to the list',
     wa: 'Hi KR8 Digitals — I would like to join the Tribe.',
   },

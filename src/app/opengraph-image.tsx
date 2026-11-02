@@ -32,7 +32,7 @@ export default async function OG() {
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ fontSize: 26, letterSpacing: 6, textTransform: 'uppercase', color: '#c6b4f2', fontWeight: 600 }}>
-            A school · a community · a studio
+            Websites · brand · film · AI · SEO
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'Montserrat', fontSize: 84, lineHeight: 1.02, fontWeight: 800, color: '#fff', letterSpacing: '-0.035em', marginTop: 22, maxWidth: 950 }}>
             <div style={{ display: 'flex' }}>Raw talent is everywhere.</div>

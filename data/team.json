@@ -1,0 +1,67 @@
+{
+  "founders": [
+    {
+      "slug": "timfire",
+      "name": "Timfire",
+      "fullName": "Kenneth Timothy Iziogo",
+      "role": "Founder & Chief Executive",
+      "photo": "/img/team/founder-timfire.jpg",
+      "photoWide": "/img/team/founder-timfire-wide.jpg",
+      "readAbout": "/about#timfire",
+      "bio": "Placeholder — Timfire to supply the biography. The founder of KR8 Digitals, and the person the company is named after.",
+      "links": [{ "label": "Email", "href": "mailto:kr8digitals01@gmail.com" }],
+      "quote": ""
+    },
+    {
+      "slug": "stevenson",
+      "name": "Stevenson",
+      "fullName": "Stevenson",
+      "role": "Co-founder & Design Director",
+      "photo": "/img/team/stevenson.jpg",
+      "photoWide": "/img/team/stevenson.jpg",
+      "readAbout": "/about#stevenson",
+      "bio": "Placeholder — Stevenson to supply the biography. Co-founder of KR8 Digitals and the person behind Motion Verse, our design partner. Full name spelling to be confirmed.",
+      "links": [{ "label": "Motion Verse", "href": "/partners/motion-verse" }],
+      "quote": ""
+    },
+    {
+      "slug": "daniel",
+      "name": "Daniel",
+      "fullName": "Daniel “Creative Expression”",
+      "role": "Co-founder",
+      "photo": "/img/team/daniel.jpg",
+      "photoWide": "/img/team/daniel.jpg",
+      "readAbout": "/about#daniel",
+      "bio": "Placeholder — Daniel to supply the biography. Co-founder, working under the name Creative Expression and CHIGOMA. Surname to be confirmed.",
+      "links": [{ "label": "CHIGOMA", "href": "/partners/chigoma" }],
+      "quote": ""
+    }
+  ],
+  "team": [
+    {
+      "name": "Odobe Nicodemus C",
+      "role": "Financial Strategist",
+      "photo": "/img/team/nicodemus.jpg",
+      "bio": ""
+    },
+    {
+      "name": "Chimnonyerem Mercy",
+      "role": "Project Director",
+      "photo": "/img/team/nonye.jpg",
+      "bio": ""
+    },
+    {
+      "name": "Nwefuru Favour Chizurum",
+      "role": "General Manager",
+      "photo": "/img/team/favour.jpg",
+      "bio": ""
+    },
+    {
+      "name": "Covenant Afinidi",
+      "role": "Accountability",
+      "photo": "/img/team/covenant.jpg",
+      "bio": ""
+    }
+  ],
+  "note": "Names and roles come from the KR8 Digitals team page. Photos are the ones KR8 publishes. Bios, quotes and link URLs are placeholders for the dashboard."
+}

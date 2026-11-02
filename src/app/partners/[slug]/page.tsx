@@ -34,7 +34,7 @@ export default async function PartnerPage({ params }: Params) {
         eyebrow={p.type}
         title={<>{p.name}</>}
         lede={p.blurb}
-        crumbs={[{ label: 'Partners', href: '/partners' }, { label: p.name }]}
+       
         aside={
           p.logo ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -50,7 +50,7 @@ export default async function PartnerPage({ params }: Params) {
           <div className="story">
             <div className="reveal up">
               <div className="eyebrow">Who they are</div>
-              <h2 className="section-title" style={{ fontSize: 34 }}>{p.person}</h2>
+              <h2 className="section-title" style={{ fontSize: 34 }}>{p.person || p.name}</h2>
               <p style={{ marginTop: 10, fontSize: 14, color: 'var(--lilac)' }}>{p.role}</p>
               <div className="panel" style={{ marginTop: 26, padding: 24 }}>
                 <div className="tag" style={{ color: 'var(--magenta)' }}>Contribution</div>
@@ -77,14 +77,13 @@ export default async function PartnerPage({ params }: Params) {
             <h2 className="section-title" style={{ fontSize: 34 }}>What has actually been delivered</h2>
           </div>
           <div className="tbl-wrap reveal up" style={{ marginTop: 28 }}>
-            <table className="record">
-              <thead><tr><th style={{ width: 120 }}>Date</th><th>Delivered</th></tr></thead>
-              <tbody>
-                {p.record.map((r) => (
-                  <tr key={r.what}><td>{r.date}</td><td>{r.what}</td></tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="panel" style={{ padding: 24 }}>
+              <p style={{ fontSize: 15, color: '#fff', lineHeight: 1.65 }}>{p.record || 'No record documented yet.'}</p>
+              <p style={{ marginTop: 12, fontSize: 13, color: 'var(--t-faint)' }}>
+                A partner&rsquo;s record is written down or it is not a record. Where it has not been documented,
+                this page says so rather than inventing a list of projects.
+              </p>
+            </div>
           </div>
         </div>
       </section>

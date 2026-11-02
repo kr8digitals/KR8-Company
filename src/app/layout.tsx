@@ -11,15 +11,14 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kr8digitals.com';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'KR8 Digitals — A creative institution in Nigeria',
+    default: 'KR8 Digitals — websites, brands, films, AI and SEO',
     template: '%s · KR8 Digitals',
   },
   description:
-    'KR8 Digitals runs a tuition-free academy, a working community, an event series and a delivery studio. The Academy teaches. The Tribe holds. Mindset Shift convenes. Our Services deliver. Our Partners extend.',
+    'KR8 Digitals is a creative company. We design and build websites, brands, films, AI systems and SEO for organisations that need to be found, trusted and chosen — and we train the people who build them next.',
   keywords: [
-    'KR8 Digitals', 'creative school Nigeria', 'free design training Nigeria',
-    'website design Nigeria', 'video editing Nigeria', 'brand design Abakaliki',
-    'KR8 Academy', 'The Tribe KR8',
+    'KR8 Digitals', 'website design', 'brand and graphic design', 'video editing',
+    'AI automation', 'SEO optimisation', 'KR8 Academy', 'The Tribe KR8',
   ],
   authors: [{ name: 'KR8 Digitals' }],
   openGraph: {
@@ -27,15 +26,15 @@ export const metadata: Metadata = {
     locale: 'en_NG',
     url: SITE_URL,
     siteName: 'KR8 Digitals',
-    title: 'KR8 Digitals — A creative institution in Nigeria',
+    title: 'KR8 Digitals — websites, brands, films, AI and SEO',
     description:
-      'A tuition-free academy, a working community, an event series and a delivery studio — run as one company.',
+      'A creative company building the websites, brands, films and systems that make an organisation impossible to ignore.',
     images: [{ url: '/img/work-afristem.jpg', width: 1440, height: 900, alt: 'A website built by KR8 Digitals' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'KR8 Digitals — A creative institution in Nigeria',
-    description: 'The Academy teaches. The Tribe holds. Mindset Shift convenes. Services deliver. Partners extend.',
+    title: 'KR8 Digitals — websites, brands, films, AI and SEO',
+    description: 'Whoever you are, whatever you do, we exist because of you.',
   },
   robots: { index: true, follow: true },
   alternates: { canonical: SITE_URL },
@@ -56,18 +55,18 @@ const orgSchema = {
   email: site.company.email,
   telephone: site.company.phone,
   description: site.company.shortDescription,
-  address: { '@type': 'PostalAddress', addressCountry: 'NG', addressLocality: 'Lagos' },
+  areaServed: 'Worldwide',
   founder: { '@type': 'Person', name: 'Kenneth Timothy Iziogo', alternateName: 'Timfire', jobTitle: 'Founder & CEO' },
   subOrganization: [
     { '@type': 'EducationalOrganization', name: 'KR8 Academy', url: 'https://academy.kr8digitals.com' },
     { '@type': 'Organization', name: 'The Tribe', url: 'https://tribe.kr8digitals.com' },
   ],
-  sameAs: site.company.socials.map((s) => s.href),
+  sameAs: site.company.socials.map((s) => s.href).filter(Boolean),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-NG">
+    <html lang="en">
       <head>
         <link rel="preload" href="/fonts/montserrat.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/sora.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />

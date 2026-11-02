@@ -152,10 +152,11 @@ export async function POST(req: Request) {
     ok: true,
     id: saved.id,
     emailed: mail.emailed,
+    emailNote: mail.emailed ? undefined : mail.reason,
     message:
       type === 'team'
         ? 'Application received. We read every one — you will hear back either way.'
-        : 'Sent. The team replies within one working day — usually sooner.',
+        : 'Sent — the team has it. We answer in the order messages arrive.',
   });
 }
 

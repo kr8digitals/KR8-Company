@@ -1,0 +1,365 @@
+{
+  "updated": "2026-11-03",
+  "note": "Every entry is a live, deployed site. `status: live` = built for the client named and running on their own domain. `status: for-sale` = a finished site built and deployed by KR8 Digitals, available to buy, price set per site. Edit any field from the dashboard.",
+  "categories": ["Hotels", "Food & drink", "Organisations", "Businesses", "Personal & brand"],
+  "sites": [
+    {
+      "slug": "cirenes",
+      "name": "Cirenes Hotels",
+      "kind": "Hotel",
+      "category": "Hotels",
+      "url": "https://cirenes-hotels-liart.vercel.app",
+      "card": "/img/sites/cirenes-card.webp",
+      "full": "/img/sites/cirenes-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "The estate, rooms and rates, menu, events hall, gallery, guest book and a reservation flow."
+    },
+    {
+      "slug": "salt-lake",
+      "name": "Salt Lake Hotels",
+      "kind": "Hotel",
+      "category": "Hotels",
+      "url": "https://salt-lake-hotels-kappa.vercel.app",
+      "card": "/img/sites/salt-lake-card.webp",
+      "full": "/img/sites/salt-lake-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "Grounds, four room tiers confirmed over WhatsApp, kitchen menu, evenings, events and a guest book."
+    },
+    {
+      "slug": "monabliss",
+      "name": "Monabliss Hotels",
+      "kind": "Hotel",
+      "category": "Hotels",
+      "url": "https://monabliss-hotels-green.vercel.app",
+      "card": "/img/sites/monabliss-card.webp",
+      "full": "/img/sites/monabliss-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "Compound, rooms and prices, an amenity checklist, kitchen menu, reviews, events and a guest book."
+    },
+    {
+      "slug": "galaxy-lapalm",
+      "name": "Galaxy La-Palm Royal Resort",
+      "kind": "Resort",
+      "category": "Hotels",
+      "url": "https://galaxy-lapalm.vercel.app",
+      "card": "/img/sites/galaxy-lapalm-card.webp",
+      "full": "/img/sites/galaxy-lapalm-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "Suites, the estate and grounds, dining, events and facilities including a cinema, games lounge and pool."
+    },
+    {
+      "slug": "adig-suites",
+      "name": "Adig Suites",
+      "kind": "Hotel",
+      "category": "Hotels",
+      "url": "https://adig-suites.vercel.app",
+      "card": "/img/sites/adig-suites-card.webp",
+      "full": "/img/sites/adig-suites-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "Five suite grades, facilities, pool and BBQ terrace, dining, events and a direct booking flow."
+    },
+    {
+      "slug": "xenia-essence",
+      "name": "Xenia Essence",
+      "kind": "Boutique hotel",
+      "category": "Hotels",
+      "url": "https://xenia-essence.vercel.app",
+      "card": "/img/sites/xenia-essence-card.webp",
+      "full": "/img/sites/xenia-essence-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "Four keys and what makes each room different, salon and events, breakfast and bar, direct booking."
+    },
+    {
+      "slug": "house-ten",
+      "name": "House Ten Hotel",
+      "kind": "Hotel",
+      "category": "Hotels",
+      "url": "https://house-ten-hotel.vercel.app",
+      "card": "/img/sites/house-ten-card.webp",
+      "full": "/img/sites/house-ten-full.webp",
+      "status": "for-sale",
+      "priceUsd": 450,
+      "note": "Three room grades at desk rates, a photo-led tour, reviews and a short booking form."
+    },
+    {
+      "slug": "kamojama-villa",
+      "name": "Kamojama Villa",
+      "kind": "Boutique hotel",
+      "category": "Hotels",
+      "url": "https://kamojama-villa.vercel.app",
+      "card": "/img/sites/kamojama-villa-card.webp",
+      "full": "/img/sites/kamojama-villa-full.webp",
+      "status": "for-sale",
+      "priceUsd": 450,
+      "note": "Six room grades, breakfast on every rate, an inclusions list that answers the small print, events and booking."
+    },
+    {
+      "slug": "cecilia-palace",
+      "name": "Cecilia Exclusive Palace",
+      "kind": "Hotel",
+      "category": "Hotels",
+      "url": "https://cecilia-palace-kappa.vercel.app",
+      "card": "/img/sites/cecilia-palace-card.webp",
+      "full": "/img/sites/cecilia-palace-full.webp",
+      "status": "for-sale",
+      "priceUsd": 450,
+      "note": "Three room grades, dining and a signed-plates section, events, directions and a send-dates booking form."
+    },
+    {
+      "slug": "vegas",
+      "name": "Vegas Restaurant & Bakery",
+      "kind": "Restaurant & bakery",
+      "category": "Food & drink",
+      "url": "https://vegas-abakaliki.vercel.app",
+      "card": "/img/sites/vegas-card.webp",
+      "full": "/img/sites/vegas-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "A daily board, a bread pre-order by text message, a track-my-order page and a public review ledger."
+    },
+    {
+      "slug": "tastia",
+      "name": "Tastia",
+      "kind": "Restaurant, bakery & cafe",
+      "category": "Food & drink",
+      "url": "https://tastia-abakaliki.vercel.app",
+      "card": "/img/sites/tastia-card.webp",
+      "full": "/img/sites/tastia-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "A four-section menu, a bakery and cakes catalogue, order tracking and a single-text order flow."
+    },
+    {
+      "slug": "nourisha",
+      "name": "Nourisha",
+      "kind": "Fast food",
+      "category": "Food & drink",
+      "url": "https://nourisha-abakaliki.vercel.app",
+      "card": "/img/sites/nourisha-card.webp",
+      "full": "/img/sites/nourisha-full.webp",
+      "status": "for-sale",
+      "priceUsd": 450,
+      "note": "A six-category menu, the lounge, order tracking and a text-first ordering flow for a counter with no chain site."
+    },
+    {
+      "slug": "hydepark",
+      "name": "HydePark Delights",
+      "kind": "Café",
+      "category": "Food & drink",
+      "url": "https://hydepark-delights.vercel.app",
+      "card": "/img/sites/hydepark-card.webp",
+      "full": "/img/sites/hydepark-full.webp",
+      "status": "for-sale",
+      "priceUsd": 450,
+      "note": "A numbered order-stub system, menu, order tracking and a photo wall driven by the kitchen's own posts."
+    },
+    {
+      "slug": "native-delicacies",
+      "name": "Native Delicacies",
+      "kind": "Restaurant & bar",
+      "category": "Food & drink",
+      "url": "https://native-delicacies-mauve.vercel.app",
+      "card": "/img/sites/native-delicacies-card.webp",
+      "full": "/img/sites/native-delicacies-full.webp",
+      "status": "for-sale",
+      "priceUsd": 450,
+      "note": "A regional menu, tables and garden, a reservation flow and an account area for repeat guests."
+    },
+    {
+      "slug": "afristem",
+      "name": "AFRISTEM Global",
+      "kind": "STEM organisation",
+      "category": "Organisations",
+      "url": "https://afristemglobal.org",
+      "card": "/img/sites/afristem-card.webp",
+      "full": "/img/sites/afristem-full.webp",
+      "status": "live",
+      "priceUsd": null,
+      "note": "Four flagship competition programmes, school registration, programme pages and a partnership section with Prime STEM Nigeria."
+    },
+    {
+      "slug": "afristem-school",
+      "name": "AFRISTEM Digital Science School",
+      "kind": "Education programme",
+      "category": "Organisations",
+      "url": "https://afristem-digital-science-school.vercel.app",
+      "card": "/img/sites/afristem-school-card.webp",
+      "full": "/img/sites/afristem-school-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "Programme pages, how-it-works, resources, a teach-with-us route and a student registration flow."
+    },
+    {
+      "slug": "prime-stem",
+      "name": "Prime STEM Nigeria",
+      "kind": "STEM education",
+      "category": "Organisations",
+      "url": "https://prime-stem-nigeria.vercel.app",
+      "card": "/img/sites/prime-stem-card.webp",
+      "full": "/img/sites/prime-stem-full.webp",
+      "status": "for-sale",
+      "priceUsd": 1900,
+      "note": "Championship registration, a past-questions library, the academic calendar, an event archive and an admin area."
+    },
+    {
+      "slug": "mcgettrick",
+      "name": "McGettrick Pastoral Centre",
+      "kind": "Conference & retreat centre",
+      "category": "Organisations",
+      "url": "https://mcgettrickcentre.kr8digitals.com",
+      "card": "/img/sites/mcgettrick-card.webp",
+      "full": "/img/sites/mcgettrick-full.webp",
+      "status": "live",
+      "priceUsd": null,
+      "note": "Accommodation, halls and programmes, a chapel, conference booking and a booking reference lookup."
+    },
+    {
+      "slug": "rapha",
+      "name": "Chi-Tom Rapha Hospital & Maternity",
+      "kind": "Hospital",
+      "category": "Businesses",
+      "url": "https://chitomraphahospital.com",
+      "card": "/img/sites/rapha-card.webp",
+      "full": "/img/sites/rapha-full.webp",
+      "status": "live",
+      "priceUsd": null,
+      "note": "Services and departments, maternity care, an appointment request, emergency contact on every screen and a news blog."
+    },
+    {
+      "slug": "jev",
+      "name": "Jev Form Router",
+      "kind": "AI form router",
+      "category": "Businesses",
+      "url": "https://jev-and-ai-sdk-zeta-seven.vercel.app",
+      "card": "/img/sites/jev-card.webp",
+      "full": "/img/sites/jev-full.webp",
+      "status": "for-sale",
+      "priceUsd": 450,
+      "note": "A working AI routing demo: one form decides whether a message is a lead, a contact request or an issue report."
+    },
+    {
+      "slug": "consistency-drill",
+      "name": "30 Days Consistency Drill",
+      "kind": "Programme site",
+      "category": "Personal & brand",
+      "url": "https://consistency-drill-jiy7.vercel.app",
+      "card": "/img/sites/consistency-drill-card.webp",
+      "full": "/img/sites/consistency-drill-full.webp",
+      "status": "for-sale",
+      "priceUsd": 900,
+      "note": "A programme site with schedule, volunteer route, gallery, testimonials, FAQ, a builder's room and a login."
+    },
+    {
+      "slug": "academy",
+      "name": "KR8 Digitals' Academy",
+      "kind": "School site",
+      "category": "Personal & brand",
+      "url": "https://academy.kr8digitals.com",
+      "card": "/img/sites/academy-card.webp",
+      "full": "/img/sites/academy-full.webp",
+      "status": "live",
+      "priceUsd": null,
+      "note": "Our own school site: seven crafts, admissions, student verification by ID, a leaderboard and testimonial video."
+    }
+  ],
+  "flyers": [
+    {
+      "slug": "presco-trip",
+      "title": "Presco Trip",
+      "client": "A high-school trip organiser",
+      "kind": "Event flyer",
+      "card": "/img/brand/presco-trip-card.webp",
+      "full": "/img/brand/presco-trip-full.webp",
+      "note": "Trip announcement with meeting point, departure details and a rate badge."
+    },
+    {
+      "slug": "zoey-perfume",
+      "title": "Zoey Perfume",
+      "client": "Zoey Perfume",
+      "kind": "Product flyer",
+      "card": "/img/brand/zoey-perfume-card.webp",
+      "full": "/img/brand/zoey-perfume-full.webp",
+      "note": "Product line-up, fragrance callouts and a call-and-WhatsApp block."
+    },
+    {
+      "slug": "city-fashion-stores",
+      "title": "City Fashion Stores",
+      "client": "City Fashion Stores",
+      "kind": "Retail flyer",
+      "card": "/img/brand/city-fashion-stores-card.webp",
+      "full": "/img/brand/city-fashion-stores-full.webp",
+      "note": "Stock categories in a photo-led layout with a deal badge and contact strip."
+    },
+    {
+      "slug": "city-fashion-styles",
+      "title": "City Fashion — Style That Speaks",
+      "client": "City Fashion Stores",
+      "kind": "Retail flyer",
+      "card": "/img/brand/city-fashion-styles-card.webp",
+      "full": "/img/brand/city-fashion-styles-full.webp",
+      "note": "A second direction for the same client: service list, product grid and ordering block."
+    },
+    {
+      "slug": "ridwan-footwear",
+      "title": "Ridwan Footwear",
+      "client": "Ridwan Footwear",
+      "kind": "Retail flyer",
+      "card": "/img/brand/ridwan-footwear-card.webp",
+      "full": "/img/brand/ridwan-footwear-full.webp",
+      "note": "Corporate and casual shoe range on a dark product stage with a supply list."
+    },
+    {
+      "slug": "new-month-steveoking",
+      "title": "Happy New Month",
+      "client": "Steveoking Graphix",
+      "kind": "Social flyer",
+      "card": "/img/brand/new-month-steveoking-card.webp",
+      "full": "/img/brand/new-month-steveoking-full.webp",
+      "note": "A monthly social template built for repeat use across posts and stories."
+    }
+  ],
+  "videos": [
+    {
+      "slug": "story-elizabeth",
+      "title": "Elizabeth's story",
+      "src": "/video/story-elizabeth.mp4",
+      "poster": "/video/story-elizabeth-poster.webp",
+      "kind": "Student story",
+      "duration": "0:40",
+      "note": "Edited vertical testimonial shot on a phone, cut for social."
+    },
+    {
+      "slug": "story-02",
+      "title": "Student story",
+      "src": "/video/story-02.mp4",
+      "poster": "/video/story-02-poster.webp",
+      "kind": "Student story",
+      "duration": "0:45",
+      "note": "Vertical interview cut with captions and a lower-third."
+    },
+    {
+      "slug": "story-03",
+      "title": "Student story",
+      "src": "/video/story-03.mp4",
+      "poster": "/video/story-03-poster.webp",
+      "kind": "Student story",
+      "duration": "1:02",
+      "note": "Longer cut for the Academy site, poster frame metered for mobile data."
+    },
+    {
+      "slug": "story-04",
+      "title": "Student story",
+      "src": "/video/story-04.mp4",
+      "poster": "/video/story-04-poster.webp",
+      "kind": "Student story",
+      "duration": "1:05",
+      "note": "Full testimonial with cutaways, delivered as a vertical file."
+    }
+  ]
+}

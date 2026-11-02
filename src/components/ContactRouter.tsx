@@ -9,7 +9,7 @@ type V = 'quote' | 'partner' | 'team' | 'contact';
 const TABS: { id: V; label: string; sub: string }[] = [
   { id: 'quote', label: 'A project', sub: 'Website, brand, video, AI, search' },
   { id: 'partner', label: 'A partnership', sub: 'Teach, fund, hire or host' },
-  { id: 'team', label: 'A job application', sub: 'Sixty days, then paid' },
+  { id: 'team', label: 'A job application', sub: 'Portfolio first, then live work' },
   { id: 'contact', label: 'Something else', sub: 'Anything not covered above' },
 ];
 

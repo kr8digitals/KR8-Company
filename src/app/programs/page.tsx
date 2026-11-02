@@ -1,226 +1,271 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import programmes from '../../../data/programmes.json';
-import partners from '../../../data/partners.json';
 import site from '../../../data/site.json';
 import PageHero, { ClosingCTA } from '@/components/PageHero';
 import { Icon } from '@/components/ui';
-import TribeWaitlist from '@/components/TribeWaitlist';
+import Duo from '@/components/Duo';
 
 export const metadata: Metadata = {
-  title: 'Programs — free training, the Tribe, Mindset Shift, the team',
+  title: 'Programs — free training, the Tribe, Mindset Shift, Join the Team',
   description:
-    'KR8 Academy runs tuition-free eight-week tracks. The Tribe holds the community. Mindset Shift convenes the evening. Join the Team is the paid route. Four tiers, one institution.',
+    'Four KR8 Digitals programmes: free training in digital skills and academics, the Tribe community, the Mindset Shift gathering, and the route into working with the company.',
   alternates: { canonical: '/programs' },
 };
 
-const TIER_INTRO: Record<string, string> = {
-  learn: 'Training you can start with nothing but a phone and the willingness to show up three evenings a week.',
-  belong: 'Belonging, for as long as you want it. No fee, no gate, no expiry date on your membership.',
-  convene: 'A room that changes what a young creative believes is possible before the skill arrives.',
-  work: 'The route from trained to paid — contractual, reviewed, and with the terms published.',
+type Prog = {
+  slug: string;
+  name: string;
+  kicker: string;
+  type: string;
+  image: string;
+  imageAlt: string;
+  lede: string;
+  body: string;
+  commitment: string;
+  action: { label: string; href: string; outbound: boolean };
+  doors: { name: string; line: string; partner: string; href: string; outbound: boolean; cta: string }[];
+  tracks: string[];
+  editions?: { title: string; date: string; note: string }[];
+  editionsNote?: string;
+  openRoles?: { title: string; line: string }[];
+  rolesNote?: string;
 };
 
-export default function ProgramsPage() {
-  const free = programmes.programmes.find((p) => p.slug === 'free-training')!;
-  const tribe = programmes.programmes.find((p) => p.slug === 'the-tribe')!;
-  const mindset = programmes.programmes.find((p) => p.slug === 'mindset-shift')!;
-  const team = programmes.programmes.find((p) => p.slug === 'join-the-team')!;
-  const teacherOf = (slug: string) => partners.find((p) => p.slug === slug);
+const P = programmes.programmes as unknown as Prog[];
+const byslug = (s: string) => P.find((p) => p.slug === s)!;
+
+export default function Programs() {
+  const intro = programmes.intro;
+  const ft = byslug('free-training');
+  const tribe = byslug('tribe');
+  const mindset = byslug('mindset-shift');
+  const join = byslug('join-the-team');
 
   return (
     <>
       <PageHero
-        eyebrow="Programs"
-        title={<>Four ways in.<br /><span className="text-grad">None of them cost tuition.</span></>}
-        lede="KR8 runs on four tiers: learn a skill, belong to a community, convene at an event, or work on a paid team. Every one is open to a person who has not made anything yet."
-        crumbs={[{ label: 'Programs' }]}
+        eyebrow={intro.eyebrow}
+        title={<>Four programmes.<br /><span className="text-grad">One of them is a classroom.</span></>}
+        lede={intro.lede}
         aside={
-          <div className="panel" style={{ minWidth: 280 }}>
-            <div className="tag" style={{ color: 'var(--magenta)' }}>Fifth cohort · registration open</div>
-            <p style={{ fontSize: 14.5, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.6 }}>
-              Onboarding 30 April. Classes begin 1 May. Seven tracks, eight weeks, Monday/Wednesday/Friday
-              from 8pm WAT.
-            </p>
-            <a href={site.ecosystem.academy.applyUrl} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm" style={{ marginTop: 18 }}>
-              Apply free <span className="arrow-out">↗</span>
-            </a>
-          </div>
+          <figure style={{ margin: 0 }}>
+            <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={intro.image} alt={intro.imageAlt} />
+            </div>
+            <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>{intro.imageAlt}</figcaption>
+          </figure>
         }
       />
 
-      {/* tier map ----------------------------------------------------------- */}
-      <section className="section" style={{ paddingTop: 10 }}>
+      {/* ------------------------------------------------------------ OVERVIEW */}
+      <section className="section" style={{ paddingTop: 56 }}>
         <div className="wrap">
-          <div className="grid g4 reveal up">
-            {programmes.tiers.map((t, i) => (
-              <div key={t.id} className="panel" style={{ padding: 24 }}>
-                <div className="tag" style={{ color: 'var(--magenta)' }}>{String(i + 1).padStart(2, '0')} · {t.commitment}</div>
-                <h3 style={{ fontSize: 22, marginTop: 10 }}>{t.label}</h3>
-                <p style={{ marginTop: 8, fontSize: 13.5, lineHeight: 1.6 }}>{TIER_INTRO[t.id]}</p>
+          <div className="gal__grid gal__grid--brand">
+            {P.map((p) => (
+              <article className="gal-card" key={p.slug}>
+                <div className="gal-card__shot">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.image} alt={p.imageAlt} loading="lazy" decoding="async" />
+                </div>
+                <div className="gal-card__body">
+                  <div className="gal-card__top"><span className="tag">{p.type}</span></div>
+                  <h3>{p.name}</h3>
+                  <p>{p.lede}</p>
+                  <div className="gal-card__foot">
+                    <a href={`#${p.slug}`} className="btn-link">Read the section <Icon name="arrow" size={14} /></a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------- FREE TRAINING */}
+      <section className="section" id="free-training" style={{ borderTop: '1px solid var(--hair-soft)', scrollMarginTop: 90 }}>
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Programme 01 · {ft.kicker}</div>
+              <h2 className="section-title">{ft.name}</h2>
+              <p className="section-lede">{ft.body}</p>
+            </div>
+            <Link href="https://academy.kr8digitals.com" target="_blank" rel="noopener noreferrer" className="btn-link">
+              academy.kr8digitals.com <span aria-hidden>↗</span>
+            </Link>
+          </div>
+
+          <div className="grid g2 grid--loose" style={{ marginTop: 40 }}>
+            {ft.doors.map((d) => (
+              <div className="card reveal up" key={d.name} style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className="card-top">
+                  <span className="pill">{d.name}</span>
+                  <span className="tag">{ft.commitment}</span>
+                </div>
+                <h3 style={{ marginTop: 12 }}>{d.name === 'Digital Skills' ? 'Learn a craft' : 'Pass the exams'}</h3>
+                <p style={{ marginTop: 8 }}>{d.line}</p>
+                <div className="panel" style={{ marginTop: 18, padding: '14px 16px' }}>
+                  <div className="eyebrow" style={{ fontSize: 10 }}>Who teaches it</div>
+                  <p style={{ fontSize: 13, color: 'var(--t-muted)', marginTop: 6 }}>{d.partner}</p>
+                </div>
+                <div style={{ marginTop: 20 }}>
+                  {d.outbound ? (
+                    <a href={d.href} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm">
+                      {d.cta} <span aria-hidden>↗</span>
+                    </a>
+                  ) : (
+                    <Link href={d.href} className="btn-primary btn-sm">{d.cta} <Icon name="arrow" size={15} /></Link>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="panel reveal up" style={{ marginTop: 22, padding: 26 }}>
+            <div className="eyebrow">The digital tracks</div>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 14 }}>
+              {ft.tracks.map((t) => (
+                <span className="chip" key={t}>{t}</span>
+              ))}
+            </div>
+            <p style={{ fontSize: 13, color: 'var(--t-faint)', marginTop: 14 }}>
+              Seven tracks in total across the Academy. Applications, admissions and student verification all
+              happen on the Academy site — this page does not take registrations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------- TRIBE */}
+      <Duo
+        eyebrow={`Programme 02 · ${tribe.kicker}`}
+        title={<>The Tribe keeps the room open.</>}
+        body={
+          <>
+            <p>{tribe.body}</p>
+            <p>
+              There is no form on this page and no registration. The Tribe&rsquo;s own site
+              (tribe.kr8digitals.com) is still in preparation, so the link below opens our holding page rather
+              than a dead address.
+            </p>
+          </>
+        }
+        bullets={tribe.tracks}
+        media={[
+          { src: tribe.image, alt: tribe.imageAlt, caption: 'A member of the community, filmed for their story' },
+          { src: '/img/work/p-grant.jpg', alt: 'A community member photographed for their story' },
+        ]}
+        cta={{ label: 'Open the Tribe page', href: '/tribe' }}
+      />
+
+      {/* -------------------------------------------------------- MINDSET SHIFT */}
+      <section className="section" id="mindset-shift" style={{ borderTop: '1px solid var(--hair-soft)', scrollMarginTop: 90 }}>
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Programme 03 · {mindset.kicker}</div>
+              <h2 className="section-title">{mindset.name}</h2>
+              <p className="section-lede">{mindset.body}</p>
+            </div>
+            <Link href="/programs/mindset-shift/invite" className="btn-link">Register interest <Icon name="arrow" size={15} /></Link>
+          </div>
+
+          <div className="grid g2 grid--loose" style={{ marginTop: 40 }}>
+            <div className="panel reveal up" style={{ padding: 26 }}>
+              <div className="eyebrow">This edition</div>
+              <p style={{ marginTop: 12, fontSize: 15, color: '#fff', lineHeight: 1.65 }}>
+                Dates, venue and speakers are set per edition and published here as soon as the team confirms
+                them.
+              </p>
+              <div style={{ marginTop: 18, display: 'grid', gap: 10 }}>
+                <div className="meta-row"><span>Date &amp; time</span><span className="pending-tag">To confirm</span></div>
+                <div className="meta-row"><span>Venue</span><span className="pending-tag">To confirm</span></div>
+                <div className="meta-row"><span>Speakers</span><span className="pending-tag">To confirm</span></div>
+                <div className="meta-row"><span>Cost</span><span className="pending-tag">To confirm</span></div>
+              </div>
+              <Link href="/programs/mindset-shift/invite" className="btn-primary btn-sm" style={{ marginTop: 22 }}>
+                Register interest <Icon name="arrow" size={15} />
+              </Link>
+            </div>
+
+            <div className="reveal up">
+              <div className="duo__frame" style={{ aspectRatio: '16 / 11' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={mindset.image} alt={mindset.imageAlt} loading="lazy" />
+              </div>
+              <div className="eyebrow" style={{ marginTop: 26 }}>Past editions</div>
+              <div className="empty-state" style={{ marginTop: 12 }}>
+                {mindset.editions && mindset.editions.length > 0 ? (
+                  mindset.editions.map((e) => (
+                    <div className="meta-row" key={e.title}><b>{e.title}</b><span>{e.date}</span></div>
+                  ))
+                ) : (
+                  <p style={{ fontSize: 13.5, color: 'var(--t-muted)' }}>{mindset.editionsNote}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------- JOIN THE TEAM */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="grid g2 grid--loose">
+            <div className="reveal up">
+              <div className="eyebrow">Programme 04 · {join.kicker}</div>
+              <h2 className="section-title" style={{ marginTop: 10 }}>{join.name}</h2>
+              <p className="prose-lg" style={{ marginTop: 16 }}>{join.body}</p>
+              <div className="meta-row" style={{ marginTop: 22 }}><span>Commitment</span><b>{join.commitment}</b></div>
+              <Link href="/about/join-the-team" className="btn-primary" style={{ marginTop: 24 }}>
+                How to join <Icon name="arrow" size={16} />
+              </Link>
+            </div>
+            <div className="reveal up">
+              <div className="duo__frame" style={{ aspectRatio: '16 / 11' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={join.image} alt={join.imageAlt} loading="lazy" />
+              </div>
+              <div className="eyebrow" style={{ marginTop: 26 }}>Open roles</div>
+              <div style={{ marginTop: 12 }}>
+                {join.openRoles && join.openRoles.length > 0 ? (
+                  join.openRoles.map((r) => (
+                    <div className="panel panel--row" key={r.title} style={{ marginBottom: 8 }}>
+                      <b>{r.title}</b><span style={{ fontSize: 13, color: 'var(--t-muted)' }}>{r.line}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p style={{ fontSize: 13.5, color: 'var(--t-muted)' }}>{join.rolesNote}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------- PRINCIPLES */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="grid g3">
+            {programmes.principles.map((p, i) => (
+              <div className="card reveal up" key={p.t} data-delay={i * 70}>
+                <div className="tag" style={{ color: 'var(--magenta)' }}>0{i + 1}</div>
+                <h3 style={{ marginTop: 10 }}>{p.t}</h3>
+                <p>{p.d}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FREE TRAINING ------------------------------------------------------- */}
-      <section className="section" id="free-training" style={{ borderTop: '1px solid var(--hair-soft)' }}>
-        <div className="wrap">
-          <div className="split" style={{ alignItems: 'end', marginBottom: 44 }}>
-            <div className="reveal up">
-              <div className="eyebrow">Tier one · Learn</div>
-              <h2 className="section-title">{free.name}</h2>
-              <p className="section-lede">{free.lede}</p>
-            </div>
-            <a href={free.action.href} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              {free.action.label} <span className="arrow-out">↗</span>
-            </a>
-          </div>
-
-          <div className="grid g2" style={{ alignItems: 'start' }}>
-            <div className="prose-lg reveal up">
-              <p>{free.body}</p>
-              <ul className="price-list" style={{ marginTop: 26 }}>
-                {free.details.map((d) => <li key={d}><Icon name="check" size={15} /> {d}</li>)}
-              </ul>
-            </div>
-            <div className="grid reveal up" data-delay="60" style={{ gap: 14 }}>
-              {free.doors!.map((d) => (
-                <div className="card" key={d.id}>
-                  <div className="card-top">
-                    <h3 style={{ fontSize: 19 }}>{d.title}</h3>
-                    {d.partner && <span className="pill">{d.partner}</span>}
-                  </div>
-                  <p style={{ marginTop: 8 }}>{d.desc}</p>
-                  <a href={d.href} target="_blank" rel="noopener noreferrer" className="btn-link" style={{ marginTop: 16, display: 'inline-flex' }}>
-                    {d.cta} <span className="arrow-out">↗</span>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* tracks */}
-          <div style={{ marginTop: 56 }}>
-            <div className="eyebrow reveal up">Seven tracks · taught by practitioners</div>
-            <div className="tbl-wrap reveal up" style={{ marginTop: 20 }}>
-              <table className="tbl">
-                <thead>
-                  <tr><th>Track</th><th>Taught by</th><th>Partner</th><th className="num">Weeks</th></tr>
-                </thead>
-                <tbody>
-                  {free.tracks!.map((t) => {
-                    const partner = teacherOf(t.partner);
-                    return (
-                      <tr key={t.slug}>
-                        <td><b>{t.name}</b></td>
-                        <td>{t.taughtBy}</td>
-                        <td>{partner ? <Link href={partner.href} style={{ color: 'var(--lilac)' }}>{partner.name}</Link> : <span style={{ color: 'var(--t-faint)' }}>In-house</span>}</td>
-                        <td className="num">8</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            <p style={{ marginTop: 16, fontSize: 12.5, color: 'var(--t-faint)' }}>
-              Track pages, admissions requirements and the full timetable live on the Academy site — it is a
-              separate application system, so applying there is the only way to register.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* THE TRIBE ----------------------------------------------------------- */}
-      <section className="section" id="tribe" style={{ borderTop: '1px solid var(--hair-soft)' }}>
-        <div className="wrap">
-          <div className="story">
-            <div className="reveal up">
-              <div className="eyebrow">Tier two · Belong</div>
-              <h2 className="section-title">{tribe.name}</h2>
-              <p className="section-lede">{tribe.lede}</p>
-              <div className="panel" style={{ marginTop: 30, padding: 24 }}>
-                <div className="tag" style={{ color: 'var(--magenta)' }}>Opening soon</div>
-                <p style={{ fontSize: 13.5, color: 'var(--t-muted)', marginTop: 8, lineHeight: 1.6 }}>
-                  The Tribe has its own site in build. Until it opens, the waitlist below is the only route
-                  in — and it is the first wave, not the queue.
-                </p>
-              </div>
-            </div>
-            <div className="reveal up" data-delay="60">
-              <div className="prose-lg"><p>{tribe.body}</p></div>
-              <ul className="price-list" style={{ marginTop: 24 }}>
-                {tribe.details.map((d) => <li key={d}><Icon name="check" size={15} /> {d}</li>)}
-              </ul>
-              <div id="tribe-waitlist" style={{ marginTop: 30 }}>
-                <TribeWaitlist />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MINDSET SHIFT ------------------------------------------------------- */}
-      <section className="section" id="mindset-shift" style={{ borderTop: '1px solid var(--hair-soft)' }}>
-        <div className="wrap">
-          <div className="split" style={{ alignItems: 'end' }}>
-            <div className="reveal up">
-              <div className="eyebrow">Tier three · Convene</div>
-              <h2 className="section-title">{mindset.name}</h2>
-              <p className="section-lede">{mindset.lede}</p>
-            </div>
-            <Link href={mindset.action.href} className="btn-primary">{mindset.action.label} <Icon name="arrow" size={16} /></Link>
-          </div>
-
-          <div className="grid g2 grid--loose" style={{ marginTop: 44, alignItems: 'start' }}>
-            <div className="prose-lg reveal up"><p>{mindset.body}</p></div>
-            <div className="reveal up" data-delay="60">
-              <ul className="price-list">
-                {mindset.details.map((d) => <li key={d}><Icon name="check" size={15} /> {d}</li>)}
-              </ul>
-              <div className="panel" style={{ marginTop: 26, padding: 22 }}>
-                <p style={{ fontSize: 13.5, color: 'var(--t-muted)', lineHeight: 1.65 }}>
-                  Mindset Shift runs every two weeks, in person in Abakaliki and streamed. There is no
-                  ticket price. Invitations are limited by the size of the room, which is the only limit.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* JOIN THE TEAM ------------------------------------------------------- */}
-      <section className="section" id="join-the-team" style={{ borderTop: '1px solid var(--hair-soft)' }}>
-        <div className="wrap">
-          <div className="grid g2" style={{ alignItems: 'center', gap: 56 }}>
-            <div className="reveal up">
-              <div className="eyebrow">Tier four · Work</div>
-              <h2 className="section-title" style={{ fontSize: 44 }}>{team.name}</h2>
-              <p className="section-lede">{team.lede}</p>
-              <ul className="price-list" style={{ marginTop: 26 }}>
-                {team.details.map((d) => <li key={d}><Icon name="check" size={15} /> {d}</li>)}
-              </ul>
-              <Link href="/about/join-the-team" className="btn-primary" style={{ marginTop: 28 }}>
-                See open roles <Icon name="arrow" size={16} />
-              </Link>
-            </div>
-            <div className="panel reveal up" data-delay="60">
-              <h3 style={{ fontSize: 20 }}>Why the team route exists</h3>
-              <p style={{ marginTop: 12, fontSize: 14.5, lineHeight: 1.7 }}>
-                {team.body}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <ClosingCTA
-        title="Start with the free one."
-        copy="Almost everybody starts at the Academy. Seven tracks, eight weeks, no tuition, and a certificate at the end that an employer can verify without asking us."
-        cta="Apply to the Academy"
-        href="/programs#free-training"
-        secondary={{ label: 'Join the Tribe list', href: '/programs#tribe-waitlist' }}
+        title="Ready to start?"
+        copy="Free training happens on the Academy site. Everything else — the Tribe, Mindset Shift, joining the team — is one page away."
+        cta="Apply for free training"
+        href="https://academy.kr8digitals.com/apply"
+        secondary={{ label: 'Talk to us first', href: '/contact' }}
       />
     </>
   );
