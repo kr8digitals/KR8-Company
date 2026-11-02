@@ -1,0 +1,111 @@
+{
+  "tiers": [
+    { "id": "learn", "label": "Learn", "commitment": "Self-paced, weeks" },
+    { "id": "belong", "label": "Belong", "commitment": "Ongoing" },
+    { "id": "convene", "label": "Convene", "commitment": "An evening or a series" },
+    { "id": "work", "label": "Work", "commitment": "Paid, contractual" }
+  ],
+
+  "programmes": [
+    {
+      "slug": "free-training",
+      "name": "Free Training",
+      "tier": "learn",
+      "owner": "KR8 Academy",
+      "commitment": "Eight weeks per cohort · 40 seats per track",
+      "action": { "label": "Apply for free", "href": "https://academy.kr8digitals.com/apply", "outbound": true },
+      "lede": "Two doors, one institution. Learn a creative or technical craft, or prepare for the exams that decide what you can study next. Neither costs tuition.",
+      "body": "KR8 Academy has run four cohorts and is now taking its fifth. Every track is eight weeks long, taught live by working practitioners on Monday, Wednesday and Friday evenings (8–9pm WAT), with assignments Tuesday, Thursday and Saturday. Nobody is charged tuition, and nobody is charged to graduate.",
+      "details": [
+        "5th Cohort · registration open",
+        "Onboarding 30 April · classes begin 1 May",
+        "Eight weeks: beginner weeks 1–4, advanced weeks 5–8",
+        "Live classes Mon/Wed/Fri, 8–9pm WAT",
+        "Verifiable KR8 ID and certificate included, at no fee"
+      ],
+      "doors": [
+        {
+          "id": "skills",
+          "title": "Register for a skill",
+          "desc": "Seven tracks, taught by the people who do the work for a living.",
+          "href": "https://academy.kr8digitals.com/tracks",
+          "outbound": true,
+          "cta": "See the seven tracks"
+        },
+        {
+          "id": "academics",
+          "title": "Register for academics",
+          "desc": "Science or arts, WAEC and JAMB preparation, and subject choices that keep the doors you want open.",
+          "href": "https://academy.kr8digitals.com/apply",
+          "outbound": true,
+          "cta": "Start academics",
+          "partner": "With Next Gen Scholars"
+        }
+      ],
+      "tracks": [
+        { "slug": "graphic-design", "name": "Graphic Design", "taughtBy": "Stevenson · Motion Verse", "partner": "motion-verse" },
+        { "slug": "video-editing", "name": "Video Editing & Animation", "taughtBy": "Daniel · Creative Expression", "partner": "chigoma" },
+        { "slug": "website-development", "name": "Website Development", "taughtBy": "Timfire", "partner": "" },
+        { "slug": "frontend-development", "name": "Front-End Development", "taughtBy": "Chimnonyerem Mercy", "partner": "" },
+        { "slug": "content-creation", "name": "Content Creation", "taughtBy": "KR8 faculty", "partner": "" },
+        { "slug": "social-media-management", "name": "Social Media Management", "taughtBy": "KR8 faculty", "partner": "" },
+        { "slug": "digital-marketing", "name": "Digital Marketing", "taughtBy": "KR8 faculty", "partner": "" }
+      ]
+    },
+    {
+      "slug": "the-tribe",
+      "name": "The Tribe",
+      "tier": "belong",
+      "owner": "The Tribe · a KR8 Digitals community",
+      "commitment": "Ongoing · no start or end date",
+      "action": { "label": "Join the Tribe", "href": "#tribe-waitlist", "outbound": false },
+      "lede": "Isolation kills craft. A room of people who do the same work as you, who will tell you the truth about yours.",
+      "body": "The Tribe is open to everyone — no KR8 ID, no test, no interview. Designers, video editors, developers, founders and people who have not made anything yet. What holds it together is a rule set: no spam, no fake gurus, radical generosity, ruthless craft standards, and lift as you climb.",
+      "details": [
+        "Critique over clout — work gets reviewed by people who can actually do it",
+        "Internal gig flow — paid work moves through the community first",
+        "Interdisciplinary sprints — designers, editors and developers on one brief",
+        "Creator Hangout — a monthly showcase, not a meeting",
+        "Special Portfolio Days — capstone reviews with senior directors"
+      ],
+      "note": "The Tribe's own site is not live yet. Until it is, we are taking names here and opening accounts in the order they arrive."
+    },
+    {
+      "slug": "mindset-shift",
+      "name": "Mindset Shift",
+      "tier": "convene",
+      "owner": "A KR8 Digitals programme",
+      "commitment": "One evening · every two weeks",
+      "action": { "label": "Request an invitation", "href": "/programs/mindset-shift/invite", "outbound": false },
+      "lede": "The session that changes what a young creative believes is possible — before the skill has a chance to matter.",
+      "body": "Mindset Shift runs live every two weeks, 9pm–12am WAT. It is not a lecture. It is the conversation that most people in creative education never get: what this work actually pays, what it costs, how to price, how to be paid, how to survive the years before the work is good.",
+      "details": [
+        "Live, every two weeks · 9pm–12am WAT",
+        "Speakers from KR8, Motion Verse, Chigoma and invited practitioners",
+        "Cohort launches and graduation showcases happen here",
+        "Past editions are archived so the series has a memory"
+      ],
+      "editions": [
+        { "date": "2026-09-01", "title": "Cohort 4 Launch", "status": "past", "note": "Mindset Shift Cohort 4 launch poster, designed by Motion Verse." },
+        { "date": "2026-10-04", "title": "The Money Conversation", "status": "past", "note": "Pricing, payment and the year before the work is good." },
+        { "date": "2026-11-08", "title": "Next edition", "status": "upcoming", "note": "Date to be confirmed by the team in the dashboard." }
+      ]
+    },
+    {
+      "slug": "join-the-team",
+      "name": "Join the Team",
+      "tier": "work",
+      "owner": "KR8 Digitals",
+      "commitment": "60 days of training, then paid monthly",
+      "action": { "label": "See open roles", "href": "/about/join-the-team", "outbound": false },
+      "lede": "One team that delivers client contracts and runs the programmes together. Paid, permanently, from month three.",
+      "body": "KR8 hires a paid team rather than contracting freelancers. Joining means enrolling in paid training: thirty days in the Consistency Drill, then thirty days of KR8 team training. After sixty days, team members are paid monthly and take part in client contracts according to their role.",
+      "details": [
+        "Days 1–30: Consistency Drill — finish what you start, publicly",
+        "Days 31–60: team training — delivered on real client work",
+        "Day 61 onward: paid monthly, with client contracts and programmes",
+        "Roles: general manager, tribe manager, social media manager, editors, designers, developers"
+      ]
+    }
+  ]
+}

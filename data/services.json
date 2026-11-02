@@ -1,0 +1,170 @@
+[
+  {
+    "slug": "website-design",
+    "name": "Website Design & Development",
+    "short": "Websites",
+    "order": 1,
+    "icon": "monitor",
+    "tagline": "A website that earns, not a brochure that sits.",
+    "summary": "Fast, hand-built sites and web apps for businesses that are losing customers to a website they are embarrassed to share — and for businesses that have none at all.",
+    "forWhom": "Schools, hospitals, restaurants, organisations, retail brands and founders who need one site that does the selling for them.",
+    "problem": "Most Nigerian business websites are slow, generic templates that load in eight seconds on a phone and say nothing a customer could not guess. They are not neutral — they actively cost their owners money, because a prospect who cannot load you in three seconds becomes somebody else's customer.",
+    "approach": [
+      "We start with what the site has to make happen: a booking, an enquiry, a sale, a registration.",
+      "We build on modern infrastructure — the same stack this site runs on — so pages open in under a second on a mid-range phone over 4G.",
+      "Every page is written to convert, not to fill space. One clear action per screen.",
+      "You get the source files, the domain under your name, and a handover walkthrough. Nothing is held hostage."
+    ],
+    "outcomes": [
+      "A site that opens before the visitor loses patience",
+      "Mobile-first layouts built for real Nigerian data costs",
+      "A booking, enquiry or purchase path that works end to end",
+      "Search-ready structure and structured data from day one"
+    ],
+    "deliverables": ["Design system", "Responsive build", "CMS for your team", "Domain & deployment", "Handover session"],
+    "process": [
+      { "n": "01", "t": "Diagnostic", "d": "We review what you have now — speed, clarity, conversion — and point at exactly where it leaks." },
+      { "n": "02", "t": "Structure", "d": "Sitemap, page jobs and the single action every page drives." },
+      { "n": "03", "t": "Build", "d": "Design and engineering in one pass, shipped to a preview URL you can open on your own phone." },
+      { "n": "04", "t": "Launch", "d": "Domain, analytics, redirects and a walkthrough so your team can run it." }
+    ],
+    "faqs": [
+      { "q": "I already have a website. Is this for me?", "a": "Yes — that is the most common case. We audit what the current site is costing you in lost enquiries, then rebuild the parts that lose money. Many clients keep the brand and replace the engine." },
+      { "q": "How long does it take?", "a": "A static brochure site is typically two to three weeks. A dynamic site with a CMS and booking is four to six. We give you a dated plan before you pay." },
+      { "q": "Will I own it?", "a": "You own the domain, the code and the content. We deploy to your own Vercel account where you want that." },
+      { "q": "Can I update it myself?", "a": "Dynamic builds ship with an admin dashboard. You edit copy, images and prices without calling anybody." }
+    ],
+    "categories": ["Hotels", "Bakeries & Food", "Organisations & Non-profits", "Businesses", "Personal & Brand"],
+    "cta": "Get a quote"
+  },
+  {
+    "slug": "brand-graphic-design",
+    "name": "Brand & Graphic Design",
+    "short": "Brand & design",
+    "order": 2,
+    "icon": "palette",
+    "tagline": "Look like the price you want to charge.",
+    "summary": "Identity systems, flyers, posters and campaign creative — delivered by Motion Verse in association with KR8 Digitals.",
+    "forWhom": "Schools running open days, churches and organisations running programmes, businesses launching, and brands that need a visual language instead of one-off designs.",
+    "problem": "A business that looks improvised is priced like a business that is improvised. The gap between a ₦40,000 flyer and a ₦400,000 flyer is rarely the software — it is the decision-making behind it.",
+    "approach": [
+      "One clear visual idea, applied consistently across every surface.",
+      "Type, colour and layout chosen for legibility on a phone screen first.",
+      "Print-and-screen ready files delivered properly, not a screenshot of a canvas.",
+      "Built and led by Stevenson of Motion Verse, who teaches graphic design in the Academy."
+    ],
+    "outcomes": ["A recognisable identity", "Print and social cutdowns from one system", "Files your printer will not complain about"],
+    "deliverables": ["Logo & marks", "Colour & type system", "Flyers & posters", "Social templates", "Brand guidelines"],
+    "process": [
+      { "n": "01", "t": "Position", "d": "Who you are for, and what you want to be mistaken for — decided before anything is drawn." },
+      { "n": "02", "t": "Identity", "d": "Marks, type, colour and the rules that stop it drifting." },
+      { "n": "03", "t": "Apply", "d": "Flyers, posters, social and print, all from the same system." },
+      { "n": "04", "t": "Handover", "d": "Source files and a short guide so future work stays on brand." }
+    ],
+    "faqs": [
+      { "q": "Who actually does the work?", "a": "Motion Verse leads brand and graphic design for KR8 Digitals. It is credited as 'KR8 Digitals in association with Motion Verse' everywhere the work appears." },
+      { "q": "Can I just get one flyer?", "a": "Yes. Single designs are a fixed price. Most clients start there and move to a brand bundle once they see the difference." },
+      { "q": "Do you handle print?", "a": "We deliver print-ready files with bleed and correct colour profiles. We can also liaise with your printer directly." }
+    ],
+    "categories": ["Flyers & posters", "Brand identity", "Social media", "Banners & thumbnails"],
+    "cta": "Get a quote",
+    "credit": "KR8 Digitals in association with Motion Verse"
+  },
+  {
+    "slug": "video-editing",
+    "name": "Video Editing & Motion",
+    "short": "Video & motion",
+    "order": 3,
+    "icon": "film",
+    "tagline": "The first two seconds decide everything.",
+    "summary": "Adverts, social cuts, school promos and motion graphics, edited for retention — not for a showreel.",
+    "forWhom": "Schools promoting enrolment, businesses running adverts, brands building a social presence, and creators who shoot more than they can edit.",
+    "problem": "Anyone can cut a video. Almost nobody cuts one that holds somebody past the second scroll. Retention is a craft decision made in the edit, and it is measurable.",
+    "approach": [
+      "We edit to a hook, a hold and a payoff — decided before the timeline opens.",
+      "Captions burned in, because most people watch on mute.",
+      "One consistent grade so everything you publish looks like it came from the same company.",
+      "Led by Daniel (Creative Expression), who teaches video editing in the Academy."
+    ],
+    "outcomes": ["Advert and social cuts that survive the scroll", "A repeatable monthly output", "One visual grade across every post"],
+    "deliverables": ["Advert edits", "Social cutdowns", "Motion graphics", "Captions", "Export set per platform"],
+    "process": [
+      { "n": "01", "t": "Brief", "d": "What the video has to make somebody do, and where they will see it." },
+      { "n": "02", "t": "Assembly", "d": "Structure, pacing and the first cut." },
+      { "n": "03", "t": "Polish", "d": "Grade, sound, captions, motion graphics." },
+      { "n": "04", "t": "Deliver", "d": "Every aspect ratio and length you need, named properly." }
+    ],
+    "faqs": [
+      { "q": "Do you shoot?", "a": "Motion Verse handles production where needed. Most engagements are edit-only: you send footage, we return finished cuts." },
+      { "q": "How many revisions?", "a": "Depends on the package — one to five, stated in the quote before you approve." },
+      { "q": "Can you add a second editor later?", "a": "Yes. The structure is built for more than one contributor, so Chigoma's work will sit alongside Motion Verse's without a redesign." }
+    ],
+    "categories": ["Business & brand adverts", "Social media ads", "School adverts", "Motion graphics"],
+    "cta": "Get a quote",
+    "credit": "KR8 Digitals in association with Motion Verse"
+  },
+  {
+    "slug": "ai-automation",
+    "name": "AI & Automation",
+    "short": "AI & automation",
+    "order": 4,
+    "icon": "cpu",
+    "tagline": "Stop doing the work a system should be doing.",
+    "summary": "AI agents and business workflows that answer enquiries, qualify leads, book appointments and follow up while you are asleep.",
+    "forWhom": "Businesses answering the same WhatsApp message forty times a day, and teams losing leads because nobody replied within the hour.",
+    "problem": "A small business loses more revenue to unanswered messages than to bad advertising. Every enquiry that waits six hours is a customer who has already bought somewhere else.",
+    "approach": [
+      "We map the conversations and handoffs you already have, then automate only the repetitive ones.",
+      "The agent is trained on your own information — prices, hours, services, policies — not on the open internet.",
+      "A human can always take over mid-conversation, and the transcript comes with them.",
+      "Every automation ships with a spending cap, rate limits and an off switch."
+    ],
+    "outcomes": ["Enquiries answered in seconds, not days", "Leads qualified before they reach a human", "A record of every conversation in one inbox"],
+    "deliverables": ["Workflow map", "Trained agent", "Human handoff", "Dashboard inbox", "Cost guardrails"],
+    "process": [
+      { "n": "01", "t": "Audit", "d": "Where the repetitive work actually is, in hours and in lost naira." },
+      { "n": "02", "t": "Design", "d": "The conversation tree, the knowledge base and the handoff rule." },
+      { "n": "03", "t": "Build", "d": "Agent, integrations and the dashboard your team uses." },
+      { "n": "04", "t": "Tune", "d": "Two weeks of real conversations, reviewed and corrected." }
+    ],
+    "faqs": [
+      { "q": "Will it sound like a robot?", "a": "It is written in your voice and it knows when to stop and hand over. On this site, that is exactly how the Host behaves — you can try it." },
+      { "q": "What if it makes something up?", "a": "It answers from your knowledge base only, and it tells people when it does not know. Anything sensitive is routed to a human." },
+      { "q": "What does it cost to run?", "a": "Usage-based, with a hard cap you set. We show you the cap in the quote before you commit." }
+    ],
+    "categories": ["Lead qualification", "Booking", "Customer support", "Follow-up"],
+    "cta": "Get a quote"
+  },
+  {
+    "slug": "seo",
+    "name": "Search Visibility",
+    "short": "SEO",
+    "order": 5,
+    "icon": "search",
+    "tagline": "Be found everywhere your customer is looking.",
+    "summary": "Technical search, local search and content structure so your business appears when somebody types the thing you sell — not just when they know your name.",
+    "forWhom": "Businesses that get traffic only from referrals and Instagram, and organisations that need to be found by the people they serve.",
+    "problem": "Ranking is not a trick and it is not luck. It is structure, speed, clarity and consistency — and most Nigerian business sites fail all four before anybody considers a keyword.",
+    "approach": [
+      "Fix what is broken first: speed, indexing, duplication, broken links, missing structured data.",
+      "Own the searches that carry intent — 'hospital in Abakaliki', 'school fees in Enugu' — not vanity terms.",
+      "Build content that answers a real question a real customer typed.",
+      "Measure positions and enquiries, per page, monthly. No reporting theatre."
+    ],
+    "outcomes": ["Pages that actually get indexed", "Local and map visibility", "Compounding organic enquiries"],
+    "deliverables": ["Technical audit", "Keyword & intent map", "On-page fixes", "Structured data", "Monthly report"],
+    "process": [
+      { "n": "01", "t": "Audit", "d": "Crawl the site, find what is invisible and why." },
+      { "n": "02", "t": "Fix", "d": "Technical foundations before content, always." },
+      { "n": "03", "t": "Build", "d": "Pages and structure aimed at real searches." },
+      { "n": "04", "t": "Report", "d": "One page a month: what moved, what did not, what is next." }
+    ],
+    "faqs": [
+      { "q": "How long before I see results?", "a": "Technical fixes can show in weeks. Competitive terms take three to six months of consistent work. Anybody promising page one in thirty days is guessing." },
+      { "q": "Do you guarantee rankings?", "a": "No, and you should not trust anyone who does. We guarantee the work, the reporting and the audit trail." },
+      { "q": "Can this run alongside a new website?", "a": "It should run inside it. Site rebuilds on this stack ship with search structure from the first commit." }
+    ],
+    "categories": ["Technical SEO", "Local SEO", "Content structure", "Reporting"],
+    "cta": "Get a quote"
+  }
+]

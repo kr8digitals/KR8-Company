@@ -1,0 +1,47 @@
+{
+  "note": "Draft USD structure proposed for approval. Nothing here is rendered publicly while settings.publicPriceDisplay is false.",
+  "status": "draft",
+  "approvedBy": null,
+  "services": {
+    "website-design": {
+      "unit": "per build",
+      "tiers": [
+        { "name": "One page", "usd": 450, "includes": ["One-screen site", "Copy edit", "WhatsApp enquiry", "Deploy + domain"] },
+        { "name": "Brochure", "usd": 900, "includes": ["Up to six pages", "CMS for your team", "Search setup", "Two feedback rounds"] },
+        { "name": "System", "usd": 1900, "includes": ["Everything above", "Accounts or payments", "Booking or booking-like flow", "Three months of support"] }
+      ]
+    },
+    "brand-graphic-design": {
+      "unit": "per project",
+      "tiers": [
+        { "name": "Single design", "usd": 40, "includes": ["One flyer or post", "Two revisions", "Print + social exports"] },
+        { "name": "Brand bundle", "usd": 260, "includes": ["Logo suite", "Colour and type", "Four templates", "Brand sheet"] },
+        { "name": "Monthly", "usd": 550, "includes": ["Standing design support", "Up to 20 assets a month", "48-hour turnaround"] }
+      ]
+    },
+    "video-editing": {
+      "unit": "per edit",
+      "tiers": [
+        { "name": "Short-form", "usd": 180, "includes": ["Up to 60 seconds", "Captions and hook", "Two aspect ratios"] },
+        { "name": "Standard", "usd": 400, "includes": ["Up to three minutes", "Motion titles", "Sound mix"] },
+        { "name": "Premium", "usd": 800, "includes": ["Advert or promo", "Motion graphics", "Multiple cutdowns"] }
+      ]
+    },
+    "ai-automation": {
+      "unit": "per system",
+      "tiers": [
+        { "name": "Answer", "usd": 600, "includes": ["One assistant", "Trained on your content", "WhatsApp or site embed"] },
+        { "name": "Qualify", "usd": 1500, "includes": ["Lead capture and routing", "Booking handoff", "Weekly summary"] },
+        { "name": "Operate", "usd": 3200, "includes": ["Multi-step workflow", "CRM integration", "Monitoring and retraining"] }
+      ]
+    },
+    "seo": {
+      "unit": "per month",
+      "tiers": [
+        { "name": "Audit", "usd": 250, "includes": ["Technical audit", "Keyword map", "Priority fixes"] },
+        { "name": "Build", "usd": 450, "includes": ["Audit plus fixes", "Content structure", "Local profile work"] },
+        { "name": "Hold", "usd": 750, "includes": ["Ongoing content", "Link and local work", "Monthly reporting"] }
+      ]
+    }
+  }
+}

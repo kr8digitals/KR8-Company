@@ -1,0 +1,142 @@
+{
+  "company": {
+    "name": "KR8 Digitals",
+    "legalName": "KR8 Digitals",
+    "wordmark": { "a": "Kr8", "b": "Digitals" },
+    "positioning": "KR8 Digitals is the institution. The Academy teaches, the Tribe holds, Mindset Shift convenes, our Services deliver, and our Partners extend.",
+    "shortDescription": "A creative institution in Nigeria: a tuition-free academy, a working community, an event series and a delivery studio, run as one company.",
+    "mission": "Raw African talent is everywhere. Access is not. KR8 Digitals was built to remove the paywall between a talented young person and a paid creative career.",
+    "email": "kr8digitals01@gmail.com",
+    "academyEmail": "academy@kr8digitals.com",
+    "phone": "+234 812 568 7509",
+    "whatsapp": "2348125687509",
+    "location": "Lagos & Global Remote",
+    "locations": ["Lagos, Nigeria", "Abakaliki, Ebonyi", "Remote"],
+    "socials": [
+      { "label": "Instagram", "href": "https://www.instagram.com/kr8digitals", "icon": "instagram" },
+      { "label": "X", "href": "https://x.com/kr8digitals", "icon": "x" },
+      { "label": "YouTube", "href": "https://www.youtube.com/@kr8digitals", "icon": "youtube" },
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/company/kr8digitals", "icon": "linkedin" }
+    ]
+  },
+
+  "ecosystem": {
+    "academy": {
+      "name": "KR8 Academy",
+      "endorsement": "a KR8 Digitals school",
+      "url": "https://academy.kr8digitals.com",
+      "applyUrl": "https://academy.kr8digitals.com/apply",
+      "verifyUrl": "https://academy.kr8digitals.com/verify",
+      "admissionsUrl": "https://academy.kr8digitals.com/admissions",
+      "status": "live",
+      "blurb": "Tuition-free, eight-week, studio-grade training in seven creative and technical tracks."
+    },
+    "tribe": {
+      "name": "The Tribe",
+      "endorsement": "the KR8 Digitals community",
+      "url": "https://tribe.kr8digitals.com",
+      "status": "holding",
+      "blurb": "The community where KR8 students, graduates and working creatives share leads, critique work and find jobs."
+    }
+  },
+
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "About", "href": "/about" },
+    { "label": "Services", "href": "/services" },
+    { "label": "Programs", "href": "/programs" },
+    { "label": "Partners", "href": "/partners" },
+    { "label": "Referrals", "href": "/referrals" }
+  ],
+
+  "stats": [
+    { "id": "students", "value": 1200, "suffix": "+", "label": "Students trained tuition-free since the first cohort", "source": "KR8 Digitals records" },
+    { "id": "tribe", "value": 2480, "suffix": "+", "label": "Creators in the Tribe across Nigeria and the diaspora", "source": "KR8 Digitals records" },
+    { "id": "projects", "value": 120, "suffix": "+", "label": "Client projects delivered by KR8 and its graduates", "source": "KR8 Digitals records" },
+    { "id": "tracks", "value": 7, "suffix": "", "label": "Skill tracks taught across the Academy", "source": "academy.kr8digitals.com" }
+  ],
+
+  "proof": {
+    "websitesLive": 6,
+    "clients": 6,
+    "note": "Live client sites built and deployed by KR8 Digitals.",
+    "conversionLift": "3.2x",
+    "visibilityLift": "+240%"
+  },
+
+  "doors": [
+    { "verb": "Teaches", "name": "KR8 Academy", "desc": "Seven studio-grade tracks. Eight weeks. Zero tuition.", "href": "/programs#free-training", "outbound": false },
+    { "verb": "Holds", "name": "The Tribe", "desc": "Critique, leads and company for creators who refuse to build alone.", "href": "/programs#tribe", "outbound": false },
+    { "verb": "Convenes", "name": "Mindset Shift", "desc": "The evening that changes what a young creative believes is possible.", "href": "/programs#mindset-shift", "outbound": false },
+    { "verb": "Delivers", "name": "Services", "desc": "Websites, brand, video, AI automation and search visibility.", "href": "/services", "outbound": false },
+    { "verb": "Extends", "name": "Partners", "desc": "Brands and schools that teach, fund, hire and host with us.", "href": "/partners", "outbound": false }
+  ],
+
+  "settings": {
+    "pricesApproved": false,
+    "publicPriceDisplay": false,
+    "currencyBase": "USD",
+    "referralRates": {
+      "website": 10,
+      "design": 8,
+      "small": 10,
+      "smallMinimumUsd": 20,
+      "bonus": 12,
+      "bonusAfterPaidReferrals": 3,
+      "minimumWithdrawalUsd": 20
+    },
+    "teamFee": {
+      "amountUsd": 0,
+      "amountNgn": 0,
+      "approved": false,
+      "terms": "Placeholder — Timfire to confirm the enrolment fee and publish the terms before applications open."
+    },
+    "joining": {
+      "consistencyDays": 30,
+      "trainingDays": 30
+    },
+    "notifications": {
+      "resendFrom": "KR8 Digitals <hello@kr8digitals.com>",
+      "adminEmails": []
+    }
+  },
+
+  "referrals": {
+    "headline": "You may not have the skill. You have the people.",
+    "lede": "You know a school that needs a website, a bakery that needs a brand, a founder who needs to be seen. Introduce them. When the work is paid, you are paid.",
+    "workedExample": {
+      "project": "A four-page website for a school",
+      "projectUsd": 2000,
+      "ratePct": 10,
+      "commissionUsd": 200
+    },
+    "terms": [
+      "Commission is credited only after KR8 confirms the client has paid in full.",
+      "A referral is tracked from the first introduction to the paid invoice, so nothing is owed on a sale that never closed.",
+      "Self-referrals and duplicate accounts are detected and voided.",
+      "Withdrawals are processed manually by bank transfer once the balance clears the minimum."
+    ]
+  },
+
+  "host": {
+    "nameCandidates": ["Ada", "Kora", "Bisi"],
+    "name": "Ada",
+    "avatar": "",
+    "greeting": "Welcome to KR8 Digitals. I'm Ada — I help people find the right door here. Are you hiring for a project, or looking to learn?",
+    "shortGreeting": "Welcome. I'm Ada. Hiring, or learning?",
+    "voice": {
+      "enabled": false,
+      "rate": 1.0,
+      "pitch": 1.0
+    },
+    "qualifiers": [
+      { "id": "business", "label": "I run a business or organisation", "next": "business" },
+      { "id": "learner", "label": "I want to learn a skill", "next": "learner" },
+      { "id": "job", "label": "I'm looking for work", "next": "job" },
+      { "id": "community", "label": "I want community", "next": "community" },
+      { "id": "exploring", "label": "Just looking around", "next": "exploring" }
+    ],
+    "disclosure": "I'm KR8 Digitals' digital assistant, not a person. If you'd rather speak to the team, say so and I'll bring someone in.",
+    "savedNotice": "Chats are saved so the team can pick up where we left off. You can delete this conversation from the panel."
+  }
+}
