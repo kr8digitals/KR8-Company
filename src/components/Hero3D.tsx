@@ -1,51 +1,53 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import sitesData from '../../data/sites.json';
 
 /**
  * The hero stage.
  *
- * A ring built from the actual work: sixteen surfaces carrying screenshots of
- * sites we have deployed, flyers made in association with Motion Verse and
- * frames from real films. Nothing abstract is rendered here — every panel is a
- * piece of shipped work.
+ * A ring built from the real work. It is driven by a mode passed down from
+ * HeroShow: the sites group, the brand group, the founders, or idle while a
+ * title card is on screen. Every panel is a shipped piece — a deployed site or
+ * a client flyer. Nothing abstract is rendered here.
  *
- *   Ring      — the work orbiting. It turns on its own; drag it and it follows.
- *   Disassembly — the ring breaks apart into a drifting filmstrip, then reforms.
- *   People    — the panels fall away and the three founders come forward.
+ *   sites  — every site we have deployed, grouped into one ring.
+ *   brand  — the flyers and identity work, grouped into their own ring.
+ *   people — the ring recedes and the three founders come forward.
+ *   idle   — everything fades back while a title card holds the stage.
+ *
+ * The ring keeps its own turn, you can throw it with a drag, the camera tilts
+ * per mode so the group fills the frame instead of floating in dead space.
  *
  * Performance: lazy canvas, DPR capped at 1.75, paused when offscreen or when
- * the tab is hidden, one frozen frame under prefers-reduced-motion, and a
- * static image fallback when WebGL is unavailable.
+ * the tab is hidden, one frozen frame under prefers-reduced-motion, and a real
+ * screenshot fallback when WebGL is unavailable.
  */
 
-export type Scene = { key: string; title: string; sub: string; href: string; cta: string; outbound?: boolean };
+export type HeroMode = 'sites' | 'brand' | 'people' | 'idle';
 
-export const SCENES: Scene[] = [
-  { key: 'ring', title: 'Twenty-two sites. Every one live.', sub: 'Tap any panel — the work opens in a new tab', href: '/services/website-design#portfolio', cta: 'See the portfolio' },
-  { key: 'break', title: 'Built to be opened, not admired.', sub: 'Sites, flyers and films we shipped this year', href: '/services', cta: 'What we build' },
-  { key: 'people', title: 'Built by people you can name.', sub: 'Three founders. One company.', href: '/about', cta: 'Meet KR8 Digitals' },
+/** Sites are ordered so the strongest client work shows first. */
+const SITE_ORDER = [
+  'afristem', 'mcgettrick', 'rapha', 'cirenes', 'monabliss', 'salt-lake',
+  'tastia', 'vegas', 'xenia', 'adig-suites', 'house-ten', 'galaxy-lapalm',
+  'kamojama', 'afristem-school', 'prime-stem', 'consistency-drill',
 ];
 
-const PANELS = [
-  '/img/sites/cirenes-card.webp',
-  '/img/brand/zoey-perfume-card.webp',
-  '/img/sites/monabliss-card.webp',
-  '/img/sites/afristem-card.webp',
-  '/img/brand/city-fashion-stores-card.webp',
-  '/img/sites/vegas-card.webp',
-  '/img/sites/salt-lake-card.webp',
-  '/video/story-02-poster.webp',
-  '/img/sites/tastia-card.webp',
-  '/img/brand/ridwan-footwear-card.webp',
-  '/img/sites/rapha-card.webp',
-  '/img/sites/galaxy-lapalm-card.webp',
-  '/img/brand/presco-trip-card.webp',
-  '/img/sites/mcgettrick-card.webp',
-  '/video/story-03-poster.webp',
-  '/img/sites/adig-suites-card.webp',
-];
+function sitePanels() {
+  const byslug = new Map(sitesData.sites.map((s) => [s.slug, s]));
+  const out: { src: string; name: string }[] = [];
+  for (const slug of SITE_ORDER) {
+    const s = byslug.get(slug);
+    if (s?.card) out.push({ src: s.card, name: s.name });
+  }
+  // anything not in the curated order still deserves a panel
+  for (const s of sitesData.sites) {
+    if (!SITE_ORDER.includes(s.slug) && s.card) out.push({ src: s.card, name: s.name });
+  }
+  return out.slice(0, 18);
+}
+
+const BRAND = sitesData.flyers.map((f) => ({ src: f.card, name: f.title }));
 
 const PEOPLE = [
   { src: '/img/team/founder-timfire.jpg', name: 'Timfire' },
@@ -53,18 +55,16 @@ const PEOPLE = [
   { src: '/img/team/daniel.jpg', name: 'Daniel' },
 ];
 
-export default function Hero3D({ initial = 0 }: { initial?: number }) {
+export default function Hero3D({ mode }: { mode: HeroMode }) {
   const holder = useRef<HTMLDivElement>(null);
-  const [scene, setScene] = useState(initial);
+  const modeRef = useRef<HeroMode>(mode);
   const [failed, setFailed] = useState(false);
-  const sceneRef = useRef(initial);
 
-  useEffect(() => { sceneRef.current = scene; }, [scene]);
+  useEffect(() => { modeRef.current = mode; }, [mode]);
 
   useEffect(() => {
     let disposed = false;
     let raf = 0;
-    let renderer: import('three').WebGLRenderer | null = null;
     let cleanup: (() => void) | null = null;
     const host = holder.current;
     if (!host) return;
@@ -83,7 +83,6 @@ export default function Hero3D({ initial = 0 }: { initial?: number }) {
       try {
         r = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
       } catch { setFailed(true); return; }
-      renderer = r;
       r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
       r.setSize(W(), H());
       r.domElement.style.display = 'block';
@@ -91,7 +90,7 @@ export default function Hero3D({ initial = 0 }: { initial?: number }) {
 
       const scene3 = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(42, W() / H(), 0.1, 100);
-      camera.position.set(0, 0.2, 9.4);
+      camera.position.set(0, 0.15, 8.9);
 
       const group = new THREE.Group();
       scene3.add(group);
@@ -101,38 +100,47 @@ export default function Hero3D({ initial = 0 }: { initial?: number }) {
 
       const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 
-      // ---- panels ------------------------------------------------------------
-      const COUNT = PANELS.length;
       type Panel = {
         mesh: import('three').Mesh;
+        mat: import('three').MeshBasicMaterial;
+        frameMat: import('three').MeshBasicMaterial;
         pos: import('three').Vector3;
-        rot: import('three').Euler;
         phase: number;
+        group: 'sites' | 'brand';
+        index: number;
       };
       const panels: Panel[] = [];
+
       const geo = new THREE.PlaneGeometry(1.62, 2.03, 1, 1);
+      const frameGeo = new THREE.PlaneGeometry(1.72, 2.13, 1, 1);
 
-      PANELS.forEach((src, i) => {
-        const mat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, side: THREE.DoubleSide });
-        const mesh = new THREE.Mesh(geo, mat);
-        // rounded-ish frame behind the image
-        const frameGeo = new THREE.PlaneGeometry(1.72, 2.13, 1, 1);
-        const frameMat = new THREE.MeshBasicMaterial({ color: 0x1c0f38, transparent: true, opacity: 0, side: THREE.DoubleSide });
-        const frame = new THREE.Mesh(frameGeo, frameMat);
-        frame.position.z = -0.012;
-        mesh.add(frame);
+      const build = (list: { src: string }[], which: 'sites' | 'brand') => {
+        list.forEach((item, i) => {
+          const mat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, side: THREE.DoubleSide });
+          const mesh = new THREE.Mesh(geo, mat);
+          const frameMat = new THREE.MeshBasicMaterial({ color: 0x1c0f38, transparent: true, opacity: 0, side: THREE.DoubleSide });
+          const frame = new THREE.Mesh(frameGeo, frameMat);
+          frame.position.z = -0.012;
+          mesh.add(frame);
 
-        loader.load(src, (tex) => {
-          tex.colorSpace = THREE.SRGBColorSpace;
-          tex.minFilter = THREE.LinearFilter;
-          mat.map = tex;
-          mat.needsUpdate = true;
+          loader.load(item.src, (tex) => {
+            tex.colorSpace = THREE.SRGBColorSpace;
+            tex.minFilter = THREE.LinearFilter;
+            mat.map = tex;
+            mat.needsUpdate = true;
+          });
+
+          panels.push({ mesh, mat, frameMat, pos: new THREE.Vector3(), phase: 0, group: which, index: i });
+          group.add(mesh);
         });
+      };
 
-        const phase = (i / COUNT) * Math.PI * 2;
-        panels.push({ mesh, pos: new THREE.Vector3(), rot: new THREE.Euler(), phase });
-        group.add(mesh);
-      });
+      build(sitePanels(), 'sites');
+      build(BRAND, 'brand');
+
+      const counts = { sites: 0, brand: 0 };
+      panels.forEach((p) => { counts[p.group] += 1; });
+      panels.forEach((p) => { p.phase = (p.index / counts[p.group]) * Math.PI * 2; });
 
       // ---- people ------------------------------------------------------------
       const people: { mesh: import('three').Mesh; mat: import('three').MeshBasicMaterial; base: import('three').Vector3 }[] = [];
@@ -153,15 +161,13 @@ export default function Hero3D({ initial = 0 }: { initial?: number }) {
 
       // ---- state -------------------------------------------------------------
       let rot = 0;
-      let vel = 0.0022;
+      let vel = 0.0024;
       let drag = false;
       let lastX = 0;
       let hover = 0;
       let hoverTarget = 0;
       let time = 0;
       let visible = true;
-      let introStart = performance.now();
-      const clocks = panels.map((_, i) => i * 0.37);
 
       const pointerDown = (e: PointerEvent) => { drag = true; lastX = e.clientX; host.setPointerCapture?.(e.pointerId); };
       const pointerUp = () => { drag = false; };
@@ -186,10 +192,9 @@ export default function Hero3D({ initial = 0 }: { initial?: number }) {
       document.addEventListener('visibilitychange', onVis);
 
       const onResize = () => {
-        if (!renderer) return;
         camera.aspect = W() / H();
         camera.updateProjectionMatrix();
-        renderer.setSize(W(), H());
+        r.setSize(W(), H());
       };
       window.addEventListener('resize', onResize);
 
@@ -200,80 +205,58 @@ export default function Hero3D({ initial = 0 }: { initial?: number }) {
         if (reduce && frameFrozen) return;
 
         time += 0.016;
-        const s = sceneRef.current;
+        const mode = modeRef.current;
         hover += (hoverTarget - hover) * 0.06;
 
-        const intro = Math.min(1, (now - introStart) / 1400);
-
-        // rotation: self-driven, user can throw it
-        if (!drag) vel += (0.0022 - vel) * 0.02;
+        if (!drag) vel += (0.0024 - vel) * 0.02;
         rot += vel;
         group.rotation.y = rot;
 
-        panels.forEach((p, i) => {
-          const m = p.mesh;
-          const mat = m.material as import('three').MeshBasicMaterial;
-          const frameMat = (m.children[0] as import('three').Mesh).material as import('three').MeshBasicMaterial;
-          const clock = clocks[i] + time;
+        // per-mode camera + tilt so the group fills the frame
+        const tilt = mode === 'sites' ? -0.6 : mode === 'brand' ? -0.45 : mode === 'people' ? 0 : -0.16;
+        const camZ = mode === 'sites' ? 7.0 : mode === 'brand' ? 6.35 : mode === 'people' ? 9.2 : 9.6;
+        const camY = mode === 'sites' ? 1.05 : mode === 'brand' ? 0.68 : 0.15;
+        group.rotation.x += (tilt - group.rotation.x) * 0.05;
+        camera.position.z += (camZ - camera.position.z) * 0.04;
+        camera.position.y += (camY - camera.position.y) * 0.05;
+        camera.lookAt(0, mode === 'sites' ? 0.15 : 0, 0);
 
-          if (s === 0) {
-            // RING — a cylinder of work, gently breathing
-            const a = p.phase;
-            const radius = 3.95 + Math.sin(clock * 0.8) * 0.12;
-            const y = Math.sin(p.phase * 3 + time * 0.5) * 0.16;
-            p.pos.set(Math.sin(a) * radius, y, Math.cos(a) * radius);
-            p.rot.set(0, a, 0);
-            m.rotation.set(p.rot.x, p.rot.y, p.rot.z);
-            m.position.copy(p.pos);
-            mat.opacity += (ease(intro) * 0.96 - mat.opacity) * 0.08;
-            frameMat.opacity = mat.opacity * 0.85;
-            m.scale.setScalar(0.86 + ease(intro) * 0.14);
-          } else if (s === 1) {
-            // DISASSEMBLY — the ring breaks into a drifting filmstrip
-            const n = (i - (COUNT - 1) / 2) / COUNT;
-            const x = n * 12.6;
-            const y = Math.sin(clock * 1.1) * 0.34 + (i % 2 ? 0.12 : -0.12);
-            const z = 1.6 - Math.abs(n) * 8.4 + Math.sin(clock * 0.7) * 0.22;
-            p.pos.set(x, y, z);
-            p.rot.set(0, -n * 1.15 + Math.sin(clock * 0.5) * 0.06, -n * 0.06);
-            m.position.lerp(p.pos, 0.06);
-            m.rotation.x += (p.rot.x - m.rotation.x) * 0.07;
-            m.rotation.y += (p.rot.y - m.rotation.y) * 0.07;
-            m.rotation.z += (p.rot.z - m.rotation.z) * 0.07;
-            mat.opacity += (0.95 - mat.opacity) * 0.06;
-            frameMat.opacity = mat.opacity * 0.85;
-            m.scale.setScalar(0.92);
-          } else {
-            // PEOPLE — work recedes, founders come forward
-            const a = p.phase;
-            p.pos.set(Math.sin(a) * 7.2, Math.cos(a) * 1.4, Math.cos(a) * 4.2 - 2.4);
-            p.rot.set(0, a, 0);
-            m.position.lerp(p.pos, 0.05);
-            m.rotation.y += (p.rot.y - m.rotation.y) * 0.05;
-            mat.opacity += (0.1 - mat.opacity) * 0.07;
-            frameMat.opacity = mat.opacity * 0.85;
-            m.scale.setScalar(0.82);
-          }
+        panels.forEach((p) => {
+          const showing = mode === p.group;
+          const a = p.phase + (p.group === 'brand' ? Math.PI / 6 : 0);
+          const radius = p.group === 'sites' ? 3.62 : 2.95;
+          const breathe = Math.sin(time * 0.8 + p.index) * (showing ? 0.1 : 0.35);
+          const targetY = showing ? Math.sin(p.phase * 3 + time * 0.5) * 0.14 : 0;
+          const z = Math.cos(a) * (radius + breathe);
+          const x = Math.sin(a) * (radius + breathe);
+
+          p.pos.set(x, targetY, z);
+          p.mesh.position.lerp(p.pos, showing ? 0.075 : 0.05);
+          p.mesh.rotation.y += (a - p.mesh.rotation.y) * 0.07;
+          p.mesh.rotation.z = showing ? Math.sin(a) * -0.04 : 0;
+
+          const target = showing ? 0.96 : 0;
+          p.mat.opacity += (target - p.mat.opacity) * (showing ? 0.06 : 0.16);
+          p.frameMat.opacity = p.mat.opacity * 0.85;
+          const s = showing ? (p.group === 'brand' ? 1.02 : 0.9) : 0.6;
+          p.mesh.scale.setScalar(p.mesh.scale.x + (s - p.mesh.scale.x) * 0.06);
         });
 
         people.forEach((p, i) => {
-          const on = s === 2;
+          const on = mode === 'people';
           const drift = Math.sin(time * 0.7 + i) * 0.06;
           p.mesh.position.set(p.base.x, p.base.y + drift, p.base.z + (on ? 1.2 : -1.6));
           p.mesh.rotation.y += ((on ? 0 : 0.6) - p.mesh.rotation.y) * 0.06;
           p.mat.opacity += ((on ? 0.97 : 0) - p.mat.opacity) * 0.07;
         });
 
-        group.rotation.x += ((hover * -0.1) - group.rotation.x) * 0.04;
-        camera.position.z += ((s === 1 ? 7.6 : 9.4) - camera.position.z) * 0.03;
-
-        renderer!.render(scene3, camera);
+        renderer_render();
         if (reduce && !frameFrozen) frameFrozen = true;
       };
+      const renderer_render = () => r.render(scene3, camera);
       raf = requestAnimationFrame(tick);
 
       cleanup = () => {
-        cancelAnimationFrame(raf);
         cancelAnimationFrame(raf);
         r.domElement.removeEventListener('pointerdown', pointerDown);
         window.removeEventListener('pointerup', pointerUp);
@@ -297,38 +280,27 @@ export default function Hero3D({ initial = 0 }: { initial?: number }) {
     return () => { disposed = true; cleanup?.(); };
   }, []);
 
-  const s = SCENES[scene];
-
-  return (
-    <div className="stage-wrap">
-      <div className="stage-glow" aria-hidden />
-      {failed ? (
+  if (failed) {
+    return (
+      <div className="stage-wrap">
+        <div className="stage-glow" aria-hidden />
         <div className="stage-fallback">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/img/sites/cirenes-card.webp" alt="A live site built by KR8 Digitals" style={{ width: '78%', borderRadius: 16, border: '1px solid var(--hair)' }} />
         </div>
-      ) : (
-        <div className="stage" ref={holder} role="img" aria-label="A rotating ring of live sites, flyers and films built by KR8 Digitals. Drag to spin." />
-      )}
-
-      <div className="stage-caption">
-        <div className="t">{s.title}</div>
-        <div className="s">{s.sub}</div>
-        <Link href={s.href} className="btn-link" style={{ marginTop: 8, display: 'inline-flex' }}>
-          {s.cta} <span aria-hidden style={{ marginLeft: 6 }}>→</span>
-        </Link>
-        <div className="stage-scenes" role="tablist" aria-label="Hero scenes">
-          {SCENES.map((sc, i) => (
-            <button
-              key={sc.key}
-              role="tab"
-              aria-selected={i === scene}
-              aria-label={sc.title}
-              onClick={() => setScene(i)}
-            />
-          ))}
-        </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="stage-wrap">
+      <div className="stage-glow" aria-hidden />
+      <div
+        className="stage"
+        ref={holder}
+        role="img"
+        aria-label="A rotating ring of live sites and client flyers built by KR8 Digitals. Drag to spin."
+      />
     </div>
   );
 }

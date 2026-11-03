@@ -11,7 +11,12 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot-map">
           <div className="foot-brand">
-            <Link href="/" className="logo">KR8<span className="g" style={{ marginLeft: 7 }}>Digitals</span><span className="sr-only"> — home</span></Link>
+            <Link href="/" className="logo">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="logo__mark" src="/img/brand/kr8-mark-256.webp" alt="" width={38} height={38} />
+              <span className="logo__type">KR8<span className="g" style={{ marginLeft: 7 }}>Digitals</span></span>
+              <span className="sr-only"> — home</span>
+            </Link>
             <p>
               A creative company building websites, brands, films, AI systems and SEO optimisation — and
               training the people who build them next. Work with us, learn with us, or partner with us.

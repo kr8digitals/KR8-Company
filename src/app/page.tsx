@@ -4,7 +4,7 @@ import partners from '../../data/partners.json';
 import programmes from '../../data/programmes.json';
 import team from '../../data/team.json';
 import { Counter, Icon } from '@/components/ui';
-import HeroStage from '@/components/HeroStage';
+import HeroShow from '@/components/HeroShow';
 import ServiceCards from '@/components/ServiceCards';
 import MixedRail from '@/components/MixedRail';
 import Duo from '@/components/Duo';
@@ -31,14 +31,13 @@ export default function Home() {
         </div>
         <div className="wrap">
           <div className="hero-grid">
-            <div>
+            <div className="hero-copy-col">
               <span className="badge"><span className="badge-dot" /> A creative company</span>
               <h1 className="hero-title">
-                <span className="line">Whoever you are,</span>
-                <span className="line">whatever you do,</span>
-                <span className="line text-grad">we exist because of you.</span>
+                <span className="line line--small">Whoever you are…</span>
+                <span className="line line--small">whatever you do…</span>
+                <span className="line line--big text-grad">we exist because of you.</span>
               </h1>
-              <p className="hero-copy">{site.hero.copy}</p>
               <div className="hero-actions">
                 <Link href={site.hero.primary.href} className="btn-primary">
                   {site.hero.primary.label} <Icon name="arrow" size={18} />
@@ -47,14 +46,9 @@ export default function Home() {
                   {site.hero.secondary.label} <span className="arrow-out">↗</span>
                 </a>
               </div>
-              <div className="hero-note">
-                <span>Websites, brand, video, AI and SEO</span><i />
-                <span>{site.proof.sitesLive} sites live</span><i />
-                <span>Free training alongside</span>
-              </div>
             </div>
-            <div>
-              <HeroStage />
+            <div className="hero-stage-col">
+              <HeroShow />
             </div>
           </div>
         </div>

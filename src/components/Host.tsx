@@ -72,11 +72,19 @@ export default function Host() {
     if (!mounted) return;
     const dismissed = sessionStorage.getItem('kr8.welcome.dismissed') === '1';
     if (dismissed) return;
-    const t = setTimeout(() => {
+    // The hero now runs a directed sequence of its own. The welcome waits until
+    // the visitor has moved past it, so the two never fight for the same corner.
+    let done = false;
+    const arm = () => {
+      if (done) return;
+      done = true;
       setWelcome(true);
       track('host_welcome_shown');
-    }, 6500);
-    return () => clearTimeout(t);
+    };
+    const onScroll = () => { if (window.scrollY > window.innerHeight * 0.75) arm(); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const t = setTimeout(arm, 45000);
+    return () => { window.removeEventListener('scroll', onScroll); clearTimeout(t); };
   }, [mounted]);
 
   useEffect(() => {
@@ -244,7 +252,7 @@ export default function Host() {
       {!open && (
         <button className="host-launcher" onClick={() => openPanel()} aria-label={`Ask ${HOST.name} — open the chat panel`}>
           <span className="host-launcher__ava"><Avatar size={18} /></span>
-          <span>Ask {HOST.name}</span>
+          <span className="host-launcher__label">Ask {HOST.name}</span>
           <span className="host-launcher__dot" />
         </button>
       )}

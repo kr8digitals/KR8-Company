@@ -59,7 +59,10 @@ export default function Header() {
         <div className="scroll-progress" ref={barRef} aria-hidden />
         <nav className="nav" aria-label="Primary">
           <Link href="/" className="logo">
-            KR8<span className="g" style={{ marginLeft: 7 }}>Digitals</span><span className="sr-only"> — home</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="logo__mark" src="/img/brand/kr8-mark-256.webp" alt="" width={34} height={34} />
+            <span className="logo__type">KR8<span className="g" style={{ marginLeft: 7 }}>Digitals</span></span>
+            <span className="sr-only"> — home</span>
           </Link>
 
           <div className="nav-links">
