@@ -23,7 +23,8 @@ export default function BuySite({ siteId, name, priceUsd }: { siteId: string; na
       const data = await res.json();
       if (!data.ok) { setErr(data.error || 'Could not create the order.'); setState('idle'); return; }
       setRef(data.reference); setState('done');
-      window.location.href = `/order/${data.reference}`;
+      const q = data.token ? `?t=${encodeURIComponent(data.token)}` : '';
+      window.location.href = `/order/${data.reference}${q}`;
     } catch { setErr('Network problem. Try again.'); setState('idle'); }
   }
 

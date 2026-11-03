@@ -3,6 +3,7 @@ import { store, newId } from '@/lib/store';
 import { getRates } from '@/lib/rates';
 import { activeProvider } from '@/lib/payments';
 import { sendMail, row, shell } from '@/lib/notify';
+import { signOrder } from '@/lib/order-token';
 
 export const runtime = 'nodejs';
 
@@ -49,5 +50,11 @@ export async function POST(req: Request) {
     ].join(''), 'Confirm the transfer in the dashboard once the money lands.'),
   });
 
-  return NextResponse.json({ ok: true, reference: ref, amountUsd, amountNgn });
+  const token = signOrder({
+    id: order.id, reference: ref, item, amountUsd, amountNgn,
+    name: String(body.name || ''), email: String(body.email || ''),
+    note: String(body.note || ''), createdAt: order.createdAt,
+  });
+
+  return NextResponse.json({ ok: true, reference: ref, amountUsd, amountNgn, token });
 }

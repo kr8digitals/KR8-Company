@@ -5,13 +5,26 @@ import { store } from '@/lib/store';
 import { activeProvider } from '@/lib/payments';
 import site from '../../../../data/site.json';
 import { Icon } from '@/components/ui';
+import { verifyOrder } from '@/lib/order-token';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: 'Your order', robots: { index: false, follow: false } };
 
-export default async function OrderPage({ params }: { params: Promise<{ ref: string }> }) {
+export default async function OrderPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ ref: string }>;
+  searchParams: Promise<{ t?: string }>;
+}) {
   const { ref } = await params;
-  const order = await store.findOne('orders', { reference: ref });
+  const { t } = await searchParams;
+
+  const stored = await store.findOne('orders', { reference: ref });
+  // The link carries its own signed copy of the order, so a transfer page can
+  // always render even if the record is not readable from this instance.
+  const signed = stored ? null : verifyOrder(t);
+  const order = stored || (signed && signed.reference === ref ? signed : null);
   if (!order) notFound();
 
   const intent = activeProvider().create({
