@@ -2,15 +2,14 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import services from '../../../../data/services.json';
+import { getSettings } from '@/lib/settings';
 import site from '../../../../data/site.json';
 import PageHero, { ClosingCTA } from '@/components/PageHero';
 import { Icon, Price, WhatsAppLink } from '@/components/ui';
 import Showcase from '@/components/Showcase';
 import Duo from '@/components/Duo';
 
-export function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -66,7 +65,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const art = HERO_ART[s.slug];
   const g = GALLERY_TITLE[s.slug];
-  const display = site.settings.publicPriceDisplay;
+  const display = (await getSettings()).publicPriceDisplay;
 
   return (
     <>

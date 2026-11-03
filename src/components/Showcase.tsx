@@ -312,7 +312,7 @@ export default function Showcase({
                           </div>
                         </div>
                       </div>
-                      <BuySite siteId={open.item.slug} name={open.item.name} priceUsd={open.item.priceUsd} />
+                      <BuySite siteId={open.item.slug} name={open.item.name} priceUsd={open.item.priceUsd} approved={showPrices && ready} />
                       <p className="form-note" style={{ marginTop: 10 }}>
                         You get the site, its code and its deployment, rebranded with your name and moved to
                         your domain. Payment is by bank transfer or Paystack — both are handled on the next

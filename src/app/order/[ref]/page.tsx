@@ -27,6 +27,8 @@ export default async function OrderPage({
   const order = stored || (signed && signed.reference === ref ? signed : null);
   if (!order) notFound();
 
+  const pricesPublic = Boolean((site as any).settings?.publicPriceDisplay);
+
   const intent = activeProvider().create({
     id: order.id, reference: order.reference, amountUsd: order.amountUsd,
     amountNgn: order.amountNgn, note: order.note || '',
@@ -42,15 +44,18 @@ export default async function OrderPage({
               Transfer to finish.
             </h1>
             <p className="lede" style={{ marginTop: 14 }}>
-              {order.item} — <b style={{ color: '#fff' }}>${order.amountUsd.toLocaleString('en-US')}</b>
+              {order.item} —{' '}
+              {pricesPublic
+                ? <b style={{ color: '#fff' }}>${order.amountUsd.toLocaleString('en-US')}</b>
+                : <b style={{ color: '#fff' }}>price confirmed with you before transfer</b>}
             </p>
             <div className="panel" style={{ padding: 26, marginTop: 28 }}>
-              {intent.fields.map((f) => (
+              {intent.fields.filter((f) => pricesPublic || !/amount/i.test(f.label)).map((f) => (
                 <div className="kv" key={f.label}><span>{f.label}</span><span><b style={{ color: '#fff' }}>{f.value}</b></span></div>
               ))}
             </div>
             <ol className="price-list" style={{ marginTop: 26 }}>
-              {intent.instructions.map((i) => <li key={i}><Icon name="check" size={15} /> <span>{i}</span></li>)}
+              {(pricesPublic ? intent.instructions : ['The team confirms the exact figure with you on WhatsApp before you transfer anything.', ...intent.instructions]).map((i) => <li key={i}><Icon name="check" size={15} /> <span>{i}</span></li>)}
             </ol>
             <div style={{ display: 'flex', gap: 12, marginTop: 26, flexWrap: 'wrap' }}>
               <a className="btn-primary" href={`https://wa.me/${site.company.whatsapp}?text=${encodeURIComponent(`Receipt for order ${order.reference}`)}`} target="_blank" rel="noopener noreferrer">

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Icon } from './ui';
 
-export default function BuySite({ siteId, name, priceUsd }: { siteId: string; name: string; priceUsd: number }) {
+export default function BuySite({ siteId, name, priceUsd, approved = false }: { siteId: string; name: string; priceUsd: number; approved?: boolean }) {
   const [state, setState] = useState<'idle' | 'busy' | 'done'>('idle');
   const [ref, setRef] = useState('');
   const [err, setErr] = useState('');
@@ -40,10 +40,16 @@ export default function BuySite({ siteId, name, priceUsd }: { siteId: string; na
       <div className="field"><label htmlFor="bnote">Anything we should know?</label><input id="bnote" name="note" className="input" placeholder="Business name, colours, when you need it" /></div>
       {err && <div className="form-status err">{err}</div>}
       <button className="btn-primary btn-sm" type="submit" disabled={state === 'busy'} style={{ justifySelf: 'start' }}>
-        {state === 'busy' ? <><span className="spinner" /> Creating…</> : <>Reserve for ${priceUsd} <Icon name="arrow" size={15} /></>}
+        {state === 'busy'
+          ? <><span className="spinner" /> Creating…</>
+          : approved
+            ? <>Reserve for ${priceUsd} <Icon name="arrow" size={15} /></>
+            : <>Reserve this build <Icon name="arrow" size={15} /></>}
       </button>
       <p style={{ fontSize: 11.5, color: 'var(--t-faint)' }}>
-        This creates an order with transfer instructions. Nothing is charged automatically.
+        {approved
+          ? 'This creates an order with transfer instructions. Nothing is charged automatically.'
+          : 'The team confirms the exact figure with you before anything is transferred. Nothing is charged automatically.'}
       </p>
     </form>
   );

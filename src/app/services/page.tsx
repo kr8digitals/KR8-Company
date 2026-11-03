@@ -2,11 +2,14 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import services from '../../../data/services.json';
 import sitesData from '../../../data/sites.json';
+import { getSettings } from '@/lib/settings';
 import site from '../../../data/site.json';
 import PageHero, { ClosingCTA } from '@/components/PageHero';
 import { Icon } from '@/components/ui';
 import Showcase from '@/components/Showcase';
 import Duo from '@/components/Duo';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Services — websites, brand, video, AI and SEO',
@@ -23,7 +26,8 @@ const QUESTIONS = [
   { q: 'We answer the same question all day.', a: 'AI & automation', href: '/services/ai-automation' },
 ];
 
-export default function ServicesIndex() {
+export default async function ServicesIndex() {
+  const settings = await getSettings();
   const { sitesForSale, sitesLive } = site.proof;
   return (
     <>
@@ -108,7 +112,7 @@ export default function ServicesIndex() {
             </div>
             <Link href="/services/website-design" className="btn-link">Website service <Icon name="arrow" size={15} /></Link>
           </div>
-          <Showcase mode="sites" showPrices={site.settings.publicPriceDisplay} />
+          <Showcase mode="sites" showPrices={settings.publicPriceDisplay} />
         </div>
       </section>
 
