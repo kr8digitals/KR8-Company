@@ -29,7 +29,7 @@ export default function ServicesIndex() {
     <>
       <PageHero
         eyebrow="Services"
-        title={<>Five things we build.<br /><span className="text-grad">All of them already built.</span></>}
+        title={<>Already built.<br /><span className="text-grad">Pick the one you need.</span></>}
         lede="We are not going to describe the work and ask you to imagine it. Every service below has live proof attached: websites running on their own domains, flyers designed for named clients, films that play on this page, and systems you can press."
         aside={
           <div className="panel" style={{ minWidth: 280 }}>

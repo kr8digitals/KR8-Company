@@ -362,7 +362,7 @@ export function openers(state: HostState): HostReply {
     case 'exploring':
       return {
         state: 'exploring',
-        say: `Then wander — but let me point first. KR8 is five things under one roof. Which one should I open?`,
+        say: `Then wander — but let me point first. Everything KR8 builds is real work you can open. Which one should I show you?`,
         chips: SKILL_CHIPS,
       };
     default:

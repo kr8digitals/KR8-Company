@@ -125,7 +125,7 @@ export default function Home() {
               <div className="eyebrow">Services</div>
               <h2 className="section-title">What we build for clients</h2>
               <p className="section-lede">
-                Five things, one company, one standard. Every card below is a real piece of work you can open
+                One company, one standard. Every card below is a real piece of work you can open
                 — a live site, a client flyer, a film that plays, a working system.
               </p>
             </div>

@@ -238,7 +238,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       <ClosingCTA
         title="Not this one?"
-        copy="Five services, one company. If the thing you need is on another page, open it here."
+        copy="Not this one? Every other service is open. If the thing you need lives on another page, open it here."
         cta="All services"
         href="/services"
         secondary={{ label: 'See the portfolio', href: '/services/website-design#portfolio' }}
