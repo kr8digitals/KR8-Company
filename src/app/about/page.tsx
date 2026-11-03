@@ -10,7 +10,7 @@ import Duo from '@/components/Duo';
 export const metadata: Metadata = {
   title: 'About — the company, the people, the reason it exists',
   description:
-    'KR8 Digitals is a creative company that builds websites, brands, films, AI systems and search visibility — and trains the people who build them next. Meet the founders and the team behind it.',
+    'KR8 Digitals is a creative company that builds websites, brands, films, AI systems and SEO optimisation — and trains the people who build them next. Meet the founders and the team behind it.',
   alternates: { canonical: '/about' },
 };
 

@@ -22,7 +22,7 @@ export default function Partners() {
       <PageHero
         eyebrow="Partners"
         title={<>We do not<br /><span className="text-grad">build alone.</span></>}
-        lede="Every partner on this page is named, their contribution is stated, and the record of it exists in the work. Nothing here is a logo wall — it is a list of people who did something specific."
+        lede="Every partner on this page is named, their contribution is stated, and the record of it exists in the work. Every line on it is a record of people who did something specific."
         aside={
           <div className="grid" style={{ gap: 12 }}>
             <div className="logo-slot">

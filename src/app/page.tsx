@@ -18,7 +18,7 @@ const progs = programmes.programmes;
 export const metadata = {
   title: 'KR8 Digitals — Whoever you are, whatever you do, we exist because of you.',
   description:
-    'KR8 Digitals designs and builds websites, brands, films, AI systems and search visibility for organisations that need to be found, trusted and chosen.',
+    'KR8 Digitals designs and builds websites, brands, films, AI systems and SEO optimisation for organisations that need to be found, trusted and chosen.',
 };
 
 export default function Home() {

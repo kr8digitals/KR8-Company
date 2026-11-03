@@ -42,7 +42,7 @@ export default async function OG() {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
           <div style={{ fontSize: 24, color: '#b9aece' }}>
-            1,200+ trained · 7 tracks · tuition-free
+            1,200+ trained · 22 sites shipped · 7 tracks
           </div>
           <div style={{ fontSize: 24, color: '#b9aece' }}>kr8digitals.com</div>
         </div>
