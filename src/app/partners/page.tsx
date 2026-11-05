@@ -9,7 +9,7 @@ import WaysToPartner from '@/components/WaysToPartner';
 export const metadata: Metadata = {
   title: 'Partners — we do not build alone',
   description:
-    'Motionverse and CHIGOMA are two separate brands, both partners of KR8 Digitals. Next Gen Scholars runs the academic door. Four ways to partner: teach, fund, hire or host.',
+    'Motionverse and CHIGOMA are co-founders of KR8 Digitals. Next Gen Scholars runs the academic door. Four ways to partner: teach, fund, hire or host.',
   alternates: { canonical: '/partners' },
 };
 

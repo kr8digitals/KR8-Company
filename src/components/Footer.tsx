@@ -14,8 +14,6 @@ export default function Footer() {
             <Link href="/" className="logo">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="logo__mark" src="/img/brand/kr8-mark-256.webp" alt="" width={38} height={38} />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="logo__mark" src={site.company.mark} alt="" width={40} height={40} />
               <span className="logo__type">KR8<span className="g" style={{ marginLeft: 7 }}>Digitals</span></span>
               <span className="sr-only"> — home</span>
             </Link>
@@ -24,7 +22,7 @@ export default function Footer() {
               training the people who build them next. Work with us, learn with us, or partner with us.
             </p>
             <div className="foot-parent" style={{ marginTop: 16 }}>
-              <b>KR8 Digitals</b> · {site.company.email}<br /><span className="foot-tagline">{site.company.tagline}</span>
+              <b>KR8 Digitals</b> · {site.company.email}
             </div>
             <div className="foot-socials">
               {site.company.socials.filter((s) => s.href).map((s) => (

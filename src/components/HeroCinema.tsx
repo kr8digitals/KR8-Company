@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import './hero-cinema.css';
 import sitesData from '../../data/sites.json';
 import services from '../../data/services.json';
 import programmes from '../../data/programmes.json';
@@ -176,9 +175,8 @@ export default function HeroCinema() {
             <span className="cine__mark-ring" />
             <span className="cine__mark-ring cine__mark-ring--2" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/img/brand/kr8-mark.webp" alt="" width={300} height={300} />
+            <img src="/img/brand/kr8-mark.webp" alt="" width={260} height={260} />
             <span className="cine__mark-word">KR8<span>Digitals</span></span>
-            <span className="cine__mark-tagline">Think it. KR8 it.</span>
           </div>
         )}
 

@@ -26,7 +26,7 @@ export default async function OG() {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={mark} width={96} height={96} alt="" />
+          <img src={mark} width={72} height={72} alt="" />
           <div style={{ display: 'flex', fontSize: 30, fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
             <div style={{ display: 'flex' }}>KR8</div>
             <div style={{ display: 'flex', color: '#ff6ab8', marginLeft: 10 }}>Digitals</div>
@@ -47,10 +47,7 @@ export default async function OG() {
           <div style={{ fontSize: 24, color: '#b9aece' }}>
 22 sites deployed · 6 client flyers · 4 films · 1,200+ trained
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-            <div style={{ fontSize: 26, color: '#f5d78e', fontWeight: 700, letterSpacing: '-0.01em' }}>Think it. KR8 it.</div>
-            <div style={{ fontSize: 22, color: '#b9aece', marginTop: 4 }}>kr8digitals.com</div>
-          </div>
+          <div style={{ fontSize: 24, color: '#b9aece' }}>kr8digitals.com</div>
         </div>
       </div>
     ),
