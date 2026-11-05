@@ -5,6 +5,7 @@ import Link from 'next/link';
 import sitesData from '../../data/sites.json';
 import services from '../../data/services.json';
 import programmes from '../../data/programmes.json';
+import './plates-motion.css';
 
 /* ----------------------------------------------------------------------------
  * The hero is the hook.
@@ -152,9 +153,15 @@ export default function HeroCinema() {
           <div
             key={p}
             className={`cine__plate cine__plate--${p}${current.plate === p ? ' is-on' : ''}`}
-            style={{ backgroundImage: `url(/img/hero/plate-${p}.webp)` }}
             aria-hidden
-          />
+          >
+            {/* three layers, each moved for what the plate is made of:
+                base (the room), depth (haze / shards / bokeh / travel),
+                and fx (rim glow, flares, caustics, dust). */}
+            <span className="pl pl--base" style={{ backgroundImage: `url(/img/hero/plate-${p}.webp)` }} />
+            <span className="pl pl--depth" style={{ backgroundImage: `url(/img/hero/plate-${p}.webp)` }} />
+            <span className="pl pl--fx" />
+          </div>
         ))}
         <div className="cine__sweep" aria-hidden />
         <div className="cine__grain" aria-hidden />

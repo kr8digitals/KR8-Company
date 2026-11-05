@@ -1,0 +1,303 @@
+/* ============================================================================
+   Animated background plates
+   ----------------------------------------------------------------------------
+   Each plate is three layers, and each layer animates the thing that plate is
+   actually made of:
+
+     rays   haze drifting, dust in the air, magenta/violet rim glow, one soft
+            anamorphic flare crossing the frame
+     glass  shards floating at different depths, rim light sliding across the
+            edges, prismatic caustics breathing
+     bokeh  shallow focus breathing, two anamorphic streaks drifting apart,
+            magenta bloom pulsing
+     tunnel the corridor travelled forwards, not drifted: two copies run half a
+            cycle apart so the move never jumps back
+
+   Rules held: transform/opacity only (compositor work), no layout, no colour
+   or type changes, everything stops under prefers-reduced-motion, and layers
+   on plates that are not on screen are paused so nothing burns a CPU.
+   ========================================================================== */
+
+/* the container no longer carries the picture itself */
+.cine__plate { background-image: none; }
+.cine__plate.is-on { animation: none; }
+
+.cine__plate .pl {
+  position: absolute;
+  inset: -9%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* the fx layer paints light, never the picture */
+.cine__plate .pl--fx {
+  inset: 0;
+  background-size: auto;
+  mix-blend-mode: screen;
+}
+
+/* pause everything that is not on screen */
+.cine__plate:not(.is-on) .pl,
+.cine__plate:not(.is-on) .pl::before,
+.cine__plate:not(.is-on) .pl::after {
+  animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   1 · RAYS — volumetric shafts, haze, dust, rim glow, one anamorphic flare
+   -------------------------------------------------------------------------- */
+.cine__plate--rays .pl--base {
+  animation: raysRoom 26s ease-in-out infinite alternate;
+}
+@keyframes raysRoom {
+  from { transform: scale(1.04) translate3d(-1%, .6%, 0); }
+  to   { transform: scale(1.16) translate3d(1.6%, -1.2%, 0); }
+}
+
+/* the haze sits above the room and slides the other way, so the shafts
+   read as moving through air rather than as a picture being panned */
+.cine__plate--rays .pl--depth {
+  opacity: .24;
+  filter: blur(1.5px);
+  mix-blend-mode: screen;
+  animation: raysHaze 30s ease-in-out infinite alternate;
+}
+@keyframes raysHaze {
+  from { transform: scale(1.28) translate3d(2.2%, -1.2%, 0) rotate(.4deg); }
+  to   { transform: scale(1.44) translate3d(-2.6%, 1.6%, 0) rotate(-.5deg); }
+}
+
+/* magenta low-left, violet high-right, breathing slowly */
+.cine__plate--rays .pl--fx {
+  background:
+    radial-gradient(56% 46% at 16% 80%, rgba(255, 42, 150, .45), transparent 70%),
+    radial-gradient(52% 44% at 84% 20%, rgba(140, 60, 255, .36), transparent 72%);
+  animation: raysGlow 12s ease-in-out infinite alternate;
+}
+@keyframes raysGlow {
+  from { opacity: .34; transform: scale(1) translate3d(0, 0, 0); }
+  to   { opacity: .60; transform: scale(1.05) translate3d(0, -1%, 0); }
+}
+
+/* soft anamorphic flare — a thin hot band that crosses once in a while */
+.cine__plate--rays .pl--fx::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 38%;
+  width: 46%; height: 2px;
+  background: linear-gradient(90deg,
+    rgba(255, 150, 225, 0) 0%,
+    rgba(255, 150, 225, .55) 42%,
+    rgba(255, 210, 245, .9) 52%,
+    rgba(255, 150, 225, 0) 100%);
+  filter: blur(6px);
+  transform: translate3d(-120%, 0, 0) rotate(-2deg);
+  animation: raysFlare 17s ease-in-out infinite;
+}
+@keyframes raysFlare {
+  0%, 34%   { opacity: 0;   transform: translate3d(-120%, 0, 0) rotate(-2deg) scaleX(.7); }
+  42%       { opacity: .85; }
+  62%       { opacity: .30; transform: translate3d(150%, 0, 0) rotate(-2deg) scaleX(1.5); }
+  63%, 100% { opacity: 0;   transform: translate3d(150%, 0, 0) rotate(-2deg) scaleX(1.5); }
+}
+
+/* dust: a tiled dot field translated by exactly one tile, so it loops unseen */
+.cine__plate--rays .pl--fx::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background-image: radial-gradient(circle, rgba(255, 226, 248, .55) 0 1px, transparent 1.6px);
+  background-size: 148px 148px;
+  opacity: .30;
+  animation: raysDust 44s linear infinite;
+}
+@keyframes raysDust {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-148px, 148px, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   2 · GLASS — shards floating at depth, rim light crossing the edges
+   -------------------------------------------------------------------------- */
+.cine__plate--glass .pl--base {
+  animation: glassRoom 24s ease-in-out infinite alternate;
+}
+@keyframes glassRoom {
+  from { transform: scale(1.05) rotate(-.7deg) translate3d(-.8%, .5%, 0); }
+  to   { transform: scale(1.13) rotate(.9deg) translate3d(1.2%, -1%, 0); }
+}
+
+/* the shards lift off the black and slide against the room behind them */
+.cine__plate--glass .pl--depth {
+  opacity: .38;
+  mix-blend-mode: screen;
+  animation: glassShards 19s ease-in-out infinite alternate;
+}
+@media (min-width: 641px) {
+  .cine__plate--glass .pl--depth { filter: blur(1.5px); }
+}
+@keyframes glassShards {
+  from { transform: scale(1.20) translate3d(2.6%, -1.8%, 0) rotate(-.3deg); }
+  to   { transform: scale(1.30) translate3d(-2.4%, 2%, 0) rotate(.4deg); }
+}
+
+/* prismatic caustics: magenta and violet thrown across the dark */
+.cine__plate--glass .pl--fx {
+  background:
+    conic-gradient(from 18deg at 62% 42%,
+      rgba(255, 60, 180, 0) 0deg,
+      rgba(255, 60, 180, .22) 60deg,
+      rgba(120, 70, 255, .18) 130deg,
+      rgba(255, 60, 180, 0) 210deg),
+    radial-gradient(48% 40% at 30% 72%, rgba(150, 60, 255, .28), transparent 72%);
+  animation: glassCaustic 11s ease-in-out infinite alternate;
+}
+@keyframes glassCaustic {
+  from { opacity: .42; transform: scale(1.02) translate3d(0, 0, 0); }
+  to   { opacity: .78; transform: scale(1.09) translate3d(-1.2%, .8%, 0); }
+}
+
+/* a specular glint running down the glass, then a pause */
+.cine__plate--glass .pl--fx::before {
+  content: '';
+  position: absolute;
+  top: -30%; left: 12%;
+  width: 22%; height: 160%;
+  background: linear-gradient(100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 220, 250, .30) 45%,
+    rgba(255, 120, 210, .22) 55%,
+    rgba(255, 255, 255, 0) 100%);
+  transform: translate3d(-160%, 0, 0) rotate(8deg);
+  animation: glassGlint 9.5s ease-in-out infinite;
+}
+@keyframes glassGlint {
+  0%, 46%   { opacity: 0;   transform: translate3d(-160%, 0, 0) rotate(8deg); }
+  54%       { opacity: .9; }
+  70%       { opacity: .35; transform: translate3d(420%, 0, 0) rotate(8deg); }
+  71%, 100% { opacity: 0;   transform: translate3d(420%, 0, 0) rotate(8deg); }
+}
+
+/* --------------------------------------------------------------------------
+   3 · BOKEH — shallow focus breathing, anamorphic streaks, bloom
+   -------------------------------------------------------------------------- */
+.cine__plate--bokeh .pl--base {
+  transform-origin: 50% 56%;
+  animation: bokehFocus 15s ease-in-out infinite alternate;
+}
+@keyframes bokehFocus {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.10); }
+}
+@media (min-width: 641px) {
+  .cine__plate--bokeh .pl--base { filter: brightness(.86) saturate(1.04); }
+}
+
+/* the out-of-focus lights drift further than the sharp ones: that is what
+   makes the depth read as shallow */
+.cine__plate--bokeh .pl--depth {
+  opacity: .30;
+  mix-blend-mode: screen;
+  animation: bokehDrift 23s ease-in-out infinite alternate;
+}
+@media (min-width: 641px) {
+  .cine__plate--bokeh .pl--depth { filter: blur(3px); }
+}
+@keyframes bokehDrift {
+  from { transform: scale(1.24) translate3d(-2.4%, 1.2%, 0); }
+  to   { transform: scale(1.34) translate3d(2.6%, -1.6%, 0); }
+}
+
+.cine__plate--bokeh .pl--fx {
+  background:
+    radial-gradient(46% 38% at 72% 28%, rgba(255, 70, 190, .32), transparent 70%),
+    radial-gradient(44% 36% at 24% 68%, rgba(120, 60, 255, .28), transparent 72%);
+  animation: bokehBloom 16s ease-in-out infinite alternate;
+}
+@keyframes bokehBloom {
+  from { opacity: .30; transform: scale(1); }
+  to   { opacity: .55; transform: scale(1.06); }
+}
+
+/* two anamorphic streaks, opposite directions, different speeds */
+.cine__plate--bokeh .pl--fx::before,
+.cine__plate--bokeh .pl--fx::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 40%; height: 2px;
+  filter: blur(7px);
+}
+.cine__plate--bokeh .pl--fx::before {
+  top: 30%;
+  background: linear-gradient(90deg, transparent, rgba(255, 120, 210, .55), transparent);
+  animation: bokehStreakA 21s ease-in-out infinite;
+}
+.cine__plate--bokeh .pl--fx::after {
+  top: 66%; height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(160, 90, 255, .5), transparent);
+  animation: bokehStreakB 27s ease-in-out infinite;
+}
+@keyframes bokehStreakA {
+  0%   { opacity: .0; transform: translate3d(-110%, 0, 0) scaleX(.6); }
+  20%  { opacity: .8; }
+  55%  { opacity: .25; transform: translate3d(240%, 0, 0) scaleX(1.5); }
+  56%, 100% { opacity: 0; transform: translate3d(240%, 0, 0) scaleX(1.5); }
+}
+@keyframes bokehStreakB {
+  0%, 25%   { opacity: 0; transform: translate3d(250%, 0, 0) scaleX(1.2); }
+  40%       { opacity: .7; }
+  75%       { opacity: .2; transform: translate3d(-120%, 0, 0) scaleX(.7); }
+  76%, 100% { opacity: 0; transform: translate3d(-120%, 0, 0) scaleX(.7); }
+}
+
+/* --------------------------------------------------------------------------
+   4 · TUNNEL — the corridor is travelled, not drifted
+   -------------------------------------------------------------------------- */
+/* one layer, pushed forward and eased back. Two overlapping copies of a
+   corridor always leave a seam where they cross; this never does. */
+.cine__plate--tunnel .pl--depth { display: none; }
+.cine__plate--tunnel .pl--base {
+  transform-origin: 50% 52%;
+  animation: tunnelPush 14s ease-in-out infinite alternate;
+}
+@keyframes tunnelPush {
+  from { transform: scale(1); }
+  to   { transform: scale(1.30); }
+}
+
+/* the fog in the corridor pulses, so the neon lines appear to breathe */
+.cine__plate--tunnel .pl--fx {
+  background:
+    radial-gradient(42% 34% at 50% 50%, rgba(255, 50, 190, .30), transparent 72%),
+    radial-gradient(60% 60% at 50% 50%, transparent 38%, rgba(70, 20, 110, .45) 100%);
+  animation: tunnelFog 8s ease-in-out infinite alternate;
+}
+@keyframes tunnelFog {
+  from { opacity: .55; transform: scale(1); }
+  to   { opacity: .9;  transform: scale(1.05); }
+}
+
+/* --------------------------------------------------------------------------
+   Restraint
+   -------------------------------------------------------------------------- */
+/* phones: drop the blurs and the dust so the film stays smooth */
+@media (max-width: 640px) {
+  .cine__plate .pl { filter: none !important; }
+  .cine__plate--rays .pl--fx::after { display: none; }
+  .cine__plate--bokeh .pl--depth,
+  .cine__plate--glass .pl--depth { opacity: .3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine__plate .pl,
+  .cine__plate .pl::before,
+  .cine__plate .pl::after {
+    animation: none !important;
+  }
+  .cine__plate--tunnel .pl--base { opacity: 1; transform: scale(1.08); }
+}
