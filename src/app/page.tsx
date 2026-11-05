@@ -119,7 +119,7 @@ export default function Home() {
                 clients, films cut from real footage. Open one and judge the thing itself.
               </p>
             </div>
-            <Link href="/services#websites" className="btn-link">
+            <Link href="/services/website-design#portfolio" className="btn-link">
               Full portfolio <Icon name="arrow" size={15} />
             </Link>
           </div>
