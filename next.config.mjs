@@ -14,6 +14,7 @@ const nextConfig = {
       { source: '/blog', destination: '/about', permanent: true },
       { source: '/gallery', destination: '/services/brand-graphic-design', permanent: true },
       { source: '/verify', destination: 'https://academy.kr8digitals.com/verify', permanent: true },
+      { source: '/partners/motion-verse', destination: '/partners/motionverse', permanent: true },
     ];
   },
 };

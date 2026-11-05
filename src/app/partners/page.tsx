@@ -9,13 +9,13 @@ import WaysToPartner from '@/components/WaysToPartner';
 export const metadata: Metadata = {
   title: 'Partners — we do not build alone',
   description:
-    'Motion Verse and CHIGOMA are co-founders of KR8 Digitals. Next Gen Scholars runs the academic door. Four ways to partner: teach, fund, hire or host.',
+    'Motionverse and CHIGOMA are co-founders of KR8 Digitals. Next Gen Scholars runs the academic door. Four ways to partner: teach, fund, hire or host.',
   alternates: { canonical: '/partners' },
 };
 
 export default function Partners() {
-  const coFounders = partners.filter((p) => p.group === 'co-founders');
-  const rest = partners.filter((p) => p.group !== 'co-founders');
+  const coFounders = partners.filter((p) => p.group === 'co-founder');
+  const rest = partners.filter((p) => p.group !== 'co-founder');
 
   return (
     <>
@@ -25,11 +25,13 @@ export default function Partners() {
         lede="Every partner on this page is named, their contribution is stated, and the record of it exists in the work. Every line on it is a record of people who did something specific."
         aside={
           <div className="grid" style={{ gap: 12 }}>
-            <div className="logo-slot">
-              <span className="logo-slot__mark">{coFounders.map((p) => p.mark).join(' · ')}</span>
-              <b>{coFounders.map((p) => p.name).join(' + ')}</b>
-              <small>Co-founding group</small>
-            </div>
+            {coFounders.map((p) => (
+              <div className="logo-slot" key={p.slug}>
+                <span className="logo-slot__mark">{p.mark}</span>
+                <b>{p.name}</b>
+                <small>Co-founder</small>
+              </div>
+            ))}
             {rest.map((p) => (
               <div className="logo-slot" key={p.slug}>
                 <span className="logo-slot__mark">{p.mark}</span>
@@ -48,8 +50,8 @@ export default function Partners() {
             <div className="eyebrow">How a partnership is recorded here</div>
             <p className="prose-lg" style={{ marginTop: 14 }}>
               A partner is a named person with a stated contribution and a record you can check. Not a logo.
-              Motion Verse and CHIGOMA are co-founders — they made the company and they make the work.
-              Next Gen Scholars runs the academic door. If a partner&rsquo;s contribution is not documented
+              Motionverse and CHIGOMA are two separate brands and both are partners here. Next Gen Scholars
+              runs the academic door. If a partner&rsquo;s contribution is not documented
               yet, this page says so instead of inventing one.
             </p>
           </div>
@@ -61,11 +63,11 @@ export default function Partners() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Co-founding group</div>
-              <h2 className="section-title">Motion Verse + CHIGOMA</h2>
+              <div className="eyebrow">Partners</div>
+              <h2 className="section-title">Motionverse and CHIGOMA</h2>
               <p className="section-lede">
-                Two practices, one co-founding pair. Design and video, credited on the work, teaching the
-                crafts inside the free training.
+                Two different brands partnering with KR8 Digitals — one for design, one for video. Each is
+                credited on its own work and each teaches its own craft inside the free training.
               </p>
             </div>
           </div>
@@ -179,7 +181,7 @@ export default function Partners() {
           </>
         }
         media={[
-          { src: '/img/brand/presco-trip-full.webp', alt: 'Event artwork made in association with Motion Verse', caption: 'Event work · Motion Verse' },
+          { src: '/img/brand/presco-trip-full.webp', alt: 'Event artwork made in association with Motionverse', caption: 'Event work · Motionverse' },
           { src: '/img/sites/prime-stem-full.webp', alt: 'Prime STEM Nigeria — a partner programme site' },
         ]}
         cta={{ label: 'Tell us what you can bring', href: '/contact?partner=1' }}

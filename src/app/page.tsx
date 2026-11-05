@@ -4,15 +4,15 @@ import partners from '../../data/partners.json';
 import programmes from '../../data/programmes.json';
 import team from '../../data/team.json';
 import { Counter, Icon } from '@/components/ui';
-import HeroShow from '@/components/HeroShow';
+import HeroCinema from '@/components/HeroCinema';
 import ServiceCards from '@/components/ServiceCards';
 import MixedRail from '@/components/MixedRail';
 import Duo from '@/components/Duo';
 import VisitorSelector from '@/components/VisitorSelector';
 
 const eco = site.ecosystem;
-const coFounders = partners.filter((p) => p.group === 'co-founders');
-const others = partners.filter((p) => p.group !== 'co-founders');
+const coFounders = partners.filter((p) => p.group === 'co-founder');
+const others = partners.filter((p) => p.group !== 'co-founder');
 const progs = programmes.programmes;
 
 export const metadata = {
@@ -48,7 +48,7 @@ export default function Home() {
               </div>
             </div>
             <div className="hero-stage-col">
-              <HeroShow />
+              <HeroCinema />
             </div>
           </div>
         </div>
@@ -67,34 +67,6 @@ export default function Home() {
         </div>
         <div className="fade-l" /><div className="fade-r" />
       </div>
-
-      {/* ------------------------------------------------------ 2 · WHAT WE ARE */}
-      <section className="section" id="who">
-        <div className="wrap">
-          <div className="reveal up" style={{ maxWidth: 860 }}>
-            <div className="eyebrow">What KR8 Digitals is</div>
-            <h2 className="section-title">
-              A company that builds.<br />
-              <span style={{ color: 'var(--t-muted)' }}>And a school that makes builders.</span>
-            </h2>
-            <p className="section-lede">
-              The work comes first. Everything else — the training, the community, the gathering — exists
-              because the work needs people who can do it, and because talent should not need money to prove
-              itself.
-            </p>
-          </div>
-          <div className="doors reveal up" data-delay="80">
-            {site.pillars.map((d) => (
-              <Link key={d.name} href={d.href} className="door">
-                <span className="door__verb text-grad">{d.verb}</span>
-                <span className="door__name">{d.name}</span>
-                <span className="door__desc">{d.desc}</span>
-                <span className="door__go">Open <Icon name="arrow" size={13} /></span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ------------------------------------------------------ 3 · PROOF STRIP */}
       <section className="proof" aria-label="KR8 Digitals in numbers">
@@ -147,7 +119,7 @@ export default function Home() {
                 clients, films cut from real footage. Open one and judge the thing itself.
               </p>
             </div>
-            <Link href="/services/website-design#portfolio" className="btn-link">
+            <Link href="/services#websites" className="btn-link">
               Full portfolio <Icon name="arrow" size={15} />
             </Link>
           </div>
@@ -206,19 +178,21 @@ export default function Home() {
               <div className="eyebrow">Partners</div>
               <h2 className="section-title">We do not build alone</h2>
               <p className="section-lede">
-                Two of our partners are co-founders, and one of them is a co-founding pair. They make the work
-                with us — and they are how the training is taught by people who ship.
+                Motionverse and CHIGOMA are two separate brands, both partners of KR8 Digitals, and both
+                named here. They make work with us and they teach the crafts inside the free training.
               </p>
             </div>
             <Link href="/partners" className="btn-link">See all partners <Icon name="arrow" size={15} /></Link>
           </div>
 
           <div className="gal__grid gal__grid--brand" style={{ marginTop: 40 }}>
-            <div className="logo-slot">
-              <span className="logo-slot__mark">{coFounders.map((p) => p.mark).join(' · ')}</span>
-              <b>{coFounders.map((p) => p.name).join(' + ')}</b>
-              <small>Co-founding group · logo files pending</small>
-            </div>
+            {coFounders.map((p) => (
+              <div className="logo-slot" key={p.slug}>
+                <span className="logo-slot__mark">{p.mark}</span>
+                <b>{p.name}</b>
+                <small>Co-founder · logo file pending</small>
+              </div>
+            ))}
             {others.map((p) => (
               <div className="logo-slot" key={p.slug}>
                 <span className="logo-slot__mark">{p.mark}</span>

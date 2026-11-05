@@ -41,7 +41,7 @@ const KNOWLEDGE: { k: string[]; a: string; links?: Link[] }[] = [
   },
   {
     k: ['track', 'course', 'learn what', 'curriculum', 'design', 'video', 'coding', 'develop'],
-    a: 'The Academy runs seven tracks, including Graphic Design with Stevenson of Motion Verse, Video Editing with Daniel of CHIGOMA, Website Development, Front-End Development, Content Creation, Social Media Management and Digital Marketing. Every one is free.',
+    a: 'The Academy runs seven tracks, including Graphic Design with Stevenson of Motionverse, Video Editing with Daniel of CHIGOMA, Website Development, Front-End Development, Content Creation, Social Media Management and Digital Marketing. Every one is free.',
     links: [{ label: 'See the seven tracks', href: TRACKS, outbound: true }],
   },
   {
@@ -51,7 +51,7 @@ const KNOWLEDGE: { k: string[]; a: string; links?: Link[] }[] = [
   },
   {
     k: ['partner', 'sponsor', 'collaborate', 'hire graduates', 'csr'],
-    a: 'Partners teach, fund, hire or host with us. Motion Verse and CHIGOMA teach their crafts free, Next Gen Scholars runs the academic door, and brands fund cohorts, host sessions or hire from the training. There is a page that lays out all four routes.',
+    a: 'Partners teach, fund, hire or host with us. Motionverse and CHIGOMA teach their crafts free, Next Gen Scholars runs the academic door, and brands fund cohorts, host sessions or hire from the training. There is a page that lays out all four routes.',
     links: [{ label: 'Partnership routes', href: '/partners' }],
   },
   {
@@ -76,7 +76,7 @@ const KNOWLEDGE: { k: string[]; a: string; links?: Link[] }[] = [
   },
   {
     k: ['design', 'brand', 'logo', 'flyer', 'poster'],
-    a: 'Brand and graphic design is led by Stevenson of Motion Verse — identity systems, flyers, posters and campaign creative, credited as KR8 Digitals in association with Motion Verse.',
+    a: 'Brand and graphic design is led by Stevenson of Motionverse — identity systems, flyers, posters and campaign creative, credited as KR8 Digitals in association with Motionverse.',
     links: [{ label: 'Brand & design service', href: '/services/brand-graphic-design' }],
   },
   {
@@ -101,7 +101,7 @@ const KNOWLEDGE: { k: string[]; a: string; links?: Link[] }[] = [
   },
   {
     k: ['who', 'about', 'founder', 'timfire', 'stevenson', 'daniel', 'company'],
-    a: 'KR8 Digitals was founded by Kenneth Timothy Iziogo — Timfire — with co-founders Stevenson of Motion Verse and Daniel of CHIGOMA. Three practitioners, one company.',
+    a: 'KR8 Digitals was founded by Kenneth Timothy Iziogo — Timfire — with co-founders Stevenson of Motionverse and Daniel of CHIGOMA. Three practitioners, one company.',
     links: [{ label: 'About KR8', href: '/about' }],
   },
   {
@@ -225,7 +225,7 @@ export function reply(userText: string, ctx: Ctx): HostReply {
     if (/(design|graphic)/.test(t)) {
       return {
         state: 'done',
-        say: `Graphic Design is taught by Stevenson, who runs Motion Verse and does this commercially every week. Eight weeks, live, free. Applications for the fifth cohort are open now — the form takes about four minutes.`,
+        say: `Graphic Design is taught by Stevenson, who runs Motionverse and does this commercially every week. Eight weeks, live, free. Applications for the fifth cohort are open now — the form takes about four minutes.`,
         chips: [{ label: 'Apply for Graphic Design', value: '__apply' }, { label: 'See all seven tracks', value: '__tracks' }],
         links: [{ label: 'Apply free', href: APPLY, outbound: true }],
       };

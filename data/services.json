@@ -22,21 +22,64 @@
       "Search-ready structure and metadata from day one",
       "A site you can send to a customer without apologising"
     ],
-    "deliverables": ["Design system", "Responsive build", "Content structure", "Domain & deployment", "Handover walkthrough"],
+    "deliverables": [
+      "Design system",
+      "Responsive build",
+      "Content structure",
+      "Domain & deployment",
+      "Handover walkthrough"
+    ],
     "process": [
-      { "n": "01", "t": "Look at what you have", "d": "We open your current site on a phone, on a slow connection, and write down what it costs you." },
-      { "n": "02", "t": "Decide the one action", "d": "Booking, order, call, register. One job per page, decided before a pixel is drawn." },
-      { "n": "03", "t": "Design and build", "d": "Design in the browser, built by hand, reviewed on a real phone at every step." },
-      { "n": "04", "t": "Launch and hand over", "d": "Deploy, connect your domain, set up analytics, and walk your team through editing it." }
+      {
+        "n": "01",
+        "t": "Look at what you have",
+        "d": "We open your current site on a phone, on a slow connection, and write down what it costs you."
+      },
+      {
+        "n": "02",
+        "t": "Decide the one action",
+        "d": "Booking, order, call, register. One job per page, decided before a pixel is drawn."
+      },
+      {
+        "n": "03",
+        "t": "Design and build",
+        "d": "Design in the browser, built by hand, reviewed on a real phone at every step."
+      },
+      {
+        "n": "04",
+        "t": "Launch and hand over",
+        "d": "Deploy, connect your domain, set up analytics, and walk your team through editing it."
+      }
     ],
     "faqs": [
-      { "q": "How long does a site take?", "a": "A single-page site is days. A full hotel, school or hospital site with booking and content is a few weeks. You get a date before we start." },
-      { "q": "Can I edit it myself?", "a": "Yes. Content lives in structured files your team can edit, and we walk you through it at handover." },
-      { "q": "Who owns the site?", "a": "You do — the domain, the deployment and the source." },
-      { "q": "Can I buy one of the finished sites on this page?", "a": "Yes. The sites marked For sale are complete builds we own. You buy it, we put your name, your photos and your prices on it, and it goes live on your domain." }
+      {
+        "q": "How long does a site take?",
+        "a": "A single-page site is days. A full hotel, school or hospital site with booking and content is a few weeks. You get a date before we start."
+      },
+      {
+        "q": "Can I edit it myself?",
+        "a": "Yes. Content lives in structured files your team can edit, and we walk you through it at handover."
+      },
+      {
+        "q": "Who owns the site?",
+        "a": "You do — the domain, the deployment and the source."
+      },
+      {
+        "q": "Can I buy one of the finished sites on this page?",
+        "a": "Yes. The sites marked For sale are complete builds we own. You buy it, we put your name, your photos and your prices on it, and it goes live on your domain."
+      }
     ],
-    "categories": ["Hotels", "Food & drink", "Organisations", "Businesses", "Personal & brand"],
-    "cta": "Start a website"
+    "categories": [
+      "Hotels",
+      "Food & drink",
+      "Organisations",
+      "Businesses",
+      "Personal & brand"
+    ],
+    "cta": "Start a website",
+    "group": "Websites",
+    "anchor": "websites",
+    "nav": "Websites"
   },
   {
     "slug": "brand-graphic-design",
@@ -46,7 +89,7 @@
     "icon": "palette",
     "gallery": "flyers",
     "tagline": "Design that gets stopped in the scroll.",
-    "summary": "Flyers, campaign artwork, product design and identity work — made in association with Motion Verse, the design partner that co-founded KR8 Digitals. The work below is client work, published with permission.",
+    "summary": "Flyers, campaign artwork, product design and identity work — made in association with Motionverse, the design partner that co-founded KR8 Digitals. The work below is client work, published with permission.",
     "forWhom": "Businesses running campaigns on WhatsApp and Instagram, product brands launching a range, schools and events that need artwork people actually stop for.",
     "problem": "A flyer is not decoration. It is the first and often only impression a customer gets of you, seen for half a second on a phone between two other posts. Most small-business artwork loses that half second.",
     "approach": [
@@ -61,20 +104,59 @@
       "Print and screen files, correctly sized",
       "Reusable templates for your team to run without us"
     ],
-    "deliverables": ["Concept & direction", "Artwork", "Print-ready files", "Social sizes", "Template pack"],
+    "deliverables": [
+      "Concept & direction",
+      "Artwork",
+      "Print-ready files",
+      "Social sizes",
+      "Template pack"
+    ],
     "process": [
-      { "n": "01", "t": "Brief", "d": "What is being sold, to whom, and what has to happen when they see it." },
-      { "n": "02", "t": "Direction", "d": "One route, shown with real copy, not latin." },
-      { "n": "03", "t": "Design", "d": "Artwork built at phone size first, then adapted outward." },
-      { "n": "04", "t": "Deliver", "d": "Every size and format you need, plus the editable file." }
+      {
+        "n": "01",
+        "t": "Brief",
+        "d": "What is being sold, to whom, and what has to happen when they see it."
+      },
+      {
+        "n": "02",
+        "t": "Direction",
+        "d": "One route, shown with real copy, not latin."
+      },
+      {
+        "n": "03",
+        "t": "Design",
+        "d": "Artwork built at phone size first, then adapted outward."
+      },
+      {
+        "n": "04",
+        "t": "Deliver",
+        "d": "Every size and format you need, plus the editable file."
+      }
     ],
     "faqs": [
-      { "q": "Why is Motion Verse credited?", "a": "Motion Verse is a co-founder of KR8 Digitals. Design work is made in association with Motion Verse, and we credit it because it is true." },
-      { "q": "Is the work on this page really yours?", "a": "Yes. Every flyer below was designed for the client named on it. Open one at full size and read the artwork." },
-      { "q": "Can you work from my existing brand?", "a": "Yes — we build on what you have, or we rebuild the identity if it is working against you." }
+      {
+        "q": "Why is Motionverse credited?",
+        "a": "Motionverse is a co-founder of KR8 Digitals. Design work is made in association with Motionverse, and we credit it because it is true."
+      },
+      {
+        "q": "Is the work on this page really yours?",
+        "a": "Yes. Every flyer below was designed for the client named on it. Open one at full size and read the artwork."
+      },
+      {
+        "q": "Can you work from my existing brand?",
+        "a": "Yes — we build on what you have, or we rebuild the identity if it is working against you."
+      }
     ],
-    "categories": ["Event flyers", "Product flyers", "Retail", "Social templates"],
-    "cta": "Start a design project"
+    "categories": [
+      "Event flyers",
+      "Product flyers",
+      "Retail",
+      "Social templates"
+    ],
+    "cta": "Start a design project",
+    "group": "Graphic Design & Branding",
+    "anchor": "graphic-design",
+    "nav": "Graphic Design & Branding"
   },
   {
     "slug": "video-editing",
@@ -99,64 +181,65 @@
       "Poster frames and file sizes that load on mobile data",
       "A library you can keep posting from"
     ],
-    "deliverables": ["Edit", "Captions", "Colour & sound pass", "Poster frame", "Platform exports"],
+    "deliverables": [
+      "Edit",
+      "Captions",
+      "Colour & sound pass",
+      "Poster frame",
+      "Platform exports"
+    ],
     "process": [
-      { "n": "01", "t": "Watch the footage", "d": "All of it. We mark the twenty seconds that matter." },
-      { "n": "02", "t": "Structure", "d": "Hook, proof, close — in that order, at phone length." },
-      { "n": "03", "t": "Cut and caption", "d": "Pace, sound, and captions that survive being watched on mute." },
-      { "n": "04", "t": "Export", "d": "Every aspect ratio and length the platforms want, plus posters." }
+      {
+        "n": "01",
+        "t": "Watch the footage",
+        "d": "All of it. We mark the twenty seconds that matter."
+      },
+      {
+        "n": "02",
+        "t": "Structure",
+        "d": "Hook, proof, close — in that order, at phone length."
+      },
+      {
+        "n": "03",
+        "t": "Cut and caption",
+        "d": "Pace, sound, and captions that survive being watched on mute."
+      },
+      {
+        "n": "04",
+        "t": "Export",
+        "d": "Every aspect ratio and length the platforms want, plus posters."
+      }
     ],
     "faqs": [
-      { "q": "Do you shoot?", "a": "We can direct a shoot. Most of the work here started as phone footage that needed a proper edit — that is the cheaper route and often the better one." },
-      { "q": "Whose videos are on this page?", "a": "Real cuts from our own school and client work. They play in place — press one." },
-      { "q": "Can you work with CHIGOMA's footage?", "a": "Yes. CHIGOMA is a co-founding partner and their work slots into the same gallery." }
+      {
+        "q": "Do you shoot?",
+        "a": "We can direct a shoot. Most of the work here started as phone footage that needed a proper edit — that is the cheaper route and often the better one."
+      },
+      {
+        "q": "Whose videos are on this page?",
+        "a": "Real cuts from our own school and client work. They play in place — press one."
+      },
+      {
+        "q": "Can you work with CHIGOMA's footage?",
+        "a": "Yes. CHIGOMA is a co-founding partner and their work slots into the same gallery."
+      }
     ],
-    "categories": ["Testimonials", "Product", "Social cuts", "Event"],
-    "cta": "Start a video project"
-  },
-  {
-    "slug": "ai-automation",
-    "name": "AI & Automation",
-    "short": "AI & Automation",
-    "order": 4,
-    "icon": "cpu",
-    "gallery": "ai",
-    "tagline": "Take the repetitive work off a human.",
-    "summary": "Forms that route themselves, assistants that answer the questions your team answers forty times a day, and systems that write the follow-up nobody has time to write. Working examples are on this page — including the assistant on this site.",
-    "forWhom": "A team drowning in the same five questions. A business losing enquiries in an inbox nobody owns. Anyone paying a person to copy data between two screens.",
-    "problem": "Most 'AI projects' are a demo that never ships. The useful ones are small, unglamorous and measurable: a form that reaches the right desk, an answer given at 2am, a follow-up that goes out on time.",
-    "approach": [
-      "Find the task that repeats, not the task that impresses.",
-      "Ship the smallest version that removes the work, then measure it.",
-      "Keep a human in the loop for anything that promises or prices.",
-      "Log every conversation so nothing disappears into a black box."
+    "categories": [
+      "Testimonials",
+      "Product",
+      "Social cuts",
+      "Event"
     ],
-    "outcomes": [
-      "Enquiries routed to the right person automatically",
-      "Answers available outside working hours",
-      "Fewer dropped leads, with a record of every one",
-      "A system your team can actually maintain"
-    ],
-    "deliverables": ["Discovery", "Routing logic", "Assistant build", "Integration", "Logging & handover"],
-    "process": [
-      { "n": "01", "t": "Map the work", "d": "Where does a message go, who answers it, what gets missed." },
-      { "n": "02", "t": "Build the route", "d": "The smallest system that changes that path." },
-      { "n": "03", "t": "Test with real messages", "d": "The awkward ones: typos, mixed languages, half a question." },
-      { "n": "04", "t": "Hand over", "d": "You own the prompts, the logic and the logs." }
-    ],
-    "faqs": [
-      { "q": "What can actually be automated?", "a": "Routing, first replies, follow-ups, data entry, scheduling, reminders, summaries and search over your own documents. Tell us the task that repeats most and we will tell you honestly whether it is worth automating." },
-      { "q": "Is there a working example?", "a": "Two. The assistant on this site answers questions and hands off to a human, and the Jev form router decides whether a message is a lead, a contact request or an issue." },
-      { "q": "Will it replace my staff?", "a": "It replaces the part of the job nobody wanted: the fortieth copy-paste of the day." }
-    ],
-    "categories": ["Assistants", "Form routing", "Follow-up", "Data"],
-    "cta": "Automate something"
+    "cta": "Start a video project",
+    "group": "Video Editing",
+    "anchor": "video",
+    "nav": "Video Editing"
   },
   {
     "slug": "seo",
     "name": "SEO Optimisation",
     "short": "SEO",
-    "order": 5,
+    "order": 4,
     "icon": "search",
     "gallery": "seo",
     "tagline": "Be the answer when someone searches.",
@@ -175,19 +258,135 @@
       "A sitemap that is submitted and read",
       "A monthly record of what was done and what moved"
     ],
-    "deliverables": ["Technical audit", "Metadata & schema", "Content structure", "Search Console setup", "Monthly report"],
+    "deliverables": [
+      "Technical audit",
+      "Metadata & schema",
+      "Content structure",
+      "Search Console setup",
+      "Monthly report"
+    ],
     "process": [
-      { "n": "01", "t": "Audit", "d": "Crawl the site. List what search cannot read." },
-      { "n": "02", "t": "Fix the floor", "d": "Metadata, schema, sitemap, speed, mobile rendering." },
-      { "n": "03", "t": "Build the structure", "d": "A page per service, per programme, per place." },
-      { "n": "04", "t": "Report", "d": "What we did, what the numbers did, what is next." }
+      {
+        "n": "01",
+        "t": "Audit",
+        "d": "Crawl the site. List what search cannot read."
+      },
+      {
+        "n": "02",
+        "t": "Fix the floor",
+        "d": "Metadata, schema, sitemap, speed, mobile rendering."
+      },
+      {
+        "n": "03",
+        "t": "Build the structure",
+        "d": "A page per service, per programme, per place."
+      },
+      {
+        "n": "04",
+        "t": "Report",
+        "d": "What we did, what the numbers did, what is next."
+      }
     ],
     "faqs": [
-      { "q": "How long until I rank?", "a": "Nobody honest gives you a date. Technical fixes can show within weeks; content takes months. We report against what we changed." },
-      { "q": "Do you guarantee first page?", "a": "No. Anyone who does is selling you something else." },
-      { "q": "Can you fix a site you did not build?", "a": "Yes. That is most of the work." }
+      {
+        "q": "How long until I rank?",
+        "a": "Nobody honest gives you a date. Technical fixes can show within weeks; content takes months. We report against what we changed."
+      },
+      {
+        "q": "Do you guarantee first page?",
+        "a": "No. Anyone who does is selling you something else."
+      },
+      {
+        "q": "Can you fix a site you did not build?",
+        "a": "Yes. That is most of the work."
+      }
     ],
-    "categories": ["Technical", "Content", "Local", "Reporting"],
-    "cta": "Get an audit"
+    "categories": [
+      "Technical",
+      "Content",
+      "Local",
+      "Reporting"
+    ],
+    "cta": "Get an audit",
+    "group": "SEO Optimisation",
+    "anchor": "seo",
+    "nav": "SEO Optimisation"
+  },
+  {
+    "slug": "ai-automation",
+    "name": "AI & Automation",
+    "short": "AI & Automation",
+    "order": 5,
+    "icon": "cpu",
+    "gallery": "ai",
+    "tagline": "Take the repetitive work off a human.",
+    "summary": "Forms that route themselves, assistants that answer the questions your team answers forty times a day, and systems that write the follow-up nobody has time to write. Working examples are on this page — including the assistant on this site.",
+    "forWhom": "A team drowning in the same five questions. A business losing enquiries in an inbox nobody owns. Anyone paying a person to copy data between two screens.",
+    "problem": "Most 'AI projects' are a demo that never ships. The useful ones are small, unglamorous and measurable: a form that reaches the right desk, an answer given at 2am, a follow-up that goes out on time.",
+    "approach": [
+      "Find the task that repeats, not the task that impresses.",
+      "Ship the smallest version that removes the work, then measure it.",
+      "Keep a human in the loop for anything that promises or prices.",
+      "Log every conversation so nothing disappears into a black box."
+    ],
+    "outcomes": [
+      "Enquiries routed to the right person automatically",
+      "Answers available outside working hours",
+      "Fewer dropped leads, with a record of every one",
+      "A system your team can actually maintain"
+    ],
+    "deliverables": [
+      "Discovery",
+      "Routing logic",
+      "Assistant build",
+      "Integration",
+      "Logging & handover"
+    ],
+    "process": [
+      {
+        "n": "01",
+        "t": "Map the work",
+        "d": "Where does a message go, who answers it, what gets missed."
+      },
+      {
+        "n": "02",
+        "t": "Build the route",
+        "d": "The smallest system that changes that path."
+      },
+      {
+        "n": "03",
+        "t": "Test with real messages",
+        "d": "The awkward ones: typos, mixed languages, half a question."
+      },
+      {
+        "n": "04",
+        "t": "Hand over",
+        "d": "You own the prompts, the logic and the logs."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What can actually be automated?",
+        "a": "Routing, first replies, follow-ups, data entry, scheduling, reminders, summaries and search over your own documents. Tell us the task that repeats most and we will tell you honestly whether it is worth automating."
+      },
+      {
+        "q": "Is there a working example?",
+        "a": "Two. The assistant on this site answers questions and hands off to a human, and the Jev form router decides whether a message is a lead, a contact request or an issue."
+      },
+      {
+        "q": "Will it replace my staff?",
+        "a": "It replaces the part of the job nobody wanted: the fortieth copy-paste of the day."
+      }
+    ],
+    "categories": [
+      "Assistants",
+      "Form routing",
+      "Follow-up",
+      "Data"
+    ],
+    "cta": "Automate something",
+    "group": "AI Agents & Automation",
+    "anchor": "ai",
+    "nav": "AI Agents & Automation"
   }
 ]

@@ -25,7 +25,7 @@ export default function InvitePage() {
               <img src="/img/brand/presco-trip-full.webp" alt="Event artwork in the KR8 design language" />
             </div>
             <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>
-              Event artwork · KR8 Digitals in association with Motion Verse
+              Event artwork · KR8 Digitals in association with Motionverse
             </figcaption>
           </figure>
         }

@@ -103,7 +103,7 @@ export default function ContactPage() {
         copy="One form. A real reply. A price you can hold us to."
         cta="Start at the top"
         href="#form"
-        secondary={{ label: 'See the work first', href: '/services/website-design#portfolio' }}
+        secondary={{ label: 'See the work first', href: '/services#websites' }}
       />
     </>
   );

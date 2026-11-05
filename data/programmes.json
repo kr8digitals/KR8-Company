@@ -15,14 +15,14 @@
       "image": "/img/sites/afristem-school-full.webp",
       "imageAlt": "A partner school site built for learners",
       "lede": "Digital skills through KR8 Academy, academics through Next Gen Scholars. Both are free.",
-      "body": "The free training has two doors. Walk through the digital door and you learn a craft — graphic design with Motion Verse, video editing with CHIGOMA, and the web, content, social and marketing tracks taught by the KR8 team. Walk through the academic door and Next Gen Scholars teaches the subjects that get you through WAEC and JAMB, sciences or arts. Neither door asks for tuition.",
+      "body": "The free training has two doors. Walk through the digital door and you learn a craft — graphic design with Motionverse, video editing with CHIGOMA, and the web, content, social and marketing tracks taught by the KR8 team. Walk through the academic door and Next Gen Scholars teaches the subjects that get you through WAEC and JAMB, sciences or arts. Neither door asks for tuition.",
       "commitment": "One cohort at a time · classes and assignments each week",
       "action": { "label": "See the Academy", "href": "https://academy.kr8digitals.com", "outbound": true },
       "doors": [
         {
           "name": "Digital Skills",
           "line": "Graphic design, video editing, web development, content, social media and digital marketing — seven tracks taught by people doing the work.",
-          "partner": "Motion Verse teaches graphic design · CHIGOMA teaches video editing",
+          "partner": "Motionverse teaches graphic design · CHIGOMA teaches video editing",
           "href": "https://academy.kr8digitals.com/apply",
           "outbound": true,
           "cta": "Apply free"

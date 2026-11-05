@@ -152,7 +152,7 @@ export default function Showcase({
               <article className="gal-card gal-card--poster" key={f.slug}>
                 <button className="gal-card__shot" onClick={() => setOpen({ kind: 'flyer', item: f })} aria-label={`View ${f.title} full size`}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={f.card} alt={`${f.title} — flyer designed by KR8 Digitals in association with Motion Verse`} loading="lazy" decoding="async" />
+                  <img src={f.card} alt={`${f.title} — flyer designed by KR8 Digitals in association with Motionverse`} loading="lazy" decoding="async" />
                   <span className="gal-card__open">View full size</span>
                 </button>
                 <div className="gal-card__body">
@@ -161,7 +161,7 @@ export default function Showcase({
                   </div>
                   <h3>{f.title}</h3>
                   <p>{f.note}</p>
-                  <div className="gal-card__credit">KR8 Digitals in association with Motion Verse</div>
+                  <div className="gal-card__credit">KR8 Digitals in association with Motionverse</div>
                 </div>
               </article>
             ))}
@@ -334,7 +334,7 @@ export default function Showcase({
                   <div className="gal-card__top"><span className="tag">{open.item.kind}</span></div>
                   <h3>{open.item.title}</h3>
                   <p>{open.item.note}</p>
-                  <div className="gal-card__credit">KR8 Digitals in association with Motion Verse · client: {open.item.client}</div>
+                  <div className="gal-card__credit">KR8 Digitals in association with Motionverse · client: {open.item.client}</div>
                   <div className="actions" style={{ marginTop: 18 }}>
                     <a href={open.item.full} target="_blank" rel="noopener noreferrer" className="btn-ghost">Open the file</a>
                     <Link href="/contact?service=brand-graphic-design" className="btn-primary">Brief us on something like this <Icon name="arrow" size={16} /></Link>

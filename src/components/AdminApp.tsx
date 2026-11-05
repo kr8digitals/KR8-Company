@@ -523,7 +523,7 @@ const CONTENT_FIELDS = [
   { k: 'teamFeeUsd', label: 'Team enrolment fee (USD)', hint: 'Unapproved. Nothing is charged before this is published and shown on the join page.', type: 'number' },
   { k: 'priceListApproved', label: 'Public price list approved? (yes / no)', hint: 'Flipping this to yes also publishes prices on the services pages once settings.publicPriceDisplay is on.', type: 'text' },
   { k: 'founderPhotos', label: 'Founder photography confirmed?', hint: 'The three portraits are the ones KR8 publishes. Confirm they are the images to keep using.', type: 'text' },
-  { k: 'partnerLogos', label: 'Partner logo files', hint: 'Upload links for Motion Verse, CHIGOMA and Next Gen Scholars. Slots hold the monogram until then.', type: 'text' },
+  { k: 'partnerLogos', label: 'Partner logo files', hint: 'Upload links for Motionverse, CHIGOMA and Next Gen Scholars. Slots hold the monogram until then.', type: 'text' },
   { k: 'socialLinks', label: 'Social links (comma separated)', hint: 'Instagram, X, YouTube, LinkedIn. The footer hides any that are empty.', type: 'text' },
   { k: 'openRoles', label: 'Open roles (one per line)', hint: 'Shown on Join the Team and Programs. Empty means the page says no roles are published.', type: 'text' },
 ];

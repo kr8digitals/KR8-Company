@@ -96,7 +96,7 @@ export default function MixedRail() {
               <div className="gal-card__top"><span className="tag">{open.cat}</span></div>
               <h3>{open.name}</h3>
               <p>{open.note}</p>
-              {open.kind === 'flyer' && <div className="gal-card__credit">KR8 Digitals in association with Motion Verse</div>}
+              {open.kind === 'flyer' && <div className="gal-card__credit">KR8 Digitals in association with Motionverse</div>}
             </div>
           </div>
         </div>

@@ -18,11 +18,11 @@ const TIMELINE = [
   { when: 'First', t: 'A company that builds', d: 'KR8 Digitals starts as a delivery company: clients, deadlines, work that has to survive being used by real customers.' },
   { when: 'Then', t: 'A school inside it', d: 'The work needed people who could do it. Rather than complain about the market, the team started training — free.' },
   { when: 'Then', t: 'A community', d: 'The people who finished training did not want to stop. The Tribe keeps the room open after the cohort ends.' },
-  { when: 'Now', t: 'An umbrella', d: 'Brands and practices build inside KR8 Digitals and keep their own name: Motion Verse for design, CHIGOMA for video, Next Gen Scholars for academics.' },
+  { when: 'Now', t: 'An umbrella', d: 'Brands and practices build inside KR8 Digitals and keep their own name: Motionverse for design, CHIGOMA for video, Next Gen Scholars for academics.' },
 ];
 
 export default function About() {
-  const coFounders = partners.filter((p) => p.group === 'co-founders');
+  const coFounders = partners.filter((p) => p.group === 'co-founder');
   return (
     <>
       <PageHero
@@ -55,7 +55,7 @@ export default function About() {
               their own people.
             </p>
             <p>
-              <strong>Motion Verse</strong> is design. <strong>CHIGOMA</strong> is video and creative
+              <strong>Motionverse</strong> is design. <strong>CHIGOMA</strong> is video and creative
               expression. <strong>Next Gen Scholars</strong> is academics. Each keeps its name, its credit and
               its own standard — and each delivers through the company, to the same client, on the same
               invoice.
@@ -67,7 +67,7 @@ export default function About() {
           </>
         }
         media={[
-          { src: '/img/brand/city-fashion-stores-full.webp', alt: 'A client flyer designed in association with Motion Verse', caption: 'Design · Motion Verse' },
+          { src: '/img/brand/city-fashion-stores-full.webp', alt: 'A client flyer designed in association with Motionverse', caption: 'Design · Motionverse' },
           { src: '/img/sites/afristem-full.webp', alt: 'The AFRISTEM Global website built by KR8 Digitals' },
         ]}
         cta={{ label: 'See the work', href: '/services' }}
@@ -192,7 +192,7 @@ export default function About() {
         body={
           <>
             <p>
-              Motion Verse and CHIGOMA are our co-founding partners — design and video, working together on the
+              Motionverse and CHIGOMA are our co-founding partners — design and video, working together on the
               same projects and credited on the work. Next Gen Scholars runs the academic door of the free
               training.
             </p>
@@ -204,7 +204,7 @@ export default function About() {
         }
         bullets={coFounders.map((p) => `${p.name} — ${p.role}`)}
         media={[
-          { src: '/img/brand/zoey-perfume-full.webp', alt: 'Zoey Perfume flyer by KR8 Digitals in association with Motion Verse', caption: 'Client work · Motion Verse' },
+          { src: '/img/brand/zoey-perfume-full.webp', alt: 'Zoey Perfume flyer by KR8 Digitals in association with Motionverse', caption: 'Client work · Motionverse' },
           { src: '/video/story-elizabeth-poster.webp', alt: 'Poster frame from a film cut by CHIGOMA' },
         ]}
         cta={{ label: 'See our partners', href: '/partners' }}

@@ -20,11 +20,11 @@ const WAYS: Way[] = [
     id: 'teach',
     label: 'Teach',
     line: 'Bring a craft into the free training.',
-    body: 'If you do the work, you can teach it. A partner who teaches supplies a track, a practitioner to run it and a standard for the work — we supply the students, the structure and the logistics. Motion Verse teaches graphic design; CHIGOMA teaches video editing; Next Gen Scholars teaches the academic door.',
+    body: 'If you do the work, you can teach it. A partner who teaches supplies a track, a practitioner to run it and a standard for the work — we supply the students, the structure and the logistics. Motionverse teaches graphic design; CHIGOMA teaches video editing; Next Gen Scholars teaches the academic door.',
     gives: ['A track in the free training', 'A named practitioner teaching it', 'A brief the students build against'],
     cta: { label: 'Offer to teach', href: '/contact?partner=teach' },
     image: '/img/brand/zoey-perfume-full.webp',
-    imageAlt: 'Design work by Motion Verse, a co-founding partner',
+    imageAlt: 'Design work by Motionverse, a co-founding partner',
   },
   {
     id: 'fund',

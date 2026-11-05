@@ -67,15 +67,15 @@ export default async function ServicesIndex() {
         <div className="wrap">
           <div className="grid g2 grid--loose">
             {services.map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`} className="card card--hover reveal up">
+              <Link key={s.slug} href={`#${s.anchor}`} className="card card--hover reveal up">
                 <div className="icon-box"><Icon name={s.icon} /></div>
                 <div className="card-top">
-                  <span className="pill">Service {String(s.order).padStart(2, '0')}</span>
+                  <span className="pill">{String(s.order).padStart(2, '0')}</span>
                 </div>
-                <h3>{s.name}</h3>
-                <p style={{ marginTop: 8 }}>{s.summary}</p>
+                <h3>{s.group}</h3>
+                <p style={{ marginTop: 8 }}>{s.tagline}</p>
                 <div style={{ marginTop: 18, display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: 'var(--magenta)' }}>
-                  Open the service <Icon name="arrow" size={14} />
+                  Jump to the work <Icon name="arrow" size={14} />
                 </div>
               </Link>
             ))}
@@ -95,11 +95,11 @@ export default async function ServicesIndex() {
       </section>
 
       {/* ------------------------------------------------ WEBSITES: FULL BOOK */}
-      <section className="section" id="portfolio" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+      <section className="section" id="websites" style={{ borderTop: '1px solid var(--hair-soft)' }}>
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Website design · the portfolio</div>
+              <div className="eyebrow">01 · Websites</div>
               <h2 className="section-title">
                 {sitesLive} live sites.<br />
                 <span className="text-grad">{sitesForSale} of them are still for sale.</span>
@@ -110,50 +110,51 @@ export default async function ServicesIndex() {
                 one and we will put your name on it.
               </p>
             </div>
-            <Link href="/services/website-design" className="btn-link">Website service <Icon name="arrow" size={15} /></Link>
+            <Link href="/services/website-design" className="btn-link">Open the website service <Icon name="arrow" size={15} /></Link>
           </div>
           <Showcase mode="sites" showPrices={settings.publicPriceDisplay} />
         </div>
       </section>
 
       {/* ------------------------------------------------------- BRAND GALLERY */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+      <section className="section" id="graphic-design" style={{ borderTop: '1px solid var(--hair-soft)' }}>
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Brand &amp; graphic design</div>
-              <h2 className="section-title">Client flyers, in association with Motion Verse.</h2>
+              <div className="eyebrow">02 · Graphic design &amp; branding</div>
+              <h2 className="section-title">Client flyers, credited to Motionverse.</h2>
               <p className="section-lede">
                 Real artwork for named businesses. Open any of them at full size — the credit is on the work
-                because it is true: KR8 Digitals in association with Motion Verse.
+                because it is true: KR8 Digitals in association with Motionverse.
               </p>
             </div>
-            <Link href="/services/brand-graphic-design" className="btn-link">Brand service <Icon name="arrow" size={15} /></Link>
+            <Link href="/services/brand-graphic-design" className="btn-link">Open the design service <Icon name="arrow" size={15} /></Link>
           </div>
           <Showcase mode="flyers" filters={false} />
         </div>
       </section>
 
       {/* --------------------------------------------------------- FILM GALLERY */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+      <section className="section" id="video" style={{ borderTop: '1px solid var(--hair-soft)' }}>
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Video editing</div>
+              <div className="eyebrow">03 · Video editing</div>
               <h2 className="section-title">Films that play, not screenshots of films.</h2>
               <p className="section-lede">
                 Press play. These are real cuts made from real footage, streaming from this site. CHIGOMA&apos;s
                 video work takes its own place in this gallery as soon as the files are supplied.
               </p>
             </div>
-            <Link href="/services/video-editing" className="btn-link">Video service <Icon name="arrow" size={15} /></Link>
+            <Link href="/services/video-editing" className="btn-link">Open the video service <Icon name="arrow" size={15} /></Link>
           </div>
           <Showcase mode="videos" filters={false} />
         </div>
       </section>
 
+      <div id="seo" />
       <Duo
-        eyebrow="SEO Optimisation"
+        eyebrow="04 · SEO Optimisation"
         title="Be the answer when somebody searches."
         body={
           <p>
@@ -174,6 +175,74 @@ export default async function ServicesIndex() {
         ]}
         cta={{ label: 'Ask for an audit', href: '/contact?service=seo' }}
       />
+
+      <section className="section" id="ai" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">05 · AI agents &amp; automation</div>
+              <h2 className="section-title">
+                Work that answers itself<br />
+                <span className="text-grad">while nobody is watching.</span>
+              </h2>
+              <p className="section-lede">
+                Two of these are running in production right now: the routing form below, and the assistant in
+                the corner of this site. Both are builds you can press, not promises.
+              </p>
+            </div>
+            <Link href="/services/ai-automation" className="btn-link">Open the AI service <Icon name="arrow" size={15} /></Link>
+          </div>
+
+          <div className="grid g2 grid--loose" style={{ marginTop: 40 }}>
+            <article className="card reveal up">
+              <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid var(--hair-soft)' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/img/sites/jev-card.webp" alt="The Jev AI form router — a live build" loading="lazy" decoding="async" style={{ width: '100%', display: 'block' }} />
+              </div>
+              <div className="tag" style={{ marginTop: 16, color: 'var(--magenta)' }}>Live build</div>
+              <h3 style={{ marginTop: 8 }}>The form that routes itself</h3>
+              <p style={{ marginTop: 8 }}>
+                A visitor describes what they need in their own words; the system reads it, decides which service
+                it belongs to and sends it to the right inbox with a summary attached.
+              </p>
+              <a href="https://jev-and-ai-sdk-zeta-seven.vercel.app" target="_blank" rel="noopener noreferrer" className="btn-link" style={{ marginTop: 14 }}>
+                Open it <span className="arrow-out">↗</span>
+              </a>
+            </article>
+
+            <article className="card reveal up">
+              <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid var(--hair-soft)', background: '#140b29', padding: 22 }}>
+                <div className="host-msg host-msg--bot" style={{ maxWidth: '100%' }}>
+                  Which service should I send a bakery owner to?
+                </div>
+                <div className="host-msg host-msg--team" style={{ maxWidth: '100%', marginTop: 10 }}>
+                  Websites first — they need one page that takes orders. I have put the quote form in front of
+                  them.
+                </div>
+              </div>
+              <div className="tag" style={{ marginTop: 16, color: 'var(--magenta)' }}>Running on this site</div>
+              <h3 style={{ marginTop: 8 }}>The assistant you can talk to</h3>
+              <p style={{ marginTop: 8 }}>
+                Ask Ada answers questions about the work, the prices, the programmes and how to reach a person —
+                and hands over to the team the moment a conversation needs one.
+              </p>
+              <span className="btn-link" style={{ marginTop: 14 }}>Press &ldquo;Ask Ada&rdquo; in the corner</span>
+            </article>
+          </div>
+
+          <div className="panel reveal up" style={{ marginTop: 34, padding: 30, display: 'flex', gap: 22, alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+            <div>
+              <h3 style={{ fontSize: 22 }}>What could we automate for you?</h3>
+              <p style={{ marginTop: 6, color: 'var(--t-muted)', fontSize: 14.5 }}>
+                Tell us the job that eats your day and we will tell you what can be taken off it.
+              </p>
+            </div>
+            <Link href="/contact?service=ai-automation" className="btn-primary btn-sm">
+              Tell us the job <Icon name="arrow" size={15} />
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <ClosingCTA
         title="Tell us what has to happen."

@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const HERO_ART: Record<string, { src: string; alt: string }> = {
   'website-design': { src: '/img/sites/cirenes-card.webp', alt: 'Cirenes Hotels — a live site built by KR8 Digitals' },
-  'brand-graphic-design': { src: '/img/brand/city-fashion-stores-card.webp', alt: 'City Fashion Stores flyer by KR8 Digitals in association with Motion Verse' },
+  'brand-graphic-design': { src: '/img/brand/city-fashion-stores-card.webp', alt: 'City Fashion Stores flyer by KR8 Digitals in association with Motionverse' },
   'video-editing': { src: '/video/story-03-poster.webp', alt: 'Poster frame from a KR8 Digitals film' },
   'ai-automation': { src: '/img/sites/jev-card.webp', alt: 'The Jev form router' },
   seo: { src: '/img/sites/prime-stem-full.webp', alt: 'Prime STEM Nigeria — a structured multi-page site' },
@@ -39,7 +39,7 @@ const GALLERY_TITLE: Record<string, { eyebrow: string; title: string; lede: stri
   'brand-graphic-design': {
     eyebrow: 'The gallery',
     title: 'Client artwork, credited to the people who made it.',
-    lede: 'Event, product, retail and social work for named businesses. Open any piece full size — the artwork carries the credit: KR8 Digitals in association with Motion Verse.',
+    lede: 'Event, product, retail and social work for named businesses. Open any piece full size — the artwork carries the credit: KR8 Digitals in association with Motionverse.',
   },
   'video-editing': {
     eyebrow: 'The films',
@@ -240,7 +240,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         copy="Not this one? Every other service is open. If the thing you need lives on another page, open it here."
         cta="All services"
         href="/services"
-        secondary={{ label: 'See the portfolio', href: '/services/website-design#portfolio' }}
+        secondary={{ label: 'See the portfolio', href: '/services#websites' }}
       />
     </>
   );

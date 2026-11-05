@@ -102,32 +102,39 @@
   },
   "stats": [
     {
-      "id": "students",
-      "value": 1200,
+      "id": "works",
+      "value": 200,
       "suffix": "+",
-      "label": "People trained free with KR8",
-      "source": "kr8digitals.com/partner"
+      "label": "Client works delivered",
+      "source": "KR8 client record"
     },
     {
-      "id": "tribe",
-      "value": 2480,
+      "id": "clients",
+      "value": 100,
       "suffix": "+",
-      "label": "People in the Tribe",
-      "source": "kr8digitals.com/partner"
+      "label": "Active clients",
+      "source": "KR8 client record"
     },
     {
-      "id": "projects",
-      "value": 120,
-      "suffix": "+",
-      "label": "Projects delivered",
-      "source": "kr8digitals.com/agency"
-    },
-    {
-      "id": "sites",
-      "value": 22,
+      "id": "partners",
+      "value": 4,
       "suffix": "",
-      "label": "Sites built and deployed",
-      "source": "KR8 production account, checked 3 Nov 2026"
+      "label": "Organisation partners",
+      "source": "Motionverse, CHIGOMA, Next Gen Scholars, HIS Battle Axe"
+    },
+    {
+      "id": "programmes",
+      "value": 3,
+      "suffix": "",
+      "label": "Active programmes",
+      "source": "Free training, the Tribe, Mindset Shift"
+    },
+    {
+      "id": "team",
+      "value": 20,
+      "suffix": "+",
+      "label": "Team members",
+      "source": "KR8 team record"
     }
   ],
   "proof": {
@@ -278,7 +285,7 @@
     {
       "id": "video-brand",
       "area": "Services",
-      "item": "Client video work (Motion Verse reels, brand films) with poster frames",
+      "item": "Client video work (Motionverse reels, brand films) with poster frames",
       "status": "pending"
     },
     {
@@ -296,7 +303,7 @@
     {
       "id": "partner-logos",
       "area": "Partners",
-      "item": "Logo files for Motion Verse, CHIGOMA, Next Gen Scholars and other partners",
+      "item": "Logo files for Motionverse, CHIGOMA, Next Gen Scholars and other partners",
       "status": "pending"
     },
     {
