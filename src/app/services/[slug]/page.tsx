@@ -1,247 +1,298 @@
 import Link from 'next/link';
+import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import services from '../../../../data/services.json';
-import { getSettings } from '@/lib/settings';
-import site from '../../../../data/site.json';
-import PageHero, { ClosingCTA } from '@/components/PageHero';
-import { Icon, Price, WhatsAppLink } from '@/components/ui';
-import Showcase from '@/components/Showcase';
-import Duo from '@/components/Duo';
+import { getCmsServices } from '@/lib/cms';
+import { Icon } from '@/components/ui';
+import Showcase, { type ShowcaseMode } from '@/components/Showcase';
+import Pricing from '@/components/Pricing';
+import {
+  MobileDisclosure,
+  SectionAtmosphere,
+   type CinemaAssetName,
+} from '@/components/MobileExperience';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+type Props = { params: Promise<{ slug: string }> };
+
+const SERVICE_ATMO: Record<string, CinemaAssetName> = {
+  'website-design': 'website-engineering-cinema',
+  branding: 'services-atmosphere',
+  'graphic-design': 'services-atmosphere',
+  'video-editing': 'tribe-creative-room',
+  seo: 'website-engineering-cinema',
+  'ai-automation': 'website-engineering-cinema',
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const s = services.find((x) => x.slug === slug);
-  if (!s) return { title: 'Service not found' };
+  if (slug === 'brand-graphic-design') {
+    return { title: 'Branding | KR8 DIGITALS' };
+  }
+  const services = await getCmsServices();
+  const s = services.find((x: any) => x.slug === slug);
+  if (!s) return { title: 'Service Not Found | KR8 DIGITALS' };
   return {
-    title: `${s.name} — KR8 Digitals`,
+    title: `${s.name} — ${s.tagline} | KR8 DIGITALS`,
     description: s.summary,
     alternates: { canonical: `/services/${s.slug}` },
   };
 }
 
-const HERO_ART: Record<string, { src: string; alt: string }> = {
-  'website-design': { src: '/img/sites/cirenes-card.webp', alt: 'Cirenes Hotels — a live site built by KR8 Digitals' },
-  'brand-graphic-design': { src: '/img/brand/city-fashion-stores-card.webp', alt: 'City Fashion Stores flyer by KR8 Digitals in association with Motionverse' },
-  'video-editing': { src: '/video/story-03-poster.webp', alt: 'Poster frame from a KR8 Digitals film' },
-  'ai-automation': { src: '/img/sites/jev-card.webp', alt: 'The Jev form router' },
-  seo: { src: '/img/sites/prime-stem-full.webp', alt: 'Prime STEM Nigeria — a structured multi-page site' },
-};
-
-const GALLERY_TITLE: Record<string, { eyebrow: string; title: string; lede: string }> = {
-  'website-design': {
-    eyebrow: 'The portfolio',
-    title: 'Every site, from the live deployment.',
-    lede: 'Screenshots taken from the running sites, not from design files. 22 deployments across hotels, food, organisations, businesses and personal brands. Live for a client or for sale — the badge tells you which.',
-  },
-  'brand-graphic-design': {
-    eyebrow: 'The gallery',
-    title: 'Client artwork, credited to the people who made it.',
-    lede: 'Event, product, retail and social work for named businesses. Open any piece full size — the artwork carries the credit: KR8 Digitals in association with Motionverse.',
-  },
-  'video-editing': {
-    eyebrow: 'The films',
-    title: 'Real cuts. They play here.',
-    lede: 'Shot on a phone, cut properly: captions, pacing and a poster frame that earns the tap. CHIGOMA’s video work joins this gallery once the files are supplied.',
-  },
-  'ai-automation': {
-    eyebrow: 'Working systems',
-    title: 'Two things that are actually running.',
-    lede: 'Not a slide about AI. The assistant in the corner of this site and the form router that decides where a message belongs — both live, both pressable.',
-  },
-  seo: {
-    eyebrow: 'The method',
-    title: 'The process, in the open.',
-    lede: 'What we do, in the order we do it. No mystery, no black box, no promise about a position we cannot control.',
-  },
-};
-
-export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ServiceDetailPage({ params }: Props) {
   const { slug } = await params;
-  const s = services.find((x) => x.slug === slug);
-  if (!s) notFound();
 
-  const art = HERO_ART[s.slug];
-  const g = GALLERY_TITLE[s.slug];
-  const display = (await getSettings()).publicPriceDisplay;
+  if (slug === 'brand-graphic-design') {
+    redirect('/services/branding');
+  }
+
+  const services = await getCmsServices();
+  const service = services.find((x: any) => x.slug === slug);
+  if (!service) notFound();
+
+  const others = services.filter((x: any) => x.slug !== service.slug);
+  const heroAtmo = SERVICE_ATMO[service.slug] || 'services-atmosphere';
 
   return (
     <>
-      <PageHero
-        eyebrow={`Service · ${s.short}`}
-        title={<>{s.name.split(' ').slice(0, 2).join(' ')}<br /><span className="text-grad">{s.name.split(' ').slice(2).join(' ') || s.tagline}</span></>}
-        lede={s.summary}
-        aside={
-          <figure style={{ margin: 0, position: 'relative' }}>
-            <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={art.src} alt={art.alt} />
-            </div>
-            <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>{art.alt}</figcaption>
-          </figure>
-        }
-      />
-
-      {/* ------------------------------------------------------- WHAT IT IS FOR */}
-      <section className="section" style={{ paddingTop: 60 }}>
+      {/* ============================================================ HERO */}
+      <section className="kr8-subhero">
+        <SectionAtmosphere name={heroAtmo} deskOpacity={0.16} mobOpacity={0.28} flare />
         <div className="wrap">
-          <div className="grid g2 grid--loose">
-            <div className="reveal up">
-              <div className="eyebrow">Who it is for</div>
-              <p className="prose-lg" style={{ marginTop: 14 }}>{s.forWhom}</p>
+          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span>/</span>
+            <Link href="/services">Services</Link>
+            <span>/</span>
+            <span style={{ color: '#fff' }}>{service.name}</span>
+          </nav>
+
+          <div className="kr8-subhero__grid">
+            <div>
+              <span className="kr8-pill">
+                <i className="kr8-pill__dot" /> Service 0{service.order} · KR8 DIGITALS
+              </span>
+              <h1 className="kr8-subhero__title">{service.name}</h1>
+              <p
+                style={{
+                  marginTop: 12,
+                  fontSize: 'clamp(16px, 1.5vw, 22px)',
+                  fontWeight: 600,
+                  color: '#f5d0fe',
+                  lineHeight: 1.4,
+                }}
+              >
+                {service.tagline}
+              </p>
+              <p className="kr8-subhero__lede" style={{ marginTop: 12 }}>
+                {service.summary}
+              </p>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginTop: 16 }}>
+                {service.categories.map((c: string) => (
+                  <span className="tag" key={c}>
+                    {c}
+                  </span>
+                ))}
+              </div>
+
+              <div className="kr8-subhero__actions">
+                <Link href={`/contact?service=${service.slug}`} className="btn-primary">
+                  {service.cta} <Icon name="arrow" size={17} />
+                </Link>
+                <a href="#live-proof" className="btn-ghost">
+                  Inspect Live Work
+                </a>
+              </div>
             </div>
-            <div className="reveal up">
-              <div className="eyebrow">The problem it solves</div>
-              <p className="prose-lg" style={{ marginTop: 14 }}>{s.problem}</p>
+
+            <div className="kr8-subhero__frame">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={service.heroImage} alt={`${service.name} — KR8 DIGITALS`} />
+              <div className="kr8-subhero__badge">
+                <div>
+                  <span>Commercial Delivery</span>
+                  <strong>{service.name}</strong>
+                </div>
+                <Link
+                  href={`/contact?service=${service.slug}`}
+                  className="btn-link"
+                  style={{ whiteSpace: 'nowrap' }}
+                >
+                  Get Scope <Icon name="arrow" size={13} />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* --------------------------------------------------------- THE GALLERY */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }} id="work">
+      {/* ============================ WHO IT'S FOR & PROBLEM SOLVED */}
+      <section className="section">
+        <div className="wrap">
+          <div className="kr8-grid-2">
+            <article className="kr8-card">
+              <div className="kr8-card__num">01 · WHO THIS IS BUILT FOR</div>
+              <h2 className="kr8-card__title">Organisations &amp; Leaders We Serve</h2>
+              <p className="kr8-card__body">{service.forWhom}</p>
+            </article>
+
+            <article className="kr8-card kr8-card--accent">
+              <div className="kr8-card__num">02 · THE COMMERCIAL BOTTLENECK</div>
+              <h2 className="kr8-card__title">Why Generic Execution Costs Revenue</h2>
+              <p className="kr8-card__body">{service.problem}</p>
+            </article>
+          </div>
+
+          <div className="kr8-grid-3" style={{ marginTop: 22 }}>
+            <article className="kr8-card">
+              <div className="kr8-card__num">OUR APPROACH</div>
+              <h3 className="kr8-card__title">How We Engineer Results</h3>
+              <ul className="kr8-check-list">
+                {service.approach.map((a: string) => (
+                  <li key={a}>{a}</li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="kr8-card">
+              <div className="kr8-card__num">MEASURABLE OUTCOMES</div>
+              <h3 className="kr8-card__title">What Changes After Launch</h3>
+              <ul className="kr8-check-list">
+                {service.outcomes.map((o: string) => (
+                  <li key={o}>{o}</li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="kr8-card">
+              <div className="kr8-card__num">INCLUDED DELIVERABLES</div>
+              <h3 className="kr8-card__title">What You Receive</h3>
+              <ul className="kr8-check-list">
+                {service.deliverables.map((d: string) => (
+                  <li key={d}>{d}</li>
+                ))}
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================= 4-STEP PROCESS */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <SectionAtmosphere name="services-atmosphere" deskOpacity={0.11} mobOpacity={0.2} flare />
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">{g.eyebrow}</div>
-              <h2 className="section-title">{g.title}</h2>
-              <p className="section-lede">{g.lede}</p>
+              <div className="eyebrow">Execution Workflow</div>
+              <h2 className="section-title">
+                Four clear steps <span className="text-grad">from brief to handover.</span>
+              </h2>
             </div>
           </div>
-          <Showcase
-            mode={s.gallery as 'sites' | 'flyers' | 'videos' | 'ai' | 'seo'}
-            showPrices={display}
-            filters={s.gallery === 'sites' || s.gallery === 'flyers'}
-          />
-        </div>
-      </section>
 
-      {/* ------------------------------------------------------------- HOW */}
-      <Duo
-        eyebrow="How we work"
-        title="Four steps, and you know where you are at each one."
-        body={<p>{s.approach[0]}</p>}
-        bullets={s.approach.slice(1)}
-        media={[
-          { src: '/img/sites/monabliss-full.webp', alt: 'Monabliss Hotels — a live site built by KR8 Digitals', caption: 'Built, deployed, handed over' },
-          { src: '/img/team/founder-timfire-wide.jpg', alt: 'A working session at KR8 Digitals' },
-        ]}
-        flip
-      />
-
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <div className="steps steps--row reveal up">
-            {s.process.map((p) => (
-              <div className="step" key={p.n}>
-                <div className="step-num">{p.n}</div>
-                <div className="step-title">{p.t}</div>
-                <p>{p.d}</p>
+          <div className="kr8-grid-4" style={{ marginTop: 26 }}>
+            {service.process.map((st: any) => (
+              <div className="kr8-card reveal up" key={st.n} style={{ padding: '24px 26px' }}>
+                <div className="kr8-card__num">STEP {st.n}</div>
+                <h3 className="kr8-card__title" style={{ fontSize: 19 }}>
+                  {st.t}
+                </h3>
+                <p className="kr8-card__body" style={{ fontSize: 14 }}>
+                  {st.d}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* --------------------------------------------------------- OUTCOMES */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+      {/* ========================================= LIVE PORTFOLIO */}
+      <section
+        className="section"
+        id="live-proof"
+        style={{ borderTop: '1px solid var(--hair-soft)', scrollMarginTop: 92 }}
+      >
         <div className="wrap">
-          <div className="grid g2 grid--loose">
-            <div className="reveal up">
-              <div className="eyebrow">What you end up with</div>
-              <h2 className="section-title" style={{ marginTop: 10 }}>Outcomes</h2>
-              <ul className="price-list" style={{ marginTop: 20 }}>
-                {s.outcomes.map((o) => (
-                  <li key={o}><Icon name="check" size={16} /> {o}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="reveal up">
-              <div className="eyebrow">Deliverables</div>
-              <h2 className="section-title" style={{ marginTop: 10 }}>In the box</h2>
-              <ul className="price-list" style={{ marginTop: 20 }}>
-                {s.deliverables.map((d) => (
-                  <li key={d}><Icon name="check" size={16} /> {d}</li>
-                ))}
-              </ul>
-              <div className="panel" style={{ marginTop: 24, padding: 22 }}>
-                <div className="eyebrow">Price</div>
-                {display ? (
-                  <div style={{ marginTop: 10 }}>
-                    <Price usd={s.slug === 'seo' ? 250 : 900} code="USD" rates={{ USD: 1 }} showUsd={false} />
-                    <p style={{ fontSize: 12.5, color: 'var(--t-faint)', marginTop: 6 }}>
-                      Starting price. Final quote depends on scope; switch currency at checkout.
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    <p style={{ fontSize: 14, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.6 }}>
-                      <b>Fixed prices are set and waiting on approval.</b> They are not published yet. Ask and
-                      you will get the number in writing, the same day.
-                    </p>
-                    <Link href={`/contact?service=${s.slug}`} className="btn-primary btn-sm" style={{ marginTop: 16 }}>
-                      Request a quote <Icon name="arrow" size={15} />
-                    </Link>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- FAQS */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
-        <div className="wrap">
-          <div className="split reveal up" style={{ alignItems: 'end', marginBottom: 26 }}>
+          <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Questions</div>
-              <h2 className="section-title">Answered before you ask.</h2>
+              <div className="eyebrow">Shipped Work &amp; Proof</div>
+              <h2 className="section-title">
+                Inspect real {service.short.toLowerCase()} deliverables.
+              </h2>
+            </div>
+            <Link href={`/contact?service=${service.slug}`} className="btn-primary">
+              {service.cta} <Icon name="arrow" size={16} />
+            </Link>
+          </div>
+
+          <div style={{ marginTop: 26 }}>
+            <Showcase mode={service.gallery as ShowcaseMode} />
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================= PRICING & FAQ */}
+      <Pricing slug={service.slug === 'branding' || service.slug === 'graphic-design' ? 'brand-graphic-design' : service.slug} />
+
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Common Questions</div>
+              <h2 className="section-title">{service.name} — FAQs.</h2>
             </div>
           </div>
-          <div className="faq reveal up">
-            {s.faqs.map((f) => (
-              <details key={f.q}>
-                <summary>{f.q}</summary>
-                <div className="faq-body">{f.a}</div>
-              </details>
+
+          {/* Desktop 3-column FAQ cards preserved 100% */}
+          <div className="kr8-grid-3 kr8-desk-only" style={{ marginTop: 32 }}>
+            {service.faqs.map((f: any) => (
+              <article className="kr8-card reveal up" key={f.q}>
+                <h3 className="kr8-card__title" style={{ fontSize: 18.5 }}>
+                  {f.q}
+                </h3>
+                <p className="kr8-card__body" style={{ fontSize: 14.5 }}>
+                  {f.a}
+                </p>
+              </article>
             ))}
           </div>
-        </div>
-      </section>
 
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <div className="cta-band reveal up">
-            <div className="eyebrow eyebrow--lilac">Next step</div>
-            <h2>{s.cta}.</h2>
-            <p>
-              Tell us what has to happen and when. You will get a reply from a person, a price in writing and
-              a date — not a discovery call that goes nowhere.
-            </p>
-            <div className="actions" style={{ marginTop: 28 }}>
-              <Link href={`/contact?service=${s.slug}`} className="btn-primary">
-                Work with us <Icon name="arrow" size={17} />
-              </Link>
-              <WhatsAppLink
-                number={site.company.whatsapp}
-                text={`Hi KR8 Digitals — I need help with ${s.name.toLowerCase()}.`}
-                label="WhatsApp the team"
-              />
+          {/* Mobile progressive-disclosure FAQ accordions — zero lost information */}
+          <div className="kr8-mob-only" style={{ display: 'grid', gap: 10, marginTop: 18 }}>
+            {service.faqs.map((f: any, idx: number) => (
+              <MobileDisclosure key={f.q} label={f.q} defaultOpenMobile={idx === 0}>
+                <p>{f.a}</p>
+              </MobileDisclosure>
+            ))}
+          </div>
+
+          {/* Cross-navigation to remaining 5 services */}
+          <div style={{ marginTop: 44 }}>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>
+              Explore Other KR8 DIGITALS Services
+            </div>
+            <div className="kr8-grid-3">
+              {others.slice(0, 3).map((o: any) => (
+                <Link
+                  href={`/services/${o.slug}`}
+                  key={o.slug}
+                  className="kr8-card"
+                  style={{ textDecoration: 'none', padding: '22px 24px' }}
+                >
+                  <div className="kr8-card__num">SERVICE 0{o.order}</div>
+                  <h3 className="kr8-card__title" style={{ fontSize: 20 }}>
+                    {o.name}
+                  </h3>
+                  <p className="kr8-card__body" style={{ fontSize: 13.8 }}>
+                    {o.tagline}
+                  </p>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
       </section>
-
-      <ClosingCTA
-        title="Not this one?"
-        copy="Not this one? Every other service is open. If the thing you need lives on another page, open it here."
-        cta="All services"
-        href="/services"
-        secondary={{ label: 'See the portfolio', href: '/services#websites' }}
-      />
     </>
   );
 }

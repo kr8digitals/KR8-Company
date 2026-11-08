@@ -104,7 +104,7 @@ export async function POST(req: Request) {
       case 'settings.save': {
         const existing = (await store.find('settings', { id: 'site' }, 1))[0];
         if (existing) {
-          const out = await store.update('settings', existing.id, { values: patch || {} });
+          const out = await store.update('settings', existing.id, { values: { ...(existing.values || {}), ...(patch || {}) } });
           return NextResponse.json({ ok: true, doc: out });
         }
         const out = await store.insert('settings', { id: 'site', values: patch || {} });

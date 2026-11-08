@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { track } from '@/lib/track';
+import { SectionAtmosphere } from './MobileExperience';
 
 export default function RefCapture({ code }: { code: string }) {
   const router = useRouter();
@@ -18,12 +19,13 @@ export default function RefCapture({ code }: { code: string }) {
 
   return (
     <section className="section" style={{ minHeight: '70vh', display: 'grid', placeItems: 'center' }}>
+      <SectionAtmosphere name="referrals-network-cinema" deskOpacity={0.18} mobOpacity={0.3} flare />
       <div className="wrap" style={{ textAlign: 'center', maxWidth: 560 }}>
         <div className="badge"><span className="badge-dot" /> Introduction received</div>
-        <h1 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 38, fontWeight: 800, letterSpacing: '-.03em', marginTop: 18 }}>
+        <h1 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 'clamp(26px, 6vw, 38px)', fontWeight: 800, letterSpacing: '-.03em', marginTop: 18 }}>
           Someone sent you here.
         </h1>
-        <p style={{ marginTop: 14, color: 'var(--t-body)', fontSize: 16 }}>
+        <p style={{ marginTop: 14, color: 'var(--t-body)', fontSize: 15 }}>
           Your introduction is recorded under <b style={{ color: '#fff' }}>{code}</b>. Taking you to the
           form now.
         </p>

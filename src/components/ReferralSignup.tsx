@@ -57,7 +57,7 @@ export default function ReferralSignup() {
             background: 'rgba(255,255,255,.03)', fontFamily: 'ui-monospace,monospace', fontSize: 13,
           }}
         >
-          <span style={{ flex: 1, minWidth: 200, wordBreak: 'break-all' }}>{out?.link}</span>
+          <span style={{ flex: 1, minWidth: 0, wordBreak: 'break-all' }}>{out?.link}</span>
           <button
             className="btn-ghost btn-sm"
             onClick={async () => {

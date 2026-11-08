@@ -1,22 +1,35 @@
 import Link from 'next/link';
 import { Icon } from './ui';
+import { SectionAtmosphere, type CinemaAssetName } from './MobileExperience';
 
 export default function PageHero({
-  eyebrow, title, lede, crumbs, aside, accent,
+  eyebrow,
+  title,
+  lede,
+  mobileLede,
+  crumbs,
+  aside,
+  accent,
+  cinemaBg,
 }: {
   eyebrow: string;
   title: React.ReactNode;
   lede?: string;
+  mobileLede?: string;
   crumbs?: { label: string; href?: string }[];
   aside?: React.ReactNode;
   accent?: string;
+  cinemaBg?: CinemaAssetName;
 }) {
   return (
     <section className="page-hero">
       <div className="hero-bg" aria-hidden>
-        <div className="blob-1" style={{ opacity: 0.55 }} /><div className="blob-2" style={{ opacity: 0.5 }} />
+        <div className="blob-1" style={{ opacity: 0.52 }} />
+        <div className="blob-2" style={{ opacity: 0.46 }} />
         <div className="vignette" />
       </div>
+      {cinemaBg && <SectionAtmosphere name={cinemaBg} deskOpacity={0.18} mobOpacity={0.3} flare />}
+
       <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
         {crumbs && (
           <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -33,8 +46,16 @@ export default function PageHero({
           <div>
             <div className="eyebrow">{eyebrow}</div>
             <h1>{title}</h1>
-            {lede && <p className="lede">{lede}</p>}
-            {accent && <p style={{ marginTop: 22, fontSize: 14, color: 'var(--lilac)', maxWidth: 620 }}>{accent}</p>}
+            {lede && !mobileLede && <p className="lede">{lede}</p>}
+            {lede && mobileLede && (
+              <>
+                <p className="lede kr8-desk-only">{lede}</p>
+                <p className="lede kr8-mob-only">{mobileLede}</p>
+              </>
+            )}
+            {accent && (
+              <p style={{ marginTop: 18, fontSize: 13.5, color: 'var(--lilac)', maxWidth: 620 }}>{accent}</p>
+            )}
           </div>
           {aside && <div>{aside}</div>}
         </div>
@@ -46,23 +67,47 @@ export default function PageHero({
 export function ClosingCTA({
   title = 'Tell us what you need built.',
   copy = 'One form. A real reply within a working day. If you would rather talk, WhatsApp is on the right.',
+  mobileCopy,
   href = '/contact',
   cta = 'Start a project',
   secondary,
-}: { title?: string; copy?: string; href?: string; cta?: string; secondary?: { label: string; href: string; out?: boolean } }) {
+}: {
+  title?: string;
+  copy?: string;
+  mobileCopy?: string;
+  href?: string;
+  cta?: string;
+  secondary?: { label: string; href: string; out?: boolean };
+}) {
   return (
     <section className="section">
       <div className="wrap">
-        <div className="cta-band reveal up">
+        <div className="cta-band cta-band--cinema reveal up">
+          <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.52} mobOpacity={0.62} flare />
           <div className="eyebrow eyebrow--lilac">Next step</div>
           <h2>{title}</h2>
-          <p>{copy}</p>
-          <div className="actions" style={{ marginTop: 28 }}>
-            <Link href={href} className="btn-primary">{cta} <Icon name="arrow" size={17} /></Link>
-            {secondary && (secondary.out
-              ? <a href={secondary.href} target="_blank" rel="noopener noreferrer" className="btn-ghost">{secondary.label} <span className="arrow-out">↗</span></a>
-              : <Link href={secondary.href} className="btn-ghost">{secondary.label}</Link>
-            )}
+          {mobileCopy ? (
+            <>
+              <p className="kr8-desk-only">{copy}</p>
+              <p className="kr8-mob-only">{mobileCopy}</p>
+            </>
+          ) : (
+            <p>{copy}</p>
+          )}
+          <div className="actions" style={{ marginTop: 24 }}>
+            <Link href={href} className="btn-primary">
+              {cta} <Icon name="arrow" size={17} />
+            </Link>
+            {secondary &&
+              (secondary.out ? (
+                <a href={secondary.href} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+                  {secondary.label} <span className="arrow-out">↗</span>
+                </a>
+              ) : (
+                <Link href={secondary.href} className="btn-ghost">
+                  {secondary.label}
+                </Link>
+              ))}
           </div>
         </div>
       </div>

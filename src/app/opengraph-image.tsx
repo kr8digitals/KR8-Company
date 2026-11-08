@@ -44,10 +44,10 @@ export default async function OG() {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-          <div style={{ fontSize: 24, color: '#b9aece' }}>
-22 sites deployed · 6 client flyers · 4 films · 1,200+ trained
+          <div style={{ fontSize: 23, color: '#b9aece' }}>
+            200+ Client Works · Websites · Branding · Design · Film · SEO · AI
           </div>
-          <div style={{ fontSize: 24, color: '#b9aece' }}>kr8digitals.com</div>
+          <div style={{ fontSize: 24, color: '#b9aece' }}>kr8company.vercel.app</div>
         </div>
       </div>
     ),

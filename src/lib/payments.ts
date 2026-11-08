@@ -33,9 +33,9 @@ export type Provider = {
 };
 
 const BANK = {
-  bankName: process.env.KR8_BANK_NAME || 'Bank name — to be confirmed by Timfire',
+  bankName: process.env.KR8_BANK_NAME || 'Provided on confirmed invoice',
   accountName: process.env.KR8_BANK_ACCOUNT_NAME || site.company.legalName,
-  accountNumber: process.env.KR8_BANK_ACCOUNT || 'Account number — to be confirmed by Timfire',
+  accountNumber: process.env.KR8_BANK_ACCOUNT || 'Provided on confirmed invoice',
 };
 
 const bank: Provider = {

@@ -4,64 +4,82 @@
       "slug": "timfire",
       "name": "Timfire",
       "fullName": "Kenneth Timothy Iziogo",
-      "role": "Founder & Chief Executive",
+      "role": "Founder and Chief Executive",
+      "headlineRole": "Website Developer · AI Agent Developer · Founder & Chief Executive",
+      "linkText": "Read About Timfire",
       "photo": "/img/team/founder-timfire.jpg",
       "photoWide": "/img/team/founder-timfire-wide.jpg",
-      "readAbout": "/about#timfire",
-      "bio": "Placeholder — Timfire to supply the biography. The founder of KR8 Digitals, and the person the company is named after.",
-      "links": [{ "label": "Email", "href": "mailto:kr8digitals01@gmail.com" }],
-      "quote": ""
+      "readAbout": "/about/timfire",
+      "bio": "Website developer, AI agent developer, and Founder & Chief Executive of KR8 DIGITALS — architecting full-stack web platforms, intelligent business automation, and the ecosystem connecting commercial delivery with tuition-free training.",
+      "links": [
+        { "label": "Full Profile", "href": "/about/timfire" },
+        { "label": "Work With Us", "href": "/contact" }
+      ],
+      "quote": "Whoever you are, whatever you do, we exist because of you — to build digital infrastructure worthy of your ambition, and to keep the door open for the next builder."
     },
     {
-      "slug": "stevenson",
-      "name": "Stevenson",
+      "slug": "steveoking",
+      "name": "Steveoking",
       "fullName": "Stevenson",
-      "role": "Co-founder & Design Director",
+      "role": "Co-Founder",
+      "headlineRole": "Professional Graphic Designer · Brand Designer · Founder of Motionverse · Co-Founder",
+      "linkText": "Read About Stevenson",
       "photo": "/img/team/stevenson.jpg",
       "photoWide": "/img/team/stevenson.jpg",
-      "readAbout": "/about#stevenson",
-      "bio": "Placeholder — Stevenson to supply the biography. Co-founder of KR8 Digitals and the person behind Motionverse, our design partner. Full name spelling to be confirmed.",
-      "links": [{ "label": "Motionverse", "href": "/partners/motion-verse" }],
-      "quote": ""
+      "readAbout": "/about/steveoking",
+      "bio": "Professional graphic designer, brand strategist, Founder of Motionverse, and Co-Founder of KR8 DIGITALS — directing visual identity systems, high-conversion campaign art direction, and Graphic Design mentorship inside KR8 Academy.",
+      "links": [
+        { "label": "Full Profile", "href": "/about/steveoking" },
+        { "label": "Motionverse", "href": "/partners/motionverse" }
+      ],
+      "quote": "Great brand and graphic design earns trust in half a second — before a prospect reads a single paragraph."
     },
     {
-      "slug": "daniel",
-      "name": "Daniel",
-      "fullName": "Daniel “Creative Expression”",
-      "role": "Co-founder",
+      "slug": "creative-expression",
+      "name": "Creative Expression",
+      "fullName": "Daniel Akachukwu Augustine",
+      "role": "Co-Founder",
+      "headlineRole": "Professional Video Editor · Founder of Chigoma · Co-Founder",
+      "linkText": "Read About Creative Expression",
       "photo": "/img/team/daniel.jpg",
       "photoWide": "/img/team/daniel.jpg",
-      "readAbout": "/about#daniel",
-      "bio": "Placeholder — Daniel to supply the biography. Co-founder, working under the name Creative Expression and CHIGOMA. Surname to be confirmed.",
-      "links": [{ "label": "CHIGOMA", "href": "/partners/chigoma" }],
-      "quote": ""
+      "readAbout": "/about/creative-expression",
+      "bio": "Professional video editor, Founder of Chigoma, and Co-Founder of KR8 DIGITALS — leading narrative pacing, retention-driven commercial film post-production, and hands-on Video Editing instruction.",
+      "links": [
+        { "label": "Full Profile", "href": "/about/creative-expression" },
+        { "label": "Chigoma", "href": "/partners/chigoma" }
+      ],
+      "quote": "Raw footage is only potential. Deliberate pacing, sound, and clarity turn a recording into proof people stay to watch."
     }
   ],
   "team": [
     {
+      "slug": "odobe-nicodemus",
       "name": "Odobe Nicodemus C",
       "role": "Financial Strategist",
       "photo": "/img/team/nicodemus.jpg",
-      "bio": ""
+      "bio": "Oversees financial planning, commercial engagement sustainability, and disciplined resource allocation across client operations and ecosystem programs."
     },
     {
+      "slug": "chimnonyerem-mercy",
       "name": "Chimnonyerem Mercy",
       "role": "Project Director",
       "photo": "/img/team/nonye.jpg",
-      "bio": ""
+      "bio": "Coordinates cross-functional project scopes, client milestones, and multi-disciplinary handoffs across engineering, design, and post-production."
     },
     {
+      "slug": "nwefuru-favour",
       "name": "Nwefuru Favour Chizurum",
       "role": "General Manager",
       "photo": "/img/team/favour.jpg",
-      "bio": ""
+      "bio": "Stewards day-to-day company operations, partner alignment, and internal studio execution across KR8 DIGITALS."
     },
     {
+      "slug": "covenant-afinidi",
       "name": "Covenant Afinidi",
-      "role": "Accountability",
+      "role": "Accountability Lead",
       "photo": "/img/team/covenant.jpg",
-      "bio": ""
+      "bio": "Maintains execution discipline, cohort follow-through, and quality standards across team deliverables and community tracks."
     }
-  ],
-  "note": "Names and roles come from the KR8 Digitals team page. Photos are the ones KR8 publishes. Bios, quotes and link URLs are placeholders for the dashboard."
+  ]
 }

@@ -1,110 +1,182 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import site from '../../../data/site.json';
-import PageHero, { ClosingCTA } from '@/components/PageHero';
-import ContactRouter from '@/components/ContactRouter';
+import services from '../../../data/services.json';
+import LeadForm from '@/components/LeadForm';
 import { Icon } from '@/components/ui';
+import { ResponsiveCopy, SectionAtmosphere } from '@/components/MobileExperience';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Contact — work with us, partner with us, or join',
+  title: 'Contact & Project Briefs — Work With KR8 DIGITALS',
   description:
-    'Start a project, propose a partnership or apply to join the team. One form, a real reply, and a price in writing before you commit to anything.',
+    'Request a fixed project scope for Website Design, Branding, Graphic Design, Video Editing, SEO Optimization, or AI Automation — or reach the KR8 DIGITALS team directly.',
   alternates: { canonical: '/contact' },
 };
 
-export default function ContactPage() {
+type Props = {
+  searchParams: Promise<{ service?: string; site?: string; ref?: string }>;
+};
+
+export default async function ContactPage({ searchParams }: Props) {
+  const sp = await searchParams;
+  const matchedService = services.find((s) => s.slug === sp.service);
+
   return (
     <>
-      <PageHero
-        eyebrow="Contact"
-        title={<>Let&rsquo;s start with<br /><span className="text-grad">what you are trying to make happen.</span></>}
-        lede="You do not need a brief or a deck. Tell us the situation in a sentence and we will tell you what it takes, who would build it and what it costs — in writing."
-        aside={
-          <figure style={{ margin: 0 }}>
-            <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/team/founder-timfire-wide.jpg" alt="A KR8 Digitals founder at work" />
-            </div>
-            <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>
-              Every enquiry is read by a person on the team.
-            </figcaption>
-          </figure>
-        }
-      />
-
-      <section className="section" style={{ paddingTop: 40 }}>
+      {/* ============================================================ HERO */}
+      <section className="kr8-subhero" style={{ paddingBottom: 34 }}>
+        <SectionAtmosphere name="website-engineering-cinema" deskOpacity={0.18} mobOpacity={0.3} flare />
         <div className="wrap">
-          <div className="grid g2 grid--loose" style={{ gridTemplateColumns: 'minmax(0,1.5fr) minmax(0,1fr)' }}>
+          <div className="kr8-subhero__grid">
             <div>
-              <Suspense fallback={<div className="panel"><span className="spinner" /></div>}>
-                <ContactRouter />
-              </Suspense>
+              <span className="kr8-pill">
+                <i className="kr8-pill__dot" /> Start a Project · KR8 DIGITALS
+              </span>
+              <h1 className="kr8-subhero__title">
+                Tell us what you are building.{' '}
+                <em>Get a real scope in writing.</em>
+              </h1>
+              <ResponsiveCopy
+                as="p"
+                className="kr8-subhero__lede"
+                desktop={
+                  <>
+                    Every commercial engagement at <strong>KR8 DIGITALS</strong> starts with clarity: your business
+                    objective, defined deliverables, timeline milestones, and a transparent fixed figure — answered
+                    directly by the practitioners who will build the work.
+                  </>
+                }
+                mobile={
+                  <>
+                    Share your goal in a sentence or two — receive a clear written scope, timeline, and fixed
+                    quote within <strong>1 business day</strong>.
+                  </>
+                }
+              />
             </div>
 
-            <aside>
-              <div className="panel reveal up" style={{ padding: 26 }}>
-                <div className="eyebrow">Rather talk?</div>
-                <a
-                  href={`https://wa.me/${site.company.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary"
-                  style={{ marginTop: 16, justifyContent: 'center' }}
-                >
-                  <Icon name="wa" size={17} /> WhatsApp the team
-                </a>
-                <div style={{ marginTop: 20, display: 'grid', gap: 10, fontSize: 13.5, color: 'var(--t-muted)' }}>
-                  <span><b style={{ color: '#fff' }}>{site.company.phone}</b><br />Calls and WhatsApp</span>
-                  <span><b style={{ color: '#fff' }}>{site.company.email}</b><br />Email</span>
-                </div>
-                <p style={{ marginTop: 18, fontSize: 12.5, color: 'var(--t-faint)', lineHeight: 1.65 }}>
-                  The team works round the clock across time zones, so a message sent at an odd hour is not
-                  wasted. We answer in the order messages arrive.
-                </p>
-              </div>
+            <div className="kr8-grid-2 kr8-contact-quad" style={{ gap: 14 }}>
+              <a
+                href={`mailto:${site.company.email}`}
+                className="kr8-card"
+                style={{ textDecoration: 'none', padding: '22px 24px' }}
+              >
+                <div className="kr8-card__num">DIRECT EMAIL</div>
+                <strong style={{ color: '#fff', fontSize: 13.5, overflowWrap: 'anywhere' }}>
+                  {site.company.email}
+                </strong>
+                <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.68)', marginTop: 6, display: 'block' }}>
+                  Written briefs &amp; docs
+                </span>
+              </a>
 
-              <div className="panel reveal up" style={{ padding: 26, marginTop: 16 }}>
-                <div className="eyebrow">What happens next</div>
-                <div className="timeline" style={{ marginTop: 12 }}>
-                  <div className="timeline__row" style={{ padding: '14px 0' }}>
-                    <div className="timeline__when">Day 0</div>
-                    <div className="timeline__what"><b>You send it</b><p>It lands in our inbox and on the dashboard.</p></div>
-                  </div>
-                  <div className="timeline__row" style={{ padding: '14px 0' }}>
-                    <div className="timeline__when">Reply</div>
-                    <div className="timeline__what"><b>A person answers</b><p>Not an autoresponder. Questions, or a scope.</p></div>
-                  </div>
-                  <div className="timeline__row" style={{ padding: '14px 0' }}>
-                    <div className="timeline__when">Scope</div>
-                    <div className="timeline__what"><b>Price and date, in writing</b><p>Fixed figure. You hold us to it.</p></div>
-                  </div>
-                </div>
-              </div>
+              <a
+                href={`https://wa.me/${site.company.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="kr8-card kr8-card--accent"
+                style={{ textDecoration: 'none', padding: '22px 24px' }}
+              >
+                <div className="kr8-card__num">WHATSAPP / PHONE</div>
+                <strong style={{ color: '#fff', fontSize: 14.5 }}>{site.company.phone}</strong>
+                <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.78)', marginTop: 6, display: 'block' }}>
+                  Fast executive reply →
+                </span>
+              </a>
 
-              <div className="panel reveal up" style={{ padding: 26, marginTop: 16 }}>
-                <div className="eyebrow">Other addresses</div>
-                <div style={{ display: 'grid', gap: 10, marginTop: 14, fontSize: 13.5 }}>
-                  <a href="https://academy.kr8digitals.com" target="_blank" rel="noopener noreferrer" className="btn-link">
-                    Free training <span aria-hidden>↗</span>
-                  </a>
-                  <a href="/tribe" className="btn-link">
-                    The Tribe <Icon name="arrow" size={14} />
-                  </a>
-                  <a href="/referrals" className="btn-link">Referrals &amp; commission</a>
-                </div>
-              </div>
-            </aside>
+              <Link
+                href="/partners#propose"
+                className="kr8-card"
+                style={{ textDecoration: 'none', padding: '22px 24px' }}
+              >
+                <div className="kr8-card__num">PARTNERSHIPS</div>
+                <strong style={{ color: '#fff', fontSize: 14.5 }}>Propose an Alliance</strong>
+                <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.68)', marginTop: 6, display: 'block' }}>
+                  Studios, schools &amp; sponsors →
+                </span>
+              </Link>
+
+              <a
+                href="https://academy.kr8digitals.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="kr8-card"
+                style={{ textDecoration: 'none', padding: '22px 24px' }}
+              >
+                <div className="kr8-card__num">FREE TRAINING</div>
+                <strong style={{ color: '#fff', fontSize: 14.5 }}>KR8 Academy</strong>
+                <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.68)', marginTop: 6, display: 'block' }}>
+                  100% free admissions ↗
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      <ClosingCTA
-        title="If you run a school, a business, or a brand, we should talk."
-        copy="One form. A real reply. A price you can hold us to."
-        cta="Start at the top"
-        href="#form"
-        secondary={{ label: 'See the work first', href: '/services#websites' }}
-      />
+      {/* ===================================== SCOPING FORM + EXPECTATIONS */}
+      <section className="section" style={{ paddingTop: 32 }}>
+        <div className="wrap">
+          <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
+            <div className="panel" style={{ padding: 'clamp(18px, 3.2vw, 40px)' }}>
+              <LeadForm
+                variant="quote"
+                defaultService={matchedService?.name || sp.service}
+                siteId={sp.site || sp.ref}
+              />
+            </div>
+
+            <div style={{ display: 'grid', gap: 18 }}>
+              <article className="kr8-card">
+                <div className="kr8-card-photo">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/img/contact/scoping-session.webp"
+                    alt="KR8 DIGITALS engineering and creative leads scoping a client project in a sunlit studio"
+                  />
+                  <span className="kr8-card-photo__tag">1 Business Day Reply</span>
+                </div>
+                <div className="kr8-card__num">HOW SCOPING WORKS AT KR8 DIGITALS</div>
+                <h2 className="kr8-card__title">What happens after you send a brief</h2>
+                <ul className="kr8-check-list" style={{ marginTop: 14 }}>
+                  <li>
+                    <strong>Practitioner Review:</strong> Your brief goes straight to our engineering, design, or
+                    post-production lead — never a scripted call center.
+                  </li>
+                  <li>
+                    <strong>Written Scope &amp; Fixed Figure:</strong> We reply with clear deliverables, milestone
+                    dates, and a fixed quote before you commit to anything.
+                  </li>
+                  <li>
+                    <strong>100% Client Ownership:</strong> Domains, source repositories, brand master files, and
+                    final exports belong cleanly to your organisation.
+                  </li>
+                </ul>
+              </article>
+
+              <article className="kr8-card">
+                <div className="kr8-card__num">SIX COMMERCIAL DISCIPLINES</div>
+                <h3 className="kr8-card__title" style={{ fontSize: 19 }}>
+                  Explore Service Specifications
+                </h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
+                  {services.map((s) => (
+                    <Link
+                      key={s.slug}
+                      href={`/services/${s.slug}`}
+                      className="btn-ghost btn-sm"
+                    >
+                      {s.short} <Icon name="arrow" size={13} />
+                    </Link>
+                  ))}
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

@@ -76,8 +76,8 @@ function flyerItems() {
 
 const FOUNDERS = [
   { name: 'Timfire', full: 'Kenneth Timothy Iziogo', role: 'Founder & Chief Executive', img: '/img/team/founder-timfire.jpg' },
-  { name: 'Stevenson', full: 'Motionverse', role: 'Co-founder & Design', img: '/img/team/stevenson.jpg' },
-  { name: 'Daniel', full: 'CHIGOMA', role: 'Co-founder & Video', img: '/img/team/daniel.jpg' },
+  { name: 'Steveoking', full: 'Stevenson', role: 'Co-Founder', img: '/img/team/stevenson.jpg' },
+  { name: 'Creative Expression', full: 'Daniel Akachukwu Augustine', role: 'Co-Founder', img: '/img/team/daniel.jpg' },
 ];
 
 const OFFERS = [
@@ -262,19 +262,6 @@ export default function HeroCinema() {
         {/* ---- film furniture ---------------------------------------------- */}
         <div className="cine__bar cine__bar--top" aria-hidden />
         <div className="cine__bar cine__bar--bot" aria-hidden />
-      </div>
-
-      {/* ---- caption + chapters, the hero's permanent furniture ------------ */}
-      <div className="cine__foot">
-        <div className="cine__foot-text">
-          <div className="cine__foot-title">{current.title}</div>
-          <div className="cine__foot-sub">
-            {isCarousel && active ? `${active.name} — ${active.meta}` : current.sub}
-          </div>
-        </div>
-        <Link href={current.href} className="btn-link cine__foot-cta">
-          {current.cta} <span aria-hidden style={{ marginLeft: 6 }}>→</span>
-        </Link>
       </div>
 
       <div className="stage-scenes" role="tablist" aria-label="Hero chapters">

@@ -1,174 +1,208 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
-import PageHero from '@/components/PageHero';
-import Duo from '@/components/Duo';
-import ReferralSignup from '@/components/ReferralSignup';
+import { getSettings } from '@/lib/settings';
 import ReferralCalc from '@/components/ReferralCalc';
+import ReferralSignup from '@/components/ReferralSignup';
 import { Icon } from '@/components/ui';
+import {
+  CinemaVisual,
+  MobileDisclosure,
+  ResponsiveCopy,
+  SectionAtmosphere,
+} from '@/components/MobileExperience';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Referrals — get paid for the introductions you already make',
+  title: 'Referral Program — Introduce a Client, Earn Commission | KR8 DIGITALS',
   description:
-    'Introduce a business to KR8 Digitals and earn 10% on websites, 8% on creative work, 10% on small jobs, rising to 12% after three paid referrals. Real ledger, real payouts.',
+    'Introduce an organisation to KR8 DIGITALS for Website Design, Branding, Graphic Design, Video Editing, SEO, or AI Automation — and earn transparent commission when the invoice is paid.',
   alternates: { canonical: '/referrals' },
 };
 
-const S = site.settings.referralRates;
-
-export default function ReferralsPage() {
-  const rows = [
-    { what: 'Websites and builds', rate: S.website, note: 'Anything scoped as a site, web app or rebuild.' },
-    { what: 'Design, video and search', rate: S.design, note: 'Creative retainers and one-off production.' },
-    { what: 'Small jobs', rate: S.small, note: `Minimum $${S.smallMinimumUsd} per paid job, however small the job.` },
-    { what: 'Bonus after three paid referrals', rate: S.bonus, note: 'Applies to every referral from the fourth onwards.' },
-  ];
+export default async function ReferralsPage() {
+  const settings = await getSettings();
+  const r = settings.referralRates;
+  const ex = site.referrals.workedExample;
 
   return (
     <>
-      <PageHero
-        eyebrow="Referrals"
-        title={<>You may not have the skill.<br /><span className="text-grad">You have the people.</span></>}
-        lede={site.referrals.lede}
-       
-        aside={
-          <div>
-            <figure style={{ margin: 0 }}>
-              <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
+      {/* ============================================================ HERO */}
+      <section className="kr8-subhero">
+        <SectionAtmosphere name="referrals-network-cinema" deskOpacity={0.2} mobOpacity={0.34} flare />
+        <div className="wrap">
+          <div className="kr8-subhero__grid">
+            <div>
+              <span className="kr8-pill kr8-pill--green">
+                <i className="kr8-pill__dot" /> KR8 DIGITALS Referral Network
+              </span>
+              <h1 className="kr8-subhero__title">
+                You may not build the code.{' '}
+                <em>You know the decision-maker.</em>
+              </h1>
+              <ResponsiveCopy
+                as="p"
+                className="kr8-subhero__lede"
+                desktop={site.referrals.lede}
+                mobile="Introduce a school, clinic, hotel, retailer, or founder to KR8 DIGITALS and earn 8%–12% commission once their project invoice clears."
+              />
+              <div className="kr8-subhero__actions">
+                <a href="#signup" className="btn-primary">
+                  Generate Your Referral Link <Icon name="arrow" size={17} />
+                </a>
+                <Link href="/referrals/dashboard" className="btn-ghost">
+                  Open Referrer Ledger
+                </Link>
+              </div>
+            </div>
+
+            <div className="kr8-card kr8-card--accent" style={{ padding: 'clamp(20px, 2.8vw, 34px)' }}>
+              <div className="kr8-card-photo" style={{ marginBottom: 16 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/img/sites/vegas-card.webp" alt="A live site KR8 Digitals built — the kind of work a referral brings in" />
+                <img
+                  src="/img/cinema/referrals-network-cinema-desk.webp"
+                  alt="KR8 DIGITALS Referral Network partner connecting a decision-maker from smartphone"
+                />
+                <span className="kr8-card-photo__tag">Open to Everyone · $0 Fee</span>
               </div>
-              <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>
-                A referral is usually a business with a site like this one to fix.
-              </figcaption>
-            </figure>
-            <div className="panel" style={{ marginTop: 14, padding: 22 }}>
-              <div className="tag" style={{ color: 'var(--magenta)' }}>Open to everyone</div>
-              <p style={{ fontSize: 13.5, color: 'var(--t-body)', marginTop: 10, lineHeight: 1.6 }}>
-                Students, drivers, teachers, ex-clients, strangers. No follower count, no application review,
-                no fee.
+              <div className="kr8-card__num">WORKED COMMISSION EXAMPLE</div>
+              <h2 className="kr8-card__title" style={{ fontSize: 22 }}>
+                {ex.project}
+              </h2>
+              <p className="kr8-card__body">
+                When you refer a client whose confirmed website scope closes at{' '}
+                <strong>${ex.projectUsd.toLocaleString('en-US')}</strong>, your{' '}
+                <strong>{r.website}%</strong> commission credits{' '}
+                <strong style={{ color: '#f5d0fe' }}>
+                  ${Math.round((ex.projectUsd * r.website) / 100).toLocaleString('en-US')}
+                </strong>{' '}
+                (paid in NGN at settlement) directly to your ledger once the invoice clears.
               </p>
-              <a href="#join" className="btn-primary btn-sm" style={{ marginTop: 14 }}>Create my link <Icon name="arrow" size={15} /></a>
-            </div>
-          </div>
-        }
-      />
-
-      <section className="section" style={{ paddingTop: 10 }}>
-        <div className="wrap">
-          <div className="split" style={{ alignItems: 'start', gap: 56 }}>
-            <div className="reveal up">
-              <div className="eyebrow">How it works</div>
-              <h2 className="section-title" style={{ fontSize: 40 }}>Three steps, no fine print beyond the four terms below</h2>
-              <div className="steps" style={{ marginTop: 40 }}>
-                {[
-                  { n: '01', t: 'Create the account', d: 'Name and email. You get a personal link immediately — no approval queue.' },
-                  { n: '02', t: 'Introduce someone', d: 'Send them your link. When they enquire or request a quote, the introduction is attached to you, permanently.' },
-                  { n: '03', t: 'Get paid when they pay', d: 'Commission is credited the moment the client settles their invoice, and paid out by bank transfer.' },
-                ].map((s) => (
-                  <div className="step" key={s.n}>
-                    <div className="step-num">{s.n}</div>
-                    <div className="step-title">{s.t}</div>
-                    <p>{s.d}</p>
+              <div
+                style={{
+                  marginTop: 16,
+                  paddingTop: 14,
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+                  gap: 8,
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: '#fff' }}>{r.website}%</div>
+                  <div style={{ fontSize: 11.5, color: 'rgba(226,218,242,0.72)' }}>Websites &amp; AI</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: '#fff' }}>{r.design}%</div>
+                  <div style={{ fontSize: 11.5, color: 'rgba(226,218,242,0.72)' }}>Brand, Design &amp; Film</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: '#f5d0fe' }}>{r.bonus}%</div>
+                  <div style={{ fontSize: 11.5, color: 'rgba(226,218,242,0.72)' }}>
+                    After {r.bonusAfterPaidReferrals} Deals
                   </div>
-                ))}
+                </div>
               </div>
             </div>
-            <div className="reveal up" data-delay="60"><ReferralCalc /></div>
           </div>
         </div>
       </section>
 
-      <section className="section section--tight" style={{ borderTop: '1px solid var(--hair-soft)', borderBottom: '1px solid var(--hair-soft)' }}>
-        <div className="wrap">
-          <div className="reveal up" style={{ maxWidth: 700 }}>
-            <div className="eyebrow">The rates</div>
-            <h2 className="section-title">Published, not negotiated</h2>
-            <p className="section-lede">
-              The same table applies to everybody. There is no tier you have to unlock by begging, and no
-              rate that quietly drops when the invoice is large.
-            </p>
-          </div>
-          <div className="tbl-wrap reveal up" style={{ marginTop: 36 }}>
-            <table className="tbl">
-              <thead><tr><th>What was bought</th><th className="num">Commission</th><th>Note</th></tr></thead>
-              <tbody>
-                {rows.map((r) => (
-                  <tr key={r.what}>
-                    <td><b>{r.what}</b></td>
-                    <td className="num"><b style={{ fontSize: 16 }}>{r.rate}%</b></td>
-                    <td style={{ color: 'var(--t-muted)' }}>{r.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p style={{ marginTop: 16, fontSize: 12.5, color: 'var(--t-faint)' }}>
-            Worked example: a {site.referrals.workedExample.project.toLowerCase()} at $
-            {site.referrals.workedExample.projectUsd.toLocaleString('en-US')} pays $
-            {site.referrals.workedExample.commissionUsd} at {site.referrals.workedExample.ratePct}%.
-          </p>
-        </div>
-      </section>
-
+      {/* ===================================== HOW IT WORKS + CALCULATOR */}
       <section className="section">
         <div className="wrap">
-          <div className="split" style={{ alignItems: 'start', gap: 56 }}>
-            <div className="reveal up">
-              <div className="eyebrow">The four terms</div>
-              <h2 className="section-title" style={{ fontSize: 36 }}>The whole agreement</h2>
-              <ol className="price-list" style={{ marginTop: 24 }}>
-                {site.referrals.terms.map((t) => <li key={t} style={{ alignItems: 'flex-start' }}><Icon name="check" size={16} /> <span>{t}</span></li>)}
-              </ol>
-              <div className="meta-row" style={{ marginTop: 28 }}>
-                <span><b>Minimum withdrawal</b> ${S.minimumWithdrawalUsd}</span>
-                <span><b>Payout</b> bank transfer, manual, verified</span>
-                <span><b>Ledger</b> visible in your dashboard</span>
-              </div>
-              <p style={{ marginTop: 22, fontSize: 13.5, color: 'var(--t-muted)' }}>
-                Already signed up? <Link href="/referrals/dashboard" style={{ color: 'var(--magenta)', fontWeight: 600 }}>Open your dashboard</Link>.
-              </p>
-            </div>
-            <div className="reveal up" data-delay="60"><ReferralSignup /></div>
+          <div className="kr8-grid-3" style={{ marginBottom: 28 }}>
+            {[
+              {
+                n: '01',
+                t: 'Create Your Unique Link',
+                img: '/img/referrals/referral-ledger-desk.webp',
+                alt: 'KR8 DIGITALS commission earnings ledger and referral link portal on laptop and smartphone',
+                tag: '30-Second Setup',
+                d: 'Register in thirty seconds below — no fee, no paperwork. Receive your personal tracking URL and private dashboard token.',
+                m: 'Register free in 30 seconds and get your personal tracking URL + private ledger key.',
+              },
+              {
+                n: '02',
+                t: 'Share With Decision-Makers',
+                img: '/img/referrals/referral-lounge-share.webp',
+                alt: 'Sharing a warm business introduction to KR8 DIGITALS',
+                tag: '60-Day Attribution',
+                d: 'Introduce a school, hotel, clinic, retailer, or founder who needs a website, brand identity, campaign design, video edit, SEO, or AI system.',
+                m: 'Share your link with any business, school, clinic, or founder hiring digital work.',
+              },
+              {
+                n: '03',
+                t: 'Get Paid When They Pay',
+                img: '/img/referrals/referral-payout-celebrate.webp',
+                alt: 'Referrer celebrating a paid client invoice commission notification',
+                tag: '8% – 12% Commission',
+                d: 'Every inquiry using your link attributes automatically for 60 days. Once the client invoice clears, request bank payout straight from your ledger.',
+                m: 'Tracked automatically for 60 days. Withdraw straight to your bank once their invoice clears.',
+              },
+            ].map((s) => (
+              <article className="kr8-card reveal up" key={s.n}>
+                <div className="kr8-card-photo">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={s.img} alt={s.alt} loading="lazy" />
+                  <span className="kr8-card-photo__tag">{s.tag}</span>
+                </div>
+                <div className="kr8-card__num">STEP {s.n}</div>
+                <h3 className="kr8-card__title">{s.t}</h3>
+                <ResponsiveCopy as="p" className="kr8-card__body" desktop={s.d} mobile={s.m} />
+              </article>
+            ))}
           </div>
+
+          <ReferralCalc />
         </div>
       </section>
 
-      <Duo
-        eyebrow="Who to introduce"
-        title="The person whose website you would be embarrassed to share."
-        body={
-          <>
-            <p>
-              Every referral we have paid came from somebody noticing the same thing you notice: a good
-              business being let down by the thing that represents it online. You do not need to sell
-              anything. You need one sentence and a link.
-            </p>
-            <p>
-              And you do not need the skill. That is the entire point of this page.
-            </p>
-          </>
-        }
-        media={[
-          { src: '/img/sites/tastia-card.webp', alt: 'A restaurant site built by KR8 Digitals', caption: 'The kind of work a referral pays for' },
-          { src: '/img/sites/rapha-card.webp', alt: 'A hospital site built by KR8 Digitals' },
-        ]}
-        cta={{ label: 'See what we build', href: '/services' }}
-        secondary={{ label: 'Open the referral dashboard', href: '/referrals/dashboard' }}
-        flip
-      />
-
-      <section className="section section--tight">
+      {/* ===================================== SIGNUP + CLEAR RULES */}
+      <section
+        className="section"
+        id="signup"
+        style={{ borderTop: '1px solid var(--hair-soft)', scrollMarginTop: 92 }}
+      >
+        <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.28} mobOpacity={0.4} flare />
         <div className="wrap">
-          <div className="panel reveal up" style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
             <div>
-              <h3 style={{ fontSize: 22 }}>Not sure who to introduce?</h3>
-              <p style={{ marginTop: 8, maxWidth: 560 }}>
-                Start with the person whose website you would be embarrassed to share. That is almost always
-                a paying client waiting for someone to say it out loud.
+              <div className="eyebrow">Transparent Program Rules</div>
+              <h2 className="section-title" style={{ marginTop: 10 }}>
+                Get your personal link <span className="text-grad">in 30 seconds.</span>
+              </h2>
+
+              <div className="kr8-desk-only">
+                <ul className="kr8-check-list" style={{ marginTop: 20 }}>
+                  {site.referrals.terms.map((t) => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="kr8-mob-only" style={{ marginTop: 12 }}>
+                <p className="kr8-card__body">
+                  10% on Websites/AI · 8% on Brand/Design/Film/SEO · 12% loyalty bonus after 3 paid deals · $20 minimum payout.
+                </p>
+                <MobileDisclosure label="Read full referral terms & payout rules">
+                  <ul className="kr8-check-list">
+                    {site.referrals.terms.map((t) => (
+                      <li key={t}>{t}</li>
+                    ))}
+                  </ul>
+                </MobileDisclosure>
+              </div>
+
+              <p style={{ marginTop: 18 }}>
+                <Link href="/referrals/dashboard" className="btn-link">
+                  Already registered? Open your Referrer Ledger <Icon name="arrow" size={14} />
+                </Link>
               </p>
             </div>
-            <Link href="/services" className="btn-ghost">See what we build</Link>
+
+            <ReferralSignup />
           </div>
         </div>
       </section>

@@ -1,35 +1,39 @@
 import Link from 'next/link';
 import { Icon } from '@/components/ui';
-
-export const metadata = { title: 'Page not found' };
-
-const WAYS = [
-  { t: 'The services', d: 'Websites, brand, video, AI and search.', href: '/services' },
-  { t: 'The programmes', d: 'Free training, the Tribe, Mindset Shift.', href: '/programs' },
-  { t: 'The work', d: 'Live sites we have built and deployed.', href: '/services/website-design#work' },
-  { t: 'Talk to someone', d: 'One form, a real reply within a day.', href: '/contact' },
-];
+import { SectionAtmosphere } from '@/components/MobileExperience';
 
 export default function NotFound() {
   return (
-    <section className="section" style={{ paddingTop: 160, minHeight: '78vh' }}>
-      <div className="wrap" style={{ maxWidth: 880 }}>
-        <div className="eyebrow">404</div>
-        <h1 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 58, lineHeight: 1.02, fontWeight: 800, letterSpacing: '-.035em', marginTop: 12 }}>
-          This page moved,<br /><span className="text-grad">or never existed.</span>
-        </h1>
-        <p style={{ marginTop: 18, fontSize: 17, color: 'var(--t-body)', maxWidth: 560 }}>
-          The old KR8 site had ten pages and no structure. This one has more, so a handful of old links
-          point at nothing. Four ways to land somewhere real:
-        </p>
-        <div className="grid g2" style={{ marginTop: 34, maxWidth: 720 }}>
-          {WAYS.map((w) => (
-            <Link key={w.t} href={w.href} className="card card--hover">
-              <h3 style={{ fontSize: 18 }}>{w.t}</h3>
-              <p style={{ fontSize: 13, marginTop: 6 }}>{w.d}</p>
-              <span className="btn-link" style={{ marginTop: 12, display: 'inline-flex' }}>Open <Icon name="arrow" size={13} /></span>
+    <section className="kr8-subhero" style={{ minHeight: '76vh', display: 'flex', alignItems: 'center' }}>
+      <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.32} mobOpacity={0.44} flare />
+      <div className="wrap">
+        <div style={{ maxWidth: 680 }}>
+          <span className="kr8-pill">404 · Page Not Found</span>
+          <h1 className="kr8-subhero__title">
+            That address isn&apos;t here —{' '}
+            <em>let&apos;s get you to the right room.</em>
+          </h1>
+          <p className="kr8-subhero__lede">
+            The link you followed may have moved or been mistyped. Jump straight to any core destination across
+            KR8 DIGITALS below.
+          </p>
+          <div className="kr8-subhero__actions">
+            <Link href="/" className="btn-primary">
+              Back to Homepage <Icon name="arrow" size={17} />
             </Link>
-          ))}
+            <Link href="/services" className="btn-ghost">
+              Explore Services
+            </Link>
+            <Link href="/programs" className="btn-ghost">
+              Free Programs
+            </Link>
+            <Link href="/partners" className="btn-ghost">
+              Partners
+            </Link>
+            <Link href="/contact" className="btn-ghost">
+              Contact Us
+            </Link>
+          </div>
         </div>
       </div>
     </section>

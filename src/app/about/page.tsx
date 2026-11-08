@@ -1,183 +1,443 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
-import team from '../../../data/team.json';
-import partners from '../../../data/partners.json';
-import PageHero, { ClosingCTA } from '@/components/PageHero';
-import { Icon } from '@/components/ui';
+import { getCmsPageBySlug, getCmsPartners, getCmsSeoForRoute, getCmsTeam } from '@/lib/cms';
+import { Counter, Icon } from '@/components/ui';
 import Duo from '@/components/Duo';
+import { ResponsiveCopy, SectionAtmosphere } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'About — the company, the people, the reason it exists',
-  description:
-    'KR8 Digitals is a creative company that builds websites, brands, films, AI systems and SEO optimisation — and trains the people who build them next. Meet the founders and the team behind it.',
-  alternates: { canonical: '/about' },
-};
+export const dynamic = 'force-dynamic';
 
-const TIMELINE = [
-  { when: 'First', t: 'A company that builds', d: 'KR8 Digitals starts as a delivery company: clients, deadlines, work that has to survive being used by real customers.' },
-  { when: 'Then', t: 'A school inside it', d: 'The work needed people who could do it. Rather than complain about the market, the team started training — free.' },
-  { when: 'Then', t: 'A community', d: 'The people who finished training did not want to stop. The Tribe keeps the room open after the cohort ends.' },
-  { when: 'Now', t: 'An umbrella', d: 'Brands and practices build inside KR8 Digitals and keep their own name: Motionverse for design, CHIGOMA for video, Next Gen Scholars for academics.' },
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getCmsSeoForRoute('/about');
+  return {
+    title: seo?.metaTitle || 'About KR8 DIGITALS — Our Story, Founders, Mission & Ecosystem',
+    description:
+      seo?.metaDescription ||
+      'Discover KR8 DIGITALS: a multi-disciplinary creative technology company building websites, brands, graphics, video, SEO, and AI automation while empowering talent through tuition-free digital training.',
+    alternates: { canonical: '/about' },
+    robots: seo?.noindex ? { index: false, follow: false } : undefined,
+  };
+}
+
+const PILLARS_DUAL = [
+  {
+    num: 'ENGINE 01 · COMMERCIAL CRAFT',
+    title: 'Executive Digital Delivery for Ambitious Organisations',
+    body: 'Businesses, schools, hospitality brands, clinics, and founders commission KR8 DIGITALS when generic templates and fragmented freelancers fall short. Under one coordinated roof, we engineer fast web platforms, distinctive brand identities, scroll-stopping campaign graphics, retention-cut video reels, search engine authority, and grounded AI workflows.',
+    mobileBody:
+      'One accountable roof for businesses, schools, clinics, and founders — uniting custom websites, brand identity, campaign design, video reels, SEO, and AI workflows.',
+    points: [
+      'Website Design & Full-Stack Development',
+      'Brand Strategy & Visual Identity Systems',
+      'Commercial Graphic Design & Campaign Key Art',
+      'Video Editing & Narrative Post-Production',
+      'Technical & Local SEO Optimization',
+      'Custom AI Agents & Workflow Automation',
+    ],
+    ctaLabel: 'Explore Commercial Services',
+    ctaHref: '/services',
+  },
+  {
+    num: 'ENGINE 02 · HUMAN CAPACITY',
+    title: 'Tuition-Free Training, Community & Talent Pathways',
+    body: 'We believe world-class digital capability should never be locked behind financial gatekeeping. Alongside client delivery, KR8 DIGITALS runs tuition-free digital skills cohorts via KR8 Academy, academic preparation with Next Gen Scholars, peer mentorship inside KR8 DIGITALS TRIBE, Mindset Shift leadership conversations, and a merit-based studio recruitment pipeline.',
+    mobileBody:
+      'Zero financial gatekeeping: 100% free digital skills at KR8 Academy, WAEC/JAMB prep with Next Gen Scholars, our 3,000+ creator Tribe, Mindset Shift, and merit-based studio roles.',
+    points: [
+      '100% Tuition-Free Digital Skills Training (KR8 Academy)',
+      'Sciences, Arts, WAEC & JAMB Prep (Next Gen Scholars)',
+      'KR8 DIGITALS TRIBE Peer Critique & Builder Network',
+      'Mindset Shift Career & Perspective Forum',
+      'Merit-Based Studio Pathway (Join the Team)',
+    ],
+    ctaLabel: 'Explore Ecosystem Programs',
+    ctaHref: '/programs',
+  },
 ];
 
-export default function About() {
-  const coFounders = partners.filter((p) => p.group === 'co-founder');
+const JOURNEY = [
+  {
+    step: '01',
+    phase: 'Commercial Foundation',
+    title: 'Built around shipped client outcomes',
+    desc: 'KR8 DIGITALS began as an execution-first creative and engineering studio — judged strictly by websites that load fast, visuals that convert attention, and systems real customers use daily.',
+    mobileDesc: 'Started as an execution-first studio judged strictly by fast sites, high-converting visuals, and real results.',
+  },
+  {
+    step: '02',
+    phase: 'The Umbrella Model',
+    title: 'Three specialist practices, one unified standard',
+    desc: 'Timfire united web & AI engineering with Steveoking (Motionverse) in brand & graphic design and Creative Expression (Chigoma) in film editing — preserving each creative voice under one accountable company.',
+    mobileDesc: 'Timfire united web & AI with Steveoking (Motionverse) and Creative Expression (Chigoma) under one company.',
+  },
+  {
+    step: '03',
+    phase: 'KR8 Academy & Next Gen',
+    title: 'Opening the craft at zero tuition cost',
+    desc: 'Rather than gatekeep practical knowledge, the practitioners shipping paid client work opened structured, tuition-free digital tracks — joined by Next Gen Scholars for secondary and pre-university academics.',
+    mobileDesc: 'Our working studio leads opened 7 free digital skill tracks plus free WAEC/JAMB prep via Next Gen Scholars.',
+  },
+  {
+    step: '04',
+    phase: 'Tribe & Ecosystem',
+    title: 'A self-reinforcing creative institution',
+    desc: 'Graduates and independent builders gather in KR8 DIGITALS TRIBE and Mindset Shift to sharpen standards, collaborate on briefs, and grow into the next generation of studio leaders.',
+    mobileDesc: '3,000+ builders connect in KR8 Tribe and Mindset Shift to critique work, collaborate, and lead.',
+  },
+];
+
+export default async function AboutPage() {
+  const [team, partners, pageDoc] = await Promise.all([
+    getCmsTeam(),
+    getCmsPartners(),
+    getCmsPageBySlug('about'),
+  ]);
   return (
     <>
-      <PageHero
-        eyebrow="About KR8 Digitals"
-        title={<>We build the thing<br /><span className="text-grad">that makes people act.</span></>}
-        lede="KR8 Digitals is a creative company. A website that loads, a brand people remember, a film that holds attention, a system that takes the boring work off a human. Everything else we do exists to keep that possible."
-        aside={
-          <figure style={{ margin: 0 }}>
-            <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/team/founder-timfire-wide.jpg" alt="Kenneth Timothy Iziogo, founder of KR8 Digitals, at work" />
-            </div>
-            <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>
-              Kenneth Timothy Iziogo — founder. The company is named for him.
-            </figcaption>
-          </figure>
-        }
-      />
-
-      {/* ------------------------------------------------------------ STORY */}
-      <Duo
-        eyebrow="The company"
-        title="An umbrella, not a pipe."
-        body={
-          <>
-            <p>
-              Most creative companies try to be one brand with one look and one voice. KR8 Digitals works the
-              other way round. It is the company clients hire, and the roof that practices build under — the way
-              Google is the company, and YouTube, Android and DeepMind live inside it with their own names and
-              their own people.
-            </p>
-            <p>
-              <strong>Motionverse</strong> is design. <strong>CHIGOMA</strong> is video and creative
-              expression. <strong>Next Gen Scholars</strong> is academics. Each keeps its name, its credit and
-              its own standard — and each delivers through the company, to the same client, on the same
-              invoice.
-            </p>
-            <p>
-              That is why the training can be free and still be good: the people teaching it run the practices
-              that take the work.
-            </p>
-          </>
-        }
-        media={[
-          { src: '/img/brand/city-fashion-stores-full.webp', alt: 'A client flyer designed in association with Motionverse', caption: 'Design · Motionverse' },
-          { src: '/img/sites/afristem-full.webp', alt: 'The AFRISTEM Global website built by KR8 Digitals' },
-        ]}
-        cta={{ label: 'See the work', href: '/services' }}
-      />
-
-      {/* ------------------------------------------------------ MISSION/VISION */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+      {/* ============================================================ HERO */}
+      <section className="kr8-subhero">
+        <SectionAtmosphere name="hero-mobile-stage" deskOpacity={0.16} mobOpacity={0.28} flare />
         <div className="wrap">
-          <div className="grid g2 grid--loose">
-            <div className="reveal up">
-              <div className="eyebrow">Mission</div>
-              <h2 className="section-title" style={{ marginTop: 10, fontSize: 30 }}>Build work that earns its place.</h2>
-              <p className="prose-lg" style={{ marginTop: 14 }}>{site.company.mission}</p>
+          <div className="kr8-subhero__grid">
+            <div>
+              <span className="kr8-pill">
+                <i className="kr8-pill__dot" /> {pageDoc?.eyebrow || 'About KR8 DIGITALS'}
+              </span>
+              <h1 className="kr8-subhero__title">
+                {pageDoc?.heroTitle || 'We are writing a story,'}{' '}
+                <em>{pageDoc?.heroHighlight || 'and you can be a big part of it.'}</em>
+              </h1>
+              <ResponsiveCopy
+                as="p"
+                className="kr8-subhero__lede"
+                desktop={
+                  pageDoc?.heroLede ||
+                  'KR8 DIGITALS is a home for builders, dreamers, and organisations shaping what comes next. Whether you come to solve an important business challenge, master a digital craft for free, collaborate inside our creative community, or partner for lasting impact — there is a meaningful place for you in what we are building together.'
+                }
+                mobile="Whether you're launching a business project, learning a digital skill for free, joining our 3,000+ creator community, or partnering for impact — there is a place for you here."
+              />
+              <div className="kr8-subhero__actions">
+                <Link href="/contact" className="btn-primary">
+                  Work With Us <Icon name="arrow" size={17} />
+                </Link>
+                <Link href="/services" className="btn-ghost">
+                  Explore Services
+                </Link>
+                <Link href="#founders" className="btn-link">
+                  Meet the Founders <Icon name="arrow" size={14} />
+                </Link>
+              </div>
             </div>
-            <div className="reveal up">
-              <div className="eyebrow">Vision</div>
-              <h2 className="section-title" style={{ marginTop: 10, fontSize: 30 }}>A company the next person can walk into.</h2>
-              <p className="prose-lg" style={{ marginTop: 14 }}>
-                Not an agency that guards its clients, and not a charity that hands out hope. A company where
-                somebody with talent and no money can learn the craft, get held to a real standard, and end up
-                on the invoice. The training is not marketing — it is the supply chain.
-              </p>
+
+            <div className="kr8-subhero__frame">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/img/about/kr8-ecosystem-studio.webp"
+                alt="Engineers, brand designers, and video editors collaborating inside the KR8 DIGITALS studio ecosystem"
+              />
+              <div className="kr8-subhero__badge">
+                <div>
+                  <span>Unified Studio &amp; Academy</span>
+                  <strong>Engineering · Design · Film · Capacity</strong>
+                </div>
+                <Link href="/programs" className="btn-link" style={{ whiteSpace: 'nowrap' }}>
+                  Our Programs <Icon name="arrow" size={13} />
+                </Link>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="timeline reveal up" style={{ marginTop: 40 }}>
-            {TIMELINE.map((t) => (
-              <div className="timeline__row" key={t.t}>
-                <div className="timeline__when">{t.when}</div>
-                <div className="timeline__what">
-                  <b>{t.t}</b>
-                  <p>{t.d}</p>
+      {/* ====================================================== PROOF BAR */}
+      <section className="proof" aria-label="KR8 DIGITALS verified company metrics">
+        <div className="wrap" style={{ paddingLeft: 0, paddingRight: 0 }}>
+          <div className="proof-grid">
+            {site.stats.map((s, i) => (
+              <div className="proof-cell reveal up" data-delay={i * 60} key={s.id}>
+                <div className="proof-num text-grad">
+                  <Counter value={s.value} suffix={s.suffix} />
                 </div>
+                <div className="proof-label">{s.label}</div>
+                <div className="proof-src">{s.source}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------------------------------------------------------- FOUNDERS */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }} id="founders">
+      {/* ================================================== OUR STORY */}
+      <Duo
+        eyebrow="Our Story · Problem Solvers by Design"
+        title="We are problem solvers — uniting distinct minds to solve what no one can solve alone."
+        mobileSummary={
+          <>
+            <p>
+              Real breakthroughs happen when distinct minds gather around one table. Under one roof,{' '}
+              <strong>Timfire</strong> (Web &amp; AI), <strong>Steveoking</strong> (<strong>Motionverse</strong>),{' '}
+              <strong>Creative Expression</strong> (<strong>Chigoma</strong>), and <strong>Next Gen Scholars</strong>{' '}
+              turn tough challenges into working solutions — and pass those skills on tuition-free.
+            </p>
+            <p
+              style={{
+                marginTop: 10,
+                padding: '11px 14px',
+                borderRadius: 12,
+                background: 'rgba(168, 85, 247, 0.1)',
+                borderLeft: '3px solid var(--magenta)',
+                color: '#f5eeff',
+                fontSize: 13,
+                lineHeight: 1.5,
+              }}
+            >
+              <strong>Our Philosophy:</strong> Listen first, diagnose the real bottleneck, and build until solved.
+            </p>
+          </>
+        }
+        mobileExpandLabel="Read our full founding story"
+        body={
+          <>
+            <p>
+              Meaningful challenges rarely fit neatly inside a single skill. When people encounter problems too
+              complex to solve in isolation, real breakthroughs happen the moment distinct minds, disciplines, and
+              lived experiences come together around one table.
+            </p>
+            <p>
+              That conviction is why <strong>KR8 DIGITALS</strong> exists. Under one accountable roof, web and AI
+              engineering led by <strong>Timfire</strong> unites with <strong>Steveoking</strong> (
+              <strong>Motionverse</strong>) in brand and graphic design, <strong>Creative Expression</strong> (
+              <strong>Chigoma</strong>) in narrative video, and <strong>Next Gen Scholars</strong> in academics —
+              turning tough organisational and human challenges into working solutions, while passing those same
+              skills on tuition-free.
+            </p>
+            <p
+              style={{
+                marginTop: 6,
+                padding: '14px 18px',
+                borderRadius: 14,
+                background: 'rgba(168, 85, 247, 0.09)',
+                borderLeft: '3px solid var(--magenta)',
+                color: '#f5eeff',
+                fontWeight: 500,
+                fontSize: 15,
+                lineHeight: 1.6,
+              }}
+            >
+              <strong>Our Philosophy:</strong> Listen first, diagnose the real bottleneck, bring the right
+              capabilities together, and build until the problem is genuinely solved.
+            </p>
+          </>
+        }
+        media={[
+          {
+            src: '/img/about/our-story-roundtable.webp',
+            alt: 'Engineers, brand designers, and filmmakers collaborating around one studio table at KR8 DIGITALS',
+            caption: 'Distinct Minds · One Accountable Studio',
+          },
+          {
+            src: '/img/services/brand-identity.webp',
+            alt: 'Brand identity playbook and visual systems crafted inside KR8 DIGITALS',
+          },
+        ]}
+        cta={{ label: 'See How We Solve Problems', href: '/services' }}
+      />
+
+      {/* ===================================== PURPOSE, MISSION & VISION */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <SectionAtmosphere name="services-atmosphere" deskOpacity={0.12} mobOpacity={0.2} flare />
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">The founders</div>
-              <h2 className="section-title">Three people, three crafts,<br /><span className="text-grad">one company.</span></h2>
+              <div className="eyebrow">Direction &amp; Conviction</div>
+              <h2 className="section-title">
+                Purpose, Mission &amp; <span className="text-grad">Long-Term Vision.</span>
+              </h2>
               <p className="section-lede">
-                Their names are on the work. Each one has a section below with their role, what they are
-                responsible for and where to find them.
+                Every commercial build we ship and every free cohort we host is anchored to three clear
+                commitments.
               </p>
             </div>
           </div>
 
-          {team.founders.map((f, i) => (
-            <div id={f.slug} key={f.slug} style={{ scrollMarginTop: 96 }}>
-              <Duo
-                flip={i % 2 === 1}
-                eyebrow={`Founder ${String(i + 1).padStart(2, '0')} · ${f.role}`}
-                title={<>{f.name}<span style={{ display: 'block', fontSize: 15, fontWeight: 500, letterSpacing: 0, color: 'var(--t-faint)', marginTop: 10, fontFamily: 'Sora, sans-serif' }}>{f.fullName}</span></>}
-                body={
-                  <>
-                    <p>{f.bio}</p>
-                    {f.bio.toLowerCase().startsWith('placeholder') && (
-                      <p><span className="pending-tag">Bio needed</span></p>
-                    )}
-                    <p style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 6 }}>
-                      {f.links.map((l) => (
-                        <a key={l.label} href={l.href} className="btn-link" {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                          {l.label} <Icon name="arrow" size={14} />
-                        </a>
-                      ))}
-                      <Link href="/contact" className="btn-link">Work with us <Icon name="arrow" size={14} /></Link>
-                    </p>
-                  </>
-                }
-                media={[
-                  { src: f.photo, alt: `${f.name} — ${f.role} at KR8 Digitals`, caption: `${f.name} · ${f.role}` },
-                  ...(f.photoWide !== f.photo ? [{ src: f.photoWide, alt: `${f.name} at work` }] : []),
-                ]}
-              />
-            </div>
-          ))}
+          <div className="kr8-grid-3" style={{ marginTop: 30 }}>
+            <article className="kr8-card kr8-card--accent reveal up">
+              <div className="kr8-card__num">01 · OUR PURPOSE</div>
+              <h3 className="kr8-card__title">Why KR8 DIGITALS Exists</h3>
+              <p className="kr8-card__body">{site.company.purpose}</p>
+            </article>
+
+            <article className="kr8-card reveal up">
+              <div className="kr8-card__num">02 · OUR MISSION</div>
+              <h3 className="kr8-card__title">What We Execute Every Week</h3>
+              <p className="kr8-card__body">{site.company.mission}</p>
+            </article>
+
+            <article className="kr8-card reveal up">
+              <div className="kr8-card__num">03 · OUR VISION</div>
+              <h3 className="kr8-card__title">The Institution We Are Building</h3>
+              <p className="kr8-card__body">{site.company.vision}</p>
+            </article>
+          </div>
         </div>
       </section>
 
-      {/* -------------------------------------------------------------- TEAM */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }} id="team">
+      {/* =========================== DUAL MODEL: COMMERCIAL + EMPOWERMENT */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <SectionAtmosphere name="join-team-builders" deskOpacity={0.12} mobOpacity={0.2} flare />
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">The team</div>
-              <h2 className="section-title">The people who run it.</h2>
-              <p className="section-lede">
-                Beyond the founders, four people hold the company together. Roles are as published by KR8
-                Digitals; biographies are being collected.
-              </p>
+              <div className="eyebrow">How the Ecosystem Works</div>
+              <h2 className="section-title">
+                Two engines that <span className="text-grad">strengthen each other.</span>
+              </h2>
+              <ResponsiveCopy
+                as="p"
+                className="section-lede"
+                desktop="Commercial excellence funds and sharpens our curriculum; rigorous training cultivates disciplined talent capable of meeting real client standards."
+                mobile="Paid commercial delivery funds our free training; rigorous cohorts raise the next wave of studio builders."
+              />
             </div>
-            <Link href="/about/join-the-team" className="btn-link">Join the team <Icon name="arrow" size={15} /></Link>
           </div>
 
-          <div className="gal__grid gal__grid--brand" style={{ marginTop: 40 }}>
-            {team.team.map((p) => (
-              <article className="gal-card" key={p.name}>
-                <div className="gal-card__shot" style={{ background: '#140b29' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.photo} alt={`${p.name}, ${p.role}`} loading="lazy" decoding="async" />
+          <div className="kr8-grid-2" style={{ marginTop: 30 }}>
+            {PILLARS_DUAL.map((item, idx) => (
+              <article
+                key={item.num}
+                className={`kr8-card ${idx === 0 ? 'kr8-card--accent' : ''} reveal up`}
+              >
+                <div className="kr8-card__num">{item.num}</div>
+                <h3 className="kr8-card__title">{item.title}</h3>
+                <ResponsiveCopy
+                  as="p"
+                  className="kr8-card__body"
+                  desktop={item.body}
+                  mobile={item.mobileBody}
+                />
+                <ul className="kr8-check-list">
+                  {item.points.map((pt) => (
+                    <li key={pt}>{pt}</li>
+                  ))}
+                </ul>
+                <div className="kr8-card__foot">
+                  <Link href={item.ctaHref} className="btn-link">
+                    {item.ctaLabel} <Icon name="arrow" size={14} />
+                  </Link>
                 </div>
-                <div className="gal-card__body">
-                  <div className="gal-card__top"><span className="tag">{p.role}</span></div>
-                  <h3>{p.name}</h3>
+              </article>
+            ))}
+          </div>
+
+          {/* Journey / Evolution Strip */}
+          <div className="kr8-grid-4" style={{ marginTop: 22 }}>
+            {JOURNEY.map((j) => (
+              <div className="kr8-card reveal up" key={j.step} style={{ padding: '22px 24px' }}>
+                <div className="kr8-card__num">
+                  STEP {j.step} · {j.phase}
+                </div>
+                <h3 className="kr8-card__title" style={{ fontSize: 18 }}>
+                  {j.title}
+                </h3>
+                <ResponsiveCopy
+                  as="p"
+                  className="kr8-card__body"
+                  desktop={j.desc}
+                  mobile={j.mobileDesc}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================= FLAGSHIP TRAINING & TRIBE HIGHLIGHT */}
+      <Duo
+        flip
+        cinemaBg="academy-cohort-cinema"
+        eyebrow="Empowerment & Community"
+        title="Free Digital Skills Training & the KR8 DIGITALS TRIBE."
+        mobileSummary={
+          <p>
+            <strong>Zero tuition ($0 / ₦0)</strong> across 7 digital skill tracks at <strong>KR8 Academy</strong>{' '}
+            plus WAEC &amp; JAMB prep via <strong>Next Gen Scholars</strong> — backed by lifelong critique and gig
+            flow inside <strong>KR8 DIGITALS TRIBE</strong>.
+          </p>
+        }
+        mobileExpandLabel="See how Academy & Tribe connect"
+        body={
+          <>
+            <p>
+              Our flagship social commitment is simple and uncompromising: <strong>zero tuition</strong> for
+              earnest learners ready to do the work. Through <strong>KR8 Academy</strong>, students train across
+              Website Development, Front-End Engineering, Graphic Design, Video Editing, Content Creation, Social
+              Media Management, and Digital Marketing — while <strong>Next Gen Scholars</strong> equips secondary
+              learners across Sciences and Arts for WAEC and JAMB.
+            </p>
+            <p>
+              When a cohort concludes, growth continues inside <strong>KR8 DIGITALS TRIBE</strong> — our builder
+              community dedicated to honest work-in-progress critique, interdisciplinary sprints, peer
+              accountability, and shared creative momentum.
+            </p>
+          </>
+        }
+        bullets={[
+          '100% Tuition-Free Digital & Academic Tracks',
+          'Taught Directly by Working Studio Practitioners',
+          'Ongoing Peer Critique & Community Inside KR8 DIGITALS TRIBE',
+        ]}
+        media={[
+          {
+            src: '/img/programs/free-training-academy.webp',
+            alt: 'KR8 Academy tuition-free digital skills mentorship session',
+            caption: 'KR8 Academy · Free Digital Training',
+          },
+          {
+            src: '/img/programs/tribe-community.webp',
+            alt: 'KR8 DIGITALS TRIBE creative community collaboration',
+          },
+        ]}
+        cta={{ label: 'Explore Free Training & Tribe', href: '/programs' }}
+      />
+
+      {/* ====================================================== FOUNDERS */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }} id="founders">
+        <SectionAtmosphere name="founder-craft-design" deskOpacity={0.28} mobOpacity={0.38} flare />
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Founding Leadership</div>
+              <h2 className="section-title">
+                Three founders. Three crafts. <span className="text-grad">One company.</span>
+              </h2>
+              <ResponsiveCopy
+                as="p"
+                className="section-lede"
+                desktop="Meet the practitioners who lead engineering, brand & graphic design, and video production at KR8 DIGITALS. Explore each founder's dedicated profile page for their full story and body of work."
+                mobile="Meet the three practicing founders leading Web & AI, Brand Design, and Video Production at KR8 DIGITALS."
+              />
+            </div>
+          </div>
+
+          <div className="kr8-founder-grid" style={{ marginTop: 32 }}>
+            {team.founders.map((f) => (
+              <article className="kr8-founder-card reveal up" key={f.slug} id={f.slug}>
+                <Link href={f.readAbout} className="kr8-founder-card__photo" aria-label={f.linkText}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={f.photo} alt={`${f.name} (${f.fullName}) — ${f.role} at KR8 DIGITALS`} />
+                </Link>
+                <div className="kr8-founder-card__body">
+                  <div className="kr8-founder-card__role">{f.role}</div>
+                  <h3 className="kr8-founder-card__name" style={{ marginTop: 6 }}>
+                    {f.name}
+                  </h3>
+                  <div className="kr8-founder-card__full">{f.fullName}</div>
+                  <p className="kr8-founder-card__bio">{f.bio}</p>
+                  <div className="kr8-card__foot">
+                    <Link href={f.readAbout} className="btn-link">
+                      {f.linkText} <Icon name="arrow" size={14} />
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}
@@ -185,55 +445,141 @@ export default function About() {
         </div>
       </section>
 
-      {/* ------------------------------------------------------- CO-FOUNDING */}
-      <Duo
-        eyebrow="Built with"
-        title="The practices under the roof."
-        body={
-          <>
-            <p>
-              Motionverse and CHIGOMA are our co-founding partners — design and video, working together on the
-              same projects and credited on the work. Next Gen Scholars runs the academic door of the free
-              training.
-            </p>
-            <p>
-              Brands join the company rather than sit beside it: same client, same standard, their own name on
-              the piece.
-            </p>
-          </>
-        }
-        bullets={coFounders.map((p) => `${p.name} — ${p.role}`)}
-        media={[
-          { src: '/img/brand/zoey-perfume-full.webp', alt: 'Zoey Perfume flyer by KR8 Digitals in association with Motionverse', caption: 'Client work · Motionverse' },
-          { src: '/video/story-elizabeth-poster.webp', alt: 'Poster frame from a film cut by CHIGOMA' },
-        ]}
-        cta={{ label: 'See our partners', href: '/partners' }}
-        flip
-      />
-
-      {/* ---------------------------------------------------------- JOIN TEAM */}
-      <section className="section" style={{ paddingTop: 0 }}>
+      {/* ================================================= CORE TEAM */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }} id="team">
         <div className="wrap">
-          <div className="cta-band reveal up">
-            <div className="eyebrow eyebrow--lilac">Join the team</div>
-            <h2>We are always looking at work.</h2>
-            <p>
-              The people who build our client work came through the same training. If you can show the work,
-              there is a route in: a portfolio review first, then live projects with people who have shipped.
-            </p>
-            <div className="actions" style={{ marginTop: 28 }}>
-              <Link href="/about/join-the-team" className="btn-primary">How to join <Icon name="arrow" size={17} /></Link>
-              <Link href="/programs" className="btn-ghost">Start with free training</Link>
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Operations &amp; Execution</div>
+              <h2 className="section-title">Core Leadership Team.</h2>
+              <ResponsiveCopy
+                as="p"
+                className="section-lede"
+                desktop="The operational leaders stewarding financial strategy, project milestones, general management, and accountability across KR8 DIGITALS."
+                mobile="Stewarding finance, project milestones, studio operations, and accountability across every delivery."
+              />
             </div>
+            <Link href="/about/join-the-team" className="btn-link">
+              Apply to Join the Team <Icon name="arrow" size={15} />
+            </Link>
+          </div>
+
+          <div className="kr8-grid-4 kr8-grid-4--exec" style={{ marginTop: 28 }}>
+            {team.team.map((p) => (
+              <article className="kr8-founder-card reveal up" key={p.name}>
+                <div className="kr8-founder-card__photo">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.photo} alt={`${p.name} — ${p.role} at KR8 DIGITALS`} loading="lazy" />
+                </div>
+                <div className="kr8-founder-card__body" style={{ padding: '20px 22px 24px' }}>
+                  <div className="kr8-founder-card__role">{p.role}</div>
+                  <h3
+                    className="kr8-founder-card__name"
+                    style={{ fontSize: 19, whiteSpace: 'normal', lineHeight: 1.25, marginTop: 6 }}
+                  >
+                    {p.name}
+                  </h3>
+                  <p className="kr8-founder-card__bio" style={{ fontSize: 13.8, marginTop: 10 }}>
+                    {p.bio}
+                  </p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <ClosingCTA
-        title="If you run a school, a business, or a brand, we should talk."
-        copy="One form, a real reply, and a price in writing before you commit to anything."
-        cta="Work with us"
-      />
+      {/* ================================================ PARTNERSHIPS */}
+      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
+        <SectionAtmosphere name="partners-alliance-cinema" deskOpacity={0.14} mobOpacity={0.24} flare />
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Co-Founding &amp; Academic Partners</div>
+              <h2 className="section-title">
+                Organisations building <span className="text-grad">under the same roof.</span>
+              </h2>
+              <ResponsiveCopy
+                as="p"
+                className="section-lede"
+                desktop="Partner studios and educational institutions collaborate directly inside KR8 DIGITALS — retaining their distinct identity while multiplying impact across client work and free education."
+                mobile="Co-founding studios and academic partners multiplying impact across client work and free cohorts."
+              />
+            </div>
+            <Link href="/partners" className="btn-link">
+              Partner With KR8 DIGITALS <Icon name="arrow" size={15} />
+            </Link>
+          </div>
+
+          <div className="kr8-grid-3" style={{ marginTop: 28 }}>
+            {partners.map((p) => {
+              const partnerPhotos: Record<string, string> = {
+                motionverse: '/img/services/motionverse-studio.webp',
+                chigoma: '/img/services/video-editing-suite.webp',
+                'next-gen-scholars': '/img/partners/track-schools.webp',
+              };
+              const pImg = partnerPhotos[p.slug] || '/img/partners/partnership-collaboration.webp';
+              return (
+                <article className="kr8-card reveal up" key={p.slug}>
+                  <div className="kr8-card-photo">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={pImg} alt={`${p.name} — ${p.type} inside KR8 DIGITALS`} loading="lazy" />
+                    <span className="kr8-card-photo__tag">{p.mark} · {p.type}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 14 }}>
+                    <div className="partner-tile__mark" aria-hidden="true">
+                      <span>{p.mark}</span>
+                    </div>
+                    <div>
+                      <div className="kr8-card__num" style={{ marginBottom: 3 }}>
+                        {p.type}
+                      </div>
+                      <h3 className="kr8-card__title" style={{ fontSize: 22 }}>
+                        {p.name}
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="kr8-card__body">{p.blurb}</p>
+                  <div className="kr8-card__foot">
+                    <Link href={p.href} className="btn-link">
+                      Read Partner Profile <Icon name="arrow" size={14} />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================= CLOSING CTA */}
+      <section className="section" style={{ paddingTop: 12 }}>
+        <div className="wrap">
+          <div className="kr8-cta-banner reveal up">
+            <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.45} mobOpacity={0.55} flare />
+            <div>
+              <span className="kr8-pill">Next Step</span>
+              <h2 className="section-title" style={{ marginTop: 14 }}>
+                Ready to build with KR8 DIGITALS — or grow inside our ecosystem?
+              </h2>
+              <ResponsiveCopy
+                as="p"
+                className="section-lede"
+                desktop="Commission a commercial project with a clear written scope, propose an institutional partnership, or step into our tuition-free training programs today."
+                mobile="Start a custom project brief, propose a partnership, or join a 100% free cohort today."
+              />
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+              <Link href="/contact" className="btn-primary">
+                Start a Project <Icon name="arrow" size={17} />
+              </Link>
+              <Link href="/partners" className="btn-ghost">
+                Partner With Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

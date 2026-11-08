@@ -14,6 +14,11 @@ export function Icon({ name, size = 22 }: { name: string; size?: number }) {
     case 'film': return <svg {...p} {...S}><rect x="2.5" y="4.5" width="19" height="15" rx="2" /><path d="M7 4.5v15M17 4.5v15M2.5 9.5h4.5M2.5 14.5h4.5M17 9.5h4.5M17 14.5h4.5" /></svg>;
     case 'cpu': return <svg {...p} {...S}><rect x="6.5" y="6.5" width="11" height="11" rx="2" /><rect x="10" y="10" width="4" height="4" rx=".6" /><path d="M10 3v3.5M14 3v3.5M10 17.5V21M14 17.5V21M3 10h3.5M3 14h3.5M17.5 10H21M17.5 14H21" /></svg>;
     case 'search': return <svg {...p} {...S}><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5L21 21" /></svg>;
+    case 'layers': return <svg {...p} {...S}><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z" /><path d="M3 12l9 4.5 9-4.5" /><path d="M3 16.5L12 21l9-4.5" /></svg>;
+    case 'spark': return <svg {...p} {...S}><path d="M12 2.5l2.2 6.3 6.3 2.2-6.3 2.2L12 19.5l-2.2-6.3-6.3-2.2 6.3-2.2L12 2.5z" /><path d="M19 16l.9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16z" /></svg>;
+    case 'users': return <svg {...p} {...S}><circle cx="9" cy="8" r="3.5" /><path d="M2.5 19.5a6.5 6.5 0 0113 0" /><circle cx="17" cy="9" r="2.5" /><path d="M16.5 14.2a5 5 0 015 5.3" /></svg>;
+    case 'award': return <svg {...p} {...S}><circle cx="12" cy="9" r="5.5" /><path d="M8.8 13.5L7.5 21l4.5-2.4L16.5 21l-1.3-7.5" /></svg>;
+    case 'compass': return <svg {...p} {...S}><circle cx="12" cy="12" r="9" /><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z" /></svg>;
     case 'check': return <svg {...p} {...S} strokeWidth={2}><path d="M4 12.5l5 5L20 6.5" /></svg>;
     case 'arrow': return <svg {...p} {...S}><path d="M4 12h15M13 6l6 6-6 6" /></svg>;
     case 'wa': return <svg {...p} viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 1.9a8.1 8.1 0 11-4.2 15l-.5-.3-3 .8.8-2.9-.3-.5A8.1 8.1 0 0112 3.9zm-3.1 4c-.2 0-.5.1-.7.4-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 3 4.5 4.1 2.2.9 2.7.7 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3l-1.7-.8c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.1-.2 0-.3.1-.5l.5-.6c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.4z" /></svg>;

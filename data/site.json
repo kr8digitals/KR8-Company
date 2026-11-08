@@ -7,9 +7,11 @@
       "b": "Digitals"
     },
     "tagline": "We exist because of you.",
-    "positioning": "KR8 Digitals is a creative company. We design and build websites, brands, video, AI systems and SEO optimisation for organisations that need to be found, trusted and chosen.",
-    "shortDescription": "KR8 Digitals builds the websites, brands, films and systems that make an organisation impossible to ignore — and we build them with people we trained ourselves.",
-    "mission": "We build work that earns its place: websites that load, brands that are remembered, films that hold attention and systems that remove the boring work. Behind every project is a company that also trains the next person who will build it.",
+    "positioning": "KR8 DIGITALS is a multi-disciplinary creative technology and human-capacity company designing websites, brand identities, commercial graphics, video storytelling, SEO ecosystems, and AI automation — while equipping emerging African talent through tuition-free digital training.",
+    "shortDescription": "KR8 DIGITALS builds commercial digital products, brand systems, films, and intelligent automation for ambitious organisations — alongside tuition-free skill academies and creative communities.",
+    "mission": "To design and engineer commercial websites, brands, films, search architectures, and AI systems that earn real business growth, while removing financial barriers to world-class digital education and creative mentorship.",
+    "vision": "To become Africa's defining bridge between executive-grade digital execution for businesses and accessible, career-launching capability for emerging builders, designers, and storytellers.",
+    "purpose": "Whoever you are, whatever you do, we exist because of you — turning ambitious ideas into trusted digital presences for clients, and turning raw curiosity into market-ready mastery for learners.",
     "email": "kr8digitals01@gmail.com",
     "academyEmail": "academy@kr8digitals.com",
     "phone": "+234 812 568 7509",
@@ -36,7 +38,7 @@
         "icon": "linkedin"
       }
     ],
-    "socialsNote": "Slots ready. Links to be supplied — the footer hides any that are empty."
+    "socialsNote": ""
   },
   "ecosystem": {
     "academy": {
@@ -47,14 +49,14 @@
       "verifyUrl": "https://academy.kr8digitals.com/verify",
       "admissionsUrl": "https://academy.kr8digitals.com/admissions",
       "status": "live",
-      "blurb": "Free training in seven creative and technical tracks, run by KR8 Digitals."
+      "blurb": "100% tuition-free digital skills and academic preparation tracks run by KR8 DIGITALS and Next Gen Scholars."
     },
     "tribe": {
       "name": "The Tribe",
       "endorsement": "the KR8 Digitals community",
-      "url": "https://tribe.kr8digitals.com",
-      "status": "holding",
-      "blurb": "The community where people who train with us keep working together."
+      "url": "/tribe",
+      "status": "active",
+      "blurb": "The creative network where builders, designers, and editors critique work, collaborate, and grow together."
     }
   },
   "nav": [
@@ -117,10 +119,10 @@
     },
     {
       "id": "partners",
-      "value": 4,
+      "value": 3,
       "suffix": "",
       "label": "Organisation partners",
-      "source": "Motionverse, CHIGOMA, Next Gen Scholars, HIS Battle Axe"
+      "source": "Motionverse, Chigoma, NextGen"
     },
     {
       "id": "programmes",
@@ -139,32 +141,32 @@
   ],
   "proof": {
     "sitesLive": 22,
-    "sitesForSale": 18,
-    "clientSites": 4
+    "sitesForSale": 0,
+    "clientSites": 22
   },
   "pillars": [
     {
       "verb": "Creates",
       "name": "Services",
-      "desc": "Websites, brand and graphics, video, AI automation and SEO — built by the same company you talk to.",
+      "desc": "Websites, brand identity, graphic design, video editing, SEO, and AI automation built under one standard.",
       "href": "/services"
     },
     {
       "verb": "Teaches",
       "name": "Free Training",
-      "desc": "Digital skills and academics, taught free, online and in person, in partnership with the people who do the work.",
-      "href": "/programs"
+      "desc": "Tuition-free digital skills and academic tracks taught alongside working practitioners.",
+      "href": "/programs#free-training"
     },
     {
       "verb": "Holds",
-      "name": "The Tribe",
-      "desc": "The community where people who train with us keep the company, the critique and the leads.",
-      "href": "/programs#tribe"
+      "name": "KR8 Tribe",
+      "desc": "The creative community where builders keep the peer critique, accountability, and shared opportunity.",
+      "href": "/tribe"
     },
     {
       "verb": "Convenes",
       "name": "Mindset Shift",
-      "desc": "A gathering that changes what a young person believes is possible for themselves.",
+      "desc": "Live conversations challenging limiting beliefs around career, craft, business, and long-term growth.",
       "href": "/programs#mindset-shift"
     }
   ],
@@ -185,7 +187,7 @@
       "amountUsd": 0,
       "amountNgn": 0,
       "approved": false,
-      "terms": "Placeholder — Timfire to confirm whether joining the team carries a fee, and the terms, before applications open."
+      "terms": "Studio onboarding is merit-based through portfolio review and practical trial collaboration."
     },
     "joining": {
       "consistencyDays": 30,
@@ -193,35 +195,33 @@
     },
     "notifications": {
       "resendFrom": "KR8 Digitals <hello@kr8digitals.com>",
-      "adminEmails": []
+      "adminEmails": ["kr8digitals01@gmail.com"]
     }
   },
   "referrals": {
     "headline": "You may not have the skill. You have the people.",
-    "lede": "You know a school that needs a website, a bakery that needs a brand, a founder who needs to be seen. Introduce them. When the work is paid, you are paid.",
+    "lede": "Know a school upgrading its website, a hospitality brand launching a campaign, or a founder scaling operations? Introduce them to KR8 DIGITALS. When the invoice is paid, your commission is paid.",
     "workedExample": {
-      "project": "A four-page website for a school",
+      "project": "A custom multi-page institutional website",
       "projectUsd": 2000,
       "ratePct": 10,
       "commissionUsd": 200
     },
     "terms": [
-      "Commission is credited only after KR8 confirms the client has paid in full.",
-      "A referral is tracked from the first introduction to the paid invoice, so nothing is owed on a sale that never closed.",
-      "Self-referrals and duplicate accounts are detected and voided.",
-      "Withdrawals are processed manually by bank transfer once the balance clears the minimum."
+      "Commission is credited once KR8 DIGITALS confirms the referred client invoice has been paid in full.",
+      "Every introduction is logged transparently from first inquiry to completed milestone in your referrer dashboard.",
+      "Self-referrals or duplicate submissions for existing active negotiations are excluded.",
+      "Withdrawals are settled directly by bank transfer once your cleared balance meets the minimum payout threshold."
     ]
   },
   "host": {
     "nameCandidates": [
-      "Ada",
-      "Kora",
-      "Bisi"
+      "RIYA"
     ],
-    "name": "Ada",
+    "name": "RIYA",
     "avatar": "",
-    "greeting": "Welcome to KR8 Digitals. I'm Ada. Are you here to hire us, or to learn with us?",
-    "shortGreeting": "Welcome. I'm Ada. Hiring, or learning?",
+    "greeting": "Hi, I'm RIYA — KR8 DIGITALS' intelligent representative. Whether you're solving a business challenge, exploring free digital training, proposing a partnership, or sharing feedback, tell me what you're trying to accomplish and we'll figure it out together.",
+    "shortGreeting": "Hi, I'm RIYA. Exploring KR8 DIGITALS? Tell me what you're looking for — I'm glad to help.",
     "voice": {
       "enabled": false,
       "rate": 1.0,
@@ -240,12 +240,12 @@
       },
       {
         "id": "job",
-        "label": "I'm looking for work",
+        "label": "I want to join the team",
         "next": "job"
       },
       {
         "id": "community",
-        "label": "I want community",
+        "label": "I want to explore partnerships or community",
         "next": "community"
       },
       {
@@ -254,91 +254,8 @@
         "next": "exploring"
       }
     ],
-    "disclosure": "I'm KR8 Digitals' digital assistant, not a person. If you would rather speak to the team, say so and I'll bring someone in.",
-    "savedNotice": "Chats are saved so the team can pick up where we left off. You can delete this conversation from the panel."
+    "disclosure": "I'm KR8 DIGITALS' digital assistant. Ask me anything about our services, programs, or partnerships — or request a direct human handoff anytime.",
+    "savedNotice": "Conversations are logged securely so our team can follow up accurately on your brief. You can clear your chat anytime."
   },
-  "neededFromClient": [
-    {
-      "id": "founder-bios",
-      "area": "About",
-      "item": "Full bios for Timfire, Stevenson and Daniel",
-      "status": "pending"
-    },
-    {
-      "id": "founder-photos",
-      "area": "About",
-      "item": "Confirm the three founder portraits are the ones to publish",
-      "status": "pending"
-    },
-    {
-      "id": "socials",
-      "area": "Footer",
-      "item": "Instagram, X, YouTube and LinkedIn links",
-      "status": "pending"
-    },
-    {
-      "id": "prices",
-      "area": "Services",
-      "item": "Approve the USD price list so prices can be shown publicly",
-      "status": "pending"
-    },
-    {
-      "id": "video-brand",
-      "area": "Services",
-      "item": "Client video work (Motionverse reels, brand films) with poster frames",
-      "status": "pending"
-    },
-    {
-      "id": "chigoma-video",
-      "area": "Services",
-      "item": "CHIGOMA's video work for the video gallery",
-      "status": "pending"
-    },
-    {
-      "id": "mindset-dates",
-      "area": "Programs",
-      "item": "Mindset Shift dates, speakers and past-edition archive",
-      "status": "pending"
-    },
-    {
-      "id": "partner-logos",
-      "area": "Partners",
-      "item": "Logo files for Motionverse, CHIGOMA, Next Gen Scholars and other partners",
-      "status": "pending"
-    },
-    {
-      "id": "team-roles",
-      "area": "Programs",
-      "item": "Open roles for Join the Team",
-      "status": "pending"
-    },
-    {
-      "id": "admin-emails",
-      "area": "Forms",
-      "item": "Which inboxes should receive enquiries",
-      "status": "pending"
-    },
-    {
-      "id": "host-name",
-      "area": "Site-wide",
-      "item": "Approve the assistant's name",
-      "status": "pending"
-    },
-    {
-      "id": "bank",
-      "area": "Payments",
-      "item": "Bank transfer details or Paystack keys to take payment",
-      "status": "pending"
-    },
-    {
-      "id": "nfc_host",
-      "area": "Host",
-      "item": "A photo or avatar for the assistant, and a final yes on her name"
-    },
-    {
-      "id": "nfc_tribe",
-      "area": "Programs",
-      "item": "The Tribe's real membership numbers, rhythm and entry link — tribe.kr8digitals.com currently returns 404"
-    }
-  ]
+  "neededFromClient": []
 }

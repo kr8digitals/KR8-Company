@@ -1,93 +1,133 @@
 {
   "intro": {
-    "eyebrow": "Programs",
-    "title": "What we run for people who want in.",
-    "lede": "KR8 Digitals is a company. Alongside the client work we run four programmes: free training, a community, a gathering, and a route into working with us. They exist because the company needs people who can build, and because talent should not need money to prove itself.",
-    "image": "/img/sites/academy-full.webp",
-    "imageAlt": "The KR8 Digitals Academy homepage as it appears live"
+    "eyebrow": "KR8 DIGITALS · Ecosystem Programs",
+    "title": "Human capacity built alongside commercial craft.",
+    "lede": "Beyond client engagements, KR8 DIGITALS operates four structured ecosystem initiatives: 100% tuition-free training, an active creative community, a mindset & leadership forum, and a merit-based pathway onto our studio delivery team.",
+    "image": "/img/programs/free-training-academy.webp",
+    "imageAlt": "Learners collaborating inside the KR8 DIGITALS free training ecosystem"
   },
   "programmes": [
     {
       "slug": "free-training",
-      "name": "Free Training",
-      "kicker": "Two doors, no fee",
+      "name": "Free Digital Skills & Academic Training",
+      "kicker": "Flagship Empowerment Initiative · 100% Tuition-Free",
       "type": "Training",
-      "image": "/img/sites/afristem-school-full.webp",
-      "imageAlt": "A partner school site built for learners",
-      "lede": "Digital skills through KR8 Academy, academics through Next Gen Scholars. Both are free.",
-      "body": "The free training has two doors. Walk through the digital door and you learn a craft — graphic design with Motionverse, video editing with CHIGOMA, and the web, content, social and marketing tracks taught by the KR8 team. Walk through the academic door and Next Gen Scholars teaches the subjects that get you through WAEC and JAMB, sciences or arts. Neither door asks for tuition.",
-      "commitment": "One cohort at a time · classes and assignments each week",
-      "action": { "label": "See the Academy", "href": "https://academy.kr8digitals.com", "outbound": true },
+      "status": "open",
+      "statusLabel": "Tuition-Free Admissions via KR8 Academy",
+      "image": "/img/programs/free-training-academy.webp",
+      "imageAlt": "KR8 Academy practical digital skills cohort",
+      "lede": "Two structured learning doors — market-ready digital crafts through KR8 Academy, and STEM/Arts exam excellence through Next Gen Scholars. Zero tuition.",
+      "body": "Talent is evenly distributed, but access to practical mentorship rarely is. Our flagship training opens two complementary doors at zero tuition cost: KR8 Academy teaches seven hands-on digital tracks led by working practitioners — including Graphic Design with Steveoking (Motionverse) and Video Editing with Creative Expression (Chigoma) — while Next Gen Scholars prepares secondary and pre-university learners for WAEC and JAMB across Sciences and Arts.",
+      "commitment": "Structured weekly cohorts · Practical assignments & portfolio reviews",
+      "action": { "label": "Explore KR8 Academy", "href": "https://academy.kr8digitals.com", "outbound": true },
       "doors": [
         {
-          "name": "Digital Skills",
-          "line": "Graphic design, video editing, web development, content, social media and digital marketing — seven tracks taught by people doing the work.",
-          "partner": "Motionverse teaches graphic design · CHIGOMA teaches video editing",
+          "name": "Digital Skills Door · KR8 Academy",
+          "line": "Seven practical creative and technical tracks: Website Development, Front-End Engineering, Graphic Design, Video Editing, Content Creation, Social Media Management, and Digital Marketing.",
+          "partner": "Led by KR8 DIGITALS with Motionverse & Chigoma",
           "href": "https://academy.kr8digitals.com/apply",
           "outbound": true,
-          "cta": "Apply free"
+          "cta": "Apply on KR8 Academy"
         },
         {
-          "name": "Academics",
-          "line": "Sciences and arts, WAEC and JAMB preparation, taught by Next Gen Scholars so a school leaver has options, not one narrow road.",
-          "partner": "Next Gen Scholars teaches the academic door",
+          "name": "Academic Door · Next Gen Scholars",
+          "line": "Structured Sciences and Arts instruction preparing ambitious students for WAEC and JAMB excellence alongside digital literacy.",
+          "partner": "Delivered with Academic Partner Next Gen Scholars",
           "href": "/partners/next-gen-scholars",
           "outbound": false,
-          "cta": "How the academic door works"
+          "cta": "View Academic Partnership"
         }
       ],
-      "tracks": ["Graphic design", "Video editing", "Web development", "Content creation", "Social media management", "Digital marketing"]
+      "tracks": [
+        "Website Development",
+        "Front-End Development",
+        "Graphic Design",
+        "Video Editing & Motion",
+        "Content Creation",
+        "Social Media Management",
+        "Digital Marketing",
+        "Sciences & Arts (WAEC / JAMB)"
+      ]
     },
     {
       "slug": "tribe",
-      "name": "The Tribe",
-      "kicker": "The community",
+      "name": "KR8 DIGITALS TRIBE",
+      "kicker": "The Creative & Builder Community",
       "type": "Community",
-      "image": "/video/story-02-poster.webp",
-      "imageAlt": "A member of the KR8 community filmed for their story",
-      "lede": "The community where people who train with us keep working together after the cohort ends.",
-      "body": "A cohort ends and most people lose the room: no one to review the work, no one to send a lead, no one to say that is not good enough yet. The Tribe is that room kept open. Critique, opportunities, and the company of people building the same thing you are.",
-      "commitment": "Open to people who have trained with us",
-      "action": { "label": "tribe.kr8digitals.com", "href": "https://tribe.kr8digitals.com", "outbound": true },
+      "status": "active",
+      "statusLabel": "Open Community Interest & Alumni Room",
+      "image": "/img/programs/tribe-community.webp",
+      "imageAlt": "Designers, developers, and editors collaborating inside KR8 DIGITALS TRIBE",
+      "lede": "The creative family where designers, developers, video editors, and founders sharpen their craft long after a training cohort ends.",
+      "body": "Most learners stall in isolation the moment a course finishes — with nobody to critique work-in-progress, share overflow opportunities, or hold standards high. KR8 DIGITALS TRIBE keeps the studio room open: honest work reviews, interdisciplinary sprints, peer accountability, and shared creative growth.",
+      "commitment": "Ongoing peer critique · Collaborative challenges · Shared growth",
+      "action": { "label": "Explore the Tribe", "href": "/tribe", "outbound": false },
       "doors": [],
-      "tracks": ["Work critique", "Leads and opportunities", "Accountability"]
+      "tracks": [
+        "Critique Over Clout",
+        "Interdisciplinary Sprints",
+        "Peer Accountability",
+        "Opportunity & Overflow Sharing"
+      ]
     },
     {
       "slug": "mindset-shift",
       "name": "Mindset Shift",
-      "kicker": "The gathering",
-      "type": "Event",
-      "image": "/img/brand/presco-trip-full.webp",
-      "imageAlt": "Event artwork in the KR8 design style",
-      "lede": "A gathering built to change what a young person believes is possible for themselves.",
-      "body": "Skill is not the only gap. Plenty of capable people never start because nobody ever showed them someone like them who did. Mindset Shift puts those people in a room — speakers who built something, and a room of people deciding to.",
-      "commitment": "Dates, speakers and venue confirmed per edition",
-      "action": { "label": "Register interest", "href": "/programs/mindset-shift/invite", "outbound": false },
+      "kicker": "Leadership, Career & Perspective Forum",
+      "type": "Forum",
+      "status": "interest",
+      "statusLabel": "Interest List Open · Editions Announced When Confirmed",
+      "image": "/img/programs/mindset-shift-forum.webp",
+      "imageAlt": "Mindset Shift conversation and gathering hosted by KR8 DIGITALS",
+      "lede": "Candid conversations designed to reframe how ambitious young people think about craft, value creation, career longevity, and leadership.",
+      "body": "Technical skill alone does not build a career if limiting beliefs hold a builder back. Convened by Timfire and guest practitioners who have built real enterprises and careers, Mindset Shift brings learners, creatives, and founders together to examine discipline, ethical wealth creation, execution habits, and long-term vision.",
+      "commitment": "Curated editions · Speaker announcements sent directly to registered list",
+      "action": { "label": "Register for Edition Updates", "href": "/programs/mindset-shift/invite", "outbound": false },
       "doors": [],
-      "tracks": ["Speakers", "Past editions", "Registration"],
+      "tracks": [
+        "Career & Craft Discipline",
+        "Builder Economics & Value",
+        "Practitioner Conversations",
+        "Audience Q&A"
+      ],
       "editions": [],
-      "editionsNote": "No edition has been published yet. Dates, speakers and the archive are edited from the dashboard; anything added here appears on this page automatically."
+      "editionsNote": "Upcoming edition dates and guest speakers are published only once formally confirmed. Join the interest list to receive direct invitations first."
     },
     {
       "slug": "join-the-team",
       "name": "Join the Team",
-      "kicker": "The professional route",
+      "kicker": "The Studio Talent Pathway",
       "type": "Careers",
-      "image": "/img/team/founder-timfire-wide.jpg",
-      "imageAlt": "A KR8 Digitals founder at work",
-      "lede": "The route from learning with us to working with us — on real client projects, not practice briefs.",
-      "body": "The people who build our client work came through the same training. Join the Team is how that happens: you come in, you work on live projects with people who have shipped, and you are held to the standard the client paid for.",
-      "commitment": "Portfolio review · working interviews on live work",
-      "action": { "label": "How to join", "href": "/about/join-the-team", "outbound": false },
+      "status": "rolling",
+      "statusLabel": "Rolling Portfolio & Talent Applications",
+      "image": "/img/programs/join-team-studio.webp",
+      "imageAlt": "Web engineers, brand designers, and video editors reviewing creative portfolios inside the KR8 DIGITALS studio",
+      "lede": "The merit-based bridge from mastering your craft to shipping live commercial projects alongside the KR8 DIGITALS studio team.",
+      "body": "KR8 DIGITALS grows from the inside out. Exceptional builders — whether trained through KR8 Academy or proven independently in web engineering, brand design, graphic design, video editing, SEO, or AI workflows — can submit real work for studio review and collaborate on commercial client deliveries.",
+      "commitment": "Merit-based portfolio review · Practical trial collaboration · Client-grade standards",
+      "action": { "label": "Apply to Join the Team", "href": "/about/join-the-team", "outbound": false },
       "doors": [],
-      "tracks": ["Portfolio review", "Live project work"],
-      "openRoles": [],
-      "rolesNote": "Open roles are listed from the dashboard. Until roles are published, this page invites a speculative application."
+      "tracks": [
+        "Engineering & AI",
+        "Brand & Graphic Design",
+        "Video Post-Production",
+        "SEO & Content Strategy"
+      ],
+      "openRoles": []
     }
   ],
   "principles": [
-    { "t": "Nothing invented", "d": "Every fact on this site is either verified or marked as a placeholder waiting for the team to confirm it." },
-    { "t": "Work before talk", "d": "The portfolio is live sites, real flyers and real films. Nothing here is a mockup." },
-    { "t": "No gatekeeping", "d": "You should not need money to learn a craft, and you should not need to know somebody to be considered." }
+    {
+      "t": "Practitioners Over Theorists",
+      "d": "Every track and mentorship session is led by builders actively shipping commercial web, brand, design, and film work."
+    },
+    {
+      "t": "Zero Financial Gatekeeping",
+      "d": "Flagship digital skills and academic preparation remain 100% tuition-free so raw discipline and talent decide how far you go."
+    },
+    {
+      "t": "Real Standards, Real Proof",
+      "d": "We measure progress by shipped portfolios, working code, clean edits, and honest peer critique — never empty certificates."
+    }
   ]
 }

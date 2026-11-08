@@ -1,73 +1,193 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
-import PageHero, { ClosingCTA } from '@/components/PageHero';
+import type { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
 import { Icon } from '@/components/ui';
+import {
+  CinemaVisual,
+  ResponsiveCopy,
+  SectionAtmosphere,
+} from '@/components/MobileExperience';
 
 export const metadata: Metadata = {
-  title: 'Mindset Shift — register interest',
+  title: 'Mindset Shift — Leadership & Perspective Forum | KR8 DIGITALS',
   description:
-    'Register interest in the next edition of Mindset Shift, the KR8 Digitals gathering. Dates, venue and speakers are confirmed per edition and sent to this list first.',
+    'Register interest for Mindset Shift by KR8 DIGITALS — candid practitioner conversations challenging limiting beliefs around career, craft, value creation, and leadership.',
   alternates: { canonical: '/programs/mindset-shift/invite' },
 };
 
-export default function InvitePage() {
+const THEMES = [
+  {
+    num: 'THEME 01 · CRAFT & EXCELLENCE',
+    title: 'Moving From Amateur Effort to Commercial Standards',
+    body: 'Why technical tutorials alone rarely create a career — and how reliability, communication, and taste separate trusted professionals.',
+    mobileBody: 'Why tutorials alone aren’t enough — and how reliability, taste, and execution separate trusted pros.',
+  },
+  {
+    num: 'THEME 02 · VALUE & ECONOMICS',
+    title: 'Ethical Wealth Building & Pricing Real Solutions',
+    body: 'Understanding how businesses measure return on investment so young creatives and engineers build sustainable livelihoods.',
+    mobileBody: 'Understanding business ROI so young professionals price real value and build lasting wealth.',
+  },
+  {
+    num: 'THEME 03 · LONG-TERM VISION',
+    title: 'Compounding Reputation, Discipline & Leadership',
+    body: 'Real stories from founders and operators who started with limited resources and stayed consistent long enough to build enduring work.',
+    mobileBody: 'Candid stories from founders who started lean and compounded discipline into enduring institutions.',
+  },
+];
+
+export default function MindsetShiftInvitePage() {
   return (
     <>
-      <PageHero
-        eyebrow="Mindset Shift"
-        title={<>Register interest</>}
-        lede="Leave your details and you will be told the date, the venue and the speakers as soon as the next edition is confirmed — before it is announced anywhere else."
-        aside={
-          <figure style={{ margin: 0 }}>
-            <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/brand/presco-trip-full.webp" alt="Event artwork in the KR8 design language" />
-            </div>
-            <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>
-              Event artwork · KR8 Digitals in association with Motionverse
-            </figcaption>
-          </figure>
-        }
-      />
-
-      <section className="section" style={{ paddingTop: 40 }}>
+      {/* ============================================================ HERO */}
+      <section className="kr8-subhero">
+        <SectionAtmosphere name="mindset-shift-stage" deskOpacity={0.2} mobOpacity={0.34} flare />
         <div className="wrap">
-          <div className="grid g2 grid--loose" style={{ gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.1fr)' }}>
-            <div className="reveal up" style={{ maxWidth: 440 }}>
-              <div className="eyebrow">What happens in the room</div>
-              <ul className="price-list" style={{ marginTop: 18 }}>
-                <li><Icon name="check" size={15} /> Speakers who built something, not people who talk about building</li>
-                <li><Icon name="check" size={15} /> A room of people deciding to start, in the same place at the same time</li>
-                <li><Icon name="check" size={15} /> Time to ask the questions you would not ask publicly</li>
-              </ul>
-              <p style={{ marginTop: 24, fontSize: 14, lineHeight: 1.7, color: 'var(--t-muted)' }}>
-                The first edition is being planned. This page is the honest state of it: no date has been
-                published, so nobody here will pretend to have one.
-              </p>
-              <div style={{ marginTop: 22, display: 'grid', gap: 10 }}>
-                <div className="meta-row"><span>Date</span><span className="pending-tag">To confirm</span></div>
-                <div className="meta-row"><span>Venue</span><span className="pending-tag">To confirm</span></div>
-                <div className="meta-row"><span>Speakers</span><span className="pending-tag">To confirm</span></div>
+          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span>/</span>
+            <Link href="/programs">Programs</Link>
+            <span>/</span>
+            <span style={{ color: '#fff' }}>Mindset Shift</span>
+          </nav>
+
+          <div className="kr8-subhero__grid">
+            <div>
+              <span className="kr8-pill kr8-pill--amber">
+                <i className="kr8-pill__dot" /> Free Twice-Monthly Forum · 1st &amp; 3rd Sundays at 9PM
+              </span>
+              <h1 className="kr8-subhero__title">
+                Mindset Shift:{' '}
+                <em>rethinking what you believe is possible.</em>
+              </h1>
+              <ResponsiveCopy
+                as="p"
+                className="kr8-subhero__lede"
+                desktop={
+                  <>
+                    Skill is rarely the only barrier holding talented young people back. Convened by{' '}
+                    <strong>Timfire</strong> and guest practitioners inside the <strong>KR8 DIGITALS</strong>{' '}
+                    ecosystem, Mindset Shift brings builders, students, and founders together for candid conversations
+                    on discipline, career architecture, and value creation.
+                  </>
+                }
+                mobile={
+                  <>
+                    Hosted by <strong>Timfire</strong> and guest leaders on the <strong>1st &amp; 3rd Sundays at 9PM</strong> —
+                    candid conversations on discipline, career longevity, and ethical wealth. Open to any profession.
+                  </>
+                }
+              />
+              <div className="kr8-subhero__actions">
+                <a href="#register" className="btn-primary">
+                  Join the Invitation List <Icon name="arrow" size={17} />
+                </a>
+                <Link href="/programs" className="btn-ghost">
+                  All Ecosystem Programs
+                </Link>
               </div>
-              <Link href="/programs#mindset-shift" className="btn-link" style={{ marginTop: 22 }}>
-                Back to Mindset Shift <Icon name="arrow" size={14} />
-              </Link>
             </div>
-            <div className="reveal up" data-delay="60">
-              <LeadForm variant="mindshift" siteId="mindset-shift" compact />
+
+            <div className="kr8-subhero__frame">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/img/programs/mindset-shift-forum.webp"
+                alt="Mindset Shift leadership and career perspective forum hosted by KR8 DIGITALS"
+              />
+              <div className="kr8-subhero__badge">
+                <div>
+                  <span>Hosted by Timfire &amp; Guest Practitioners</span>
+                  <strong>Leadership · Craft · Value Creation</strong>
+                </div>
+                <a href="#register" className="btn-link" style={{ whiteSpace: 'nowrap' }}>
+                  Register <Icon name="arrow" size={13} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <ClosingCTA
-        title="Bring the room to you."
-        copy="If you can host an edition — a hall, a school, a space that sits empty — that is the fastest way to make one happen."
-        cta="Offer a space"
-        href="/contact?partner=host"
-        secondary={{ label: 'All programmes', href: '/programs' }}
-      />
+      {/* ===================================== CORE THEMES */}
+      <section className="section">
+        <div className="wrap">
+          <div className="sec-head reveal up">
+            <div>
+              <div className="eyebrow">Inside the Room</div>
+              <h2 className="section-title">
+                Conversations built around <span className="text-grad">honest execution.</span>
+              </h2>
+            </div>
+          </div>
+
+          <div className="kr8-mob-only" style={{ marginTop: 16 }}>
+            <CinemaVisual
+              name="mindset-shift-stage"
+              alt="Mindset Shift evening leadership stage with warm bokeh stage lighting"
+              badge="1st & 3rd Sundays · 9PM"
+              caption="Open to builders, students, and professionals from every field."
+              mobileAspect="16 / 9"
+            />
+          </div>
+
+          <div className="kr8-grid-3" style={{ marginTop: 26 }}>
+            {THEMES.map((t, idx) => (
+              <article
+                className={`kr8-card ${idx === 0 ? 'kr8-card--accent' : ''} reveal up`}
+                key={t.num}
+              >
+                <div className="kr8-card__num">{t.num}</div>
+                <h3 className="kr8-card__title">{t.title}</h3>
+                <ResponsiveCopy
+                  as="p"
+                  className="kr8-card__body"
+                  desktop={t.body}
+                  mobile={t.mobileBody}
+                />
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===================================== INVITATION SIGNUP */}
+      <section
+        className="section"
+        id="register"
+        style={{ borderTop: '1px solid var(--hair-soft)', scrollMarginTop: 92 }}
+      >
+        <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.28} mobOpacity={0.4} flare />
+        <div className="wrap">
+          <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
+            <div>
+              <div className="eyebrow">Direct Edition Notifications</div>
+              <h2 className="section-title" style={{ marginTop: 10 }}>
+                Be first in the room when the <span className="text-grad">next edition is confirmed.</span>
+              </h2>
+              <ResponsiveCopy
+                as="p"
+                className="prose-lg"
+                desktop="We publish Mindset Shift dates, guest speakers, and venue/livestream access details strictly once each edition is formally locked in. Register your email or WhatsApp below so your invitation arrives first."
+                mobile="Register your email or WhatsApp below to receive speaker lineups and direct livestream access before each session."
+              />
+
+              <div className="kr8-card" style={{ marginTop: 22, padding: '20px 22px' }}>
+                <div className="kr8-card__num">SPEAKERS &amp; SPONSORS</div>
+                <p className="kr8-card__body" style={{ marginTop: 4 }}>
+                  Want to co-sponsor an edition of Mindset Shift or propose an experienced practitioner speaker?{' '}
+                  <Link href="/partners#propose" style={{ color: '#f5d0fe', fontWeight: 600 }}>
+                    Submit a Partnership Proposal →
+                  </Link>
+                </p>
+              </div>
+            </div>
+
+            <div className="panel" style={{ padding: 'clamp(18px, 3vw, 36px)' }}>
+              <LeadForm variant="mindshift" />
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

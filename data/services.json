@@ -4,389 +4,462 @@
     "name": "Website Design & Development",
     "short": "Websites",
     "order": 1,
+    "status": "published",
     "icon": "monitor",
+    "heroImage": "/img/services/website-engineering.webp",
     "gallery": "sites",
-    "tagline": "A site that does the selling for you.",
-    "summary": "Hand-built websites and web apps: hotels, restaurants, schools, hospitals, organisations and brands. Every one of the sites below is deployed and live — open any of them on the phone in your hand and judge the thing itself.",
-    "forWhom": "A business that is losing customers to a website it is embarrassed to send. A school, hotel, hospital, restaurant, church or founder who needs one place that answers the question and takes the booking.",
-    "problem": "A slow template costs money quietly. The visitor who cannot load you in three seconds becomes somebody else's customer, and you never hear about it. The fix is not a prettier template — it is a site built around the one action you need a visitor to take.",
+    "tagline": "Fast, conversion-focused web platforms built around real customer actions.",
+    "summary": "Custom-engineered websites and web applications for hospitality brands, schools, healthcare providers, institutions, and ambitious companies — built from scratch for mobile speed, clarity, and measurable conversion.",
+    "forWhom": "Organisations, founders, hotels, clinics, schools, and growing brands whose current digital presence under-represents their quality or leaks high-intent enquiries.",
+    "problem": "A sluggish, generic template quietly erodes trust before a prospect ever calls you. When pages load slowly on mobile data or bury the primary call-to-action, visitors leave for a competitor without saying a word.",
     "approach": [
-      "We start with the action: a booking, an order, an enquiry, a registration. Everything on the page serves it.",
-      "Built on the same stack this site runs on, so pages open fast on a mid-range phone and a thin connection.",
-      "Written to be read on a phone held in one hand, with the phone number and the next step always in reach.",
-      "You get the deployment, the domain under your name and a walkthrough. Nothing is held hostage."
+      "Every page is architected around one clear commercial outcome — a direct booking, qualified consultation, order, or admissions inquiry.",
+      "Hand-engineered on modern web infrastructure so pages render cleanly in under a second even on mid-range mobile devices.",
+      "Structured information hierarchy, persuasive copywriting, and mobile-first ergonomics designed for one-handed browsing.",
+      "Full ownership handover: custom domain setup, production deployment, search indexing foundation, and team walkthrough."
     ],
     "outcomes": [
-      "A booking, order or enquiry path that works end to end",
-      "Pages that open in under a second on 4G",
-      "Search-ready structure and metadata from day one",
-      "A site you can send to a customer without apologising"
+      "A frictionless inquiry, booking, or checkout pathway that works end-to-end",
+      "Sub-second perceived load performance across desktop and mobile networks",
+      "Clean technical SEO metadata, OpenGraph cards, and structured schema from launch day",
+      "Complete ownership of your domain, codebase, and content workflow"
     ],
     "deliverables": [
-      "Design system",
-      "Responsive build",
-      "Content structure",
-      "Domain & deployment",
-      "Handover walkthrough"
+      "Custom UI/UX Architecture",
+      "Responsive Full-Stack Build",
+      "Conversion Copy & Content Structure",
+      "Domain, SSL & Cloud Deployment",
+      "Analytics & Team Handover"
     ],
     "process": [
       {
         "n": "01",
-        "t": "Look at what you have",
-        "d": "We open your current site on a phone, on a slow connection, and write down what it costs you."
+        "t": "Diagnostic & Commercial Audit",
+        "d": "We evaluate your current digital footprint, audience friction points, and competitive positioning."
       },
       {
         "n": "02",
-        "t": "Decide the one action",
-        "d": "Booking, order, call, register. One job per page, decided before a pixel is drawn."
+        "t": "Conversion Architecture",
+        "d": "We map every route, call-to-action, and content block around the exact action you need visitors to take."
       },
       {
         "n": "03",
-        "t": "Design and build",
-        "d": "Design in the browser, built by hand, reviewed on a real phone at every step."
+        "t": "Bespoke Engineering",
+        "d": "Designed and coded cleanly in the browser, tested continuously across real mobile and desktop viewports."
       },
       {
         "n": "04",
-        "t": "Launch and hand over",
-        "d": "Deploy, connect your domain, set up analytics, and walk your team through editing it."
+        "t": "Deployment & Handover",
+        "d": "We connect your domain, verify live forms and performance metrics, and walk your team through management."
       }
     ],
     "faqs": [
       {
-        "q": "How long does a site take?",
-        "a": "A single-page site is days. A full hotel, school or hospital site with booking and content is a few weeks. You get a date before we start."
+        "q": "How long does a custom website project take?",
+        "a": "Focused landing platforms launch within days, while comprehensive multi-page institutional, hospitality, or web-application builds typically span two to four weeks against a written milestone schedule."
       },
       {
-        "q": "Can I edit it myself?",
-        "a": "Yes. Content lives in structured files your team can edit, and we walk you through it at handover."
+        "q": "Will my team be able to update text and media after launch?",
+        "a": "Yes. Depending on your operational needs, we wire structured content files or a tailored administrative dashboard and walk your team through editing smoothly."
       },
       {
-        "q": "Who owns the site?",
-        "a": "You do — the domain, the deployment and the source."
-      },
-      {
-        "q": "Can I buy one of the finished sites on this page?",
-        "a": "Yes. The sites marked For sale are complete builds we own. You buy it, we put your name, your photos and your prices on it, and it goes live on your domain."
+        "q": "Who owns the finished website and domain?",
+        "a": "You retain 100% ownership of your domain name, deployed application, assets, and source repository upon completion."
       }
     ],
     "categories": [
-      "Hotels",
-      "Food & drink",
-      "Organisations",
-      "Businesses",
-      "Personal & brand"
+      "Hospitality & Dining",
+      "Schools & Institutions",
+      "Healthcare & Clinics",
+      "Corporate & Ventures",
+      "Personal & Executive Brands"
     ],
-    "cta": "Start a website",
-    "group": "Websites",
+    "cta": "Request a Website Quote",
+    "group": "Website Design & Development",
     "anchor": "websites",
     "nav": "Websites"
   },
   {
-    "slug": "brand-graphic-design",
-    "name": "Brand & Graphic Design",
-    "short": "Brand",
+    "slug": "branding",
+    "name": "Branding",
+    "short": "Branding",
     "order": 2,
-    "icon": "palette",
-    "gallery": "flyers",
-    "tagline": "Design that gets stopped in the scroll.",
-    "summary": "Flyers, campaign artwork, product design and identity work — made in association with Motionverse, the design partner that co-founded KR8 Digitals. The work below is client work, published with permission.",
-    "forWhom": "Businesses running campaigns on WhatsApp and Instagram, product brands launching a range, schools and events that need artwork people actually stop for.",
-    "problem": "A flyer is not decoration. It is the first and often only impression a customer gets of you, seen for half a second on a phone between two other posts. Most small-business artwork loses that half second.",
+    "status": "published",
+    "icon": "layers",
+    "heroImage": "/img/services/brand-identity.webp",
+    "gallery": "branding",
+    "tagline": "Distinctive brand positioning and visual identity systems built to command trust on sight.",
+    "summary": "Led in collaboration with Steveoking (Stevenson) of Motionverse, our Branding practice crafts cohesive identity systems — logo architecture, typography, color psychology, brand voice, and comprehensive brand guidelines.",
+    "forWhom": "New ventures launching into competitive markets, established businesses outgrowing fragmented visuals, and institutions seeking unmistakable category authority.",
+    "problem": "A logo alone is not a brand. When your pitch deck, storefront, social profiles, and packaging look like four unrelated companies, prospects hesitate — and price becomes your only lever.",
     "approach": [
-      "One message per piece. If everything is loud, nothing is heard.",
-      "Designed at the size it will be seen: a phone screen, not a print proof.",
-      "Product, price and contact placed where the eye already goes.",
-      "Delivered in the formats the platforms actually want, plus a template for reuse."
+      "Strategic positioning first: clarifying who you serve, why you win, and the emotional register your brand must own.",
+      "Precision mark-making built for real-world legibility — from a 24-pixel mobile avatar to architectural signage.",
+      "Complete typographic, color, and layout systems documented in a practical Brand Book your whole team can follow.",
+      "Real-world application mockups and launch templates so your identity ships coherently from day one."
     ],
     "outcomes": [
-      "Artwork that holds attention in a crowded feed",
-      "A consistent look across campaigns and platforms",
-      "Print and screen files, correctly sized",
-      "Reusable templates for your team to run without us"
+      "Immediate visual credibility that justifies premium positioning",
+      "Unmistakable consistency across web, print, packaging, and social touchpoints",
+      "Scalable vector master files in every print and digital color space",
+      "A clear Brand Guidelines Playbook eliminating design guesswork"
     ],
     "deliverables": [
-      "Concept & direction",
-      "Artwork",
-      "Print-ready files",
-      "Social sizes",
-      "Template pack"
+      "Brand Positioning & Messaging Brief",
+      "Primary, Secondary & Submark Logos",
+      "Typography & Color Architecture",
+      "Brand Guidelines Book (PDF + Web)",
+      "Core Collateral & Stationary Kit"
     ],
     "process": [
       {
         "n": "01",
-        "t": "Brief",
-        "d": "What is being sold, to whom, and what has to happen when they see it."
+        "t": "Discovery & Positioning",
+        "d": "We audit your market landscape, audience expectations, and core brand narrative."
       },
       {
         "n": "02",
-        "t": "Direction",
-        "d": "One route, shown with real copy, not latin."
+        "t": "Visual Direction",
+        "d": "We establish strategic creative territory, mood architecture, and typographic direction."
       },
       {
         "n": "03",
-        "t": "Design",
-        "d": "Artwork built at phone size first, then adapted outward."
+        "t": "Identity System Craft",
+        "d": "We refine logomarks, color palettes, grid rules, and real-world brand applications."
       },
       {
         "n": "04",
-        "t": "Deliver",
-        "d": "Every size and format you need, plus the editable file."
+        "t": "Guidelines & Master Delivery",
+        "d": "You receive full vector master packages alongside your complete Brand Guidelines documentation."
       }
     ],
     "faqs": [
       {
-        "q": "Why is Motionverse credited?",
-        "a": "Motionverse is a co-founder of KR8 Digitals. Design work is made in association with Motionverse, and we credit it because it is true."
+        "q": "How is Branding different from Graphic Design?",
+        "a": "Branding establishes the foundational strategic and visual system of your entire organisation — logo suite, typography, color rules, positioning, and brand guidelines. Graphic Design applies visual craft to specific campaigns, flyers, posters, and promotional assets."
       },
       {
-        "q": "Is the work on this page really yours?",
-        "a": "Yes. Every flyer below was designed for the client named on it. Open one at full size and read the artwork."
+        "q": "Can you refresh our existing brand without losing recognition?",
+        "a": "Yes. We regularly execute brand evolutions that preserve hard-won equity while modernizing typography, contrast, and multi-platform adaptability."
       },
       {
-        "q": "Can you work from my existing brand?",
-        "a": "Yes — we build on what you have, or we rebuild the identity if it is working against you."
+        "q": "Who leads the brand identity work?",
+        "a": "Brand systems are directed by Steveoking (Stevenson), Co-Founder of KR8 DIGITALS and Founder of Motionverse."
       }
     ],
     "categories": [
-      "Event flyers",
-      "Product flyers",
-      "Retail",
-      "Social templates"
+      "Visual Identity Systems",
+      "Logo Architecture",
+      "Brand Strategy & Voice",
+      "Brand Guidelines",
+      "Rebranding & Evolution"
     ],
-    "cta": "Start a design project",
-    "group": "Graphic Design & Branding",
+    "cta": "Start a Brand Identity Project",
+    "group": "Branding",
+    "anchor": "branding",
+    "nav": "Branding"
+  },
+  {
+    "slug": "graphic-design",
+    "name": "Graphic Design",
+    "short": "Graphic Design",
+    "order": 3,
+    "status": "published",
+    "icon": "palette",
+    "heroImage": "/img/services/motionverse-studio.webp",
+    "gallery": "flyers",
+    "tagline": "Scroll-stopping campaign flyers, key art, and commercial visuals that turn attention into enquiries.",
+    "summary": "High-impact campaign graphics, event key art, product promotions, social media suites, and print-ready marketing collateral crafted with Motionverse to win the critical first half-second of attention.",
+    "forWhom": "Brands running active marketing campaigns, event organisers, retail product launches, schools, and executives needing sharp promotional visuals week after week.",
+    "problem": "Most promotional graphics cram twelve competing messages onto one canvas and disappear into the feed. Commercial graphic design must arrest the thumb, communicate value instantly, and make the next action obvious.",
+    "approach": [
+      "Single-focus hierarchy: headline hook, visual proof, offer clarity, and contact path arranged for rapid eye scanning.",
+      "Designed native to mobile screens first, then adapted cleanly for print posters, banners, and wide formats.",
+      "Authentic lighting, composite depth, and typographic contrast crafted by working commercial designers.",
+      "Delivered in crisp platform-ready exports alongside reusable templates when your team needs ongoing velocity."
+    ],
+    "outcomes": [
+      "Campaign artwork that commands attention on WhatsApp, Instagram, X, LinkedIn, and print",
+      "Higher click-through and inquiry response on product launches and events",
+      "Print-ready CMYK and high-DPI digital assets formatted to exact specifications",
+      "Cohesive campaign series rather than disconnected one-off flyers"
+    ],
+    "deliverables": [
+      "Campaign Key Art & Flyers",
+      "Product & Retail Launch Graphics",
+      "Event & Conference Visual Suites",
+      "Print-Ready Posters & Banners",
+      "Editable Social Campaign Templates"
+    ],
+    "process": [
+      {
+        "n": "01",
+        "t": "Campaign Brief",
+        "d": "We clarify the offer, target audience, primary distribution channel, and desired customer response."
+      },
+      {
+        "n": "02",
+        "t": "Composition & Copy Polish",
+        "d": "We tighten headline hierarchy so the core message lands in under two seconds."
+      },
+      {
+        "n": "03",
+        "t": "Visual Execution",
+        "d": "Custom art direction, retouching, typography, and color grading executed with Motionverse."
+      },
+      {
+        "n": "04",
+        "t": "Multi-Format Delivery",
+        "d": "Finalized exports across social ratios and print specifications, delivered ready to publish."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Are the flyers in your gallery real client commissions?",
+        "a": "Yes. Every piece in our Graphic Design showcase was commissioned by real organisations and businesses in association with Motionverse."
+      },
+      {
+        "q": "Can we retain KR8 DIGITALS for recurring monthly campaign graphics?",
+        "a": "Absolutely. Many clients start with a single campaign suite and transition to a structured monthly creative retainer for predictable turnaround."
+      }
+    ],
+    "categories": [
+      "Campaign Flyers",
+      "Product Marketing",
+      "Event Key Art",
+      "Print & Outdoor",
+      "Social Creative Suites"
+    ],
+    "cta": "Commission Graphic Design",
+    "group": "Graphic Design",
     "anchor": "graphic-design",
-    "nav": "Graphic Design & Branding"
+    "nav": "Graphic Design"
   },
   {
     "slug": "video-editing",
-    "name": "Video Editing & Production",
-    "short": "Video",
-    "order": 3,
+    "name": "Video Editing",
+    "short": "Video Editing",
+    "order": 4,
+    "status": "published",
     "icon": "film",
+    "heroImage": "/img/services/video-editing-suite.webp",
     "gallery": "videos",
-    "tagline": "Cut for the way people actually watch.",
-    "summary": "Vertical-first editing for testimonials, product films and social cuts: captions, pacing, sound and a poster frame that earns the tap. The films below are real cuts, playing on this page.",
-    "forWhom": "Anyone with footage sitting unused — a phone full of testimonials, an event nobody edited, a product that needs to be seen moving.",
-    "problem": "Footage is not a film. An unedited testimonial is a favour to nobody: no captions, no pace, no reason to keep watching past second three. The edit is the difference between proof and noise.",
+    "tagline": "Retention-engineered commercial edits, reels, and brand films cut for modern viewers.",
+    "summary": "Directed with Creative Expression (Daniel Akachukwu Augustine) of Chigoma, we transform raw footage into high-retention commercials, documentary testimonials, founder reels, and product stories.",
+    "forWhom": "Founders, brands, educators, and organisations sitting on raw footage or launching video campaigns that must hold attention past the first three seconds.",
+    "problem": "Raw footage is not a story. Uncut clips without rhythmic pacing, sound design, color polish, or kinetic captions lose viewers before your message even begins.",
     "approach": [
-      "Cut for sound-off viewing first: captions burned in, story legible without audio.",
-      "Vertical by default, horizontal when the venue needs it.",
-      "Trim to the moment that proves the point, then stop.",
-      "Deliver a poster frame so the first thing a viewer sees is a face, not a black rectangle."
+      "Hook-first narrative structure engineered to earn attention in the opening two seconds.",
+      "Sound-off resilience: crisp burned-in captions, visual callouts, and safe-zone framing for vertical feeds.",
+      "Clean color grading, dialogue audio treatment, and deliberate musical pacing.",
+      "Custom thumbnail and poster-frame selection so every video invites the tap."
     ],
     "outcomes": [
-      "Testimonials that are actually watchable to the end",
-      "Captions and safe-area framing for social",
-      "Poster frames and file sizes that load on mobile data",
-      "A library you can keep posting from"
+      "Watchable, persuasive brand stories and client testimonials that build instant trust",
+      "Optimized vertical (9:16), square (1:1), and widescreen (16:9) masters",
+      "Broadcast-clean audio clarity and cohesive color tone across episodes",
+      "Fast mobile streaming bitrates without sacrificing visual sharpness"
     ],
     "deliverables": [
-      "Edit",
-      "Captions",
-      "Colour & sound pass",
-      "Poster frame",
-      "Platform exports"
+      "Narrative Assembly & Rhythm Cut",
+      "Motion Graphics & Dynamic Captions",
+      "Dialogue Mastering & Sound Design",
+      "Color Correction & Grading",
+      "Multi-Platform Export Package + Posters"
     ],
     "process": [
       {
         "n": "01",
-        "t": "Watch the footage",
-        "d": "All of it. We mark the twenty seconds that matter."
+        "t": "Footage Review & Story Pull",
+        "d": "We review all raw takes and isolate the moments of highest emotional and commercial proof."
       },
       {
         "n": "02",
-        "t": "Structure",
-        "d": "Hook, proof, close — in that order, at phone length."
+        "t": "Hook & Pacing Cut",
+        "d": "We structure the narrative arc — opening hook, core proof, and decisive call-to-action."
       },
       {
         "n": "03",
-        "t": "Cut and caption",
-        "d": "Pace, sound, and captions that survive being watched on mute."
+        "t": "Motion, Sound & Color",
+        "d": "We layer typography, sound design, dialogue sweetening, and brand-accurate color."
       },
       {
         "n": "04",
-        "t": "Export",
-        "d": "Every aspect ratio and length the platforms want, plus posters."
+        "t": "Final Masters",
+        "d": "Delivered in platform-ready aspect ratios alongside custom poster frames."
       }
     ],
     "faqs": [
       {
-        "q": "Do you shoot?",
-        "a": "We can direct a shoot. Most of the work here started as phone footage that needed a proper edit — that is the cheaper route and often the better one."
+        "q": "Can you edit footage recorded on smartphones?",
+        "a": "Yes. Strong lighting and honest delivery recorded on modern smartphones frequently outperform stiff studio shoots once professionally paced, graded, and mixed."
       },
       {
-        "q": "Whose videos are on this page?",
-        "a": "Real cuts from our own school and client work. They play in place — press one."
-      },
-      {
-        "q": "Can you work with CHIGOMA's footage?",
-        "a": "Yes. CHIGOMA is a co-founding partner and their work slots into the same gallery."
+        "q": "Who leads Video Editing at KR8 DIGITALS?",
+        "a": "Video post-production is led by Creative Expression (Daniel Akachukwu Augustine), Co-Founder of KR8 DIGITALS and Founder of Chigoma."
       }
     ],
     "categories": [
-      "Testimonials",
-      "Product",
-      "Social cuts",
-      "Event"
+      "Commercial Reels",
+      "Client Testimonials",
+      "Brand Documentaries",
+      "Event Recaps",
+      "Executive Content"
     ],
-    "cta": "Start a video project",
+    "cta": "Start a Video Project",
     "group": "Video Editing",
     "anchor": "video",
     "nav": "Video Editing"
   },
   {
     "slug": "seo",
-    "name": "SEO Optimisation",
+    "name": "SEO Optimization",
     "short": "SEO",
-    "order": 4,
+    "order": 5,
+    "status": "published",
     "icon": "search",
+    "heroImage": "/img/services/seo-optimization.webp",
     "gallery": "seo",
-    "tagline": "Be the answer when someone searches.",
-    "summary": "Technical work, content structure and local visibility so the people already looking for what you do can find you. No promises about positions; a clear record of what was fixed and what moved.",
-    "forWhom": "A business that exists but cannot be found. A site that is invisible on a phone search. An organisation whose name gets misspelled into somebody else's result.",
-    "problem": "Search rewards structure, not adjectives. Most sites are missing the basics — titles, descriptions, structured data, a sitemap, a page for each thing they sell — and no amount of keyword stuffing fixes a page Google cannot parse.",
+    "tagline": "Technical search architecture and intent-driven content that compounds organic discovery.",
+    "summary": "Comprehensive Search Engine Optimization covering technical site health, Core Web Vitals, structured JSON-LD schema, local search authority, and high-intent service pages so buyers find you when ready to act.",
+    "forWhom": "Organisations whose websites fail to appear for high-intent category or local searches, or companies tired of paying for ads just to capture their own brand demand.",
+    "problem": "Search visibility is earned through clean technical structure and genuine topical authority — not keyword stuffing. Most websites block their own growth through broken indexing, missing metadata, slow mobile rendering, and thin single-page layouts.",
     "approach": [
-      "Fix the technical floor first: titles, metadata, structured data, sitemap, speed, mobile.",
-      "Give every service and every location a page of its own instead of one crowded home page.",
-      "Write for the question the customer types, not the award you want to win.",
-      "Report monthly on what changed — ranks are the outcome, not the method."
+      "Technical foundation first: crawlability, sitemaps, canonical hygiene, Core Web Vitals, and mobile speed.",
+      "Dedicated intent architecture: structured landing pages for every core service, audience problem, and geographic market.",
+      "Rich structured data (Organization, Service, FAQ, LocalBusiness schema) for search engines and AI answer engines.",
+      "Transparent monthly reporting showing exact technical changes shipped, impressions gained, and search queries won."
     ],
     "outcomes": [
-      "Every page with a real title and description",
-      "Structured data so search and social show the right thing",
-      "A sitemap that is submitted and read",
-      "A monthly record of what was done and what moved"
+      "Clean Search Console indexing with zero critical crawl or schema blockers",
+      "Stronger organic visibility for commercial service and local-intent queries",
+      "Improved page speed and mobile usability scores that lift conversion rates",
+      "Clear monthly documentation of engineering fixes and organic traffic trajectory"
     ],
     "deliverables": [
-      "Technical audit",
-      "Metadata & schema",
-      "Content structure",
-      "Search Console setup",
-      "Monthly report"
+      "Full Technical SEO & Crawl Audit",
+      "Metadata, OpenGraph & JSON-LD Schema",
+      "Service & Local Intent Page Architecture",
+      "Google Search Console & Sitemap Setup",
+      "Monthly Search Performance Reporting"
     ],
     "process": [
       {
         "n": "01",
-        "t": "Audit",
-        "d": "Crawl the site. List what search cannot read."
+        "t": "Technical & Keyword Diagnostic",
+        "d": "We crawl your site, benchmark competitors, and identify high-intent search opportunities."
       },
       {
         "n": "02",
-        "t": "Fix the floor",
-        "d": "Metadata, schema, sitemap, speed, mobile rendering."
+        "t": "Infrastructure Remediation",
+        "d": "We fix indexing bottlenecks, metadata gaps, schema markup, and page-speed drag."
       },
       {
         "n": "03",
-        "t": "Build the structure",
-        "d": "A page per service, per programme, per place."
+        "t": "Intent Content Expansion",
+        "d": "We build dedicated, authoritative pages answering the exact questions buyers search."
       },
       {
         "n": "04",
-        "t": "Report",
-        "d": "What we did, what the numbers did, what is next."
+        "t": "Measurement & Iteration",
+        "d": "Monthly Search Console tracking and continuous optimization based on real query data."
       }
     ],
     "faqs": [
       {
-        "q": "How long until I rank?",
-        "a": "Nobody honest gives you a date. Technical fixes can show within weeks; content takes months. We report against what we changed."
+        "q": "Do you make unrealistic 'Page 1 in 48 hours' promises?",
+        "a": "Never. Sustainable organic search authority compounds from clean engineering and strong content relevance. Technical indexing improvements often surface within weeks, while competitive category growth builds steadily over months."
       },
       {
-        "q": "Do you guarantee first page?",
-        "a": "No. Anyone who does is selling you something else."
-      },
-      {
-        "q": "Can you fix a site you did not build?",
-        "a": "Yes. That is most of the work."
+        "q": "Can you optimize an existing website built by another team?",
+        "a": "Yes. We audit and remediate existing codebases and CMS platforms regularly, or migrate legacy sites cleanly without losing existing URL equity."
       }
     ],
     "categories": [
-      "Technical",
-      "Content",
-      "Local",
-      "Reporting"
+      "Technical SEO",
+      "Local Search Authority",
+      "Schema & AI Readiness",
+      "Content Architecture",
+      "Speed Optimization"
     ],
-    "cta": "Get an audit",
-    "group": "SEO Optimisation",
+    "cta": "Request an SEO Audit",
+    "group": "SEO Optimization",
     "anchor": "seo",
-    "nav": "SEO Optimisation"
+    "nav": "SEO Optimization"
   },
   {
     "slug": "ai-automation",
-    "name": "AI & Automation",
+    "name": "AI Agent & Automation",
     "short": "AI & Automation",
-    "order": 5,
+    "order": 6,
+    "status": "published",
     "icon": "cpu",
+    "heroImage": "/img/services/ai-automation.webp",
     "gallery": "ai",
-    "tagline": "Take the repetitive work off a human.",
-    "summary": "Forms that route themselves, assistants that answer the questions your team answers forty times a day, and systems that write the follow-up nobody has time to write. Working examples are on this page — including the assistant on this site.",
-    "forWhom": "A team drowning in the same five questions. A business losing enquiries in an inbox nobody owns. Anyone paying a person to copy data between two screens.",
-    "problem": "Most 'AI projects' are a demo that never ships. The useful ones are small, unglamorous and measurable: a form that reaches the right desk, an answer given at 2am, a follow-up that goes out on time.",
+    "tagline": "Custom AI assistants and operational workflows that qualify leads and eliminate repetitive manual work.",
+    "summary": "Engineered by Timfire and the KR8 engineering team, we build domain-grounded AI customer agents, intelligent intake routers, automated follow-up pipelines, and internal knowledge tools with strict human-in-the-loop guardrails.",
+    "forWhom": "Growing teams losing leads outside business hours, operations managers buried under repetitive support questions, and founders copying data manually across disconnected tools.",
+    "problem": "Hype demos rarely survive contact with real customers. Useful business automation is reliable, bounded, and measurable — answering accurately from your verified company knowledge and escalating cleanly to a human whenever nuance or pricing requires it.",
     "approach": [
-      "Find the task that repeats, not the task that impresses.",
-      "Ship the smallest version that removes the work, then measure it.",
-      "Keep a human in the loop for anything that promises or prices.",
-      "Log every conversation so nothing disappears into a black box."
+      "Workflow mapping first: we automate high-frequency bottlenecks with clear ROI rather than novelty gimmicks.",
+      "Grounded knowledge retrieval: assistants answer strictly from your approved documentation, policies, and service rules.",
+      "Human-in-the-loop escalation and budget caps built into every production deployment.",
+      "Full conversation logging and administrative visibility so no customer inquiry ever vanishes into a black box."
     ],
     "outcomes": [
-      "Enquiries routed to the right person automatically",
-      "Answers available outside working hours",
-      "Fewer dropped leads, with a record of every one",
-      "A system your team can actually maintain"
+      "24/7 instant qualification and helpful responses for incoming web and messaging inquiries",
+      "Automated lead triage routing briefs directly to the right team member",
+      "Hours of manual copy-paste and repetitive follow-up reclaimed every week",
+      "Full ownership of prompts, workflow logic, logs, and API configurations"
     ],
     "deliverables": [
-      "Discovery",
-      "Routing logic",
-      "Assistant build",
-      "Integration",
-      "Logging & handover"
+      "Operational Workflow Blueprint",
+      "Custom Grounded AI Agent Build",
+      "CRM / Email / Webhook Routing",
+      "Guardrails, Spend Caps & Human Handoff",
+      "Admin Logging & Team Documentation"
     ],
     "process": [
       {
         "n": "01",
-        "t": "Map the work",
-        "d": "Where does a message go, who answers it, what gets missed."
+        "t": "Bottleneck Audit",
+        "d": "We trace where enquiries stall, what questions repeat daily, and where staff hours leak."
       },
       {
         "n": "02",
-        "t": "Build the route",
-        "d": "The smallest system that changes that path."
+        "t": "Architecture & Guardrails",
+        "d": "We design the agent knowledge base, routing rules, and strict escalation boundaries."
       },
       {
         "n": "03",
-        "t": "Test with real messages",
-        "d": "The awkward ones: typos, mixed languages, half a question."
+        "t": "Stress-Testing",
+        "d": "We test edge cases, typos, ambiguous requests, and live handoff triggers before launch."
       },
       {
         "n": "04",
-        "t": "Hand over",
-        "d": "You own the prompts, the logic and the logs."
+        "t": "Deployment & Ownership",
+        "d": "Live integration onto your platform with full visibility into transcripts and performance."
       }
     ],
     "faqs": [
       {
-        "q": "What can actually be automated?",
-        "a": "Routing, first replies, follow-ups, data entry, scheduling, reminders, summaries and search over your own documents. Tell us the task that repeats most and we will tell you honestly whether it is worth automating."
+        "q": "Can we try a live example of your AI engineering?",
+        "a": "Yes — RIYA, the intelligent AI representative running live across this website, was built in-house by KR8 DIGITALS on its own centralized knowledge and local intelligence architecture to answer company questions, guide learners, capture complaints and suggestions, and connect visitors directly with our team."
       },
       {
-        "q": "Is there a working example?",
-        "a": "Two. The assistant on this site answers questions and hands off to a human, and the Jev form router decides whether a message is a lead, a contact request or an issue."
-      },
-      {
-        "q": "Will it replace my staff?",
-        "a": "It replaces the part of the job nobody wanted: the fortieth copy-paste of the day."
+        "q": "Will an AI agent invent prices or make unauthorized promises?",
+        "a": "No. We engineer strict policy boundaries so your assistant answers only from verified company facts and routes custom pricing or sensitive commitments directly to your human team."
       }
     ],
     "categories": [
-      "Assistants",
-      "Form routing",
-      "Follow-up",
-      "Data"
+      "AI Customer Agents",
+      "Intelligent Lead Triage",
+      "Workflow Automation",
+      "Internal Knowledge Systems"
     ],
-    "cta": "Automate something",
-    "group": "AI Agents & Automation",
+    "cta": "Automate a Workflow",
+    "group": "AI Agent & Automation",
     "anchor": "ai",
-    "nav": "AI Agents & Automation"
+    "nav": "AI & Automation"
   }
 ]

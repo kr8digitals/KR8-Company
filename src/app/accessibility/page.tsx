@@ -1,56 +1,74 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
-import PageHero from '@/components/PageHero';
 import site from '../../../data/site.json';
+import { SectionAtmosphere } from '@/components/MobileExperience';
 
 export const metadata: Metadata = {
-  title: 'Accessibility statement',
-  description: 'How this site is built for keyboard, screen reader and low-data use — and what is still imperfect.',
+  title: 'Accessibility Statement | KR8 DIGITALS',
+  description: 'Accessibility engineering standards and feedback channel for the KR8 DIGITALS website.',
   alternates: { canonical: '/accessibility' },
 };
 
-export default function Accessibility() {
+const STANDARDS = [
+  {
+    num: '01 · SEMANTIC NAVIGATION & KEYBOARD',
+    title: 'Keyboard-Operable Controls & Skip Links',
+    body: 'Every interactive drawer, lightbox, tab list, and form control on this platform is engineered for full keyboard navigation, visible focus states, Escape-to-dismiss behavior, and a top-of-page Skip to Content link.',
+  },
+  {
+    num: '02 · CONTRAST & TYPOGRAPHY',
+    title: 'High-Contrast Legibility Across Devices',
+    body: 'Display headlines, body copy, and interactive buttons are paired against deep obsidian surfaces to maintain strong visual contrast on indoor and outdoor mobile screens, with scalable fluid typography up to 200% zoom.',
+  },
+  {
+    num: '03 · MOTION & MEDIA RESPECT',
+    title: 'Reduced-Motion Support & Captioned Cuts',
+    body: 'System prefers-reduced-motion settings are respected across transitions, hero cinema plates include pause controls, and vertical video stories incorporate burned-in captions so narratives remain legible without audio.',
+  },
+  {
+    num: '04 · CONTINUOUS FEEDBACK',
+    title: 'Report Any Barrier Directly',
+    body: `If any page, media element, or form creates a barrier with your screen reader or assistive device, email ${site.company.email} with the page URL and our engineering team will remediate it promptly.`,
+  },
+];
+
+export default function AccessibilityPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Accessibility"
-        title={<>Built to be used by everyone who arrives</>}
-        lede="We train people who have never owned a laptop on a phone with a slow connection. It would be strange to build a site they cannot use."
-       
-      />
-      <section className="section" style={{ paddingTop: 10 }}>
-        <div className="wrap" style={{ maxWidth: 860 }}>
-          <div className="prose-lg">
-            <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 24, fontWeight: 800 }}>What we have done</h2>
-            <ul className="price-list" style={{ marginTop: 16 }}>
-              {[
-                'Every interactive element is reachable and operable by keyboard, with a visible focus ring.',
-                'A skip link jumps straight to the main content, before the navigation.',
-                'The mobile menu is a real dialog with Escape to close and focus returned to the button that opened it.',
-                'Colour contrast meets WCAG 2.1 AA on body text; the gradient is never the only signal that something is a link or a state.',
-                'Motion respects prefers-reduced-motion: the 3D stage renders one static frame and all reveal animations resolve instantly.',
-                'Images that carry meaning have descriptive alt text; decorative layers are hidden from assistive technology.',
-                'Forms have real labels, not placeholder-only fields, and errors are announced in text rather than colour alone.',
-                'The Host chat supports typing as well as voice. Voice output is off until you switch it on, and it can be switched off again at any time.',
-              ].map((l) => <li key={l}>{l}</li>)}
-            </ul>
+      <section className="kr8-subhero" style={{ paddingBottom: 38 }}>
+        <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.28} mobOpacity={0.38} flare />
+        <div className="wrap">
+          <span className="kr8-pill">Inclusive Engineering · KR8 DIGITALS</span>
+          <h1 className="kr8-subhero__title">Accessibility Statement</h1>
+          <p className="kr8-subhero__lede">
+            Our commitment to keeping KR8 DIGITALS usable, legible, and fast across assistive technologies,
+            screen sizes, and network conditions.
+          </p>
+        </div>
+      </section>
 
-            <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 24, fontWeight: 800, marginTop: 40 }}>What is not perfect yet</h2>
-            <p>
-              The 3D hero is decorative and adds no information; it is skipped entirely under reduced motion
-              and on browsers without WebGL, but on a very old Android device it still costs battery. If that
-              matters to you, the fallback mark is all you will see and nothing is lost.
-            </p>
-            <p>
-              The Host&apos;s generated speech uses the voice installed on your device, so quality varies by
-              phone. Voice input is only offered where the browser supports it; otherwise the microphone
-              button does not appear.
-            </p>
+      <section className="section" style={{ paddingTop: 44 }}>
+        <div className="wrap">
+          <div className="kr8-grid-2">
+            {STANDARDS.map((s) => (
+              <article className="kr8-card" key={s.num}>
+                <div className="kr8-card__num">{s.num}</div>
+                <h2 className="kr8-card__title">{s.title}</h2>
+                <p className="kr8-card__body">{s.body}</p>
+              </article>
+            ))}
+          </div>
 
-            <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 24, fontWeight: 800, marginTop: 40 }}>Tell us what we missed</h2>
-            <p>
-              If something here blocks you, write to <b style={{ color: '#fff' }}>{site.company.email}</b> with the
-              page and what happened. Accessibility reports get answered like client work, not like feedback.
-            </p>
+          <div style={{ marginTop: 32, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
+            <Link href="/privacy" className="btn-ghost btn-sm">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="btn-ghost btn-sm">
+              Terms of Service
+            </Link>
+            <Link href="/contact" className="btn-ghost btn-sm">
+              Report an Issue
+            </Link>
           </div>
         </div>
       </section>

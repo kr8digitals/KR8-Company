@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import { store } from '@/lib/store';
-import { activeProvider } from '@/lib/payments';
-import site from '../../../../data/site.json';
-import { Icon } from '@/components/ui';
 import { verifyOrder } from '@/lib/order-token';
+import site from '../../../../data/site.json';
+import { SectionAtmosphere } from '@/components/MobileExperience';
 
 export const dynamic = 'force-dynamic';
-export const metadata: Metadata = { title: 'Your order', robots: { index: false, follow: false } };
+
+export const metadata: Metadata = {
+  title: 'Order Summary & Settlement | KR8 DIGITALS',
+  robots: { index: false, follow: false },
+};
 
 export default async function OrderPage({
   params,
@@ -18,61 +20,144 @@ export default async function OrderPage({
   searchParams: Promise<{ t?: string }>;
 }) {
   const { ref } = await params;
-  const { t } = await searchParams;
+  const { t = '' } = await searchParams;
+  const storedOrder = await store.findOne('orders', { reference: ref });
+  const tokenOrder = verifyOrder(t);
+  const order: any =
+    storedOrder ||
+    (tokenOrder && tokenOrder.reference === ref
+      ? {
+          ...tokenOrder,
+          itemLabel: tokenOrder.item,
+          buyerName: tokenOrder.name,
+          buyerEmail: tokenOrder.email,
+          status: 'pending',
+        }
+      : null);
 
-  const stored = await store.findOne('orders', { reference: ref });
-  // The link carries its own signed copy of the order, so a transfer page can
-  // always render even if the record is not readable from this instance.
-  const signed = stored ? null : verifyOrder(t);
-  const order = stored || (signed && signed.reference === ref ? signed : null);
-  if (!order) notFound();
+  if (!order) {
+    return (
+      <section className="kr8-subhero" style={{ minHeight: '72vh' }}>
+        <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.3} mobOpacity={0.42} flare />
+        <div className="wrap" style={{ maxWidth: 680 }}>
+          <span className="kr8-pill kr8-pill--amber">Order Lookup</span>
+          <h1 className="kr8-subhero__title" style={{ fontSize: 'clamp(26px, 5vw, 38px)' }}>
+            Order reference not found
+          </h1>
+          <p className="kr8-subhero__lede">
+            Reference <code>{ref}</code> could not be located. If you recently requested an invoice or settlement
+            instruction, message our team on WhatsApp with your reference and we will assist right away.
+          </p>
+          <div className="kr8-subhero__actions">
+            <a
+              className="btn-primary"
+              href={`https://wa.me/${site.company.whatsapp}?text=${encodeURIComponent(`Order reference: ${ref}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Confirm on WhatsApp
+            </a>
+            <Link href="/services" className="btn-ghost">
+              Back to Services
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
-  const pricesPublic = Boolean((site as any).settings?.publicPriceDisplay);
-
-  const intent = activeProvider().create({
-    id: order.id, reference: order.reference, amountUsd: order.amountUsd,
-    amountNgn: order.amountNgn, note: order.note || '',
-  });
+  const fullAccess = Boolean(tokenOrder && tokenOrder.reference === order.reference);
+  const instructions = order.instructions || {};
 
   return (
-    <section className="section" style={{ paddingTop: 150, minHeight: '80vh' }}>
-      <div className="wrap" style={{ maxWidth: 860 }}>
-        <div className="split" style={{ alignItems: 'flex-start' }}>
-          <div>
-            <div className="eyebrow">Order {order.reference}</div>
-            <h1 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 44, fontWeight: 800, letterSpacing: '-.03em', marginTop: 10 }}>
-              Transfer to finish.
-            </h1>
-            <p className="lede" style={{ marginTop: 14 }}>
-              {order.item} —{' '}
-              {pricesPublic
-                ? <b style={{ color: '#fff' }}>${order.amountUsd.toLocaleString('en-US')}</b>
-                : <b style={{ color: '#fff' }}>price confirmed with you before transfer</b>}
-            </p>
-            <div className="panel" style={{ padding: 26, marginTop: 28 }}>
-              {intent.fields.filter((f) => pricesPublic || !/amount/i.test(f.label)).map((f) => (
-                <div className="kv" key={f.label}><span>{f.label}</span><span><b style={{ color: '#fff' }}>{f.value}</b></span></div>
-              ))}
-            </div>
-            <ol className="price-list" style={{ marginTop: 26 }}>
-              {(pricesPublic ? intent.instructions : ['The team confirms the exact figure with you on WhatsApp before you transfer anything.', ...intent.instructions]).map((i) => <li key={i}><Icon name="check" size={15} /> <span>{i}</span></li>)}
-            </ol>
-            <div style={{ display: 'flex', gap: 12, marginTop: 26, flexWrap: 'wrap' }}>
-              <a className="btn-primary" href={`https://wa.me/${site.company.whatsapp}?text=${encodeURIComponent(`Receipt for order ${order.reference}`)}`} target="_blank" rel="noopener noreferrer">
-                <Icon name="wa" size={16} /> Send the receipt
-              </a>
-              <Link href="/contact" className="btn-ghost">Ask a question</Link>
-            </div>
+    <section className="kr8-subhero" style={{ minHeight: '76vh' }}>
+      <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.32} mobOpacity={0.44} flare />
+      <div className="wrap" style={{ maxWidth: 760 }}>
+        <div className="kr8-card">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 10,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span className="kr8-card__num" style={{ marginBottom: 0, overflowWrap: 'anywhere' }}>
+              ORDER REFERENCE · {order.reference}
+            </span>
+            <span className={`badge-status ${order.status === 'paid' ? 'paid' : 'pending'}`}>
+              {order.status}
+            </span>
           </div>
-          <div className="panel" style={{ padding: 26, minWidth: 260 }}>
-            <div className="tag" style={{ color: 'var(--magenta)' }}>Status</div>
-            <p style={{ marginTop: 8, fontSize: 16, color: '#fff', fontWeight: 600 }}>Awaiting transfer</p>
-            <p style={{ marginTop: 10, fontSize: 13, color: 'var(--t-muted)', lineHeight: 1.65 }}>
-              {intent.confirmHint}
+
+          <h1 className="kr8-card__title" style={{ fontSize: 'clamp(20px, 4.5vw, 28px)', marginTop: 14 }}>
+            {order.itemLabel || 'KR8 DIGITALS Engagement'}
+          </h1>
+
+          {fullAccess ? (
+            <>
+              <p className="kr8-card__body">
+                Confirmed settlement summary for <strong>{order.buyerName || order.buyerEmail}</strong>. Quote
+                reference <strong>{order.reference}</strong> on your transfer narration so our finance desk matches
+                it immediately.
+              </p>
+
+              <div
+                style={{
+                  marginTop: 18,
+                  padding: '16px 16px',
+                  borderRadius: 14,
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.09)',
+                  display: 'grid',
+                  gap: 10,
+                  fontSize: 14,
+                  overflowWrap: 'anywhere',
+                }}
+              >
+                {order.amountNgn && (
+                  <div>
+                    <strong>Settlement Amount (NGN):</strong> ₦{Number(order.amountNgn).toLocaleString('en-US')}
+                  </div>
+                )}
+                {instructions.bankName && (
+                  <div>
+                    <strong>Bank:</strong> {instructions.bankName}
+                  </div>
+                )}
+                {instructions.accountName && (
+                  <div>
+                    <strong>Account Name:</strong> {instructions.accountName}
+                  </div>
+                )}
+                {instructions.accountNumber && (
+                  <div>
+                    <strong>Account Number:</strong> {instructions.accountNumber}
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <p className="kr8-card__body">
+              Full settlement details are restricted to the private order link issued at checkout. Open the
+              complete URL sent to you, or verify directly on WhatsApp quoting{' '}
+              <strong>{order.reference}</strong>.
             </p>
-            <p style={{ marginTop: 16, fontSize: 12, color: 'var(--t-faint)', lineHeight: 1.6 }}>
-              Keep this page bookmarked. It always shows the current status of this order.
-            </p>
+          )}
+
+          <div className="kr8-subhero__actions">
+            <a
+              className="btn-primary"
+              href={`https://wa.me/${site.company.whatsapp}?text=${encodeURIComponent(`Hello KR8 DIGITALS — payment confirmation for order ${order.reference}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Confirm Settlement on WhatsApp
+            </a>
+            <Link href="/" className="btn-ghost">
+              Return Home
+            </Link>
           </div>
         </div>
       </div>

@@ -1,186 +1,230 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import PageHero, { ClosingCTA } from '@/components/PageHero';
 import LeadForm from '@/components/LeadForm';
-import Duo from '@/components/Duo';
 import { Icon } from '@/components/ui';
-import programmes from '../../../../data/programmes.json';
 import team from '../../../../data/team.json';
+import {
+  CinemaVisual,
+  ResponsiveCopy,
+  SectionAtmosphere,
+} from '@/components/MobileExperience';
 
 export const metadata: Metadata = {
-  title: 'Join the team — the professional route',
+  title: 'Join the Team — Studio Talent Pathway | KR8 DIGITALS',
   description:
-    'The route from training with KR8 Digitals to working on real client projects: a portfolio review, then live work with people who have shipped. Roles are published as they open.',
+    'Apply to join the KR8 DIGITALS studio delivery team across web engineering, brand & graphic design, video post-production, SEO, and AI automation.',
   alternates: { canonical: '/about/join-the-team' },
 };
 
-type Prog = {
-  name: string;
-  lede: string;
-  body: string;
-  commitment: string;
-  image: string;
-  imageAlt: string;
-  openRoles?: { title: string; line: string }[];
-  rolesNote?: string;
-};
-const join = (programmes.programmes as unknown as Prog[]).find(
-  (p) => (p as unknown as { slug: string }).slug === 'join-the-team'
-)!;
-
-const STEPS = [
-  { n: '01', t: 'Show the work', d: 'A portfolio, a folder of files, a live link — whatever proves you can do the thing. No CV required.' },
-  { n: '02', t: 'A conversation', d: 'What you want to be doing in a year, and whether this company can honestly give it to you.' },
-  { n: '03', t: 'Work with us on real work', d: 'A live client project, reviewed the way client work is reviewed. You are paid for the work you do.' },
-  { n: '04', t: 'The decision', d: 'Both sides decide. You are told either way, in writing, with the reason.' },
+const DISCIPLINES = [
+  {
+    num: 'TRACK 01 · ENGINEERING & AI',
+    title: 'Web Developers & AI Workflow Builders',
+    desc: 'Full-stack Next.js/React engineers, UI craftsmen, and applied AI builders who care deeply about mobile performance, accessibility, and clean architecture.',
+    mobileDesc: 'Next.js/React engineers, mobile UI specialists, and applied AI workflow builders.',
+  },
+  {
+    num: 'TRACK 02 · BRAND & GRAPHIC DESIGN',
+    title: 'Brand Identity & Campaign Designers',
+    desc: 'Designers with sharp typographic instinct, composition discipline, and commercial clarity — collaborating alongside Steveoking and Motionverse.',
+    mobileDesc: 'Identity & campaign designers collaborating directly with Steveoking and Motionverse.',
+  },
+  {
+    num: 'TRACK 03 · VIDEO POST-PRODUCTION',
+    title: 'Narrative & Commercial Video Editors',
+    desc: 'Editors who understand retention hooks, sound design, dialogue clarity, and color grading — collaborating alongside Creative Expression and Chigoma.',
+    mobileDesc: 'Retention-focused commercial & documentary editors collaborating with Creative Expression and Chigoma.',
+  },
+  {
+    num: 'TRACK 04 · SEARCH & OPERATIONS',
+    title: 'SEO Specialists & Project Coordinators',
+    desc: 'Technical SEO practitioners, content strategists, and organized project operators who keep scopes moving smoothly on schedule.',
+    mobileDesc: 'Technical SEO practitioners, content strategists, and disciplined project coordinators.',
+  },
 ];
 
-export default function JoinPage() {
+const EVALUATION_STEPS = [
+  {
+    n: '01',
+    t: 'Portfolio & Work Review',
+    d: 'Send links to real things you have built, designed, or cut — shipped work speaks louder than CVs.',
+  },
+  {
+    n: '02',
+    t: 'Craft Conversation',
+    d: 'Walk our leads through how you made a piece, the constraints you faced, and what you would refine.',
+  },
+  {
+    n: '03',
+    t: 'Scoped Trial Collaboration',
+    d: 'Collaborate on a bounded, real studio brief under senior review to test communication and quality.',
+  },
+  {
+    n: '04',
+    t: 'Studio Onboarding',
+    d: 'Join active client deliveries and ecosystem projects as part of the KR8 DIGITALS delivery roster.',
+  },
+];
+
+export default function JoinTheTeamPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Join the team"
-        title={<>If you can build,<br /><span className="text-grad">we want to meet you.</span></>}
-        lede={join.lede}
-        aside={
-          <figure style={{ margin: 0 }}>
-            <div className="duo__frame" style={{ aspectRatio: '4 / 3' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={join.image} alt={join.imageAlt} />
-            </div>
-            <figcaption style={{ marginTop: 10, fontSize: 11.5, color: 'var(--t-faint)' }}>{join.imageAlt}</figcaption>
-          </figure>
-        }
-      />
-
-      <section className="section" style={{ paddingTop: 50 }}>
+      {/* ============================================================ HERO */}
+      <section className="kr8-subhero">
+        <SectionAtmosphere name="join-team-builders" deskOpacity={0.2} mobOpacity={0.34} flare />
         <div className="wrap">
-          <div className="steps steps--row reveal up">
-            {STEPS.map((s) => (
-              <div className="step" key={s.n}>
-                <div className="step-num">{s.n}</div>
-                <div className="step-title">{s.t}</div>
-                <p>{s.d}</p>
+          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span>/</span>
+            <Link href="/about">About</Link>
+            <span>/</span>
+            <span style={{ color: '#fff' }}>Join the Team</span>
+          </nav>
+
+          <div className="kr8-subhero__grid">
+            <div>
+              <span className="kr8-pill kr8-pill--amber">
+                <i className="kr8-pill__dot" /> Rolling Talent Review · $0 Application Fee
+              </span>
+              <h1 className="kr8-subhero__title">
+                Show us what you build.{' '}
+                <em>Ship real work with us.</em>
+              </h1>
+              <ResponsiveCopy
+                as="p"
+                className="kr8-subhero__lede"
+                desktop={
+                  <>
+                    <strong>KR8 DIGITALS</strong> grows from proven craft rather than paper credentials. Whether you
+                    sharpened your skill inside <strong>KR8 Academy</strong> or built an independent body of work,
+                    exceptional builders are invited to submit portfolios for our studio delivery roster.
+                  </>
+                }
+                mobile={
+                  <>
+                    <strong>KR8 DIGITALS</strong> hires by proven craft — zero application fee ($0). Academy alumni
+                    and independent engineers, designers, and editors can submit work below.
+                  </>
+                }
+              />
+              <div className="kr8-subhero__actions">
+                <a href="#apply" className="btn-primary">
+                  Submit Your Portfolio <Icon name="arrow" size={17} />
+                </a>
+                <Link href="/programs#free-training" className="btn-ghost">
+                  Still Learning? Train Free First
+                </Link>
               </div>
-            ))}
+            </div>
+
+            <CinemaVisual
+              name="join-team-builders"
+              alt="Designers, developers, and video editors collaborating inside KR8 DIGITALS"
+              badge="Merit-Based Studio Pathway"
+              caption="Engineering · Brand · Design · Film · SEO"
+              aspect="16 / 10"
+              mobileAspect="16 / 10"
+            />
           </div>
         </div>
       </section>
 
-      <Duo
-        eyebrow="What it is"
-        title="The professional route, not a course."
-        body={
-          <>
-            <p>{join.body}</p>
-            <p>
-              There is no fee to apply and no unpaid trial. If you are working on a client project, you are
-              paid for that work. Everything else — the review, the conversation — costs you time and nothing
-              else.
-            </p>
-          </>
-        }
-        bullets={['A portfolio review, not a CV screen', 'Live client work with review from people who shipped', 'Paid for the work you do', 'An answer in writing either way']}
-        media={[
-          { src: '/img/team/founder-timfire-wide.jpg', alt: 'A working session at KR8 Digitals', caption: 'Working session · KR8 Digitals' },
-          { src: '/img/sites/academy-full.webp', alt: 'The KR8 Academy site, where the training happens' },
-        ]}
-        cta={{ label: 'See the programmes', href: '/programs' }}
-        flip
-      />
-
-      {/* --------------------------------------------------------------- ROLES */}
-      <section className="section" id="roles" style={{ borderTop: '1px solid var(--hair-soft)', scrollMarginTop: 90 }}>
+      {/* ===================================== 4 CRAFT TRACKS */}
+      <section className="section">
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Open roles</div>
-              <h2 className="section-title">What is actually open.</h2>
-              <p className="section-lede">
-                Roles are published from the dashboard as they open. If the list is empty, that is the true
-                state of it — not a page that forgot to be updated.
-              </p>
+              <div className="eyebrow">Disciplines We Review</div>
+              <h2 className="section-title">
+                Where builders plug into <span className="text-grad">KR8 DIGITALS.</span>
+              </h2>
             </div>
           </div>
 
-          <div style={{ marginTop: 34 }}>
-            {join.openRoles && join.openRoles.length > 0 ? (
-              join.openRoles.map((r) => (
-                <div className="panel panel--row" key={r.title} style={{ marginBottom: 10 }}>
-                  <b>{r.title}</b>
-                  <span style={{ fontSize: 13.5, color: 'var(--t-muted)' }}>{r.line}</span>
-                </div>
-              ))
-            ) : (
-              <div className="notice notice--neutral">
-                <b>No roles published yet.</b> {join.rolesNote} A speculative application is still read — send
-                the work, not the CV.
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------------------- FORM */}
-      <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
-        <div className="wrap">
-          <div className="grid g2 grid--loose" style={{ gridTemplateColumns: 'minmax(0,1.35fr) minmax(0,1fr)' }}>
-            <div className="reveal up">
-              <div className="eyebrow">Send the work</div>
-              <h2 className="section-title" style={{ fontSize: 34, marginTop: 10 }}>One link is enough.</h2>
-              <p className="prose-lg" style={{ marginTop: 14 }}>
-                A portfolio, a folder, a live site, a reel — anything you can point at. Tell us what you want to
-                be doing, and we will tell you whether this is the right place for it.
-              </p>
-              <div className="meta-row" style={{ marginTop: 24 }}>
-                <span>Commitment</span><b>{join.commitment}</b>
-              </div>
-              <div className="meta-row">
-                <span>Fee to apply</span><b>None</b>
-              </div>
-              <div className="meta-row">
-                <span>Answer</span><b>In writing, either way</b>
-              </div>
-              <div className="actions" style={{ marginTop: 26 }}>
-                <Link href="/about" className="btn-ghost">Meet the team first</Link>
-              </div>
-            </div>
-            <div className="reveal up" data-delay="60">
-              <LeadForm variant="team" siteId="join-the-team" compact />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------------- TEAM */}
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <div className="eyebrow reveal up">Who you would work with</div>
-          <div className="founders" style={{ marginTop: 26 }}>
-            {team.founders.map((f) => (
-              <article className="founder" key={f.slug}>
-                <div className="founder__img">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={f.photo} alt={`${f.name}, ${f.role}`} loading="lazy" />
-                </div>
-                <div className="founder__body">
-                  <h3 className="founder__name">{f.name}</h3>
-                  <div className="founder__role">{f.role}</div>
-                  <Link href={f.readAbout} className="founder__link">Read about {f.name} <Icon name="arrow" size={14} /></Link>
-                </div>
+          <div className="kr8-grid-2" style={{ marginTop: 28 }}>
+            {DISCIPLINES.map((d, idx) => (
+              <article
+                className={`kr8-card ${idx === 0 ? 'kr8-card--accent' : ''} reveal up`}
+                key={d.num}
+              >
+                <div className="kr8-card__num">{d.num}</div>
+                <h3 className="kr8-card__title">{d.title}</h3>
+                <ResponsiveCopy
+                  as="p"
+                  className="kr8-card__body"
+                  desktop={d.desc}
+                  mobile={d.mobileDesc}
+                />
               </article>
+            ))}
+          </div>
+
+          <div className="kr8-grid-4" style={{ marginTop: 24 }}>
+            {EVALUATION_STEPS.map((st) => (
+              <div className="kr8-card reveal up" key={st.n} style={{ padding: '22px 24px' }}>
+                <div className="kr8-card__num">STAGE {st.n}</div>
+                <h3 className="kr8-card__title" style={{ fontSize: 18.5 }}>
+                  {st.t}
+                </h3>
+                <p className="kr8-card__body" style={{ fontSize: 13.8 }}>
+                  {st.d}
+                </p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <ClosingCTA
-        title="Or start where everybody starts."
-        copy="The free training is the widest door in this company. It costs nothing and it is how most of this team got here."
-        cta="Free training"
-        href="/programs#free-training"
-        secondary={{ label: 'Talk to us', href: '/contact' }}
-      />
+      {/* ===================================== APPLICATION FORM */}
+      <section
+        className="section"
+        id="apply"
+        style={{ borderTop: '1px solid var(--hair-soft)', scrollMarginTop: 92 }}
+      >
+        <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.28} mobOpacity={0.4} flare />
+        <div className="wrap">
+          <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
+            <div>
+              <div className="eyebrow">Talent Application</div>
+              <h2 className="section-title" style={{ marginTop: 10 }}>
+                Send us two or three pieces <span className="text-grad">you are proud of.</span>
+              </h2>
+              <ResponsiveCopy
+                as="p"
+                className="prose-lg"
+                desktop="Include links to live websites, GitHub repositories, Figma/Behance boards, Google Drive reels, or published client work. Every submission routes directly into our studio talent inbox and is reviewed by the discipline lead."
+                mobile="Share links to live websites, GitHub repos, Figma/Behance boards, or video reels — reviewed directly by our founding craft leads."
+              />
+
+              <div className="kr8-card" style={{ marginTop: 22, padding: '20px 22px' }}>
+                <div className="kr8-card__num">LEADERSHIP REVIEWING YOUR CRAFT</div>
+                <ul className="kr8-check-list" style={{ marginTop: 8 }}>
+                  {team.founders.map((f) => (
+                    <li key={f.slug}>
+                      <strong>{f.name}</strong> ({f.fullName}) — {f.role}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="panel" style={{ padding: 'clamp(18px, 3vw, 36px)' }}>
+              <LeadForm
+                variant="team"
+                roles={[
+                  'Website & Full-Stack Engineering',
+                  'Branding & Visual Identity',
+                  'Commercial Graphic Design',
+                  'Video Editing & Motion',
+                  'SEO & Content Strategy',
+                  'AI Agents & Workflow Automation',
+                  'Project Operations',
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

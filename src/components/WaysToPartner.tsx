@@ -43,8 +43,8 @@ const WAYS: Way[] = [
     body: 'The most useful thing a partner can do is hire. We will tell you who is ready, show you their work and their verification record, and you interview them like anyone else. No placement fee. The point is that the training ends in work.',
     gives: ['Screened candidates with a portfolio', 'A verification record per person', 'No placement fee'],
     cta: { label: 'Hire from KR8', href: '/contact?partner=hire' },
-    image: '/video/story-02-poster.webp',
-    imageAlt: 'A member of the KR8 community',
+    image: '/img/programs/join-team-studio.webp',
+    imageAlt: 'Engineers, designers, and editors collaborating inside the KR8 Digitals talent pipeline',
   },
   {
     id: 'host',

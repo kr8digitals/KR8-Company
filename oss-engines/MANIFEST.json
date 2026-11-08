@@ -1,0 +1,17 @@
+{
+  "ensemble": "RIYA Open-Source 10-Engine Conversational Intelligence Suite",
+  "selfContained": true,
+  "zeroExternalDisconnectionRisk": true,
+  "repositories": [
+    { "id": "nlpjs", "repo": "https://github.com/axa-group/nlp.js", "license": "MIT", "role": "Neural MLP Intent Classification, Slot/Entity Extraction & Jaro-Winkler Similarity" },
+    { "id": "minisearch", "repo": "https://github.com/lucaong/minisearch", "license": "MIT", "role": "BM25+ Prefix & Fuzzy Full-Text Retrieval" },
+    { "id": "orama", "repo": "https://github.com/askorama/orama", "license": "Apache-2.0", "role": "Hybrid Multi-Field Typo-Tolerant Document Search" },
+    { "id": "compromise", "repo": "https://github.com/spencermountain/compromise", "license": "MIT", "role": "Part-of-Speech Tagging, Person/Role Extraction & Follow-Up Pronoun Resolution" },
+    { "id": "fusejs", "repo": "https://github.com/krisk/Fuse", "license": "Apache-2.0", "role": "Bitap Approximate Substring & Transposition Matching" },
+    { "id": "wink-bm25", "repo": "https://github.com/winkjs/wink-bm25-text-search", "license": "MIT", "role": "Field-Weighted Okapi BM25F Statistical Search" },
+    { "id": "wink-sentiment", "repo": "https://github.com/winkjs/wink-sentiment", "license": "MIT", "role": "Negation-Aware Visitor Emotion, Urgency & Frustration Detection" },
+    { "id": "wink-stemmer", "repo": "https://github.com/winkjs/wink-porter2-stemmer", "license": "MIT", "role": "Porter2 Morphological Stemming" },
+    { "id": "double-metaphone", "repo": "https://github.com/words/double-metaphone", "license": "MIT", "role": "Phonetic Misspelling & Voice-to-Text Normalization" },
+    { "id": "rag-hybrid-rrf", "repo": "https://github.com/shivenspancholi-dev/RAG-AI-Chatbot", "license": "MIT", "role": "Self-Hosted Extractive Sentence Ranking, Reciprocal Rank Fusion (RRF) & Citation Grounding" }
+  ]
+}

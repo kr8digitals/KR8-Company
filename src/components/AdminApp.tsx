@@ -1,670 +1,2840 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { formatMoney } from '@/lib/rates';
-import site from '../../data/site.json';
-import sitesData from '../../data/sites.json';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { Icon } from './ui';
+import RiyaAdminPanel from './RiyaAdminPanel';
 
-type Lead = any;
-type Data = {
-  driver: string;
-  settings?: Record<string, unknown>;
-  leads: Lead[];
-  referrals: any[];
-  commissions: any[];
-  host_sessions: any[];
-  host_messages: any[];
-  orders: any[];
-  analytics: { total: number; byName: Record<string, number>; recent: any[] };
-  counts: Record<string, number>;
-};
-
-const TABS = ['Overview', 'Leads', 'Referrals', 'Orders', 'Conversations', 'Analytics', 'Content'] as const;
-type Tab = (typeof TABS)[number];
-
-const STATUSES = ['new', 'contacted', 'quoted', 'won', 'lost', 'archived'];
+type Tab =
+  | 'overview'
+  | 'pages'
+  | 'services'
+  | 'programs'
+  | 'team'
+  | 'partners'
+  | 'media'
+  | 'navigation'
+  | 'seo'
+  | 'leads'
+  | 'host'
+  | 'referrals'
+  | 'orders'
+  | 'revisions';
 
 export default function AdminApp({ configured }: { configured: boolean }) {
-  const [authed, setAuthed] = useState(false);
+  const [authed, setAuthed] = useState<boolean | null>(null);
   const [pw, setPw] = useState('');
-  const [err, setErr] = useState('');
+  const [showPw, setShowPw] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const [tab, setTab] = useState<Tab>('overview');
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [data, setData] = useState<any>(null);
   const [busy, setBusy] = useState(false);
-  const [data, setData] = useState<Data | null>(null);
-  const [tab, setTab] = useState<Tab>('Overview');
-  const [filter, setFilter] = useState('all');
-  const [openLead, setOpenLead] = useState<Lead | null>(null);
-  const [toast, setToast] = useState('');
+  const [toast, setToast] = useState<{ text: string; tone?: 'ok' | 'err' } | null>(null);
+
+  // Module selections & forms
+  const [selectedPage, setSelectedPage] = useState<any>(null);
+  const [selectedService, setSelectedService] = useState<any>(null);
+  const [selectedProgram, setSelectedProgram] = useState<any>(null);
+  const [selectedMember, setSelectedMember] = useState<any>(null);
+  const [partnerSubTab, setPartnerSubTab] = useState<'proposals' | 'partners'>('proposals');
+  const [selectedPartner, setSelectedPartner] = useState<any>(null);
+  const [selectedProposal, setSelectedProposal] = useState<any>(null);
+  const [mediaFilter, setMediaFilter] = useState('all');
+  const [mediaSearch, setMediaSearch] = useState('');
+  const [selectedMedia, setSelectedMedia] = useState<any>(null);
+  const [navDraft, setNavDraft] = useState<any>(null);
+  const [selectedSeo, setSelectedSeo] = useState<any>(null);
+  const [leadFilter, setLeadFilter] = useState('all');
+  const [selectedSession, setSelectedSession] = useState<string | null>(null);
+  const [replyText, setReplyText] = useState('');
+  const [settingsDraft, setSettingsDraft] = useState<Record<string, string>>({});
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const replaceInputRef = useRef<HTMLInputElement>(null);
+
+  const flash = (text: string, tone: 'ok' | 'err' = 'ok') => {
+    setToast({ text, tone });
+    setTimeout(() => setToast(null), 3400);
+  };
 
   const load = useCallback(async () => {
-    setBusy(true);
-    try {
-      const res = await fetch('/api/admin/data', { cache: 'no-store' });
-      const json = await res.json();
-      if (json.ok) { setData(json); setAuthed(true); }
-      else if (json.authed === false) { setAuthed(false); }
-      else setErr(json.error || 'Could not load.');
-    } catch { setErr('Network problem.'); }
-    setBusy(false);
-  }, []);
+    const r = await fetch('/api/admin/data', { cache: 'no-store' });
+    const j = await r.json();
+    if (!j.authed) {
+      setAuthed(false);
+      return;
+    }
+    setAuthed(true);
+    setData(j);
+    if (j.cms?.navigation && !navDraft) setNavDraft(j.cms.navigation);
+    if (j.settings && Object.keys(settingsDraft).length === 0) setSettingsDraft(j.settings);
+  }, [navDraft, settingsDraft]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    if (configured) load();
+    else setAuthed(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configured]);
 
   async function login(e: React.FormEvent) {
     e.preventDefault();
-    setBusy(true); setErr('');
+    setErr(null);
+    setBusy(true);
     try {
-      const res = await fetch('/api/admin/login', {
-        method: 'POST', headers: { 'content-type': 'application/json' },
+      const r = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: pw }),
       });
-      const json = await res.json();
-      if (!json.ok) { setErr(json.error); setBusy(false); return; }
-      setPw('');
-      await load();
-    } catch { setErr('Network problem.'); setBusy(false); }
+      const j = await r.json();
+      if (!r.ok || !j.ok) {
+        setErr(j.error || 'Incorrect administrator password.');
+      } else {
+        setPw('');
+        await load();
+      }
+    } finally {
+      setBusy(false);
+    }
   }
 
-  const act = useCallback(async (op: string, payload: Record<string, any>) => {
-    const res = await fetch('/api/admin/action', {
-      method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ op, ...payload }),
-    });
-    const json = await res.json();
-    if (!json.ok) { setToast(json.error || 'That did not work.'); return null; }
-    setToast('Saved.');
-    setTimeout(() => setToast(''), 2400);
-    await load();
-    return json.doc;
-  }, [load]);
+  async function logout() {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    setAuthed(false);
+    setData(null);
+  }
 
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = prev; };
-  }, []);
+  async function cmsMutate(payload: {
+    entity?: string;
+    action: string;
+    id?: string;
+    data?: any;
+  }) {
+    setBusy(true);
+    try {
+      const r = await fetch('/api/admin/cms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const j = await r.json();
+      if (!r.ok || !j.ok) {
+        flash(j.error || 'Could not save changes', 'err');
+        return null;
+      }
+      flash('Saved & synced to live site');
+      await load();
+      return j.doc || true;
+    } finally {
+      setBusy(false);
+    }
+  }
 
+  async function legacyAction(body: Record<string, any>) {
+    setBusy(true);
+    try {
+      const r = await fetch('/api/admin/action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const j = await r.json();
+      if (!r.ok || !j.ok) {
+        flash(j.error || 'Action failed', 'err');
+        return false;
+      }
+      flash('Updated');
+      await load();
+      return true;
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleFileUpload(file: File, replaceId?: string) {
+    setBusy(true);
+    try {
+      const reader = new FileReader();
+      const b64: string = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = () => reject(new Error('Failed to read file'));
+        reader.readAsDataURL(file);
+      });
+      const cleanTitle = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ');
+      const r = await fetch('/api/admin/media', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'upload',
+          replaceId,
+          title: replaceId ? selectedMedia?.title : cleanTitle,
+          alt: replaceId ? selectedMedia?.alt : `${cleanTitle} — KR8 DIGITALS`,
+          category: replaceId ? selectedMedia?.category : 'uploads',
+          mimeType: file.type,
+          dataBase64: b64,
+        }),
+      });
+      const j = await r.json();
+      if (!r.ok || !j.ok) {
+        flash(j.error || 'Upload failed', 'err');
+        return;
+      }
+      flash(replaceId ? 'Media file replaced' : 'Media uploaded to library');
+      await load();
+      if (j.doc) setSelectedMedia(j.doc);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // ========================================================= UNLOCK / LOGIN
   if (!configured) {
     return (
-      <div className="admin-overlay"><section className="section" style={{ paddingTop: 120, minHeight: '100vh' }}>
-        <div className="wrap" style={{ maxWidth: 560 }}>
-          <div className="panel" style={{ padding: 34 }}>
-            <div className="tag" style={{ color: 'var(--magenta)' }}>Locked by default</div>
-            <h1 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 30, fontWeight: 800, marginTop: 10, letterSpacing: '-.02em' }}>
-              Set a password to open the dashboard
-            </h1>
-            <p style={{ marginTop: 14, fontSize: 14.5, lineHeight: 1.7, color: 'var(--t-muted)' }}>
-              There is deliberately no default password in this codebase — the last build had one, and it
-              was the worst bug in it. Add <code style={{ color: '#fff' }}>ADMIN_PASSWORD</code> (8+
-              characters) to the environment, redeploy, and this page unlocks.
-            </p>
-            <p style={{ marginTop: 12, fontSize: 13, color: 'var(--t-faint)' }}>
-              Locally: create <code>.env.local</code> with <code>ADMIN_PASSWORD=…</code> and restart.
-            </p>
+      <div className="kr8-cms-login">
+        <div className="kr8-cms-login__card">
+          <span className="kr8-pill">
+            <i className="kr8-pill__dot" /> Administrator Setup
+          </span>
+          <h1 style={{ fontFamily: 'var(--f-display)', fontSize: 28, marginTop: 16 }}>
+            Admin Studio Locked
+          </h1>
+          <p className="prose-lg" style={{ marginTop: 10, fontSize: 15 }}>
+            Set <code>ADMIN_PASSWORD</code> (at least 8 characters) in your environment variables to
+            enable authenticated access to the KR8 DIGITALS CMS &amp; Admin Studio.
+          </p>
+          <div style={{ marginTop: 22 }}>
+            <Link href="/" className="btn-ghost">
+              ← Return to Website
+            </Link>
           </div>
         </div>
-      </section></div>
+      </div>
+    );
+  }
+
+  if (authed === null) {
+    return (
+      <div className="kr8-cms-login">
+        <div style={{ fontFamily: 'var(--f-mono)', fontSize: 13, color: 'var(--t-muted)' }}>
+          Verifying administrator session…
+        </div>
+      </div>
     );
   }
 
   if (!authed) {
     return (
-      <div className="admin-overlay"><section className="section" style={{ paddingTop: 120, minHeight: '100vh' }}>
-        <div className="wrap" style={{ maxWidth: 460 }}>
-          <form className="panel" onSubmit={login} style={{ padding: 32 }}>
-            <div className="tag" style={{ color: 'var(--magenta)' }}>KR8 Digitals · admin</div>
-            <h1 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 26, fontWeight: 800, marginTop: 10 }}>Sign in</h1>
-            <div className="field" style={{ marginTop: 20 }}>
-              <label htmlFor="pw">Password</label>
-              <input id="pw" className="input" type="password" value={pw} onChange={(e) => setPw(e.target.value)} autoFocus required />
-            </div>
-            {err && <div className="form-status err">{err}</div>}
-            <button className="btn-primary" type="submit" disabled={busy} style={{ marginTop: 8, width: '100%', justifyContent: 'center' }}>
-              {busy ? <><span className="spinner" /> Checking…</> : 'Open dashboard'}
+      <div className="kr8-cms-login">
+        <div className="kr8-cms-login__card kr8-form-shell">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span className="kr8-pill">
+              <i className="kr8-pill__dot" /> KR8 DIGITALS · CMS
+            </span>
+            <Link href="/" style={{ fontSize: 13, color: 'var(--t-muted)' }}>
+              Public Site ↗
+            </Link>
+          </div>
+          <h1
+            style={{
+              fontFamily: 'var(--f-display)',
+              fontSize: 30,
+              fontWeight: 800,
+              letterSpacing: '-0.03em',
+              marginTop: 18,
+            }}
+          >
+            Executive CMS &amp; Operations
+          </h1>
+          <p style={{ marginTop: 8, fontSize: 14.5, color: 'var(--t-muted)', lineHeight: 1.6 }}>
+            Sign in to manage pages, services, ecosystem programs, founder profiles, partner
+            proposals, media assets, navigation, SEO, and incoming studio enquiries.
+          </p>
+
+          <form onSubmit={login} style={{ marginTop: 24, display: 'grid', gap: 16 }}>
+            <label className="field">
+              <span>Administrator Password</span>
+              <div style={{ position: 'relative' }}>
+                <input
+                  type={showPw ? 'text' : 'password'}
+                  value={pw}
+                  onChange={(e) => setPw(e.target.value)}
+                  placeholder="Enter executive password"
+                  autoFocus
+                  required
+                  style={{ paddingRight: 74 }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPw((v) => !v)}
+                  style={{
+                    position: 'absolute',
+                    right: 10,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'rgba(255,255,255,0.08)',
+                    border: '1px solid rgba(255,255,255,0.14)',
+                    color: '#fff',
+                    borderRadius: 8,
+                    padding: '4px 9px',
+                    fontSize: 11.5,
+                    cursor: 'pointer',
+                  }}
+                >
+                  {showPw ? 'Hide' : 'Show'}
+                </button>
+              </div>
+            </label>
+
+            {err && (
+              <div
+                role="alert"
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: 12,
+                  background: 'rgba(239, 68, 68, 0.16)',
+                  border: '1px solid rgba(239, 68, 68, 0.4)',
+                  color: '#fca5a5',
+                  fontSize: 13.5,
+                }}
+              >
+                {err}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="btn-primary"
+              disabled={busy || !pw}
+              style={{ width: '100%', justifyContent: 'center' }}
+            >
+              {busy ? 'Signing in…' : 'Unlock CMS Studio'} <Icon name="arrow" size={16} />
             </button>
-            <p className="form-note">Twelve-hour session, http-only cookie, throttled after eight attempts.</p>
           </form>
         </div>
-      </section></div>
+      </div>
     );
   }
 
-  if (!data) return <div className="admin-overlay"><section className="section" style={{ paddingTop: 160 }}><div className="wrap"><span className="spinner" /></div></section></div>;
+  const c = data?.counts || {};
+  const cms = data?.cms || {};
+  const pages: any[] = cms.pages || [];
+  const services: any[] = cms.services || [];
+  const programs: any[] = cms.programs || [];
+  const team: any[] = cms.team || [];
+  const partners: any[] = cms.partners || [];
+  const proposals: any[] = cms.partner_proposals || [];
+  const media: any[] = cms.media || [];
+  const seoList: any[] = cms.seo || [];
+  const revisions: any[] = cms.revisions || [];
 
+  const switchTab = (next: Tab) => {
+    setTab(next);
+    setDrawerOpen(false);
+  };
+
+  // ========================================================= DASHBOARD SHELL
   return (
-    <div className="admin-overlay"><div className="admin-shell">
-      <aside className="admin-side">
-        <div className="admin-side__brand">
-          <span style={{ fontWeight: 800, fontFamily: 'Montserrat,sans-serif' }}>KR8<span style={{ color: 'var(--magenta)' }}>Admin</span></span>
-          <small style={{ display: 'block', fontSize: 10.5, color: 'var(--t-faint)', letterSpacing: '.1em', textTransform: 'uppercase', marginTop: 4 }}>
-            {data.driver} store
-          </small>
+    <div className="kr8-cms-shell kr8-form-shell">
+      {/* ================================================= SIDEBAR */}
+      <aside className={`kr8-cms-aside${drawerOpen ? ' is-open' : ''}`}>
+        <div className="kr8-cms-brand">
+          <div>
+            <div style={{ fontFamily: 'var(--f-display)', fontWeight: 800, fontSize: 17 }}>
+              KR8 <span className="text-grad">DIGITALS</span>
+            </div>
+            <div
+              style={{
+                fontFamily: 'var(--f-mono)',
+                fontSize: 10.5,
+                letterSpacing: '0.12em',
+                color: 'var(--t-muted)',
+                marginTop: 2,
+              }}
+            >
+              CMS &amp; STUDIO CONSOLE
+            </div>
+          </div>
+          <button
+            type="button"
+            className="kr8-cms-burger btn-ghost"
+            style={{ padding: '6px 10px', fontSize: 12 }}
+            onClick={() => setDrawerOpen(false)}
+          >
+            ✕
+          </button>
         </div>
-        <div className="admin-side__grp">
-          {TABS.map((t) => (
-            <button key={t} className={tab === t ? 'is-active' : ''} onClick={() => setTab(t)}>
-              {t}
-              {t === 'Leads' && data.counts.leadsNew > 0 && <span className="pill" style={{ marginLeft: 8 }}>{data.counts.leadsNew}</span>}
-            </button>
-          ))}
+
+        <div className="kr8-cms-navgroup">
+          <div className="kr8-cms-navlbl">Command</div>
+          <button
+            className={`kr8-cms-navbtn${tab === 'overview' ? ' is-active' : ''}`}
+            onClick={() => switchTab('overview')}
+          >
+            <span>Executive Overview</span>
+          </button>
         </div>
-        <div style={{ marginTop: 'auto', display: 'grid', gap: 8 }}>
-          <button onClick={() => fetch('/api/admin/logout', { method: 'POST' }).then(() => setAuthed(false))}>Sign out</button>
-          <a href="/" style={{ fontSize: 13, color: 'var(--t-faint)', padding: '8px 12px' }}>← Back to site</a>
+
+        <div className="kr8-cms-navgroup">
+          <div className="kr8-cms-navlbl">Content Management (CMS)</div>
+          <button
+            className={`kr8-cms-navbtn${tab === 'pages' ? ' is-active' : ''}`}
+            onClick={() => switchTab('pages')}
+          >
+            <span>Pages &amp; Sections</span>
+            <span className="kr8-cms-badge">{pages.length}</span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'services' ? ' is-active' : ''}`}
+            onClick={() => switchTab('services')}
+          >
+            <span>Commercial Services</span>
+            <span className="kr8-cms-badge">{services.length}</span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'programs' ? ' is-active' : ''}`}
+            onClick={() => switchTab('programs')}
+          >
+            <span>Programs &amp; Status</span>
+            <span className="kr8-cms-badge">{programs.length}</span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'team' ? ' is-active' : ''}`}
+            onClick={() => switchTab('team')}
+          >
+            <span>Founders &amp; Team</span>
+            <span className="kr8-cms-badge">{team.length}</span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'partners' ? ' is-active' : ''}`}
+            onClick={() => switchTab('partners')}
+          >
+            <span>Partners &amp; Proposals</span>
+            <span className={`kr8-cms-badge${c.proposalsNew ? ' is-alert' : ''}`}>
+              {c.proposalsNew ? `${c.proposalsNew} new` : partners.length}
+            </span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'media' ? ' is-active' : ''}`}
+            onClick={() => switchTab('media')}
+          >
+            <span>Media Library</span>
+            <span className="kr8-cms-badge">{c.mediaCount || 0}</span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'navigation' ? ' is-active' : ''}`}
+            onClick={() => switchTab('navigation')}
+          >
+            <span>Navigation &amp; Global</span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'seo' ? ' is-active' : ''}`}
+            onClick={() => switchTab('seo')}
+          >
+            <span>SEO &amp; OpenGraph</span>
+            <span className="kr8-cms-badge">{seoList.length}</span>
+          </button>
+        </div>
+
+        <div className="kr8-cms-navgroup">
+          <div className="kr8-cms-navlbl">Studio Operations</div>
+          <button
+            className={`kr8-cms-navbtn${tab === 'leads' ? ' is-active' : ''}`}
+            onClick={() => switchTab('leads')}
+          >
+            <span>Leads &amp; Applications</span>
+            <span className={`kr8-cms-badge${c.leadsNew ? ' is-alert' : ''}`}>
+              {c.leadsNew ? `${c.leadsNew} new` : c.leadsTotal || 0}
+            </span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'host' ? ' is-active' : ''}`}
+            onClick={() => switchTab('host')}
+          >
+            <span>RIYA Intelligence</span>
+            <span
+              className={`kr8-cms-badge${
+                (c.riyaSubmissionsNew || 0) + (c.handoffs || 0) > 0 ? ' is-alert' : ''
+              }`}
+            >
+              {(c.riyaSubmissionsNew || 0) + (c.handoffs || 0) || c.riyaGapsOpen || 'AI'}
+            </span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'referrals' ? ' is-active' : ''}`}
+            onClick={() => switchTab('referrals')}
+          >
+            <span>Referrals &amp; Payouts</span>
+            <span className="kr8-cms-badge">{c.referrers || 0}</span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'orders' ? ' is-active' : ''}`}
+            onClick={() => switchTab('orders')}
+          >
+            <span>Orders &amp; Settings</span>
+          </button>
+          <button
+            className={`kr8-cms-navbtn${tab === 'revisions' ? ' is-active' : ''}`}
+            onClick={() => switchTab('revisions')}
+          >
+            <span>Revision History</span>
+            <span className="kr8-cms-badge">{revisions.length}</span>
+          </button>
+        </div>
+
+        <div style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'grid', gap: 8 }}>
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost"
+            style={{ justifyContent: 'center', fontSize: 13, padding: '9px 14px' }}
+          >
+            View Live Website ↗
+          </a>
+          <button
+            type="button"
+            onClick={logout}
+            className="btn-ghost"
+            style={{ justifyContent: 'center', fontSize: 13, padding: '9px 14px', opacity: 0.8 }}
+          >
+            Sign Out
+          </button>
         </div>
       </aside>
 
-      <main className="admin-main">
-        <div className="admin-top">
-          <h1>{tab}</h1>
-          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <span style={{ fontSize: 12, color: 'var(--t-faint)' }}>
-              {new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
-            </span>
-            <button className="btn-ghost btn-sm" onClick={load} disabled={busy}>{busy ? 'Loading…' : 'Refresh'}</button>
-          </div>
-        </div>
-
-        {toast && <div className="form-status ok" style={{ marginBottom: 16 }}>{toast}</div>}
-
-        {tab === 'Overview' && <Overview data={data} onOpen={(l) => { setOpenLead(l); setTab('Leads'); }} />}
-        {tab === 'Leads' && <Leads data={data} filter={filter} setFilter={setFilter} openId={openLead?.id} onOpen={setOpenLead} act={act} />}
-        {tab === 'Referrals' && <Referrals data={data} act={act} />}
-        {tab === 'Orders' && <Orders data={data} act={act} />}
-        {tab === 'Conversations' && <Conversations data={data} act={act} />}
-        {tab === 'Analytics' && <Analytics data={data} />}
-        {tab === 'Content' && <Content data={data} />}
-      </main>
-    </div></div>
-  );
-}
-
-function Stat({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
-  return (
-    <div className="admin-stat">
-      <div className="tag">{label}</div>
-      <div style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 30, fontWeight: 800, letterSpacing: '-.03em', marginTop: 6 }}>{value}</div>
-      {sub && <div style={{ fontSize: 11.5, color: 'var(--t-faint)', marginTop: 2 }}>{sub}</div>}
-    </div>
-  );
-}
-
-function Overview({ data, onOpen }: { data: Data; onOpen: (l: Lead) => void }) {
-  const latest = data.leads.slice(0, 6);
-  const pipeline = data.commissions.filter((c) => c.status === 'pending').length;
-  return (
-    <>
-      <div className="grid g4" style={{ gap: 14 }}>
-        <Stat label="New leads" value={data.counts.leadsNew} sub={`${data.counts.leadsTotal} total`} />
-        <Stat label="Referrers" value={data.counts.referrers} sub="accounts created" />
-        <Stat label="Commissions pending" value={pipeline} sub="awaiting confirmation" />
-        <Stat label="Host handoffs" value={data.counts.handoffs} sub="visitors asking for a human" />
-      </div>
-
-      <div className="grid g2" style={{ marginTop: 18, gap: 18 }}>
-        <div className="admin-card">
-          <div className="admin-row" style={{ borderBottom: '1px solid var(--hair)', paddingBottom: 12 }}>
-            <b>Latest submissions</b>
-            <span className="tag">{latest.length}</span>
-          </div>
-          {latest.length === 0 && <p style={{ marginTop: 14, fontSize: 13.5, color: 'var(--t-faint)' }}>Nothing yet. Submissions appear here the moment a form is sent.</p>}
-          {latest.map((l) => (
-            <button key={l.id} className="admin-row" style={{ width: '100%', textAlign: 'left' }} onClick={() => onOpen(l)}>
-              <span>
-                <b>{l.name}</b>
-                <small style={{ display: 'block', color: 'var(--t-faint)', fontSize: 12 }}>{l.type} · {l.service || l.role || '—'}</small>
-              </span>
-              <span className="pill">{l.status}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="admin-card">
-          <div className="admin-row" style={{ borderBottom: '1px solid var(--hair)', paddingBottom: 12 }}>
-            <b>Traffic, last 60 events</b>
-            <span className="tag">{data.analytics.total} total</span>
-          </div>
-          {Object.entries(data.analytics.byName).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k, v]) => (
-            <div className="admin-row" key={k}>
-              <span style={{ fontSize: 13.5 }}>{k}</span>
-              <b style={{ fontSize: 13.5 }}>{v}</b>
-            </div>
-          ))}
-          {Object.keys(data.analytics.byName).length === 0 && (
-            <p style={{ marginTop: 14, fontSize: 13.5, color: 'var(--t-faint)' }}>No events recorded yet.</p>
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
-
-function Leads({ data, filter, setFilter, openId, onOpen, act }: any) {
-  const rows = useMemo(
-    () => data.leads.filter((l: Lead) => filter === 'all' || l.status === filter),
-    [data.leads, filter]
-  );
-  const open = data.leads.find((l: Lead) => l.id === openId);
-  const [notes, setNotes] = useState('');
-  const [status, setStatus] = useState('new');
-
-  useEffect(() => { setNotes(open?.notes || ''); setStatus(open?.status || 'new'); }, [open]);
-
-  return (
-    <div className="grid" style={{ gridTemplateColumns: open ? '1.15fr .85fr' : '1fr', gap: 18, alignItems: 'start' }}>
-      <div className="admin-card" style={{ padding: 0 }}>
-        <div className="filters" style={{ padding: 16, borderBottom: '1px solid var(--hair)' }}>
-          {['all', ...STATUSES].map((s) => (
-            <button key={s} className={`pill${filter === s ? ' is-active' : ''}`} onClick={() => setFilter(s)} style={filter === s ? { background: 'var(--grad)', borderColor: 'transparent', color: '#fff' } : undefined}>
-              {s}{s !== 'all' && <span style={{ opacity: 0.6 }}> {data.leads.filter((l: Lead) => l.status === s).length}</span>}
-            </button>
-          ))}
-        </div>
-        <div className="tbl-wrap">
-          <table className="tbl">
-            <thead><tr><th>Name</th><th>Type</th><th>Service</th><th>When</th><th>Status</th></tr></thead>
-            <tbody>
-              {rows.map((l: Lead) => (
-                <tr key={l.id} onClick={() => onOpen(l)} style={{ cursor: 'pointer' }} className={openId === l.id ? 'is-feature' : ''}>
-                  <td><b>{l.name}</b><div style={{ fontSize: 11.5, color: 'var(--t-faint)' }}>{l.email || l.phone}</div></td>
-                  <td>{l.type}</td>
-                  <td style={{ color: 'var(--t-muted)' }}>{l.service || l.role || '—'}</td>
-                  <td>{new Date(l.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}</td>
-                  <td><span className="pill">{l.status}</span></td>
-                </tr>
-              ))}
-              {rows.length === 0 && <tr><td colSpan={5} style={{ color: 'var(--t-faint)' }}>Nothing in this filter.</td></tr>}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {open && (
-        <div className="admin-card">
-          <div className="admin-row" style={{ borderBottom: '1px solid var(--hair)', paddingBottom: 10 }}>
-            <b>{open.name}</b>
-            <span className="tag">{new Date(open.createdAt).toLocaleString('en-GB')}</span>
-          </div>
-          {[
-            ['Type', open.type], ['Email', open.email], ['Phone', open.phone],
-            ['Organisation', open.organisation], ['Service', open.service], ['Budget', open.budget],
-            ['Role', open.role], ['Portfolio', open.portfolio], ['Referral', open.referrer || open.ref],
-            ['Source', open.source],
-          ].filter(([, v]) => v).map(([k, v]) => (
-            <div className="kv" key={k as string}><span>{k}</span><span>{String(v)}</span></div>
-          ))}
-          {open.message && (
-            <div style={{ marginTop: 14 }}>
-              <div className="tag">Message</div>
-              <p style={{ marginTop: 6, fontSize: 14, lineHeight: 1.65, whiteSpace: 'pre-wrap' }}>{open.message}</p>
-            </div>
-          )}
-          <div className="field" style={{ marginTop: 18 }}>
-            <label>Status</label>
-            <select className="select" value={status} onChange={(e) => setStatus(e.target.value)}>
-              {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
-          </div>
-          <div className="field">
-            <label>Internal notes</label>
-            <textarea className="textarea" rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Quoted ₦450,000 on 3 Nov. Waiting on logo." />
-          </div>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            <button className="btn-primary btn-sm" onClick={() => act('lead.update', { id: open.id, patch: { status, notes } })}>Save</button>
-            {open.email && <a className="btn-ghost btn-sm" href={`mailto:${open.email}?subject=${encodeURIComponent('KR8 Digitals — your enquiry')}`}>Email</a>}
-            {open.phone && <a className="btn-ghost btn-sm" href={`https://wa.me/${String(open.phone).replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function Referrals({ data, act }: { data: Data; act: any }) {
-  const [values, setValues] = useState<Record<string, string>>({});
-  return (
-    <div className="grid" style={{ gap: 18 }}>
-      <div className="admin-card" style={{ padding: 0 }}>
-        <div style={{ padding: 16, borderBottom: '1px solid var(--hair)' }}><b>Commission queue</b> <span className="tag" style={{ marginLeft: 8 }}>{data.commissions.length}</span></div>
-        <div className="tbl-wrap">
-          <table className="tbl">
-            <thead><tr><th>Referrer</th><th>Lead</th><th>Type</th><th className="num">Value</th><th className="num">Commission</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody>
-              {data.commissions.map((c) => (
-                <tr key={c.id}>
-                  <td><b>{c.referrerCode}</b></td>
-                  <td>{c.leadName || '—'}</td>
-                  <td style={{ color: 'var(--t-muted)' }}>{c.type || '—'}</td>
-                  <td className="num">
-                    <input
-                      className="input" style={{ width: 96, padding: '6px 8px', fontSize: 13 }}
-                      value={values[c.id] ?? (c.valueUsd ?? '')}
-                      onChange={(e) => setValues((v) => ({ ...v, [c.id]: e.target.value }))}
-                      placeholder="0"
-                    />
-                  </td>
-                  <td className="num">{c.commissionUsd ? `$${formatMoney(c.commissionUsd)}` : '—'}</td>
-                  <td><span className="pill">{c.status}</span></td>
-                  <td style={{ whiteSpace: 'nowrap' }}>
-                    {c.status === 'pending' && (
-                      <button className="btn-ghost btn-sm" onClick={() => act('commission.confirm', { id: c.id, patch: { valueUsd: Number(values[c.id] ?? c.valueUsd) || 0 } })}>
-                        Confirm
-                      </button>
-                    )}
-                    {c.status === 'earned' && (
-                      <button className="btn-ghost btn-sm" onClick={() => act('commission.pay', { id: c.id })}>Mark paid</button>
-                    )}
-                    {c.status === 'paid' && <span style={{ fontSize: 12, color: 'var(--t-faint)' }}>settled</span>}
-                  </td>
-                </tr>
-              ))}
-              {data.commissions.length === 0 && <tr><td colSpan={7} style={{ color: 'var(--t-faint)' }}>No referrals yet. They appear here automatically when a referred visitor submits a form.</td></tr>}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="admin-card" style={{ padding: 0 }}>
-        <div style={{ padding: 16, borderBottom: '1px solid var(--hair)' }}><b>Referrers</b></div>
-        <div className="tbl-wrap">
-          <table className="tbl">
-            <thead><tr><th>Name</th><th>Code</th><th>Email</th><th className="num">Earned</th><th className="num">Paid out</th><th>Joined</th></tr></thead>
-            <tbody>
-              {data.referrals.map((r) => (
-                <tr key={r.id}>
-                  <td><b>{r.name}</b></td>
-                  <td><code style={{ fontSize: 12 }}>{r.code}</code></td>
-                  <td style={{ color: 'var(--t-muted)' }}>{r.email}</td>
-                  <td className="num">${formatMoney(Number(r.earnedUsd) || 0)}</td>
-                  <td className="num">${formatMoney(Number(r.withdrawnUsd) || 0)}</td>
-                  <td>{new Date(r.createdAt).toLocaleDateString('en-GB')}</td>
-                </tr>
-              ))}
-              {data.referrals.length === 0 && <tr><td colSpan={6} style={{ color: 'var(--t-faint)' }}>No referrers yet.</td></tr>}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Orders({ data, act }: { data: Data; act: any }) {
-  return (
-    <div className="admin-card" style={{ padding: 0 }}>
-      <div style={{ padding: 16, borderBottom: '1px solid var(--hair)' }}>
-        <b>Orders</b> <span className="tag" style={{ marginLeft: 8 }}>manual reconciliation</span>
-      </div>
-      <div className="tbl-wrap">
-        <table className="tbl">
-          <thead><tr><th>Reference</th><th>Item</th><th>Client</th><th className="num">USD</th><th className="num">NGN</th><th>Status</th><th>Action</th></tr></thead>
-          <tbody>
-            {data.orders.map((o) => (
-              <tr key={o.id}>
-                <td><code style={{ fontSize: 12 }}>{o.reference}</code></td>
-                <td><b>{o.item}</b></td>
-                <td style={{ color: 'var(--t-muted)' }}>{o.name || '—'}<div style={{ fontSize: 11.5 }}>{o.phone || o.email}</div></td>
-                <td className="num">${formatMoney(Number(o.amountUsd) || 0)}</td>
-                <td className="num">₦{formatMoney(Number(o.amountNgn) || 0)}</td>
-                <td><span className={`badge-status ${o.status === 'paid' ? 'paid' : 'pending'}`}>{o.status === 'paid' ? 'Paid' : 'Awaiting transfer'}</span></td>
-                <td>
-                  {o.status !== 'paid' && <button className="btn-ghost btn-sm" onClick={() => act('order.paid', { id: o.id })}>Mark paid</button>}
-                </td>
-              </tr>
-            ))}
-            {data.orders.length === 0 && <tr><td colSpan={7} style={{ color: 'var(--t-faint)' }}>No orders yet. A buyer creates one from the ready-built site block.</td></tr>}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-function Conversations({ data, act }: { data: Data; act: any }) {
-  const [sel, setSel] = useState<string | null>(data.host_sessions[0]?.visitorId || null);
-  const [reply, setReply] = useState('');
-  const msgs = data.host_messages.filter((m) => m.visitorId === sel).reverse();
-
-  return (
-    <div className="grid" style={{ gridTemplateColumns: '320px 1fr', gap: 18, alignItems: 'start' }}>
-      <div className="admin-card" style={{ padding: 0, maxHeight: 640, overflow: 'auto' }}>
-        {data.host_sessions.map((s) => (
-          <button key={s.id} className="admin-row" style={{ width: '100%', textAlign: 'left' }} onClick={() => setSel(s.visitorId)}>
-            <span>
-              <b style={{ fontSize: 13 }}>{s.visitorId.slice(0, 12)}…</b>
-              <small style={{ display: 'block', color: 'var(--t-faint)', fontSize: 11.5 }}>{s.state} · {s.messages || 0} msgs {s.handoff ? '· handoff' : ''}</small>
-            </span>
-            <span className="pill">{new Date(s.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}</span>
-          </button>
-        ))}
-        {data.host_sessions.length === 0 && <p style={{ padding: 16, fontSize: 13, color: 'var(--t-faint)' }}>No conversations yet.</p>}
-      </div>
-
-      <div className="admin-card">
-        <div style={{ display: 'grid', gap: 10, maxHeight: 420, overflow: 'auto', paddingRight: 6 }}>
-          {msgs.map((m) => (
-            <div key={m.id} style={{
-              padding: '10px 14px', borderRadius: 12, fontSize: 13.5, lineHeight: 1.55,
-              background: m.who === 'visitor' ? 'rgba(255,255,255,.05)' : 'rgba(255,45,155,.12)',
-              marginLeft: m.who === 'visitor' ? 0 : 24,
-            }}>
-              <div style={{ fontSize: 10.5, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--t-faint)', marginBottom: 4 }}>
-                {m.who === 'visitor' ? 'Visitor' : m.who === 'team' ? 'Team' : 'Ada'}
-              </div>
-              {m.text}
-            </div>
-          ))}
-          {msgs.length === 0 && <p style={{ fontSize: 13.5, color: 'var(--t-faint)' }}>Select a conversation.</p>}
-        </div>
-        {sel && (
-          <div style={{ marginTop: 16 }}>
-            <div className="field">
-              <label>Reply as the team</label>
-              <textarea className="textarea" rows={3} value={reply} onChange={(e) => setReply(e.target.value)} placeholder="This appears inside the visitor's chat panel." />
-            </div>
+      {/* ================================================= MAIN WORKSPACE */}
+      <div className="kr8-cms-main">
+        <header className="kr8-cms-topbar">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <button
-              className="btn-primary btn-sm"
-              onClick={async () => { if (!reply.trim()) return; await act('lead.reply', { leadId: sel, text: reply }); setReply(''); }}
+              type="button"
+              className="kr8-cms-burger btn-ghost"
+              style={{ padding: '8px 12px', fontSize: 13 }}
+              onClick={() => setDrawerOpen(true)}
             >
-              Send into chat
+              ☰ Menu
             </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function Analytics({ data }: { data: Data }) {
-  const entries = Object.entries(data.analytics.byName).sort((a, b) => b[1] - a[1]);
-  const max = Math.max(1, ...entries.map(([, v]) => v));
-  return (
-    <div className="grid g2" style={{ gap: 18, alignItems: 'start' }}>
-      <div className="admin-card">
-        <b>Events by name</b>
-        <div style={{ marginTop: 16, display: 'grid', gap: 10 }}>
-          {entries.map(([k, v]) => (
-            <div key={k}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginBottom: 4 }}>
-                <span>{k}</span><b>{v}</b>
-              </div>
-              <div style={{ height: 6, borderRadius: 4, background: 'rgba(255,255,255,.06)' }}>
-                <div style={{ height: '100%', width: `${(v / max) * 100}%`, borderRadius: 4, background: 'var(--grad)' }} />
+            <div>
+              <div style={{ fontFamily: 'var(--f-display)', fontWeight: 700, fontSize: 18 }}>
+                {tab === 'overview' && 'Executive Command Overview'}
+                {tab === 'pages' && 'Pages, Slugs & Section Builder'}
+                {tab === 'services' && 'Commercial Services Manager'}
+                {tab === 'programs' && 'Ecosystem Programs & Availability'}
+                {tab === 'team' && 'Founders & Studio Team Profiles'}
+                {tab === 'partners' && 'Strategic Partners & Incoming Proposals'}
+                {tab === 'media' && 'Brand & Media Asset Library'}
+                {tab === 'navigation' && 'Global Navigation & Contact Identity'}
+                {tab === 'seo' && 'Search Engine & OpenGraph Metadata'}
+                {tab === 'leads' && 'Client Enquiries, RSVPs & Team Applications'}
+                {tab === 'host' && 'RIYA Intelligence, Knowledge Base & Visitor Submissions'}
+                {tab === 'referrals' && 'Referral Affiliates & Commission Ledger'}
+                {tab === 'orders' && 'Orders & Notification Settings'}
+                {tab === 'revisions' && 'Version History & One-Click Restore'}
               </div>
             </div>
-          ))}
-          {entries.length === 0 && <p style={{ fontSize: 13, color: 'var(--t-faint)' }}>No events yet.</p>}
-        </div>
-      </div>
-      <div className="admin-card" style={{ padding: 0 }}>
-        <div style={{ padding: 16, borderBottom: '1px solid var(--hair)' }}><b>Recent events</b></div>
-        <div className="tbl-wrap" style={{ maxHeight: 460, overflow: 'auto' }}>
-          <table className="tbl">
-            <thead><tr><th>Event</th><th>Path</th><th>Country</th><th>When</th></tr></thead>
-            <tbody>
-              {data.analytics.recent.map((e) => (
-                <tr key={e.id}>
-                  <td><b>{e.name}</b></td>
-                  <td style={{ color: 'var(--t-muted)' }}>{e.path}</td>
-                  <td>{e.country || '—'}</td>
-                  <td>{new Date(e.createdAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const CONTENT_FIELDS = [
-  { k: 'hostName', label: 'Host display name', hint: 'Currently "Ada" — three candidates were proposed. Timfire picks the final one.', type: 'text' },
-  { k: 'hostAvatar', label: 'Host avatar asset', hint: 'A face needs a real person or an approved illustration. Until then the host uses an abstract mark.', type: 'text' },
-  { k: 'teamFeeUsd', label: 'Team enrolment fee (USD)', hint: 'Unapproved. Nothing is charged before this is published and shown on the join page.', type: 'number' },
-  { k: 'priceListApproved', label: 'Public price list approved? (yes / no)', hint: 'Flipping this to yes also publishes prices on the services pages once settings.publicPriceDisplay is on.', type: 'text' },
-  { k: 'founderPhotos', label: 'Founder photography confirmed?', hint: 'The three portraits are the ones KR8 publishes. Confirm they are the images to keep using.', type: 'text' },
-  { k: 'partnerLogos', label: 'Partner logo files', hint: 'Upload links for Motionverse, CHIGOMA and Next Gen Scholars. Slots hold the monogram until then.', type: 'text' },
-  { k: 'socialLinks', label: 'Social links (comma separated)', hint: 'Instagram, X, YouTube, LinkedIn. The footer hides any that are empty.', type: 'text' },
-  { k: 'openRoles', label: 'Open roles (one per line)', hint: 'Shown on Join the Team and Programs. Empty means the page says no roles are published.', type: 'text' },
-];
-
-function Content({ data }: { data: Data }) {
-  const [vals, setVals] = useState<Record<string, string>>({});
-  const [saved, setSaved] = useState(false);
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const [invStatus, setInvStatus] = useState<'all' | 'live' | 'for-sale'>('all');
-
-  useEffect(() => {
-    const st = (data.settings || {}) as Record<string, unknown>;
-    const c: Record<string, boolean> = {};
-    for (const item of site.neededFromClient) c[item.id] = Boolean(st[`received:${item.id}`]);
-    setChecked(c);
-  }, [data.settings]);
-
-  const toggle = async (id: string) => {
-    const next = !checked[id];
-    setChecked((c) => ({ ...c, [id]: next }));
-    await fetch('/api/admin/action', {
-      method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ op: 'settings.save', patch: { [`received:${id}`]: next } }),
-    });
-  };
-
-  const sites = invStatus === 'all' ? sitesData.sites : sitesData.sites.filter((s) => s.status === invStatus);
-
-  return (
-    <>
-    <div className="admin-card">
-      <div className="tag" style={{ color: 'var(--magenta)' }}>Content registry</div>
-      <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 22, fontWeight: 800, marginTop: 8 }}>
-        Needed from Timfire — {Object.values(checked).filter(Boolean).length} of {site.neededFromClient.length} received
-      </h2>
-      <p style={{ marginTop: 10, fontSize: 13.5, color: 'var(--t-muted)', lineHeight: 1.65, maxWidth: 700 }}>
-        Each row is a place the public site refuses to invent something. Tick it when the answer arrives; the
-        tick is stored against the settings record, so the team can see what is still outstanding.
-      </p>
-      <div className="tbl-wrap" style={{ marginTop: 18 }}>
-        <table className="tbl">
-          <thead><tr><th>Got it</th><th>Area</th><th>What is needed</th><th>Status</th></tr></thead>
-          <tbody>
-            {site.neededFromClient.map((n) => (
-              <tr key={n.id}>
-                <td>
-                  <input
-                    type="checkbox"
-                    aria-label={`Mark ${n.item} as received`}
-                    checked={Boolean(checked[n.id])}
-                    onChange={() => toggle(n.id)}
-                  />
-                </td>
-                <td><b>{n.area}</b></td>
-                <td style={{ color: 'var(--t-muted)' }}>{n.item}</td>
-                <td>
-                  <span className={`badge-status ${checked[n.id] ? 'paid' : 'pending'}`}>
-                    {checked[n.id] ? 'received' : 'pending'}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div className="admin-card">
-      <div className="tag" style={{ color: 'var(--magenta)' }}>Portfolio inventory</div>
-      <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 22, fontWeight: 800, marginTop: 8 }}>
-        {sitesData.sites.length} deployed sites · {sitesData.sites.filter((s) => s.status === 'for-sale').length} for sale
-      </h2>
-      <p style={{ marginTop: 10, fontSize: 13.5, color: 'var(--t-muted)', lineHeight: 1.65, maxWidth: 700 }}>
-        The public portfolio is generated from <code>data/sites.json</code>. Status and price are edited there
-        and deployed — this table is the live check that the account and the site agree.
-      </p>
-      <div className="filters" style={{ marginTop: 16 }}>
-        {(['all', 'live', 'for-sale'] as const).map((k) => (
-          <button key={k} aria-pressed={invStatus === k} onClick={() => setInvStatus(k)}>
-            {k === 'all' ? 'Everything' : k === 'live' ? 'Live for clients' : 'For sale'}
-          </button>
-        ))}
-      </div>
-      <div className="tbl-wrap" style={{ marginTop: 14 }}>
-        <table className="tbl">
-          <thead><tr><th>Site</th><th>Category</th><th>Status</th><th className="num">Price (USD)</th><th>Open</th></tr></thead>
-          <tbody>
-            {sites.map((x) => (
-              <tr key={x.slug}>
-                <td><b>{x.name}</b></td>
-                <td style={{ color: 'var(--t-muted)' }}>{x.category}</td>
-                <td><span className={`badge-status ${x.status === 'live' ? 'paid' : 'pending'}`}>{x.status === 'live' ? 'live' : 'for sale'}</span></td>
-                <td className="num">{x.priceUsd ? `$${x.priceUsd}` : '—'}</td>
-                <td><a href={x.url} target="_blank" rel="noopener noreferrer">↗</a></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div className="admin-card">
-      <div className="tag" style={{ color: 'var(--magenta)' }}>Needed from Timfire</div>
-      <h2 style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 22, fontWeight: 800, marginTop: 8 }}>
-        Fields that are deliberately blank on the site
-      </h2>
-      <p style={{ marginTop: 10, fontSize: 13.5, color: 'var(--t-muted)', lineHeight: 1.65, maxWidth: 640 }}>
-        Every value below is either unapproved or missing. Nothing here is invented on the public site —
-        each one shows as a considered alternative until it is filled in. Saving writes to the datastore and
-        marks the field ready; publishing it to the live site is a deploy step.
-      </p>
-      <div className="grid g2" style={{ marginTop: 24, gap: 18 }}>
-        {CONTENT_FIELDS.map((f) => (
-          <div className="field" key={f.k}>
-            <label htmlFor={f.k}>{f.label}</label>
-            <input
-              id={f.k} className="input" type={f.type}
-              value={vals[f.k] ?? ''}
-              onChange={(e) => setVals((v) => ({ ...v, [f.k]: e.target.value }))}
-              placeholder="Not set"
-            />
-            <span style={{ fontSize: 11.5, color: 'var(--t-faint)', marginTop: 4, display: 'block', lineHeight: 1.5 }}>{f.hint}</span>
           </div>
-        ))}
-      </div>
-      <div style={{ display: 'flex', gap: 12, marginTop: 22, alignItems: 'center' }}>
-        <button
-          className="btn-primary btn-sm"
-          onClick={async () => {
-            await fetch('/api/admin/action', {
-              method: 'POST', headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ op: 'settings.save', patch: vals }),
-            });
-            setSaved(true); setTimeout(() => setSaved(false), 2600);
-          }}
-        >
-          Save fields
-        </button>
-        {saved && <span style={{ fontSize: 13, color: 'var(--lilac)' }}>Saved to the datastore.</span>}
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {toast && (
+              <span
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 999,
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  background:
+                    toast.tone === 'err' ? 'rgba(239,68,68,0.22)' : 'rgba(34,197,94,0.2)',
+                  border: `1px solid ${
+                    toast.tone === 'err' ? 'rgba(239,68,68,0.5)' : 'rgba(34,197,94,0.45)'
+                  }`,
+                  color: toast.tone === 'err' ? '#fecaca' : '#bbf7d0',
+                }}
+              >
+                {toast.text}
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={load}
+              className="btn-ghost"
+              style={{ padding: '8px 14px', fontSize: 13 }}
+              disabled={busy}
+            >
+              {busy ? 'Syncing…' : '↻ Refresh'}
+            </button>
+          </div>
+        </header>
+
+        <div className="kr8-cms-body">
+          {/* ================================================= 1. OVERVIEW */}
+          {tab === 'overview' && (
+            <div style={{ display: 'grid', gap: 24 }}>
+              <div className="kr8-cms-kpis">
+                {[
+                  { k: 'Published Pages', v: c.pagesPublished ?? pages.length, s: 'Core + custom routes', go: 'pages' as Tab },
+                  { k: 'Commercial Services', v: c.servicesPublished ?? 6, s: 'Live on /services', go: 'services' as Tab },
+                  { k: 'Active Programs', v: c.programsActive ?? 4, s: 'Ecosystem pathways', go: 'programs' as Tab },
+                  { k: 'Founders & Team', v: c.teamCount ?? 4, s: 'Verified spellings', go: 'team' as Tab },
+                  { k: 'Partner Proposals', v: c.proposalsNew ?? 0, s: `${c.proposalsTotal ?? 0} total received`, go: 'partners' as Tab },
+                  { k: 'New Enquiries', v: c.leadsNew ?? 0, s: `${c.leadsTotal ?? 0} total submissions`, go: 'leads' as Tab },
+                  { k: 'Media Assets', v: c.mediaCount ?? 0, s: 'Curated & uploaded', go: 'media' as Tab },
+                  {
+                    k: 'RIYA Intelligence',
+                    v: (c.riyaSubmissionsNew ?? 0) + (c.handoffs ?? 0),
+                    s: `${c.riyaGapsOpen ?? 0} open KB gaps · ${data?.analytics?.total ?? 0} events`,
+                    go: 'host' as Tab,
+                  },
+                ].map((card) => (
+                  <div
+                    key={card.k}
+                    className="kr8-cms-kpi"
+                    onClick={() => switchTab(card.go)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <div
+                      style={{
+                        fontFamily: 'var(--f-mono)',
+                        fontSize: 11,
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        color: 'var(--t-muted)',
+                      }}
+                    >
+                      {card.k}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--f-display)',
+                        fontSize: 32,
+                        fontWeight: 800,
+                        marginTop: 6,
+                      }}
+                    >
+                      {card.v}
+                    </div>
+                    <div style={{ fontSize: 12.5, color: 'var(--magenta)', marginTop: 4 }}>
+                      {card.s} →
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="kr8-grid-2">
+                <div className="kr8-cms-panel">
+                  <div className="eyebrow">Quick Publishing Actions</div>
+                  <h2 style={{ fontFamily: 'var(--f-display)', fontSize: 22, marginTop: 8 }}>
+                    Create or Update Live Content
+                  </h2>
+                  <p style={{ fontSize: 14, color: 'var(--t-muted)', marginTop: 6 }}>
+                    Every published change in this console immediately updates the public KR8
+                    DIGITALS website. Use Draft mode to stage and preview pages privately first.
+                  </p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
+                    <button
+                      type="button"
+                      className="btn-primary"
+                      style={{ fontSize: 13, padding: '10px 16px' }}
+                      onClick={() => {
+                        setSelectedPage({
+                          title: '',
+                          slug: '',
+                          status: 'draft',
+                          isSystem: false,
+                          eyebrow: 'KR8 DIGITALS',
+                          heroTitle: '',
+                          heroHighlight: '',
+                          heroLede: '',
+                          primaryCtaLabel: 'Work With Us',
+                          primaryCtaHref: '/contact',
+                          sections: [],
+                        });
+                        switchTab('pages');
+                      }}
+                    >
+                      + Create Custom Page
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-ghost"
+                      style={{ fontSize: 13, padding: '10px 16px' }}
+                      onClick={() => {
+                        setPartnerSubTab('proposals');
+                        switchTab('partners');
+                      }}
+                    >
+                      Review Partner Proposals ({c.proposalsNew || 0})
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-ghost"
+                      style={{ fontSize: 13, padding: '10px 16px' }}
+                      onClick={() => switchTab('media')}
+                    >
+                      Upload Media Asset
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-ghost"
+                      style={{ fontSize: 13, padding: '10px 16px' }}
+                      onClick={() => switchTab('navigation')}
+                    >
+                      Edit Header &amp; Contact Info
+                    </button>
+                  </div>
+                </div>
+
+                <div className="kr8-cms-panel">
+                  <div className="eyebrow">Recent Audit Trail</div>
+                  <h2 style={{ fontFamily: 'var(--f-display)', fontSize: 22, marginTop: 8 }}>
+                    Latest Content Revisions
+                  </h2>
+                  {revisions.length === 0 ? (
+                    <p style={{ fontSize: 14, color: 'var(--t-muted)', marginTop: 12 }}>
+                      All collections hydrated and synced. Edits made in this console are
+                      automatically versioned here for one-click rollback.
+                    </p>
+                  ) : (
+                    <div style={{ display: 'grid', gap: 8, marginTop: 14 }}>
+                      {revisions.slice(0, 4).map((rev: any) => (
+                        <div
+                          key={rev.id}
+                          style={{
+                            padding: '10px 12px',
+                            borderRadius: 12,
+                            background: 'rgba(255,255,255,0.04)',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            gap: 10,
+                            fontSize: 13,
+                          }}
+                        >
+                          <div>
+                            <strong>{rev.entityLabel}</strong>{' '}
+                            <span style={{ color: 'var(--t-muted)' }}>
+                              ({rev.entityType} · {rev.action})
+                            </span>
+                          </div>
+                          <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, color: 'var(--t-muted)' }}>
+                            {new Date(rev.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ================================================= 2. PAGES & SECTIONS */}
+          {tab === 'pages' && (
+            <div className="kr8-cms-split">
+              <div className="kr8-cms-panel">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                  <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 18 }}>All Pages</h3>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    style={{ padding: '7px 13px', fontSize: 12.5 }}
+                    onClick={() =>
+                      setSelectedPage({
+                        title: '',
+                        slug: '',
+                        status: 'draft',
+                        isSystem: false,
+                        eyebrow: 'KR8 DIGITALS',
+                        heroTitle: '',
+                        heroHighlight: '',
+                        heroLede: '',
+                        heroImage: '',
+                        heroImageAlt: '',
+                        primaryCtaLabel: 'Work With Us',
+                        primaryCtaHref: '/contact',
+                        secondaryCtaLabel: 'Explore Services',
+                        secondaryCtaHref: '/services',
+                        metaTitle: '',
+                        metaDescription: '',
+                        noindex: false,
+                        sections: [
+                          {
+                            id: `sec_${Date.now()}`,
+                            type: 'text',
+                            eyebrow: 'Overview',
+                            title: 'Section Headline',
+                            body: 'Write executive copy for this section.',
+                          },
+                        ],
+                      })
+                    }
+                  >
+                    + New Page
+                  </button>
+                </div>
+
+                <div className="kr8-cms-list">
+                  {pages.map((p) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      className={`kr8-cms-item${selectedPage?.id === p.id ? ' is-selected' : ''}`}
+                      onClick={() => setSelectedPage(structuredClone(p))}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'center' }}>
+                        <strong style={{ fontSize: 14 }}>{p.title}</strong>
+                        <span className={`kr8-cms-status ${p.status}`}>{p.status}</span>
+                      </div>
+                      <div style={{ fontSize: 12, color: 'var(--t-muted)', marginTop: 4, fontFamily: 'var(--f-mono)' }}>
+                        /{p.slug === '/' ? '' : p.slug} {p.isSystem ? '· Core Route' : '· Custom CMS Page'}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="kr8-cms-panel">
+                {!selectedPage ? (
+                  <p style={{ color: 'var(--t-muted)', fontSize: 14.5 }}>
+                    Select any core route or custom page on the left to edit its hero copy, SEO
+                    metadata, publication status, or dynamic page sections — or click{' '}
+                    <strong>+ New Page</strong> to publish a brand-new URL on KR8 DIGITALS.
+                  </p>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const saved = await cmsMutate({
+                        entity: 'page',
+                        action: 'save',
+                        id: selectedPage.id,
+                        data: selectedPage,
+                      });
+                      if (saved && typeof saved === 'object') setSelectedPage(saved);
+                    }}
+                    style={{ display: 'grid', gap: 18 }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+                      <div>
+                        <span className="eyebrow">
+                          {selectedPage.isSystem ? 'Core Route Hero & Metadata' : 'Custom CMS Page Builder'}
+                        </span>
+                        <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 22, marginTop: 4 }}>
+                          {selectedPage.title || 'Untitled Page'}
+                        </h3>
+                      </div>
+                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                        {selectedPage.slug && (
+                          <a
+                            href={`/${selectedPage.slug === '/' ? '' : selectedPage.slug}${
+                              selectedPage.status === 'draft' ? '?preview=1' : ''
+                            }`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-ghost"
+                            style={{ padding: '8px 13px', fontSize: 12.5 }}
+                          >
+                            {selectedPage.status === 'draft' ? 'Preview Draft ↗' : 'Open Live Page ↗'}
+                          </a>
+                        )}
+                        {!selectedPage.isSystem && selectedPage.id && (
+                          <button
+                            type="button"
+                            className="btn-ghost"
+                            style={{ padding: '8px 13px', fontSize: 12.5, color: '#fca5a5' }}
+                            onClick={async () => {
+                              await cmsMutate({ entity: 'page', action: 'delete', id: selectedPage.id });
+                              setSelectedPage(null);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="kr8-grid-3">
+                      <label className="field">
+                        <span>Page Title *</span>
+                        <input
+                          required
+                          value={selectedPage.title || ''}
+                          onChange={(e) => setSelectedPage({ ...selectedPage, title: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>URL Slug *</span>
+                        <input
+                          required
+                          disabled={Boolean(selectedPage.isSystem)}
+                          placeholder="e.g. enterprise-brief"
+                          value={selectedPage.slug || ''}
+                          onChange={(e) => setSelectedPage({ ...selectedPage, slug: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Publication Status</span>
+                        <select
+                          value={selectedPage.status || 'published'}
+                          onChange={(e) => setSelectedPage({ ...selectedPage, status: e.target.value })}
+                        >
+                          <option value="published">Published (Live)</option>
+                          <option value="draft">Draft (Admin Preview Only)</option>
+                          <option value="archived">Archived (Hidden)</option>
+                        </select>
+                      </label>
+                    </div>
+
+                    {selectedPage.slug !== '/' && (
+                      <>
+                        <div className="kr8-grid-3">
+                          <label className="field">
+                            <span>Hero Eyebrow</span>
+                            <input
+                              value={selectedPage.eyebrow || ''}
+                              onChange={(e) => setSelectedPage({ ...selectedPage, eyebrow: e.target.value })}
+                            />
+                          </label>
+                          <label className="field">
+                            <span>Hero Headline</span>
+                            <input
+                              value={selectedPage.heroTitle || ''}
+                              onChange={(e) => setSelectedPage({ ...selectedPage, heroTitle: e.target.value })}
+                            />
+                          </label>
+                          <label className="field">
+                            <span>Highlighted Phrase (Gradient)</span>
+                            <input
+                              value={selectedPage.heroHighlight || ''}
+                              onChange={(e) => setSelectedPage({ ...selectedPage, heroHighlight: e.target.value })}
+                            />
+                          </label>
+                        </div>
+
+                        <label className="field">
+                          <span>Hero Lead Paragraph</span>
+                          <textarea
+                            rows={3}
+                            value={selectedPage.heroLede || ''}
+                            onChange={(e) => setSelectedPage({ ...selectedPage, heroLede: e.target.value })}
+                          />
+                        </label>
+
+                        {!selectedPage.isSystem && (
+                          <>
+                            <div className="kr8-grid-2">
+                              <label className="field">
+                                <span>Hero Image URL (optional)</span>
+                                <input
+                                  placeholder="/img/about/kr8-ecosystem-studio.webp"
+                                  value={selectedPage.heroImage || ''}
+                                  onChange={(e) => setSelectedPage({ ...selectedPage, heroImage: e.target.value })}
+                                />
+                              </label>
+                              <label className="field">
+                                <span>Hero Image Alt Text</span>
+                                <input
+                                  value={selectedPage.heroImageAlt || ''}
+                                  onChange={(e) => setSelectedPage({ ...selectedPage, heroImageAlt: e.target.value })}
+                                />
+                              </label>
+                            </div>
+
+                            <div className="kr8-grid-2">
+                              <label className="field">
+                                <span>Primary CTA Label &amp; Link</span>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                                  <input
+                                    placeholder="Label"
+                                    value={selectedPage.primaryCtaLabel || ''}
+                                    onChange={(e) =>
+                                      setSelectedPage({ ...selectedPage, primaryCtaLabel: e.target.value })
+                                    }
+                                  />
+                                  <input
+                                    placeholder="/contact"
+                                    value={selectedPage.primaryCtaHref || ''}
+                                    onChange={(e) =>
+                                      setSelectedPage({ ...selectedPage, primaryCtaHref: e.target.value })
+                                    }
+                                  />
+                                </div>
+                              </label>
+                              <label className="field">
+                                <span>Secondary CTA Label &amp; Link</span>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                                  <input
+                                    placeholder="Label"
+                                    value={selectedPage.secondaryCtaLabel || ''}
+                                    onChange={(e) =>
+                                      setSelectedPage({ ...selectedPage, secondaryCtaLabel: e.target.value })
+                                    }
+                                  />
+                                  <input
+                                    placeholder="/services"
+                                    value={selectedPage.secondaryCtaHref || ''}
+                                    onChange={(e) =>
+                                      setSelectedPage({ ...selectedPage, secondaryCtaHref: e.target.value })
+                                    }
+                                  />
+                                </div>
+                              </label>
+                            </div>
+
+                            {/* SECTION BUILDER */}
+                            <div
+                              style={{
+                                padding: 18,
+                                borderRadius: 16,
+                                background: 'rgba(255,255,255,0.03)',
+                                border: '1px solid rgba(255,255,255,0.09)',
+                                display: 'grid',
+                                gap: 14,
+                              }}
+                            >
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+                                <strong>Page Content Sections ({(selectedPage.sections || []).length})</strong>
+                                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                                  {(['text', 'split', 'cards', 'cta'] as const).map((t) => (
+                                    <button
+                                      key={t}
+                                      type="button"
+                                      className="btn-ghost"
+                                      style={{ padding: '5px 10px', fontSize: 11.5 }}
+                                      onClick={() =>
+                                        setSelectedPage({
+                                          ...selectedPage,
+                                          sections: [
+                                            ...(selectedPage.sections || []),
+                                            {
+                                              id: `sec_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
+                                              type: t,
+                                              eyebrow: 'Section',
+                                              title: 'New Section Heading',
+                                              body: 'Supporting details.',
+                                              items:
+                                                t === 'cards'
+                                                  ? [
+                                                      { tag: '01', title: 'Key Pillar', body: 'Description' },
+                                                      { tag: '02', title: 'Second Pillar', body: 'Description' },
+                                                    ]
+                                                  : undefined,
+                                            },
+                                          ],
+                                        })
+                                      }
+                                    >
+                                      + {t.toUpperCase()}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {(selectedPage.sections || []).map((sec: any, idx: number) => (
+                                <div
+                                  key={sec.id}
+                                  style={{
+                                    padding: 14,
+                                    borderRadius: 12,
+                                    background: 'rgba(9,5,18,0.8)',
+                                    border: '1px solid rgba(255,255,255,0.08)',
+                                    display: 'grid',
+                                    gap: 10,
+                                  }}
+                                >
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, color: 'var(--magenta)' }}>
+                                      SECTION {idx + 1} · {sec.type.toUpperCase()}
+                                    </span>
+                                    <button
+                                      type="button"
+                                      style={{ background: 'none', border: 0, color: '#fca5a5', fontSize: 12, cursor: 'pointer' }}
+                                      onClick={() => {
+                                        const next = [...selectedPage.sections];
+                                        next.splice(idx, 1);
+                                        setSelectedPage({ ...selectedPage, sections: next });
+                                      }}
+                                    >
+                                      Remove
+                                    </button>
+                                  </div>
+                                  <div className="kr8-grid-2">
+                                    <input
+                                      placeholder="Eyebrow"
+                                      value={sec.eyebrow || ''}
+                                      onChange={(e) => {
+                                        const next = [...selectedPage.sections];
+                                        next[idx] = { ...sec, eyebrow: e.target.value };
+                                        setSelectedPage({ ...selectedPage, sections: next });
+                                      }}
+                                    />
+                                    <input
+                                      placeholder="Section Heading"
+                                      value={sec.title || ''}
+                                      onChange={(e) => {
+                                        const next = [...selectedPage.sections];
+                                        next[idx] = { ...sec, title: e.target.value };
+                                        setSelectedPage({ ...selectedPage, sections: next });
+                                      }}
+                                    />
+                                  </div>
+                                  <textarea
+                                    rows={2}
+                                    placeholder="Section body text"
+                                    value={sec.body || ''}
+                                    onChange={(e) => {
+                                      const next = [...selectedPage.sections];
+                                      next[idx] = { ...sec, body: e.target.value };
+                                      setSelectedPage({ ...selectedPage, sections: next });
+                                    }}
+                                  />
+                                  {(sec.type === 'split' || sec.type === 'cta') && (
+                                    <div className="kr8-grid-3">
+                                      {sec.type === 'split' && (
+                                        <input
+                                          placeholder="Image URL"
+                                          value={sec.image || ''}
+                                          onChange={(e) => {
+                                            const next = [...selectedPage.sections];
+                                            next[idx] = { ...sec, image: e.target.value };
+                                            setSelectedPage({ ...selectedPage, sections: next });
+                                          }}
+                                        />
+                                      )}
+                                      <input
+                                        placeholder="CTA Button Label"
+                                        value={sec.ctaLabel || ''}
+                                        onChange={(e) => {
+                                          const next = [...selectedPage.sections];
+                                          next[idx] = { ...sec, ctaLabel: e.target.value };
+                                          setSelectedPage({ ...selectedPage, sections: next });
+                                        }}
+                                      />
+                                      <input
+                                        placeholder="CTA Link (/contact)"
+                                        value={sec.ctaHref || ''}
+                                        onChange={(e) => {
+                                          const next = [...selectedPage.sections];
+                                          next[idx] = { ...sec, ctaHref: e.target.value };
+                                          setSelectedPage({ ...selectedPage, sections: next });
+                                        }}
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
+
+                    <div className="kr8-grid-2">
+                      <label className="field">
+                        <span>SEO Meta Title</span>
+                        <input
+                          value={selectedPage.metaTitle || ''}
+                          onChange={(e) => setSelectedPage({ ...selectedPage, metaTitle: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>SEO Meta Description</span>
+                        <input
+                          value={selectedPage.metaDescription || ''}
+                          onChange={(e) => setSelectedPage({ ...selectedPage, metaDescription: e.target.value })}
+                        />
+                      </label>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 12 }}>
+                      <button type="submit" className="btn-primary" disabled={busy}>
+                        {busy ? 'Saving…' : 'Save Page & Sync Live'} <Icon name="arrow" size={16} />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ================================================= 3. SERVICES */}
+          {tab === 'services' && (
+            <div className="kr8-cms-split">
+              <div className="kr8-cms-panel">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                  <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 18 }}>Services ({services.length})</h3>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    style={{ padding: '7px 13px', fontSize: 12.5 }}
+                    onClick={() =>
+                      setSelectedService({
+                        slug: '',
+                        num: `0${services.length + 1}`,
+                        order: services.length + 1,
+                        status: 'published',
+                        name: '',
+                        short: '',
+                        nav: '',
+                        tagline: '',
+                        summary: '',
+                        body: '',
+                        deliverables: ['Custom strategy & architecture', 'Production implementation'],
+                        outcomes: ['Faster client conversion', 'Executive visual authority'],
+                        showcase: 'none',
+                        startingUsd: 450,
+                        image: '/img/services/website-engineering.webp',
+                        imageAlt: 'KR8 DIGITALS commercial service',
+                      })
+                    }
+                  >
+                    + Add Service
+                  </button>
+                </div>
+
+                <div className="kr8-cms-list">
+                  {services.map((s) => (
+                    <button
+                      key={s.id}
+                      type="button"
+                      className={`kr8-cms-item${selectedService?.id === s.id ? ' is-selected' : ''}`}
+                      onClick={() => setSelectedService(structuredClone(s))}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <strong>
+                          {s.num} · {s.name}
+                        </strong>
+                        <span className={`kr8-cms-status ${s.status || 'published'}`}>
+                          {s.status || 'published'}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 12, color: 'var(--t-muted)', marginTop: 4 }}>
+                        /services/{s.slug} · Order #{s.order}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="kr8-cms-panel">
+                {!selectedService ? (
+                  <p style={{ color: 'var(--t-muted)', fontSize: 14.5 }}>
+                    Select a commercial service to edit its positioning, deliverables, outcomes,
+                    display order, image, or publication status — or add a new service line.
+                  </p>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const saved = await cmsMutate({
+                        entity: 'service',
+                        action: 'save',
+                        id: selectedService.id,
+                        data: selectedService,
+                      });
+                      if (saved && typeof saved === 'object') setSelectedService(saved);
+                    }}
+                    style={{ display: 'grid', gap: 16 }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+                      <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 22 }}>
+                        {selectedService.name || 'New Commercial Service'}
+                      </h3>
+                      {selectedService.slug && (
+                        <a
+                          href={`/services/${selectedService.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-ghost"
+                          style={{ padding: '7px 12px', fontSize: 12.5 }}
+                        >
+                          View /services/{selectedService.slug} ↗
+                        </a>
+                      )}
+                    </div>
+
+                    <div className="kr8-grid-3">
+                      <label className="field">
+                        <span>Service Name *</span>
+                        <input
+                          required
+                          value={selectedService.name || ''}
+                          onChange={(e) =>
+                            setSelectedService({
+                              ...selectedService,
+                              name: e.target.value,
+                              short: selectedService.short || e.target.value,
+                              nav: selectedService.nav || e.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                      <label className="field">
+                        <span>URL Slug *</span>
+                        <input
+                          required
+                          value={selectedService.slug || ''}
+                          onChange={(e) => setSelectedService({ ...selectedService, slug: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Status &amp; Order</span>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 84px', gap: 8 }}>
+                          <select
+                            value={selectedService.status || 'published'}
+                            onChange={(e) => setSelectedService({ ...selectedService, status: e.target.value })}
+                          >
+                            <option value="published">Published</option>
+                            <option value="draft">Draft</option>
+                            <option value="archived">Archived</option>
+                          </select>
+                          <input
+                            type="number"
+                            value={selectedService.order ?? 1}
+                            onChange={(e) =>
+                              setSelectedService({ ...selectedService, order: Number(e.target.value) })
+                            }
+                          />
+                        </div>
+                      </label>
+                    </div>
+
+                    <div className="kr8-grid-2">
+                      <label className="field">
+                        <span>Tagline *</span>
+                        <input
+                          required
+                          value={selectedService.tagline || ''}
+                          onChange={(e) => setSelectedService({ ...selectedService, tagline: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Feature Image Path / URL</span>
+                        <input
+                          value={selectedService.image || ''}
+                          onChange={(e) => setSelectedService({ ...selectedService, image: e.target.value })}
+                        />
+                      </label>
+                    </div>
+
+                    <label className="field">
+                      <span>Executive Summary</span>
+                      <textarea
+                        rows={2}
+                        value={selectedService.summary || ''}
+                        onChange={(e) => setSelectedService({ ...selectedService, summary: e.target.value })}
+                      />
+                    </label>
+
+                    <label className="field">
+                      <span>Detailed Service Description</span>
+                      <textarea
+                        rows={4}
+                        value={selectedService.body || ''}
+                        onChange={(e) => setSelectedService({ ...selectedService, body: e.target.value })}
+                      />
+                    </label>
+
+                    <div className="kr8-grid-2">
+                      <label className="field">
+                        <span>Deliverables (one per line)</span>
+                        <textarea
+                          rows={5}
+                          value={(selectedService.deliverables || []).join('\n')}
+                          onChange={(e) =>
+                            setSelectedService({
+                              ...selectedService,
+                              deliverables: e.target.value.split('\n').filter((x) => x.trim()),
+                            })
+                          }
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Client Outcomes (one per line)</span>
+                        <textarea
+                          rows={5}
+                          value={(selectedService.outcomes || []).join('\n')}
+                          onChange={(e) =>
+                            setSelectedService({
+                              ...selectedService,
+                              outcomes: e.target.value.split('\n').filter((x) => x.trim()),
+                            })
+                          }
+                        />
+                      </label>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 12 }}>
+                      <button type="submit" className="btn-primary" disabled={busy}>
+                        {busy ? 'Saving…' : 'Save Service'} <Icon name="arrow" size={16} />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ================================================= 4. PROGRAMS */}
+          {tab === 'programs' && (
+            <div className="kr8-cms-split">
+              <div className="kr8-cms-panel">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                  <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 18 }}>Programs ({programs.length})</h3>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    style={{ padding: '7px 13px', fontSize: 12.5 }}
+                    onClick={() =>
+                      setSelectedProgram({
+                        slug: '',
+                        num: `0${programs.length + 1}`,
+                        order: programs.length + 1,
+                        visibility: 'active',
+                        name: '',
+                        tag: 'Ecosystem Initiative',
+                        status: 'Active Initiative',
+                        headline: '',
+                        body: '',
+                        tracks: [],
+                        cadence: '',
+                        image: '/img/programs/free-training-academy.webp',
+                        imageAlt: 'KR8 DIGITALS program',
+                        cta: { label: 'Learn More', href: '/contact', external: false },
+                      })
+                    }
+                  >
+                    + Add Program
+                  </button>
+                </div>
+                <div className="kr8-cms-list">
+                  {programs.map((p) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      className={`kr8-cms-item${selectedProgram?.id === p.id ? ' is-selected' : ''}`}
+                      onClick={() => setSelectedProgram(structuredClone(p))}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <strong>{p.name}</strong>
+                        <span className={`kr8-cms-status ${p.visibility || 'active'}`}>
+                          {p.visibility || 'active'}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 12, color: 'var(--t-muted)', marginTop: 4 }}>{p.status}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="kr8-cms-panel">
+                {!selectedProgram ? (
+                  <p style={{ color: 'var(--t-muted)', fontSize: 14.5 }}>
+                    Select a program to update its availability badge, cohort status, tracks, CTA
+                    destination, or visibility on <code>/programs</code>.
+                  </p>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const saved = await cmsMutate({
+                        entity: 'program',
+                        action: 'save',
+                        id: selectedProgram.id,
+                        data: selectedProgram,
+                      });
+                      if (saved && typeof saved === 'object') setSelectedProgram(saved);
+                    }}
+                    style={{ display: 'grid', gap: 16 }}
+                  >
+                    <div className="kr8-grid-3">
+                      <label className="field">
+                        <span>Program Name *</span>
+                        <input
+                          required
+                          value={selectedProgram.name || ''}
+                          onChange={(e) => setSelectedProgram({ ...selectedProgram, name: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Public Availability Badge *</span>
+                        <input
+                          required
+                          placeholder="e.g. Recurring Live Editions · Twice Monthly"
+                          value={selectedProgram.status || ''}
+                          onChange={(e) => setSelectedProgram({ ...selectedProgram, status: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Visibility State</span>
+                        <select
+                          value={selectedProgram.visibility || 'active'}
+                          onChange={(e) => setSelectedProgram({ ...selectedProgram, visibility: e.target.value })}
+                        >
+                          <option value="active">Active on /programs</option>
+                          <option value="coming_soon">Coming Soon</option>
+                          <option value="archived">Archived (Hidden)</option>
+                        </select>
+                      </label>
+                    </div>
+
+                    <div className="kr8-grid-2">
+                      <label className="field">
+                        <span>Program Tag / Pillar</span>
+                        <input
+                          value={selectedProgram.tag || ''}
+                          onChange={(e) => setSelectedProgram({ ...selectedProgram, tag: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Headline</span>
+                        <input
+                          value={selectedProgram.headline || ''}
+                          onChange={(e) => setSelectedProgram({ ...selectedProgram, headline: e.target.value })}
+                        />
+                      </label>
+                    </div>
+
+                    <label className="field">
+                      <span>Program Description</span>
+                      <textarea
+                        rows={4}
+                        value={selectedProgram.body || ''}
+                        onChange={(e) => setSelectedProgram({ ...selectedProgram, body: e.target.value })}
+                      />
+                    </label>
+
+                    <label className="field">
+                      <span>Tracks / Pillars (one per line)</span>
+                      <textarea
+                        rows={4}
+                        value={(selectedProgram.tracks || []).join('\n')}
+                        onChange={(e) =>
+                          setSelectedProgram({
+                            ...selectedProgram,
+                            tracks: e.target.value.split('\n').filter((x) => x.trim()),
+                          })
+                        }
+                      />
+                    </label>
+
+                    <div className="kr8-grid-3">
+                      <label className="field">
+                        <span>CTA Button Label</span>
+                        <input
+                          value={selectedProgram.cta?.label || ''}
+                          onChange={(e) =>
+                            setSelectedProgram({
+                              ...selectedProgram,
+                              cta: { ...(selectedProgram.cta || {}), label: e.target.value },
+                            })
+                          }
+                        />
+                      </label>
+                      <label className="field">
+                        <span>CTA Destination URL</span>
+                        <input
+                          value={selectedProgram.cta?.href || ''}
+                          onChange={(e) =>
+                            setSelectedProgram({
+                              ...selectedProgram,
+                              cta: { ...(selectedProgram.cta || {}), href: e.target.value },
+                            })
+                          }
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Program Image Path</span>
+                        <input
+                          value={selectedProgram.image || ''}
+                          onChange={(e) => setSelectedProgram({ ...selectedProgram, image: e.target.value })}
+                        />
+                      </label>
+                    </div>
+
+                    <div>
+                      <button type="submit" className="btn-primary" disabled={busy}>
+                        {busy ? 'Saving…' : 'Save Program'} <Icon name="arrow" size={16} />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ================================================= 5. TEAM & FOUNDERS */}
+          {tab === 'team' && (
+            <div className="kr8-cms-split">
+              <div className="kr8-cms-panel">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                  <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 18 }}>Founders &amp; Team</h3>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    style={{ padding: '7px 13px', fontSize: 12.5 }}
+                    onClick={() =>
+                      setSelectedMember({
+                        slug: '',
+                        name: '',
+                        fullName: '',
+                        role: '',
+                        group: 'leadership',
+                        order: team.length + 1,
+                        status: 'published',
+                        photo: '',
+                        headline: '',
+                        bio: '',
+                        quote: '',
+                        focus: [],
+                      })
+                    }
+                  >
+                    + Add Member
+                  </button>
+                </div>
+                <div className="kr8-cms-list">
+                  {team.map((m) => (
+                    <button
+                      key={m.id}
+                      type="button"
+                      className={`kr8-cms-item${selectedMember?.id === m.id ? ' is-selected' : ''}`}
+                      onClick={() => setSelectedMember(structuredClone(m))}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <strong>{m.name}</strong>
+                        <span className={`kr8-cms-status ${m.status || 'published'}`}>
+                          {m.group === 'founder' ? 'Founder' : 'Team'}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 12, color: 'var(--t-muted)', marginTop: 4 }}>
+                        {m.fullName} · {m.role}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="kr8-cms-panel">
+                {!selectedMember ? (
+                  <p style={{ color: 'var(--t-muted)', fontSize: 14.5 }}>
+                    Select a founder or team member to edit their profile, bio, executive quote,
+                    portrait URL, or role. Exact display spellings (<code>Timfire</code>,{' '}
+                    <code>Steveoking</code> / <code>Stevenson</code>,{' '}
+                    <code>Creative Expression</code>) are strictly preserved without character
+                    splitting.
+                  </p>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const saved = await cmsMutate({
+                        entity: 'team',
+                        action: 'save',
+                        id: selectedMember.id,
+                        data: selectedMember,
+                      });
+                      if (saved && typeof saved === 'object') setSelectedMember(saved);
+                    }}
+                    style={{ display: 'grid', gap: 16 }}
+                  >
+                    <div className="kr8-grid-3">
+                      <label className="field">
+                        <span>Display Name * (Exact Spelling)</span>
+                        <input
+                          required
+                          value={selectedMember.name || ''}
+                          onChange={(e) => setSelectedMember({ ...selectedMember, name: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Full Legal / Personal Name</span>
+                        <input
+                          value={selectedMember.fullName || ''}
+                          onChange={(e) => setSelectedMember({ ...selectedMember, fullName: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Group &amp; Status</span>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                          <select
+                            value={selectedMember.group || 'leadership'}
+                            onChange={(e) => setSelectedMember({ ...selectedMember, group: e.target.value })}
+                          >
+                            <option value="founder">Founder</option>
+                            <option value="leadership">Leadership / Team</option>
+                          </select>
+                          <select
+                            value={selectedMember.status || 'published'}
+                            onChange={(e) => setSelectedMember({ ...selectedMember, status: e.target.value })}
+                          >
+                            <option value="published">Published</option>
+                            <option value="archived">Hidden</option>
+                          </select>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div className="kr8-grid-2">
+                      <label className="field">
+                        <span>Official Role Title *</span>
+                        <input
+                          required
+                          value={selectedMember.role || ''}
+                          onChange={(e) => setSelectedMember({ ...selectedMember, role: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Portrait Image Path / Media URL</span>
+                        <input
+                          value={selectedMember.photo || ''}
+                          onChange={(e) => setSelectedMember({ ...selectedMember, photo: e.target.value })}
+                        />
+                      </label>
+                    </div>
+
+                    <label className="field">
+                      <span>Profile Headline</span>
+                      <input
+                        value={selectedMember.headline || ''}
+                        onChange={(e) => setSelectedMember({ ...selectedMember, headline: e.target.value })}
+                      />
+                    </label>
+
+                    <label className="field">
+                      <span>Biography</span>
+                      <textarea
+                        rows={4}
+                        value={selectedMember.bio || ''}
+                        onChange={(e) => setSelectedMember({ ...selectedMember, bio: e.target.value })}
+                      />
+                    </label>
+
+                    <div className="kr8-grid-2">
+                      <label className="field">
+                        <span>Executive Quote</span>
+                        <textarea
+                          rows={3}
+                          value={selectedMember.quote || ''}
+                          onChange={(e) => setSelectedMember({ ...selectedMember, quote: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Focus Disciplines (one per line)</span>
+                        <textarea
+                          rows={3}
+                          value={(selectedMember.focus || []).join('\n')}
+                          onChange={(e) =>
+                            setSelectedMember({
+                              ...selectedMember,
+                              focus: e.target.value.split('\n').filter((x) => x.trim()),
+                            })
+                          }
+                        />
+                      </label>
+                    </div>
+
+                    <div>
+                      <button type="submit" className="btn-primary" disabled={busy}>
+                        {busy ? 'Saving…' : 'Save Profile'} <Icon name="arrow" size={16} />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ================================================= 6. PARTNERS & PROPOSALS */}
+          {tab === 'partners' && (
+            <div style={{ display: 'grid', gap: 18 }}>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button
+                  type="button"
+                  className={partnerSubTab === 'proposals' ? 'btn-primary' : 'btn-ghost'}
+                  style={{ padding: '9px 16px', fontSize: 13 }}
+                  onClick={() => setPartnerSubTab('proposals')}
+                >
+                  Incoming Proposals ({proposals.length})
+                </button>
+                <button
+                  type="button"
+                  className={partnerSubTab === 'partners' ? 'btn-primary' : 'btn-ghost'}
+                  style={{ padding: '9px 16px', fontSize: 13 }}
+                  onClick={() => setPartnerSubTab('partners')}
+                >
+                  Published Partners ({partners.length})
+                </button>
+              </div>
+
+              {partnerSubTab === 'proposals' ? (
+                <div className="kr8-cms-split">
+                  <div className="kr8-cms-panel">
+                    <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 18, marginBottom: 12 }}>
+                      Submitted Proposals
+                    </h3>
+                    {proposals.length === 0 ? (
+                      <p style={{ fontSize: 13.5, color: 'var(--t-muted)' }}>
+                        Proposals submitted via <code>/partners#propose</code> appear here in real time.
+                      </p>
+                    ) : (
+                      <div className="kr8-cms-list">
+                        {proposals.map((pr) => (
+                          <button
+                            key={pr.id}
+                            type="button"
+                            className={`kr8-cms-item${selectedProposal?.id === pr.id ? ' is-selected' : ''}`}
+                            onClick={() => setSelectedProposal(structuredClone(pr))}
+                          >
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <strong>{pr.organisation}</strong>
+                              <span className={`kr8-cms-status ${pr.status || 'new'}`}>
+                                {pr.status || 'new'}
+                              </span>
+                            </div>
+                            <div style={{ fontSize: 12, color: 'var(--t-muted)', marginTop: 4 }}>
+                              {pr.contactName} · {pr.track}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="kr8-cms-panel">
+                    {!selectedProposal ? (
+                      <p style={{ color: 'var(--t-muted)', fontSize: 14.5 }}>
+                        Select an incoming partnership proposal to review alignment, record internal
+                        notes, update status, or promote the organisation directly to a published
+                        KR8 DIGITALS Partner.
+                      </p>
+                    ) : (
+                      <div style={{ display: 'grid', gap: 16 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', flexWrap: 'wrap', gap: 10 }}>
+                          <div>
+                            <span className="eyebrow">{selectedProposal.track}</span>
+                            <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 24, marginTop: 4 }}>
+                              {selectedProposal.organisation}
+                            </h3>
+                            <div style={{ fontSize: 13.5, color: 'var(--t-muted)', marginTop: 4 }}>
+                              Contact: <strong style={{ color: '#fff' }}>{selectedProposal.contactName}</strong>
+                              {selectedProposal.role ? ` (${selectedProposal.role})` : ''} ·{' '}
+                              <a href={`mailto:${selectedProposal.email}`} style={{ color: 'var(--magenta)' }}>
+                                {selectedProposal.email}
+                              </a>
+                              {selectedProposal.phone ? ` · ${selectedProposal.phone}` : ''}
+                            </div>
+                          </div>
+                          <span className={`kr8-cms-status ${selectedProposal.status || 'new'}`}>
+                            {selectedProposal.status || 'new'}
+                          </span>
+                        </div>
+
+                        <div style={{ padding: 16, borderRadius: 14, background: 'rgba(255,255,255,0.04)' }}>
+                          <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, color: 'var(--magenta)' }}>
+                            PROPOSAL SUMMARY
+                          </div>
+                          <p style={{ marginTop: 6, fontSize: 14.5, lineHeight: 1.65 }}>
+                            {selectedProposal.summary}
+                          </p>
+                          {selectedProposal.mutualValue && (
+                            <>
+                              <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, color: 'var(--magenta)', marginTop: 14 }}>
+                                MUTUAL VALUE &amp; TIMELINE
+                              </div>
+                              <p style={{ marginTop: 6, fontSize: 14, color: 'var(--t-body)' }}>
+                                {selectedProposal.mutualValue}
+                                {selectedProposal.timeline ? ` — Timeline: ${selectedProposal.timeline}` : ''}
+                              </p>
+                            </>
+                          )}
+                        </div>
+
+                        <div className="kr8-grid-2">
+                          <label className="field">
+                            <span>Review Status</span>
+                            <select
+                              value={selectedProposal.status || 'new'}
+                              onChange={(e) =>
+                                setSelectedProposal({ ...selectedProposal, status: e.target.value })
+                              }
+                            >
+                              <option value="new">New</option>
+                              <option value="reviewing">In Executive Review</option>
+                              <option value="approved">Approved</option>
+                              <option value="declined">Declined</option>
+                            </select>
+                          </label>
+                          <label className="field">
+                            <span>Internal Review Notes</span>
+                            <input
+                              value={selectedProposal.adminNotes || ''}
+                              onChange={(e) =>
+                                setSelectedProposal({ ...selectedProposal, adminNotes: e.target.value })
+                              }
+                              placeholder="Notes for founders…"
+                            />
+                          </label>
+                        </div>
+
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                          <button
+                            type="button"
+                            className="btn-primary"
+                            disabled={busy}
+                            onClick={() =>
+                              cmsMutate({
+                                action: 'proposal_status',
+                                id: selectedProposal.id,
+                                data: {
+                                  status: selectedProposal.status,
+                                  adminNotes: selectedProposal.adminNotes,
+                                },
+                              })
+                            }
+                          >
+                            Save Review Status
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-ghost"
+                            disabled={busy}
+                            onClick={async () => {
+                              await cmsMutate({
+                                action: 'proposal_promote',
+                                id: selectedProposal.id,
+                              });
+                              setPartnerSubTab('partners');
+                            }}
+                          >
+                            ★ Approve &amp; Publish to /partners
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="kr8-cms-split">
+                  <div className="kr8-cms-panel">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                      <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 18 }}>Active Partners</h3>
+                      <button
+                        type="button"
+                        className="btn-primary"
+                        style={{ padding: '7px 13px', fontSize: 12.5 }}
+                        onClick={() =>
+                          setSelectedPartner({
+                            slug: '',
+                            name: '',
+                            person: '',
+                            role: 'Strategic Partner',
+                            type: 'Strategic Partner',
+                            mark: 'KP',
+                            order: partners.length + 1,
+                            status: 'published',
+                            blurb: '',
+                            long: '',
+                            contribution: '',
+                            teaches: '',
+                          })
+                        }
+                      >
+                        + Add Partner
+                      </button>
+                    </div>
+                    <div className="kr8-cms-list">
+                      {partners.map((pt) => (
+                        <button
+                          key={pt.id}
+                          type="button"
+                          className={`kr8-cms-item${selectedPartner?.id === pt.id ? ' is-selected' : ''}`}
+                          onClick={() => setSelectedPartner(structuredClone(pt))}
+                        >
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <strong>{pt.name}</strong>
+                            <span className={`kr8-cms-status ${pt.status || 'published'}`}>
+                              {pt.status || 'published'}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: 12, color: 'var(--t-muted)', marginTop: 4 }}>
+                            {pt.role} · /partners/{pt.slug}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="kr8-cms-panel">
+                    {!selectedPartner ? (
+                      <p style={{ color: 'var(--t-muted)', fontSize: 14.5 }}>
+                        Select a partner to edit its chapter details on <code>/partners</code> and{' '}
+                        <code>/partners/[slug]</code>.
+                      </p>
+                    ) : (
+                      <form
+                        onSubmit={async (e) => {
+                          e.preventDefault();
+                          const saved = await cmsMutate({
+                            entity: 'partner',
+                            action: 'save',
+                            id: selectedPartner.id,
+                            data: selectedPartner,
+                          });
+                          if (saved && typeof saved === 'object') setSelectedPartner(saved);
+                        }}
+                        style={{ display: 'grid', gap: 16 }}
+                      >
+                        <div className="kr8-grid-3">
+                          <label className="field">
+                            <span>Partner Name *</span>
+                            <input
+                              required
+                              value={selectedPartner.name || ''}
+                              onChange={(e) => setSelectedPartner({ ...selectedPartner, name: e.target.value })}
+                            />
+                          </label>
+                          <label className="field">
+                            <span>Lead Person / Founder</span>
+                            <input
+                              value={selectedPartner.person || ''}
+                              onChange={(e) => setSelectedPartner({ ...selectedPartner, person: e.target.value })}
+                            />
+                          </label>
+                          <label className="field">
+                            <span>Monogram &amp; Status</span>
+                            <div style={{ display: 'grid', gridTemplateColumns: '76px 1fr', gap: 8 }}>
+                              <input
+                                maxLength={3}
+                                value={selectedPartner.mark || ''}
+                                onChange={(e) =>
+                                  setSelectedPartner({ ...selectedPartner, mark: e.target.value.toUpperCase() })
+                                }
+                              />
+                              <select
+                                value={selectedPartner.status || 'published'}
+                                onChange={(e) => setSelectedPartner({ ...selectedPartner, status: e.target.value })}
+                              >
+                                <option value="published">Published</option>
+                                <option value="archived">Archived</option>
+                              </select>
+                            </div>
+                          </label>
+                        </div>
+
+                        <div className="kr8-grid-2">
+                          <label className="field">
+                            <span>Partner Role / Discipline</span>
+                            <input
+                              value={selectedPartner.role || ''}
+                              onChange={(e) => setSelectedPartner({ ...selectedPartner, role: e.target.value })}
+                            />
+                          </label>
+                          <label className="field">
+                            <span>Partnership Category</span>
+                            <input
+                              value={selectedPartner.type || ''}
+                              onChange={(e) => setSelectedPartner({ ...selectedPartner, type: e.target.value })}
+                            />
+                          </label>
+                        </div>
+
+                        <label className="field">
+                          <span>Card Summary (Blurb)</span>
+                          <textarea
+                            rows={2}
+                            value={selectedPartner.blurb || ''}
+                            onChange={(e) => setSelectedPartner({ ...selectedPartner, blurb: e.target.value })}
+                          />
+                        </label>
+
+                        <label className="field">
+                          <span>Full Chapter Narrative (/partners/[slug])</span>
+                          <textarea
+                            rows={4}
+                            value={selectedPartner.long || ''}
+                            onChange={(e) => setSelectedPartner({ ...selectedPartner, long: e.target.value })}
+                          />
+                        </label>
+
+                        <div>
+                          <button type="submit" className="btn-primary" disabled={busy}>
+                            {busy ? 'Saving…' : 'Save Partner'} <Icon name="arrow" size={16} />
+                          </button>
+                        </div>
+                      </form>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ================================================= 7. MEDIA LIBRARY */}
+          {tab === 'media' && (
+            <div style={{ display: 'grid', gap: 20 }}>
+              <div className="kr8-cms-panel" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+                  <input
+                    placeholder="Search title or alt text…"
+                    value={mediaSearch}
+                    onChange={(e) => setMediaSearch(e.target.value)}
+                    style={{ width: 240 }}
+                  />
+                  <select value={mediaFilter} onChange={(e) => setMediaFilter(e.target.value)} style={{ width: 170 }}>
+                    <option value="all">All Categories</option>
+                    <option value="founders">Founders</option>
+                    <option value="services">Services</option>
+                    <option value="programs">Programs</option>
+                    <option value="about">About &amp; Studio</option>
+                    <option value="partners">Partners</option>
+                    <option value="uploads">Uploaded Assets</option>
+                  </select>
+                </div>
+
+                <div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif"
+                    style={{ display: 'none' }}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) handleFileUpload(f);
+                      e.target.value = '';
+                    }}
+                  />
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    style={{ padding: '10px 18px', fontSize: 13 }}
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={busy}
+                  >
+                    + Upload Image Asset
+                  </button>
+                </div>
+              </div>
+
+              <div className="kr8-cms-split kr8-cms-media-split">
+                <div className="kr8-cms-panel">
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(145px, 1fr))', gap: 12 }}>
+                    {media
+                      .filter((m) => mediaFilter === 'all' || m.category === mediaFilter)
+                      .filter(
+                        (m) =>
+                          !mediaSearch ||
+                          `${m.title} ${m.alt}`.toLowerCase().includes(mediaSearch.toLowerCase())
+                      )
+                      .map((m) => (
+                        <button
+                          key={m.id}
+                          type="button"
+                          onClick={() => setSelectedMedia(structuredClone(m))}
+                          style={{
+                            padding: 8,
+                            borderRadius: 14,
+                            background:
+                              selectedMedia?.id === m.id
+                                ? 'rgba(124,58,237,0.28)'
+                                : 'rgba(9,5,18,0.8)',
+                            border: `1px solid ${
+                              selectedMedia?.id === m.id
+                                ? 'rgba(232,121,249,0.6)'
+                                : 'rgba(255,255,255,0.09)'
+                            }`,
+                            cursor: 'pointer',
+                            textAlign: 'left',
+                            color: '#fff',
+                          }}
+                        >
+                          <div
+                            style={{
+                              aspectRatio: '4 / 3',
+                              borderRadius: 9,
+                              overflow: 'hidden',
+                              background: '#120924',
+                            }}
+                          >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={m.url}
+                              alt={m.alt}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                          </div>
+                          <div
+                            style={{
+                              fontSize: 11.5,
+                              fontWeight: 600,
+                              marginTop: 7,
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                            }}
+                          >
+                            {m.title}
+                          </div>
+                        </button>
+                      ))}
+                  </div>
+                </div>
+
+                <div className="kr8-cms-panel">
+                  {!selectedMedia ? (
+                    <p style={{ color: 'var(--t-muted)', fontSize: 14 }}>
+                      Click any visual asset to inspect its preview, copy its URL for Pages/Services,
+                      replace the image file, or update accessibility alt text.
+                    </p>
+                  ) : (
+                    <div style={{ display: 'grid', gap: 14 }}>
+                      <div
+                        style={{
+                          maxHeight: 280,
+                          borderRadius: 14,
+                          overflow: 'hidden',
+                          background: '#0d061b',
+                          border: '1px solid rgba(255,255,255,0.1)',
+                        }}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={selectedMedia.url}
+                          alt={selectedMedia.alt}
+                          style={{ width: '100%', maxHeight: 280, objectFit: 'contain' }}
+                        />
+                      </div>
+
+                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                        <button
+                          type="button"
+                          className="btn-ghost"
+                          style={{ padding: '7px 12px', fontSize: 12 }}
+                          onClick={() => {
+                            navigator.clipboard?.writeText(selectedMedia.url);
+                            flash('Asset URL copied to clipboard');
+                          }}
+                        >
+                          Copy URL ({selectedMedia.url})
+                        </button>
+
+                        <input
+                          ref={replaceInputRef}
+                          type="file"
+                          accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif"
+                          style={{ display: 'none' }}
+                          onChange={(e) => {
+                            const f = e.target.files?.[0];
+                            if (f) handleFileUpload(f, selectedMedia.id);
+                            e.target.value = '';
+                          }}
+                        />
+                        <button
+                          type="button"
+                          className="btn-ghost"
+                          style={{ padding: '7px 12px', fontSize: 12 }}
+                          onClick={() => replaceInputRef.current?.click()}
+                        >
+                          Replace File
+                        </button>
+                      </div>
+
+                      <label className="field">
+                        <span>Asset Title</span>
+                        <input
+                          value={selectedMedia.title || ''}
+                          onChange={(e) => setSelectedMedia({ ...selectedMedia, title: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Accessibility Alt Text</span>
+                        <input
+                          value={selectedMedia.alt || ''}
+                          onChange={(e) => setSelectedMedia({ ...selectedMedia, alt: e.target.value })}
+                        />
+                      </label>
+                      <div style={{ display: 'flex', gap: 10 }}>
+                        <button
+                          type="button"
+                          className="btn-primary"
+                          disabled={busy}
+                          onClick={async () => {
+                            const r = await fetch('/api/admin/media', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                action: 'update',
+                                id: selectedMedia.id,
+                                title: selectedMedia.title,
+                                alt: selectedMedia.alt,
+                                category: selectedMedia.category,
+                                status: selectedMedia.status || 'active',
+                              }),
+                            });
+                            if (r.ok) {
+                              flash('Media metadata saved');
+                              await load();
+                            }
+                          }}
+                        >
+                          Save Alt &amp; Title
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ================================================= 8. NAVIGATION & GLOBAL */}
+          {tab === 'navigation' && navDraft && (
+            <form
+              className="kr8-cms-panel"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const saved = await cmsMutate({
+                  entity: 'navigation',
+                  action: 'save',
+                  id: navDraft.id || 'global-nav',
+                  data: { ...navDraft, id: navDraft.id || 'global-nav' },
+                });
+                if (saved && typeof saved === 'object') setNavDraft(saved);
+              }}
+              style={{ display: 'grid', gap: 20 }}
+            >
+              <div>
+                <span className="eyebrow">Live Header &amp; Footer Control</span>
+                <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 22, marginTop: 4 }}>
+                  Global Navigation, CTA &amp; Contact Channels
+                </h3>
+              </div>
+
+              <div className="kr8-grid-2">
+                <label className="field">
+                  <span>Header Primary CTA Label</span>
+                  <input
+                    value={navDraft.ctaLabel || ''}
+                    onChange={(e) => setNavDraft({ ...navDraft, ctaLabel: e.target.value })}
+                  />
+                </label>
+                <label className="field">
+                  <span>Header Primary CTA Destination</span>
+                  <input
+                    value={navDraft.ctaHref || ''}
+                    onChange={(e) => setNavDraft({ ...navDraft, ctaHref: e.target.value })}
+                  />
+                </label>
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                  <strong>Primary Navigation Links</strong>
+                  <button
+                    type="button"
+                    className="btn-ghost"
+                    style={{ padding: '6px 12px', fontSize: 12 }}
+                    onClick={() =>
+                      setNavDraft({
+                        ...navDraft,
+                        headerLinks: [
+                          ...(navDraft.headerLinks || []),
+                          {
+                            id: `nav_${Date.now()}`,
+                            label: 'New Link',
+                            href: '/',
+                            order: (navDraft.headerLinks?.length || 0) + 1,
+                            visible: true,
+                          },
+                        ],
+                      })
+                    }
+                  >
+                    + Add Menu Item
+                  </button>
+                </div>
+                <div style={{ display: 'grid', gap: 8 }}>
+                  {(navDraft.headerLinks || []).map((lnk: any, idx: number) => (
+                    <div
+                      key={lnk.id || idx}
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: '70px 1fr 1fr 110px 70px',
+                        gap: 8,
+                        alignItems: 'center',
+                      }}
+                    >
+                      <input
+                        type="number"
+                        value={lnk.order ?? idx + 1}
+                        onChange={(e) => {
+                          const next = [...navDraft.headerLinks];
+                          next[idx] = { ...lnk, order: Number(e.target.value) };
+                          setNavDraft({ ...navDraft, headerLinks: next });
+                        }}
+                      />
+                      <input
+                        value={lnk.label}
+                        placeholder="Label"
+                        onChange={(e) => {
+                          const next = [...navDraft.headerLinks];
+                          next[idx] = { ...lnk, label: e.target.value };
+                          setNavDraft({ ...navDraft, headerLinks: next });
+                        }}
+                      />
+                      <input
+                        value={lnk.href}
+                        placeholder="/route"
+                        onChange={(e) => {
+                          const next = [...navDraft.headerLinks];
+                          next[idx] = { ...lnk, href: e.target.value };
+                          setNavDraft({ ...navDraft, headerLinks: next });
+                        }}
+                      />
+                      <select
+                        value={lnk.visible === false ? 'no' : 'yes'}
+                        onChange={(e) => {
+                          const next = [...navDraft.headerLinks];
+                          next[idx] = { ...lnk, visible: e.target.value === 'yes' };
+                          setNavDraft({ ...navDraft, headerLinks: next });
+                        }}
+                      >
+                        <option value="yes">Visible</option>
+                        <option value="no">Hidden</option>
+                      </select>
+                      <button
+                        type="button"
+                        style={{ background: 'none', border: 0, color: '#fca5a5', cursor: 'pointer', fontSize: 12 }}
+                        onClick={() => {
+                          const next = [...navDraft.headerLinks];
+                          next.splice(idx, 1);
+                          setNavDraft({ ...navDraft, headerLinks: next });
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="kr8-grid-3">
+                <label className="field">
+                  <span>Official Email</span>
+                  <input
+                    value={navDraft.companyEmail || ''}
+                    onChange={(e) => setNavDraft({ ...navDraft, companyEmail: e.target.value })}
+                  />
+                </label>
+                <label className="field">
+                  <span>Studio Phone</span>
+                  <input
+                    value={navDraft.companyPhone || ''}
+                    onChange={(e) => setNavDraft({ ...navDraft, companyPhone: e.target.value })}
+                  />
+                </label>
+                <label className="field">
+                  <span>WhatsApp Link</span>
+                  <input
+                    value={navDraft.companyWhatsapp || ''}
+                    onChange={(e) => setNavDraft({ ...navDraft, companyWhatsapp: e.target.value })}
+                  />
+                </label>
+              </div>
+
+              <label className="field">
+                <span>Footer Brand Summary</span>
+                <textarea
+                  rows={2}
+                  value={navDraft.shortDescription || ''}
+                  onChange={(e) => setNavDraft({ ...navDraft, shortDescription: e.target.value })}
+                />
+              </label>
+
+              <div>
+                <button type="submit" className="btn-primary" disabled={busy}>
+                  {busy ? 'Saving…' : 'Save Navigation & Contact Info'} <Icon name="arrow" size={16} />
+                </button>
+              </div>
+            </form>
+          )}
+
+          {/* ================================================= 9. SEO & OPENGRAPH */}
+          {tab === 'seo' && (
+            <div className="kr8-cms-split">
+              <div className="kr8-cms-panel">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                  <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 18 }}>Route SEO Rules</h3>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    style={{ padding: '7px 13px', fontSize: 12.5 }}
+                    onClick={() =>
+                      setSelectedSeo({
+                        route: '/',
+                        metaTitle: '',
+                        metaDescription: '',
+                        ogImage: '/opengraph-image',
+                        noindex: false,
+                      })
+                    }
+                  >
+                    + Add Route
+                  </button>
+                </div>
+                <div className="kr8-cms-list">
+                  {seoList.map((s) => (
+                    <button
+                      key={s.id}
+                      type="button"
+                      className={`kr8-cms-item${selectedSeo?.id === s.id ? ' is-selected' : ''}`}
+                      onClick={() => setSelectedSeo(structuredClone(s))}
+                    >
+                      <div style={{ fontFamily: 'var(--f-mono)', fontSize: 13, color: 'var(--magenta)' }}>
+                        {s.route}
+                      </div>
+                      <div style={{ fontSize: 12.5, marginTop: 4 }}>{s.metaTitle}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="kr8-cms-panel">
+                {!selectedSeo ? (
+                  <p style={{ color: 'var(--t-muted)', fontSize: 14.5 }}>
+                    Select a route to edit its search title, meta description, OpenGraph preview
+                    image, and indexing directive.
+                  </p>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const saved = await cmsMutate({
+                        entity: 'seo',
+                        action: 'save',
+                        id: selectedSeo.id,
+                        data: selectedSeo,
+                      });
+                      if (saved && typeof saved === 'object') setSelectedSeo(saved);
+                    }}
+                    style={{ display: 'grid', gap: 16 }}
+                  >
+                    <div className="kr8-grid-2">
+                      <label className="field">
+                        <span>Route Path *</span>
+                        <input
+                          required
+                          value={selectedSeo.route || ''}
+                          onChange={(e) => setSelectedSeo({ ...selectedSeo, route: e.target.value })}
+                        />
+                      </label>
+                      <label className="field">
+                        <span>Search Engine Indexing</span>
+                        <select
+                          value={selectedSeo.noindex ? 'noindex' : 'index'}
+                          onChange={(e) =>
+                            setSelectedSeo({ ...selectedSeo, noindex: e.target.value === 'noindex' })
+                          }
+                        >
+                          <option value="index">Index &amp; Follow (Recommended)</option>
+                          <option value="noindex">Noindex (Hide from Search)</option>
+                        </select>
+                      </label>
+                    </div>
+                    <label className="field">
+                      <span>Meta Title *</span>
+                      <input
+                        required
+                        value={selectedSeo.metaTitle || ''}
+                        onChange={(e) => setSelectedSeo({ ...selectedSeo, metaTitle: e.target.value })}
+                      />
+                    </label>
+                    <label className="field">
+                      <span>Meta Description *</span>
+                      <textarea
+                        rows={3}
+                        required
+                        value={selectedSeo.metaDescription || ''}
+                        onChange={(e) =>
+                          setSelectedSeo({ ...selectedSeo, metaDescription: e.target.value })
+                        }
+                      />
+                    </label>
+                    <label className="field">
+                      <span>OpenGraph Share Image URL</span>
+                      <input
+                        value={selectedSeo.ogImage || ''}
+                        onChange={(e) => setSelectedSeo({ ...selectedSeo, ogImage: e.target.value })}
+                      />
+                    </label>
+                    <div>
+                      <button type="submit" className="btn-primary" disabled={busy}>
+                        Save SEO Metadata <Icon name="arrow" size={16} />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ================================================= 10. LEADS & SUBMISSIONS */}
+          {tab === 'leads' && (
+            <div className="kr8-cms-panel" style={{ display: 'grid', gap: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  {['all', 'new', 'contacted', 'qualified', 'won', 'archived'].map((st) => (
+                    <button
+                      key={st}
+                      type="button"
+                      className={leadFilter === st ? 'btn-primary' : 'btn-ghost'}
+                      style={{ padding: '6px 12px', fontSize: 12 }}
+                      onClick={() => setLeadFilter(st)}
+                    >
+                      {st.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+                <a
+                  href="/api/admin/export?col=leads"
+                  className="btn-ghost"
+                  style={{ padding: '7px 13px', fontSize: 12.5 }}
+                >
+                  Export CSV ↓
+                </a>
+              </div>
+
+              {(data.leads || []).filter((l: any) => leadFilter === 'all' || l.status === leadFilter).length ===
+              0 ? (
+                <p style={{ color: 'var(--t-muted)', fontSize: 14 }}>
+                  No submissions match this filter yet. Enquiries from Contact, Join the Team,
+                  KR8 DIGITALS TRIBE, and Mindset Shift RSVP appear here automatically.
+                </p>
+              ) : (
+                <div style={{ display: 'grid', gap: 12 }}>
+                  {(data.leads || [])
+                    .filter((l: any) => leadFilter === 'all' || l.status === leadFilter)
+                    .map((l: any) => (
+                      <div
+                        key={l.id}
+                        style={{
+                          padding: 16,
+                          borderRadius: 14,
+                          background: 'rgba(9,5,18,0.75)',
+                          border: '1px solid rgba(255,255,255,0.09)',
+                          display: 'grid',
+                          gap: 8,
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+                          <div>
+                            <strong>{l.name}</strong> ·{' '}
+                            <a href={`mailto:${l.email}`} style={{ color: 'var(--magenta)' }}>
+                              {l.email}
+                            </a>
+                            {l.phone ? ` · ${l.phone}` : ''}
+                          </div>
+                          <select
+                            value={l.status || 'new'}
+                            style={{ width: 150, padding: '5px 10px', fontSize: 12.5 }}
+                            onChange={(e) =>
+                              legacyAction({ op: 'lead.status', id: l.id, status: e.target.value })
+                            }
+                          >
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="qualified">Qualified</option>
+                            <option value="won">Won</option>
+                            <option value="archived">Archived</option>
+                          </select>
+                        </div>
+                        <div style={{ fontSize: 12, fontFamily: 'var(--f-mono)', color: 'var(--t-muted)' }}>
+                          TYPE: {l.kind || 'quote'} {l.service ? `· SERVICE: ${l.service}` : ''}{' '}
+                          {l.budget ? `· BUDGET: ${l.budget}` : ''}
+                        </div>
+                        {l.message && <p style={{ fontSize: 14, color: 'var(--t-body)' }}>{l.message}</p>}
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ================================================= 11. RIYA INTELLIGENCE & CONTROL CENTRE */}
+          {tab === 'host' && <RiyaAdminPanel onToast={flash} />}
+
+          {/* ================================================= 12. REFERRALS */}
+          {tab === 'referrals' && (
+            <div className="kr8-cms-panel" style={{ display: 'grid', gap: 18 }}>
+              <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 20 }}>
+                Registered Referrers ({(data.referrals || []).length}) &amp; Commissions (
+                {(data.commissions || []).length})
+              </h3>
+              {(data.referrals || []).length === 0 ? (
+                <p style={{ fontSize: 14, color: 'var(--t-muted)' }}>
+                  Partners who register on <code>/referrals</code> appear here with their unique
+                  tracking codes and payout details.
+                </p>
+              ) : (
+                <div style={{ display: 'grid', gap: 10 }}>
+                  {(data.referrals || []).map((r: any) => (
+                    <div
+                      key={r.id}
+                      style={{
+                        padding: 14,
+                        borderRadius: 12,
+                        background: 'rgba(9,5,18,0.75)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        gap: 8,
+                      }}
+                    >
+                      <div>
+                        <strong>{r.name}</strong> ({r.email}) · Code:{' '}
+                        <code style={{ color: 'var(--magenta)' }}>{r.code}</code>
+                      </div>
+                      <div style={{ fontSize: 13, color: 'var(--t-muted)' }}>
+                        Clicks: {r.clicks || 0} · Leads: {r.leads || 0}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ================================================= 13. ORDERS & SETTINGS */}
+          {tab === 'orders' && (
+            <div className="kr8-grid-2">
+              <div className="kr8-cms-panel">
+                <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 20, marginBottom: 12 }}>
+                  Client Orders ({(data.orders || []).length})
+                </h3>
+                {(data.orders || []).length === 0 ? (
+                  <p style={{ fontSize: 14, color: 'var(--t-muted)' }}>
+                    Checkout and milestone orders appear here with live status verification.
+                  </p>
+                ) : (
+                  <div style={{ display: 'grid', gap: 10 }}>
+                    {(data.orders || []).map((o: any) => (
+                      <div
+                        key={o.id}
+                        style={{
+                          padding: 12,
+                          borderRadius: 12,
+                          background: 'rgba(255,255,255,0.04)',
+                          fontSize: 13.5,
+                        }}
+                      >
+                        <strong>{o.ref}</strong> · {o.service || o.tier} ·{' '}
+                        <span className={`kr8-cms-status ${o.status || 'pending'}`}>{o.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <form
+                className="kr8-cms-panel"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  await legacyAction({ op: 'settings.save', values: settingsDraft });
+                }}
+                style={{ display: 'grid', gap: 14 }}
+              >
+                <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 20 }}>
+                  Studio Notifications &amp; Gateways
+                </h3>
+                <label className="field">
+                  <span>Notification Email</span>
+                  <input
+                    value={settingsDraft.notify_email || ''}
+                    onChange={(e) =>
+                      setSettingsDraft({ ...settingsDraft, notify_email: e.target.value })
+                    }
+                    placeholder="hello@kr8digitals.com"
+                  />
+                </label>
+                <label className="field">
+                  <span>Instant Webhook URL (Slack / Discord / Telegram)</span>
+                  <input
+                    value={settingsDraft.notify_webhook_url || ''}
+                    onChange={(e) =>
+                      setSettingsDraft({ ...settingsDraft, notify_webhook_url: e.target.value })
+                    }
+                    placeholder="https://hooks.slack.com/..."
+                  />
+                </label>
+                <div>
+                  <button type="submit" className="btn-primary" disabled={busy}>
+                    Save Studio Settings
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {/* ================================================= 14. REVISION HISTORY */}
+          {tab === 'revisions' && (
+            <div className="kr8-cms-panel" style={{ display: 'grid', gap: 14 }}>
+              <div>
+                <span className="eyebrow">Audit Log &amp; Instant Rollback</span>
+                <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 22, marginTop: 4 }}>
+                  CMS Version History ({revisions.length})
+                </h3>
+              </div>
+
+              {revisions.length === 0 ? (
+                <p style={{ fontSize: 14, color: 'var(--t-muted)' }}>
+                  Every content save, creation, deletion, or partner promotion is automatically
+                  snapshotted here so you can restore any previous state with one click.
+                </p>
+              ) : (
+                <div style={{ display: 'grid', gap: 10 }}>
+                  {revisions.map((rev: any) => (
+                    <div
+                      key={rev.id}
+                      style={{
+                        padding: '14px 16px',
+                        borderRadius: 14,
+                        background: 'rgba(9,5,18,0.75)',
+                        border: '1px solid rgba(255,255,255,0.09)',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: 10,
+                      }}
+                    >
+                      <div>
+                        <strong>{rev.entityLabel}</strong>{' '}
+                        <span className="kr8-cms-status active" style={{ marginLeft: 6 }}>
+                          {rev.entityType} · {rev.action}
+                        </span>
+                        <div style={{ fontSize: 12, color: 'var(--t-muted)', marginTop: 4 }}>
+                          {new Date(rev.created_at).toLocaleString()}
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="btn-ghost"
+                        style={{ padding: '7px 13px', fontSize: 12.5 }}
+                        disabled={busy}
+                        onClick={() => cmsMutate({ action: 'restore', id: rev.id })}
+                      >
+                        ↺ Restore This Snapshot
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
-    </>
   );
 }
