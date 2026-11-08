@@ -9,8 +9,6 @@ type ActId = 'solutions' | 'academy' | 'tribe';
 type ActConfig = {
   id: ActId;
   tab: string;
-  kineticBold: string;
-  kineticRest: string;
   footerText: string;
   footerCta: string;
   footerHref: string;
@@ -21,9 +19,7 @@ type ActConfig = {
 const ACTS: ActConfig[] = [
   {
     id: 'solutions',
-    tab: 'Solutions',
-    kineticBold: 'Digital Solutions',
-    kineticRest: 'Web, Brand, Video & AI',
+    tab: 'Problem Solvers',
     footerText: 'Websites · Brand · Video · AI · SEO',
     footerCta: 'Explore',
     footerHref: '/services',
@@ -32,9 +28,7 @@ const ACTS: ActConfig[] = [
   {
     id: 'academy',
     tab: 'Free Academy',
-    kineticBold: '100% Free Tuition',
-    kineticRest: 'Skills + Academics ($0)',
-    footerText: '100% Tuition-Free · 8-Week Cohorts',
+    footerText: 'Skills + Academics · 100% Free ($0)',
     footerCta: 'Join Free',
     footerHref: 'https://academy.kr8digitals.com',
     external: true,
@@ -43,9 +37,7 @@ const ACTS: ActConfig[] = [
   {
     id: 'tribe',
     tab: 'The Tribe',
-    kineticBold: '3,000+ Community',
-    kineticRest: 'Builders Growing Together',
-    footerText: '3,000+ Creatives, Builders & Scholars',
+    footerText: '3,000+ Builders, Creatives & Scholars',
     footerCta: 'Enter Tribe',
     footerHref: '/tribe',
     ms: 5100,
@@ -133,67 +125,12 @@ export default function MobileHero({
 
   return (
     <div className="mhero mhero-v3">
-      {/* 1. Direct, Magnetic Manifesto + Simplified Kinetic Copy (Zero Redundant Badge) */}
+      {/* 1. Pure, Uncluttered Manifesto Headline (Zero Badge, Zero Description) */}
       <div className="mhero-v3__intro">
         <h1 className="mhero-v3__title">
           <span className="mhero-v3__title-top">We exist</span>
           <span className="mhero-v3__title-accent">because of you.</span>
         </h1>
-
-        {/* Kinetic vertical word-wheel synced to the active mobile stage */}
-        <div className="mhero-v3__kinetic" aria-live="polite">
-          <span className="mhero-v3__pulse-dot" aria-hidden />
-          <div className="mhero-v3__wheel-clip">
-            <div
-              className="mhero-v3__wheel-track"
-              style={{ transform: `translate3d(0, -${actIdx * 33.3333}%, 0)` }}
-            >
-              {ACTS.map((a) => (
-                <div key={a.id} className="mhero-v3__wheel-row">
-                  <strong>{a.kineticBold}</strong>
-                  <span className="mhero-v3__wheel-sep" aria-hidden>
-                    ·
-                  </span>
-                  <span>{a.kineticRest}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Crisp, simplified 2-line summary — interactive highlights, zero wall of text */}
-        <p className="mhero-v3__lead">
-          <span
-            role="button"
-            tabIndex={0}
-            className={`mhero-v3__inline-pill${actIdx === 0 ? ' is-lit' : ''}`}
-            onClick={() => selectAct(0)}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectAct(0)}
-          >
-            Problem solvers
-          </span>{' '}
-          bringing real solutions — plus our{' '}
-          <span
-            role="button"
-            tabIndex={0}
-            className={`mhero-v3__inline-pill${actIdx === 1 ? ' is-lit' : ''}`}
-            onClick={() => selectAct(1)}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectAct(1)}
-          >
-            free Academy
-          </span>{' '}
-          <span className="mhero-v3__paren">(skills + academics)</span> and{' '}
-          <span
-            role="button"
-            tabIndex={0}
-            className={`mhero-v3__inline-pill${actIdx === 2 ? ' is-lit' : ''}`}
-            onClick={() => selectAct(2)}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectAct(2)}
-          >
-            The Tribe
-          </span>{' '}
-          community.
-        </p>
       </div>
 
       {/* 2. Purpose-Built Mobile Interactive Stage (Engineered Natively for Portrait) */}
@@ -255,14 +192,13 @@ export default function MobileHero({
             <div className="mhero-v3__atmo-orb mhero-v3__atmo-orb--b" />
           </div>
 
-          {/* ACT 1: SOLUTIONS — 3D Fanning Live Deliverables Deck */}
+          {/* ACT 1: PROBLEM SOLVERS — 3D Fanning Live Deliverables Deck */}
           {activeAct.id === 'solutions' && (
             <div className="mhero-v3__scene mhero-v3__scene--solutions" key="solutions">
               <div className="mhero-v3__deck">
                 {SOLUTION_CARDS.map((card, i) => {
                   const total = SOLUTION_CARDS.length;
                   const diff = (i - activeCardIdx + total) % total;
-                  // 0 = center spotlight, 1 = right wing, 2 = left wing
                   const slot = diff === 0 ? 'center' : diff === 1 ? 'right' : 'left';
                   return (
                     <button
@@ -352,15 +288,15 @@ export default function MobileHero({
               <div className="mhero-v3__constellation">
                 <svg
                   className="mhero-v3__constellation-svg"
-                  viewBox="0 0 320 156"
+                  viewBox="0 0 320 172"
                   fill="none"
                   preserveAspectRatio="none"
                   aria-hidden
                 >
-                  <line x1="66" y1="34" x2="160" y2="78" className="mhero-v3__beam" />
-                  <line x1="254" y1="34" x2="160" y2="78" className="mhero-v3__beam mhero-v3__beam--d1" />
-                  <line x1="66" y1="122" x2="160" y2="78" className="mhero-v3__beam mhero-v3__beam--d2" />
-                  <line x1="254" y1="122" x2="160" y2="78" className="mhero-v3__beam mhero-v3__beam--d3" />
+                  <line x1="66" y1="36" x2="160" y2="86" className="mhero-v3__beam" />
+                  <line x1="254" y1="36" x2="160" y2="86" className="mhero-v3__beam mhero-v3__beam--d1" />
+                  <line x1="66" y1="136" x2="160" y2="86" className="mhero-v3__beam mhero-v3__beam--d2" />
+                  <line x1="254" y1="136" x2="160" y2="86" className="mhero-v3__beam mhero-v3__beam--d3" />
                 </svg>
 
                 {/* Central KR8 Community Core */}

@@ -1165,16 +1165,15 @@ span.kr8-desk-only {
     z-index: 2;
     display: flex !important;
     flex-direction: column;
-    gap: 11px !important;
+    gap: 14px !important;
     max-width: 540px !important;
     margin: 0 auto;
   }
 
-  /* ---- 1. Headline, Kinetic Word-Wheel & Simplified Interactive Copy ---- */
+  /* ---- 1. Pure Manifesto Headline ---- */
   .mhero-v3__intro {
     display: flex;
     flex-direction: column;
-    gap: 6px;
   }
 
   .mhero-v3__title {
@@ -1182,10 +1181,10 @@ span.kr8-desk-only {
     font-family: Montserrat, system-ui, sans-serif;
     display: flex;
     flex-direction: column;
-    font-size: clamp(1.94rem, 8.4vw, 2.55rem) !important;
+    font-size: clamp(2.04rem, 8.8vw, 2.68rem) !important;
     font-weight: 800 !important;
-    line-height: 1.02 !important;
-    letter-spacing: -0.035em !important;
+    line-height: 1.03 !important;
+    letter-spacing: -0.036em !important;
   }
 
   .mhero-v3__title-top {
@@ -1389,11 +1388,11 @@ span.kr8-desk-only {
     background: rgba(255, 255, 255, 0.04);
     color: rgba(230, 220, 248, 0.74);
     border-radius: 11px;
-    min-height: 30px;
-    padding: 5px 6px !important;
-    font-size: 11.5px !important;
+    min-height: 32px;
+    padding: 5px 4px !important;
+    font-size: 11px !important;
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     text-align: center;
     white-space: nowrap;
     cursor: pointer;
@@ -1438,7 +1437,7 @@ span.kr8-desk-only {
   /* Native Portrait Motion Canvas */
   .mhero-v3__canvas {
     position: relative;
-    height: 204px;
+    height: 222px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1505,16 +1504,16 @@ span.kr8-desk-only {
   .mhero-v3__deck {
     position: relative;
     width: 100%;
-    height: 172px;
+    height: 190px;
     perspective: 880px;
   }
 
   .mhero-v3__sol-card {
     position: absolute;
-    top: 10px;
+    top: 11px;
     left: 50%;
-    width: min(64%, 224px);
-    height: 150px;
+    width: min(67%, 236px);
+    height: 166px;
     padding: 0;
     border-radius: 14px;
     overflow: hidden;
@@ -1792,7 +1791,7 @@ span.kr8-desk-only {
   .mhero-v3__constellation {
     position: relative;
     width: 100%;
-    height: 172px;
+    height: 190px;
   }
 
   .mhero-v3__constellation-svg {
@@ -2004,11 +2003,12 @@ span.kr8-desk-only {
 
 @media (max-width: 374px) {
   .mhero-v3__title {
-    font-size: 1.74rem !important;
+    font-size: 1.82rem !important;
   }
   .mhero-v3__tab {
-    font-size: 10.6px !important;
-    padding: 5px 3px !important;
+    font-size: 9.8px !important;
+    padding: 5px 2px !important;
+    letter-spacing: -0.02em;
   }
   .mhero-v3__acad-list li {
     font-size: 9.8px;
