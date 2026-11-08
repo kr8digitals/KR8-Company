@@ -53,7 +53,7 @@ export default function TimfireProfilePage() {
             <span>/</span>
             <Link href="/about">About</Link>
             <span>/</span>
-            <span style={{ color: '#fff' }}>Timfire</span>
+            <span style={{ color: 'var(--t-strong)' }}>Timfire</span>
           </nav>
 
           <div className="kr8-subhero__grid">
@@ -109,7 +109,7 @@ export default function TimfireProfilePage() {
                   borderRadius: '0 14px 14px 0',
                   fontSize: 14,
                   lineHeight: 1.58,
-                  color: 'rgba(245, 240, 255, 0.9)',
+                  color: 'var(--t-body)',
                 }}
               >
                 &ldquo;Whoever you are, whatever you do, we exist because of you — to build digital
@@ -137,7 +137,7 @@ export default function TimfireProfilePage() {
                   <span>Founder 01 · Executive &amp; Engineering</span>
                   <strong>Timfire · Kenneth Timothy Iziogo</strong>
                 </div>
-                <span style={{ color: '#e9d5ff' }}>KR8 DIGITALS</span>
+                <span style={{ color: 'var(--t-lilac-strong)' }}>KR8 DIGITALS</span>
               </div>
             </div>
           </div>

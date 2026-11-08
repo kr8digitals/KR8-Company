@@ -78,7 +78,7 @@ export default function JoinTheTeamPage() {
             <span>/</span>
             <Link href="/about">About</Link>
             <span>/</span>
-            <span style={{ color: '#fff' }}>Join the Team</span>
+            <span style={{ color: 'var(--t-strong)' }}>Join the Team</span>
           </nav>
 
           <div className="kr8-subhero__grid">

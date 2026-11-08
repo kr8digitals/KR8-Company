@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import nav from '../../data/site.json';
 import { track } from '@/lib/track';
 import type { CmsNavConfig } from '@/lib/cms';
+import ThemeToggle from './ThemeToggle';
 
 const eco = nav.ecosystem;
 
@@ -148,6 +149,7 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
           </div>
 
           <div className="nav-right">
+            <ThemeToggle variant="pill" />
             <Link
               href={ctaHref}
               className="btn-nav"
@@ -157,18 +159,21 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
             </Link>
           </div>
 
-          <button
-            className={`burger${open ? ' is-open' : ''}`}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="burger-lines">
-              <span />
-              <span />
-              <span />
-            </span>
-          </button>
+          <div className="nav-mob-actions">
+            <ThemeToggle variant="icon" />
+            <button
+              className={`burger${open ? ' is-open' : ''}`}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span className="burger-lines">
+                <span />
+                <span />
+                <span />
+              </span>
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -212,6 +217,23 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
               <span>Merit Studio Path</span>
             </Link>
           </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: 14,
+            padding: '10px 12px',
+            borderRadius: 12,
+            border: '1px solid var(--border-subtle)',
+            background: 'var(--surface-subtle)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 10,
+          }}
+        >
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--t-muted)' }}>Appearance</span>
+          <ThemeToggle variant="segmented" />
         </div>
 
         <div className="sheet__cta-row">

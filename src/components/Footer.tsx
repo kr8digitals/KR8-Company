@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import site from '../../data/site.json';
 import { getCmsNavigation, getCmsServices, getCmsTeam } from '@/lib/cms';
+import ThemeToggle from './ThemeToggle';
 
 export default async function Footer() {
   const [navCfg, services, teamBundle] = await Promise.all([
@@ -48,7 +49,7 @@ export default async function Footer() {
             <div style={{ marginTop: 18, display: 'grid', gap: 6, fontSize: 13.5 }}>
               <a
                 href={`mailto:${email}`}
-                style={{ color: '#fff', fontWeight: 600, textDecoration: 'none' }}
+                style={{ color: 'var(--t-strong)', fontWeight: 600, textDecoration: 'none' }}
               >
                 {email}
               </a>
@@ -155,7 +156,8 @@ export default async function Footer() {
             © {year} {site.company.legalName}.{' '}
             {navCfg.tagline || 'Whoever you are, whatever you do, we exist because of you.'}
           </span>
-          <div style={{ display: 'flex', gap: 22, flexWrap: 'wrap', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'center' }}>
+            <ThemeToggle variant="segmented" />
             <Link href="/privacy">Privacy Policy</Link>
             <Link href="/terms">Terms of Engagement</Link>
             <Link href="/accessibility">Accessibility</Link>

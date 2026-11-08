@@ -48,7 +48,7 @@ export default function MindsetShiftInvitePage() {
             <span>/</span>
             <Link href="/programs">Programs</Link>
             <span>/</span>
-            <span style={{ color: '#fff' }}>Mindset Shift</span>
+            <span style={{ color: 'var(--t-strong)' }}>Mindset Shift</span>
           </nav>
 
           <div className="kr8-subhero__grid">
@@ -175,7 +175,7 @@ export default function MindsetShiftInvitePage() {
                 <div className="kr8-card__num">SPEAKERS &amp; SPONSORS</div>
                 <p className="kr8-card__body" style={{ marginTop: 4 }}>
                   Want to co-sponsor an edition of Mindset Shift or propose an experienced practitioner speaker?{' '}
-                  <Link href="/partners#propose" style={{ color: '#f5d0fe', fontWeight: 600 }}>
+                  <Link href="/partners#propose" style={{ color: 'var(--t-accent-soft)', fontWeight: 600 }}>
                     Submit a Partnership Proposal →
                   </Link>
                 </p>

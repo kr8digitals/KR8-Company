@@ -54,7 +54,7 @@ export default function TribePage() {
             <span>/</span>
             <Link href="/programs">Programs</Link>
             <span>/</span>
-            <span style={{ color: '#fff' }}>KR8 DIGITALS TRIBE</span>
+            <span style={{ color: 'var(--t-strong)' }}>KR8 DIGITALS TRIBE</span>
           </nav>
 
           <div className="kr8-subhero__grid">

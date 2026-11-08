@@ -38,7 +38,7 @@ export default function Pricing({ slug }: { slug: string }) {
                   {code !== 'USD' && ` · 1 USD ≈ ${Math.round(rates[code] || 1).toLocaleString('en-US')} ${code}`}
                 </p>
               </div>
-              <div className="panel" style={{ padding: 22, minWidth: 260, background: 'rgba(255,255,255,.03)' }}>
+              <div className="panel" style={{ padding: 22, minWidth: 260, background: 'var(--surface-subtle)' }}>
                 <div className="tag" style={{ color: 'var(--magenta)' }}>The bands we quote inside</div>
                 <ul className="price-list" style={{ marginTop: 12 }}>
                   {block.tiers.map((t: any) => (

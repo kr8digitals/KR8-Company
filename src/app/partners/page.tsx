@@ -244,7 +244,7 @@ export default async function PartnersPage() {
                 </div>
                 <div className="kr8-card__num">{t.tag}</div>
                 <h3 className="kr8-card__title">{t.title}</h3>
-                <p className="kr8-card__body" style={{ fontWeight: 500, color: '#e9d5ff' }}>
+                <p className="kr8-card__body" style={{ fontWeight: 500, color: 'var(--t-lilac-strong)' }}>
                   Ideal for: {t.who}
                 </p>
                 <div className="kr8-desk-only">
@@ -340,7 +340,7 @@ export default async function PartnersPage() {
                     </div>
                   </div>
 
-                  <p style={{ fontSize: 13.5, color: '#f5d0fe', fontWeight: 600 }}>Lead: {p.person}</p>
+                  <p style={{ fontSize: 13.5, color: 'var(--t-accent-soft)', fontWeight: 600 }}>Lead: {p.person}</p>
                   <ResponsiveCopy
                     as="p"
                     className="kr8-card__body"
@@ -353,13 +353,13 @@ export default async function PartnersPage() {
                       marginTop: 14,
                       padding: '11px 13px',
                       borderRadius: 12,
-                      background: 'rgba(255,255,255,0.035)',
-                      border: '1px solid rgba(255,255,255,0.07)',
+                      background: 'var(--surface-subtle)',
+                      border: '1px solid var(--border-subtle)',
                       fontSize: 12.8,
-                      color: 'rgba(226,218,242,0.85)',
+                      color: 'var(--t-body)',
                     }}
                   >
-                    <strong style={{ color: '#fff' }}>Academy Role:</strong> {p.teaches}
+                    <strong style={{ color: 'var(--t-strong)' }}>Academy Role:</strong> {p.teaches}
                   </div>
 
                   <div className="kr8-card__foot">

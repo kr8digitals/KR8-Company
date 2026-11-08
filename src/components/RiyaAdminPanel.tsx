@@ -139,7 +139,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                 borderRadius: 999,
                 background: 'rgba(52,211,153,0.18)',
                 border: '1px solid rgba(52,211,153,0.45)',
-                color: '#6ee7b7',
+                color: 'var(--status-ok-fg)',
                 fontSize: 11.5,
                 fontWeight: 700,
               }}
@@ -193,7 +193,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
         }}
         style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', padding: '14px 18px' }}
       >
-        <div style={{ fontSize: 12.5, fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>
+        <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t-strong)', whiteSpace: 'nowrap' }}>
           ⚡ Snap-Teach RIYA:
         </div>
         <input
@@ -204,11 +204,11 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
           style={{
             flex: '1 1 320px',
             borderRadius: 10,
-            border: '1px solid rgba(255,255,255,0.16)',
-            background: 'rgba(10,6,20,0.7)',
+            border: '1px solid var(--border-strong)',
+            background: 'var(--surface-input)',
             padding: '10px 14px',
             fontSize: 13.5,
-            color: '#fff',
+            color: 'var(--t-strong)',
           }}
         />
         <button
@@ -260,7 +260,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                       <span>{cat.label}</span>
                       <strong style={{ fontFamily: 'var(--f-mono)' }}>{cat.count}</strong>
                     </div>
-                    <div style={{ height: 7, borderRadius: 999, background: 'rgba(255,255,255,0.07)', overflow: 'hidden' }}>
+                    <div style={{ height: 7, borderRadius: 999, background: 'var(--surface-subtle)', overflow: 'hidden' }}>
                       <div
                         style={{
                           height: '100%',
@@ -283,7 +283,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
                   {[
-                    { lbl: 'Shown', val: an.proactiveFunnel?.shown ?? 0, col: '#c4b5fd' },
+                    { lbl: 'Shown', val: an.proactiveFunnel?.shown ?? 0, col: 'var(--lilac)' },
                     { lbl: 'Engaged', val: an.proactiveFunnel?.engaged ?? 0, col: '#34d399' },
                     { lbl: 'Dismissed', val: an.proactiveFunnel?.dismissed ?? 0, col: '#fbbf24' },
                     { lbl: 'Muted', val: an.proactiveFunnel?.muted ?? 0, col: '#f87171' },
@@ -293,7 +293,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                       style={{
                         padding: 12,
                         borderRadius: 12,
-                        background: 'rgba(255,255,255,0.04)',
+                        background: 'var(--surface-subtle)',
                         border: '1px solid var(--hair)',
                         textAlign: 'center',
                       }}
@@ -321,7 +321,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                           <code>{pg}</code>
                           <strong>{cnt} turns</strong>
                         </div>
-                        <div style={{ height: 6, borderRadius: 999, background: 'rgba(255,255,255,0.07)' }}>
+                        <div style={{ height: 6, borderRadius: 999, background: 'var(--surface-subtle)' }}>
                           <div
                             style={{
                               height: '100%',
@@ -357,7 +357,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                         gap: 12,
                         padding: '8px 12px',
                         borderRadius: 10,
-                        background: 'rgba(255,255,255,0.04)',
+                        background: 'var(--surface-subtle)',
                         fontSize: 13,
                       }}
                     >
@@ -380,7 +380,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                 RIYA blocks attempts to probe administrator credentials, environment secrets, or private user data.
               </p>
               {(an.recentSecurityEvents || []).length === 0 ? (
-                <p style={{ fontSize: 13, color: '#6ee7b7' }}>Zero security boundary violations detected.</p>
+                <p style={{ fontSize: 13, color: 'var(--status-ok-fg)' }}>Zero security boundary violations detected.</p>
               ) : (
                 <div style={{ display: 'grid', gap: 6 }}>
                   {(an.recentSecurityEvents || []).map((ev: any) => (
@@ -507,7 +507,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                 style={{
                   padding: 16,
                   borderRadius: 14,
-                  background: 'rgba(255,255,255,0.04)',
+                  background: 'var(--surface-subtle)',
                   border: '1px solid var(--hair)',
                   display: 'grid',
                   gap: 12,
@@ -582,7 +582,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                     style={{
                       padding: 14,
                       borderRadius: 12,
-                      background: 'rgba(255,255,255,0.03)',
+                      background: 'var(--surface-subtle)',
                       border: '1px solid var(--hair)',
                       display: 'grid',
                       gap: 6,
@@ -642,7 +642,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                   style={{
                     padding: 14,
                     borderRadius: 12,
-                    background: 'rgba(255,255,255,0.03)',
+                    background: 'var(--surface-subtle)',
                     border: '1px solid var(--hair)',
                     display: 'grid',
                     gap: 8,
@@ -818,7 +818,7 @@ export default function RiyaAdminPanel({ onToast }: { onToast: (msg: string, ton
                           borderRadius: 12,
                           background:
                             m.who === 'you'
-                              ? 'rgba(255,255,255,0.06)'
+                              ? 'var(--surface-subtle)'
                               : m.who === 'team'
                               ? 'rgba(52,211,153,0.14)'
                               : 'rgba(124,58,237,0.18)',
@@ -887,7 +887,7 @@ function SubmissionRow({
       style={{
         padding: 16,
         borderRadius: 14,
-        background: 'rgba(255,255,255,0.03)',
+        background: 'var(--surface-subtle)',
         border: '1px solid var(--hair)',
         display: 'grid',
         gap: 10,
@@ -904,10 +904,10 @@ function SubmissionRow({
         </span>
       </div>
 
-      <p style={{ fontSize: 14, color: '#fff', lineHeight: 1.6 }}>{sub.message}</p>
+      <p style={{ fontSize: 14, color: 'var(--t-strong)', lineHeight: 1.6 }}>{sub.message}</p>
 
       {(sub.visitorName || sub.visitorEmail || sub.visitorPhone) && (
-        <div style={{ fontSize: 12.5, color: '#6ee7b7' }}>
+        <div style={{ fontSize: 12.5, color: 'var(--status-ok-fg)' }}>
           Visitor Contact: {sub.visitorName || 'Visitor'} {sub.visitorEmail ? `· ${sub.visitorEmail}` : ''}{' '}
           {sub.visitorPhone ? `· ${sub.visitorPhone}` : ''}
         </div>

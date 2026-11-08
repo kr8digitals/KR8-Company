@@ -117,7 +117,7 @@ export default function LeadForm({
       <div className="admin-card">
         <div className="form-status ok" style={{ marginBottom: 14 }}>{msg}</div>
         <p style={{ fontSize: 14, color: 'var(--t-muted)', lineHeight: 1.65 }}>
-          Reference <b style={{ color: '#fff' }}>{siteId || variant}</b> — quote it if you follow up on WhatsApp
+          Reference <b style={{ color: 'var(--t-strong)' }}>{siteId || variant}</b> — quote it if you follow up on WhatsApp
           and the team will find your submission immediately.
         </p>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 16 }}>

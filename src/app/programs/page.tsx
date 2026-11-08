@@ -193,7 +193,7 @@ export default async function ProgramsPage() {
                           marginTop: 8,
                           fontSize: 15,
                           fontWeight: 500,
-                          color: '#fff',
+                          color: 'var(--t-strong)',
                           lineHeight: 1.52,
                         }}
                       >
@@ -211,8 +211,8 @@ export default async function ProgramsPage() {
                               marginTop: 18,
                               padding: '14px 18px',
                               borderRadius: 14,
-                              background: 'rgba(255,255,255,0.035)',
-                              border: '1px solid rgba(255,255,255,0.08)',
+                              background: 'var(--surface-subtle)',
+                              border: '1px solid var(--border-subtle)',
                             }}
                           >
                             <div
@@ -226,7 +226,7 @@ export default async function ProgramsPage() {
                             >
                               Who This Is Built For · {fit.who}
                             </div>
-                            <p style={{ marginTop: 6, fontSize: 14, lineHeight: 1.6, color: 'rgba(235,228,248,0.85)' }}>
+                            <p style={{ marginTop: 6, fontSize: 14, lineHeight: 1.6, color: 'var(--t-body)' }}>
                               {fit.gain}
                             </p>
                           </div>
@@ -257,7 +257,7 @@ export default async function ProgramsPage() {
                           style={{
                             marginTop: 12,
                             fontSize: 12.5,
-                            color: 'rgba(226, 218, 242, 0.68)',
+                            color: 'var(--t-sub)',
                             fontStyle: 'italic',
                           }}
                         >
@@ -280,7 +280,7 @@ export default async function ProgramsPage() {
                             {p.action.label} <Icon name="arrow" size={16} />
                           </Link>
                         )}
-                        <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.72)' }}>{p.commitment}</span>
+                        <span style={{ fontSize: 12.5, color: 'var(--t-sub)' }}>{p.commitment}</span>
                       </div>
                     </div>
 
@@ -298,15 +298,15 @@ export default async function ProgramsPage() {
                               style={{
                                 padding: 15,
                                 borderRadius: 14,
-                                background: 'rgba(255,255,255,0.035)',
-                                border: '1px solid rgba(255,255,255,0.09)',
+                                background: 'var(--surface-subtle)',
+                                border: '1px solid var(--border-subtle)',
                               }}
                             >
                               <div className="kr8-card__num" style={{ marginBottom: 4 }}>
                                 {d.partner}
                               </div>
-                              <strong style={{ display: 'block', fontSize: 14.5, color: '#fff' }}>{d.name}</strong>
-                              <p style={{ fontSize: 12.8, lineHeight: 1.5, color: 'rgba(226,218,242,0.78)', marginTop: 5 }}>
+                              <strong style={{ display: 'block', fontSize: 14.5, color: 'var(--t-strong)' }}>{d.name}</strong>
+                              <p style={{ fontSize: 12.8, lineHeight: 1.5, color: 'var(--t-sub)', marginTop: 5 }}>
                                 {d.line}
                               </p>
                               <div style={{ marginTop: 10 }}>

@@ -26,7 +26,7 @@ export default function RefCapture({ code }: { code: string }) {
           Someone sent you here.
         </h1>
         <p style={{ marginTop: 14, color: 'var(--t-body)', fontSize: 15 }}>
-          Your introduction is recorded under <b style={{ color: '#fff' }}>{code}</b>. Taking you to the
+          Your introduction is recorded under <b style={{ color: 'var(--t-strong)' }}>{code}</b>. Taking you to the
           form now.
         </p>
         <noscript>

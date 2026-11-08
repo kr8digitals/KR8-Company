@@ -186,7 +186,7 @@ export default async function AboutPage() {
                 borderRadius: 12,
                 background: 'rgba(168, 85, 247, 0.1)',
                 borderLeft: '3px solid var(--magenta)',
-                color: '#f5eeff',
+                color: 'var(--t-strong)',
                 fontSize: 13,
                 lineHeight: 1.5,
               }}
@@ -218,7 +218,7 @@ export default async function AboutPage() {
                 borderRadius: 14,
                 background: 'rgba(168, 85, 247, 0.09)',
                 borderLeft: '3px solid var(--magenta)',
-                color: '#f5eeff',
+                color: 'var(--t-strong)',
                 fontWeight: 500,
                 fontSize: 15,
                 lineHeight: 1.6,

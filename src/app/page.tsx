@@ -171,15 +171,15 @@ export default function Home() {
 
               <p className="section-lede kr8-desk-only">
                 Talent is everywhere, yet expensive bootcamps lock millions out of the digital economy. Through{' '}
-                <strong style={{ color: '#fff' }}>KR8 Academy</strong>, we teach practical, high-income digital
+                <strong style={{ color: 'var(--t-strong)' }}>KR8 Academy</strong>, we teach practical, high-income digital
                 crafts completely free — equipping learners to build products, launch studios, win clients, and
                 create opportunities rather than wait in line as job seekers.
               </p>
 
               <div className="kr8-mob-only" style={{ marginTop: 12 }}>
                 <p className="section-lede" style={{ marginTop: 0 }}>
-                  Learn high-income digital skills <strong style={{ color: '#fff' }}>100% tuition-free ($0 / ₦0)</strong>{' '}
-                  through 8-week live cohorts at <strong style={{ color: '#fff' }}>KR8 Academy</strong>.
+                  Learn high-income digital skills <strong style={{ color: 'var(--t-strong)' }}>100% tuition-free ($0 / ₦0)</strong>{' '}
+                  through 8-week live cohorts at <strong style={{ color: 'var(--t-strong)' }}>KR8 Academy</strong>.
                 </p>
                 <div style={{ marginTop: 14 }}>
                   <CinemaVisual
@@ -304,7 +304,7 @@ export default function Home() {
                 <p className="section-lede kr8-desk-only">
                   Most learners finish a course and lose the room — left staring at Figma, Premiere, or VS Code
                   alone with nobody to review their work or point them toward real opportunities.{' '}
-                  <strong style={{ color: '#fff' }}>KR8 Digitals&apos; Tribe</strong> is our unbroken creative
+                  <strong style={{ color: 'var(--t-strong)' }}>KR8 Digitals&apos; Tribe</strong> is our unbroken creative
                   community where designers, web developers, video directors, and digital builders stay connected
                   to sharpen their craft, collaborate across disciplines, and grow into financially independent
                   creators together.
@@ -312,7 +312,7 @@ export default function Home() {
 
                 <div className="kr8-mob-only" style={{ marginTop: 10 }}>
                   <p className="section-lede" style={{ marginTop: 0 }}>
-                    Join <strong style={{ color: '#fff' }}>3,000+ designers, developers, and filmmakers</strong>{' '}
+                    Join <strong style={{ color: 'var(--t-strong)' }}>3,000+ designers, developers, and filmmakers</strong>{' '}
                     sharing honest critiques, cross-skill collaborations, and paid client gig flow — free.
                   </p>
                   <MobileDisclosure label="Why we built the Tribe">

@@ -74,7 +74,7 @@ export default async function ReferralsPage() {
                 When you refer a client whose confirmed website scope closes at{' '}
                 <strong>${ex.projectUsd.toLocaleString('en-US')}</strong>, your{' '}
                 <strong>{r.website}%</strong> commission credits{' '}
-                <strong style={{ color: '#f5d0fe' }}>
+                <strong style={{ color: 'var(--t-accent-soft)' }}>
                   ${Math.round((ex.projectUsd * r.website) / 100).toLocaleString('en-US')}
                 </strong>{' '}
                 (paid in NGN at settlement) directly to your ledger once the invoice clears.
@@ -83,23 +83,23 @@ export default async function ReferralsPage() {
                 style={{
                   marginTop: 16,
                   paddingTop: 14,
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  borderTop: '1px solid var(--border-subtle)',
                   display: 'grid',
                   gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
                   gap: 8,
                 }}
               >
                 <div>
-                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: '#fff' }}>{r.website}%</div>
-                  <div style={{ fontSize: 11.5, color: 'rgba(226,218,242,0.72)' }}>Websites &amp; AI</div>
+                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: 'var(--t-strong)' }}>{r.website}%</div>
+                  <div style={{ fontSize: 11.5, color: 'var(--t-sub)' }}>Websites &amp; AI</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: '#fff' }}>{r.design}%</div>
-                  <div style={{ fontSize: 11.5, color: 'rgba(226,218,242,0.72)' }}>Brand, Design &amp; Film</div>
+                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: 'var(--t-strong)' }}>{r.design}%</div>
+                  <div style={{ fontSize: 11.5, color: 'var(--t-sub)' }}>Brand, Design &amp; Film</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: '#f5d0fe' }}>{r.bonus}%</div>
-                  <div style={{ fontSize: 11.5, color: 'rgba(226,218,242,0.72)' }}>
+                  <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: 'var(--t-accent-soft)' }}>{r.bonus}%</div>
+                  <div style={{ fontSize: 11.5, color: 'var(--t-sub)' }}>
                     After {r.bonusAfterPaidReferrals} Deals
                   </div>
                 </div>

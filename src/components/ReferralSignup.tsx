@@ -54,7 +54,7 @@ export default function ReferralSignup() {
           style={{
             marginTop: 16, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
             border: '1px solid var(--hair)', borderRadius: 12, padding: '12px 14px',
-            background: 'rgba(255,255,255,.03)', fontFamily: 'ui-monospace,monospace', fontSize: 13,
+            background: 'var(--surface-subtle)', fontFamily: 'ui-monospace,monospace', fontSize: 13,
           }}
         >
           <span style={{ flex: 1, minWidth: 0, wordBreak: 'break-all' }}>{out?.link}</span>

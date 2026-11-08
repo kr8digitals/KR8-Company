@@ -64,10 +64,10 @@ export default async function ContactPage({ searchParams }: Props) {
                 style={{ textDecoration: 'none', padding: '22px 24px' }}
               >
                 <div className="kr8-card__num">DIRECT EMAIL</div>
-                <strong style={{ color: '#fff', fontSize: 13.5, overflowWrap: 'anywhere' }}>
+                <strong style={{ color: 'var(--t-strong)', fontSize: 13.5, overflowWrap: 'anywhere' }}>
                   {site.company.email}
                 </strong>
-                <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.68)', marginTop: 6, display: 'block' }}>
+                <span style={{ fontSize: 12.5, color: 'var(--t-sub)', marginTop: 6, display: 'block' }}>
                   Written briefs &amp; docs
                 </span>
               </a>
@@ -80,8 +80,8 @@ export default async function ContactPage({ searchParams }: Props) {
                 style={{ textDecoration: 'none', padding: '22px 24px' }}
               >
                 <div className="kr8-card__num">WHATSAPP / PHONE</div>
-                <strong style={{ color: '#fff', fontSize: 14.5 }}>{site.company.phone}</strong>
-                <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.78)', marginTop: 6, display: 'block' }}>
+                <strong style={{ color: 'var(--t-strong)', fontSize: 14.5 }}>{site.company.phone}</strong>
+                <span style={{ fontSize: 12.5, color: 'var(--t-sub)', marginTop: 6, display: 'block' }}>
                   Fast executive reply →
                 </span>
               </a>
@@ -92,8 +92,8 @@ export default async function ContactPage({ searchParams }: Props) {
                 style={{ textDecoration: 'none', padding: '22px 24px' }}
               >
                 <div className="kr8-card__num">PARTNERSHIPS</div>
-                <strong style={{ color: '#fff', fontSize: 14.5 }}>Propose an Alliance</strong>
-                <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.68)', marginTop: 6, display: 'block' }}>
+                <strong style={{ color: 'var(--t-strong)', fontSize: 14.5 }}>Propose an Alliance</strong>
+                <span style={{ fontSize: 12.5, color: 'var(--t-sub)', marginTop: 6, display: 'block' }}>
                   Studios, schools &amp; sponsors →
                 </span>
               </Link>
@@ -106,8 +106,8 @@ export default async function ContactPage({ searchParams }: Props) {
                 style={{ textDecoration: 'none', padding: '22px 24px' }}
               >
                 <div className="kr8-card__num">FREE TRAINING</div>
-                <strong style={{ color: '#fff', fontSize: 14.5 }}>KR8 Academy</strong>
-                <span style={{ fontSize: 12.5, color: 'rgba(226,218,242,0.68)', marginTop: 6, display: 'block' }}>
+                <strong style={{ color: 'var(--t-strong)', fontSize: 14.5 }}>KR8 Academy</strong>
+                <span style={{ fontSize: 12.5, color: 'var(--t-sub)', marginTop: 6, display: 'block' }}>
                   100% free admissions ↗
                 </span>
               </a>

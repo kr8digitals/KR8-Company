@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './mobile-experience.css';
+import './light-theme.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Host from '@/components/Host';
@@ -84,8 +85,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const navConfig = await getCmsNavigation();
 
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('kr8_theme');var m=t==='light'?'light':'dark';document.documentElement.setAttribute('data-theme',m);document.documentElement.style.colorScheme=m;if(m==='light'){var tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.setAttribute('content','#faf8fc');}}catch(e){}`,
+          }}
+        />
         <link rel="preload" href="/fonts/montserrat.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/sora.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />

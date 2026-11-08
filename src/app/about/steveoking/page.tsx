@@ -53,7 +53,7 @@ export default function SteveokingProfilePage() {
             <span>/</span>
             <Link href="/about">About</Link>
             <span>/</span>
-            <span style={{ color: '#fff' }}>Steveoking</span>
+            <span style={{ color: 'var(--t-strong)' }}>Steveoking</span>
           </nav>
 
           <div className="kr8-subhero__grid">
@@ -108,7 +108,7 @@ export default function SteveokingProfilePage() {
                   borderRadius: '0 14px 14px 0',
                   fontSize: 14,
                   lineHeight: 1.58,
-                  color: 'rgba(245, 240, 255, 0.9)',
+                  color: 'var(--t-body)',
                 }}
               >
                 &ldquo;Great brand and graphic design earns trust in half a second — before a prospect reads a
@@ -136,7 +136,7 @@ export default function SteveokingProfilePage() {
                   <span>Founder 02 · Brand &amp; Visual Design</span>
                   <strong>Steveoking · Stevenson</strong>
                 </div>
-                <span style={{ color: '#e9d5ff' }}>Motionverse</span>
+                <span style={{ color: 'var(--t-lilac-strong)' }}>Motionverse</span>
               </div>
             </div>
           </div>

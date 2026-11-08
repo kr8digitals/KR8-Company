@@ -62,14 +62,14 @@ function renderInlineRich(segment: string, keyPrefix: string) {
   return tokens.map((tok, i) => {
     if (tok.startsWith('**') && tok.endsWith('**') && tok.length > 4) {
       return (
-        <strong key={`${keyPrefix}-b-${i}`} style={{ color: '#fff', fontWeight: 700 }}>
+        <strong key={`${keyPrefix}-b-${i}`} style={{ color: 'inherit', fontWeight: 700 }}>
           {tok.slice(2, -2)}
         </strong>
       );
     }
     if (tok.startsWith('*') && tok.endsWith('*') && tok.length > 2) {
       return (
-        <em key={`${keyPrefix}-i-${i}`} style={{ color: 'rgba(255,255,255,0.92)' }}>
+        <em key={`${keyPrefix}-i-${i}`} style={{ color: 'inherit', opacity: 0.92 }}>
           {tok.slice(1, -1)}
         </em>
       );
@@ -800,10 +800,10 @@ export default function Host() {
                     marginTop: 8,
                     padding: '6px 10px',
                     borderRadius: 8,
-                    background: 'rgba(52, 211, 153, 0.14)',
-                    border: '1px solid rgba(52, 211, 153, 0.35)',
+                    background: 'var(--status-ok-bg)',
+                    border: '1px solid var(--status-ok-bd)',
                     fontSize: 11.5,
-                    color: '#6ee7b7',
+                    color: 'var(--status-ok-fg)',
                     fontWeight: 600,
                   }}
                 >
@@ -826,9 +826,9 @@ export default function Host() {
                             fontWeight: 600,
                             padding: '4px 10px',
                             borderRadius: 999,
-                            background: 'rgba(255,45,155,0.16)',
+                            background: 'rgba(255,45,155,0.14)',
                             border: '1px solid rgba(255,45,155,0.38)',
-                            color: '#fff',
+                            color: 'var(--t-strong)',
                           }}
                         >
                           {decodeHtmlEntities(l.label)}
@@ -843,9 +843,9 @@ export default function Host() {
                             fontWeight: 600,
                             padding: '4px 10px',
                             borderRadius: 999,
-                            background: 'rgba(124,58,237,0.22)',
-                            border: '1px solid rgba(196,181,253,0.32)',
-                            color: '#fff',
+                            background: 'rgba(124,58,237,0.14)',
+                            border: '1px solid rgba(124,58,237,0.32)',
+                            color: 'var(--t-strong)',
                           }}
                         >
                           {decodeHtmlEntities(l.label)} →
@@ -865,12 +865,12 @@ export default function Host() {
                     justifyContent: 'flex-end',
                     gap: 6,
                     marginTop: 8,
-                    opacity: 0.75,
+                    opacity: 0.85,
                     fontSize: 11,
                   }}
                 >
                   {m.rated ? (
-                    <span style={{ color: '#a7f3d0' }}>Thanks for your feedback!</span>
+                    <span style={{ color: 'var(--status-ok-fg)', fontWeight: 600 }}>Thanks for your feedback!</span>
                   ) : (
                     <>
                       <span style={{ color: 'var(--t-faint)' }}>Helpful? </span>
@@ -881,7 +881,8 @@ export default function Host() {
                         style={{
                           padding: '1px 7px',
                           borderRadius: 4,
-                          border: '1px solid rgba(255,255,255,0.14)',
+                          border: '1px solid var(--border-strong)',
+                          color: 'var(--t-body)',
                           cursor: 'pointer',
                         }}
                       >
@@ -894,7 +895,8 @@ export default function Host() {
                         style={{
                           padding: '1px 7px',
                           borderRadius: 4,
-                          border: '1px solid rgba(255,255,255,0.14)',
+                          border: '1px solid var(--border-strong)',
+                          color: 'var(--t-body)',
                           cursor: 'pointer',
                         }}
                       >

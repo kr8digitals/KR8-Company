@@ -70,7 +70,7 @@ export default function PartnerProposalForm() {
           Thank you, {contactName}. Your proposal for {organisation} is with our executive team.
         </h3>
         <p className="prose-lg" style={{ marginTop: 12 }}>
-          Reference ID: <code style={{ color: '#f5d0fe' }}>{submittedId}</code>. Founding leadership reviews
+          Reference ID: <code style={{ color: 'var(--t-accent-soft)' }}>{submittedId}</code>. Founding leadership reviews
           partnership proposals directly and will reach out via <strong>{email}</strong>
           {phone ? ` or ${phone}` : ''} to schedule an alignment conversation.
         </p>
@@ -211,7 +211,7 @@ export default function PartnerProposalForm() {
       </label>
 
       {error && (
-        <p role="alert" style={{ marginTop: 14, color: '#fda4af', fontSize: 14 }}>
+        <p role="alert" style={{ marginTop: 14, color: 'var(--status-err-fg)', fontSize: 14 }}>
           {error}
         </p>
       )}
@@ -220,7 +220,7 @@ export default function PartnerProposalForm() {
         <button type="submit" className="btn-primary" disabled={submitting}>
           {submitting ? 'Submitting Proposal...' : 'Send Partnership Proposal'} <Icon name="arrow" size={17} />
         </button>
-        <span style={{ fontSize: 13, color: 'rgba(226,218,242,0.65)' }}>
+        <span style={{ fontSize: 13, color: 'var(--t-sub)' }}>
           Reviewed directly by KR8 DIGITALS leadership · Confidential handling
         </span>
       </div>

@@ -37,20 +37,20 @@ export default function ReferralCalc() {
       </div>
 
       <div className="field" style={{ marginTop: 16 }}>
-        <label htmlFor="rc-val">Project value · <b style={{ color: '#fff' }}>${formatMoney(value)}</b></label>
+        <label htmlFor="rc-val">Project value · <b style={{ color: 'var(--t-strong)' }}>${formatMoney(value)}</b></label>
         <input
           id="rc-val" type="range" min={200} max={10000} step={100} value={value}
           onChange={(e) => setValue(Number(e.target.value))}
-          style={{ width: '100%', accentColor: '#ff2d9b' }}
+          style={{ width: '100%', accentColor: 'var(--magenta)' }}
         />
       </div>
 
       <div className="field" style={{ marginTop: 8 }}>
-        <label htmlFor="rc-count">Paid referrals you have already made · <b style={{ color: '#fff' }}>{count}</b></label>
+        <label htmlFor="rc-count">Paid referrals you have already made · <b style={{ color: 'var(--t-strong)' }}>{count}</b></label>
         <input
           id="rc-count" type="range" min={0} max={8} step={1} value={count}
           onChange={(e) => setCount(Number(e.target.value))}
-          style={{ width: '100%', accentColor: '#ff2d9b' }}
+          style={{ width: '100%', accentColor: 'var(--magenta)' }}
         />
       </div>
 

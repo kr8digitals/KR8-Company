@@ -64,7 +64,7 @@ export default async function ServiceDetailPage({ params }: Props) {
             <span>/</span>
             <Link href="/services">Services</Link>
             <span>/</span>
-            <span style={{ color: '#fff' }}>{service.name}</span>
+            <span style={{ color: 'var(--t-strong)' }}>{service.name}</span>
           </nav>
 
           <div className="kr8-subhero__grid">
@@ -78,7 +78,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                   marginTop: 12,
                   fontSize: 'clamp(16px, 1.5vw, 22px)',
                   fontWeight: 600,
-                  color: '#f5d0fe',
+                  color: 'var(--t-accent-soft)',
                   lineHeight: 1.4,
                 }}
               >

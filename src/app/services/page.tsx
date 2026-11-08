@@ -208,7 +208,7 @@ export default async function ServicesPage() {
                 className="kr8-card reveal up"
                 style={{ textDecoration: 'none', padding: '24px 26px' }}
               >
-                <p style={{ fontSize: 15, lineHeight: 1.55, color: '#fff', fontWeight: 500 }}>{d.problem}</p>
+                <p style={{ fontSize: 15, lineHeight: 1.55, color: 'var(--t-strong)', fontWeight: 500 }}>{d.problem}</p>
                 <div className="kr8-card__foot" style={{ paddingTop: 14 }}>
                   <span className="btn-link">
                     {d.service} <Icon name="arrow" size={14} />

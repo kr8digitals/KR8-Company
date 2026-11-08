@@ -53,7 +53,7 @@ export default function CreativeExpressionProfilePage() {
             <span>/</span>
             <Link href="/about">About</Link>
             <span>/</span>
-            <span style={{ color: '#fff' }}>Creative Expression</span>
+            <span style={{ color: 'var(--t-strong)' }}>Creative Expression</span>
           </nav>
 
           <div className="kr8-subhero__grid">
@@ -103,7 +103,7 @@ export default function CreativeExpressionProfilePage() {
                   borderRadius: '0 14px 14px 0',
                   fontSize: 14,
                   lineHeight: 1.58,
-                  color: 'rgba(245, 240, 255, 0.9)',
+                  color: 'var(--t-body)',
                 }}
               >
                 &ldquo;Raw footage is only potential. Deliberate pacing, sound, and clarity turn a recording into
@@ -131,7 +131,7 @@ export default function CreativeExpressionProfilePage() {
                   <span>Founder 03 · Video &amp; Post-Production</span>
                   <strong>Creative Expression · Daniel Akachukwu Augustine</strong>
                 </div>
-                <span style={{ color: '#e9d5ff' }}>Chigoma</span>
+                <span style={{ color: 'var(--t-lilac-strong)' }}>Chigoma</span>
               </div>
             </div>
           </div>

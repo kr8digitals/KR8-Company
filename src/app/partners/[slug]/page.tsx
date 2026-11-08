@@ -111,7 +111,7 @@ export default async function PartnerChapterPage({ params }: Props) {
             <span>/</span>
             <Link href="/partners">Partners</Link>
             <span>/</span>
-            <span style={{ color: '#fff' }}>{partner.name}</span>
+            <span style={{ color: 'var(--t-strong)' }}>{partner.name}</span>
           </nav>
 
           <div className="kr8-subhero__grid">
@@ -178,7 +178,7 @@ export default async function PartnerChapterPage({ params }: Props) {
                     <span>{partner.type}</span>
                     <strong>{partner.name} × KR8 DIGITALS</strong>
                   </div>
-                  <span style={{ color: '#e9d5ff' }}>{partner.mark}</span>
+                  <span style={{ color: 'var(--t-lilac-strong)' }}>{partner.mark}</span>
                 </div>
               </div>
             )}

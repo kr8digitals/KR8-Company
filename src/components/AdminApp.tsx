@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Icon } from './ui';
 import RiyaAdminPanel from './RiyaAdminPanel';
+import ThemeToggle from './ThemeToggle';
 
 type Tab =
   | 'overview'
@@ -227,13 +228,16 @@ export default function AdminApp({ configured }: { configured: boolean }) {
     return (
       <div className="kr8-cms-login">
         <div className="kr8-cms-login__card kr8-form-shell">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
             <span className="kr8-pill">
               <i className="kr8-pill__dot" /> KR8 DIGITALS · CMS
             </span>
-            <Link href="/" style={{ fontSize: 13, color: 'var(--t-muted)' }}>
-              Public Site ↗
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <ThemeToggle variant="pill" />
+              <Link href="/" style={{ fontSize: 13, color: 'var(--t-muted)' }}>
+                Public Site ↗
+              </Link>
+            </div>
           </div>
           <h1
             style={{
@@ -272,9 +276,9 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                     right: 10,
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    background: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(255,255,255,0.14)',
-                    color: '#fff',
+                    background: 'var(--surface-subtle)',
+                    border: '1px solid var(--border-strong)',
+                    color: 'var(--t-strong)',
                     borderRadius: 8,
                     padding: '4px 9px',
                     fontSize: 11.5,
@@ -294,7 +298,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                   borderRadius: 12,
                   background: 'rgba(239, 68, 68, 0.16)',
                   border: '1px solid rgba(239, 68, 68, 0.4)',
-                  color: '#fca5a5',
+                  color: 'var(--status-err-fg)',
                   fontSize: 13.5,
                 }}
               >
@@ -482,7 +486,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
           </button>
         </div>
 
-        <div style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'grid', gap: 8 }}>
+        <div style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid var(--border-subtle)', display: 'grid', gap: 8 }}>
           <a
             href="/"
             target="_blank"
@@ -548,12 +552,13 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                   border: `1px solid ${
                     toast.tone === 'err' ? 'rgba(239,68,68,0.5)' : 'rgba(34,197,94,0.45)'
                   }`,
-                  color: toast.tone === 'err' ? '#fecaca' : '#bbf7d0',
+                  color: toast.tone === 'err' ? 'var(--status-err-fg)' : 'var(--status-ok-fg)',
                 }}
               >
                 {toast.text}
               </span>
             )}
+            <ThemeToggle variant="pill" />
             <button
               type="button"
               onClick={load}
@@ -703,7 +708,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                           style={{
                             padding: '10px 12px',
                             borderRadius: 12,
-                            background: 'rgba(255,255,255,0.04)',
+                            background: 'var(--surface-subtle)',
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
@@ -842,7 +847,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                           <button
                             type="button"
                             className="btn-ghost"
-                            style={{ padding: '8px 13px', fontSize: 12.5, color: '#fca5a5' }}
+                            style={{ padding: '8px 13px', fontSize: 12.5, color: 'var(--status-err-fg)' }}
                             onClick={async () => {
                               await cmsMutate({ entity: 'page', action: 'delete', id: selectedPage.id });
                               setSelectedPage(null);
@@ -987,8 +992,8 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                               style={{
                                 padding: 18,
                                 borderRadius: 16,
-                                background: 'rgba(255,255,255,0.03)',
-                                border: '1px solid rgba(255,255,255,0.09)',
+                                background: 'var(--surface-subtle)',
+                                border: '1px solid var(--border-subtle)',
                                 display: 'grid',
                                 gap: 14,
                               }}
@@ -1037,8 +1042,8 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                                   style={{
                                     padding: 14,
                                     borderRadius: 12,
-                                    background: 'rgba(9,5,18,0.8)',
-                                    border: '1px solid rgba(255,255,255,0.08)',
+                                    background: 'var(--surface-input)',
+                                    border: '1px solid var(--border-subtle)',
                                     display: 'grid',
                                     gap: 10,
                                   }}
@@ -1049,7 +1054,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                                     </span>
                                     <button
                                       type="button"
-                                      style={{ background: 'none', border: 0, color: '#fca5a5', fontSize: 12, cursor: 'pointer' }}
+                                      style={{ background: 'none', border: 0, color: 'var(--status-err-fg)', fontSize: 12, cursor: 'pointer' }}
                                       onClick={() => {
                                         const next = [...selectedPage.sections];
                                         next.splice(idx, 1);
@@ -1818,7 +1823,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                               {selectedProposal.organisation}
                             </h3>
                             <div style={{ fontSize: 13.5, color: 'var(--t-muted)', marginTop: 4 }}>
-                              Contact: <strong style={{ color: '#fff' }}>{selectedProposal.contactName}</strong>
+                              Contact: <strong style={{ color: 'var(--t-strong)' }}>{selectedProposal.contactName}</strong>
                               {selectedProposal.role ? ` (${selectedProposal.role})` : ''} ·{' '}
                               <a href={`mailto:${selectedProposal.email}`} style={{ color: 'var(--magenta)' }}>
                                 {selectedProposal.email}
@@ -1831,7 +1836,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                           </span>
                         </div>
 
-                        <div style={{ padding: 16, borderRadius: 14, background: 'rgba(255,255,255,0.04)' }}>
+                        <div style={{ padding: 16, borderRadius: 14, background: 'var(--surface-subtle)' }}>
                           <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, color: 'var(--magenta)' }}>
                             PROPOSAL SUMMARY
                           </div>
@@ -2138,15 +2143,15 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                             background:
                               selectedMedia?.id === m.id
                                 ? 'rgba(124,58,237,0.28)'
-                                : 'rgba(9,5,18,0.8)',
+                                : 'var(--surface-input)',
                             border: `1px solid ${
                               selectedMedia?.id === m.id
                                 ? 'rgba(232,121,249,0.6)'
-                                : 'rgba(255,255,255,0.09)'
+                                : 'var(--border-subtle)'
                             }`,
                             cursor: 'pointer',
                             textAlign: 'left',
-                            color: '#fff',
+                            color: 'var(--t-strong)',
                           }}
                         >
                           <div
@@ -2154,7 +2159,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                               aspectRatio: '4 / 3',
                               borderRadius: 9,
                               overflow: 'hidden',
-                              background: '#120924',
+                              background: 'var(--surface-elevated)',
                             }}
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -2194,8 +2199,8 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                           maxHeight: 280,
                           borderRadius: 14,
                           overflow: 'hidden',
-                          background: '#0d061b',
-                          border: '1px solid rgba(255,255,255,0.1)',
+                          background: 'var(--surface-elevated)',
+                          border: '1px solid var(--border-subtle)',
                         }}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -2405,7 +2410,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                       </select>
                       <button
                         type="button"
-                        style={{ background: 'none', border: 0, color: '#fca5a5', cursor: 'pointer', fontSize: 12 }}
+                        style={{ background: 'none', border: 0, color: 'var(--status-err-fg)', cursor: 'pointer', fontSize: 12 }}
                         onClick={() => {
                           const next = [...navDraft.headerLinks];
                           next.splice(idx, 1);
@@ -2621,8 +2626,8 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                         style={{
                           padding: 16,
                           borderRadius: 14,
-                          background: 'rgba(9,5,18,0.75)',
-                          border: '1px solid rgba(255,255,255,0.09)',
+                          background: 'var(--surface-input)',
+                          border: '1px solid var(--border-subtle)',
                           display: 'grid',
                           gap: 8,
                         }}
@@ -2684,8 +2689,8 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                       style={{
                         padding: 14,
                         borderRadius: 12,
-                        background: 'rgba(9,5,18,0.75)',
-                        border: '1px solid rgba(255,255,255,0.08)',
+                        background: 'var(--surface-input)',
+                        border: '1px solid var(--border-subtle)',
                         display: 'flex',
                         justifyContent: 'space-between',
                         flexWrap: 'wrap',
@@ -2725,7 +2730,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                         style={{
                           padding: 12,
                           borderRadius: 12,
-                          background: 'rgba(255,255,255,0.04)',
+                          background: 'var(--surface-subtle)',
                           fontSize: 13.5,
                         }}
                       >
@@ -2800,8 +2805,8 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                       style={{
                         padding: '14px 16px',
                         borderRadius: 14,
-                        background: 'rgba(9,5,18,0.75)',
-                        border: '1px solid rgba(255,255,255,0.09)',
+                        background: 'var(--surface-input)',
+                        border: '1px solid var(--border-subtle)',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
