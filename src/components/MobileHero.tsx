@@ -4,92 +4,90 @@ import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Icon } from './ui';
 
-type ShowcaseSlide = {
-  id: 'websites' | 'branding' | 'video' | 'ai-seo' | 'academy';
-  shortLabel: string;
-  eyebrow: string;
-  headline: string;
-  proofStat: string;
-  proofSub: string;
-  photo: string;
-  photoAlt: string;
-  thumb?: string;
-  href: string;
-  ctaText: string;
+type ActId = 'solutions' | 'academy' | 'tribe';
+
+type ActConfig = {
+  id: ActId;
+  tab: string;
+  kineticBold: string;
+  kineticRest: string;
+  footerText: string;
+  footerCta: string;
+  footerHref: string;
   external?: boolean;
   ms: number;
 };
 
-const SLIDES: ShowcaseSlide[] = [
+const ACTS: ActConfig[] = [
   {
-    id: 'websites',
-    shortLabel: 'Web',
-    eyebrow: '01 · Web & App Engineering',
-    headline: 'Fast custom websites & 18 ready-built launch platforms',
-    proofStat: 'From $450',
-    proofSub: '22+ Live Client Sites',
-    photo: '/img/hero-mobile/flagship-websites.webp',
-    photoAlt: 'KR8 Digitals web engineers reviewing responsive client websites in a sunlit studio',
-    thumb: '/img/sites/afristem-card.webp',
-    href: '/services/website-design',
-    ctaText: 'See Builds',
-    ms: 4600,
-  },
-  {
-    id: 'branding',
-    shortLabel: 'Brand',
-    eyebrow: '02 · Motionverse × KR8',
-    headline: 'Unmistakable brand identities & scroll-stopping key art',
-    proofStat: 'Full Systems',
-    proofSub: 'Logos · Playbooks · Flyers',
-    photo: '/img/hero-mobile/flagship-branding.webp',
-    photoAlt: 'Art director crafting vibrant brand identity boards and campaign graphics in warm daylight',
-    thumb: '/img/brand/zoey-perfume-card.webp',
-    href: '/services/branding',
-    ctaText: 'See Brand',
-    ms: 4400,
-  },
-  {
-    id: 'video',
-    shortLabel: 'Video',
-    eyebrow: '03 · Chigoma × KR8 Film',
-    headline: 'Retention-engineered reels, commercials & brand stories',
-    proofStat: '9:16 & 4K',
-    proofSub: 'Color · Sound · Captions',
-    photo: '/img/hero-mobile/flagship-video.webp',
-    photoAlt: 'Film director color-grading documentary footage in a bright post-production studio',
-    href: '/services/video-editing',
-    ctaText: 'Watch Cuts',
-    ms: 4400,
-  },
-  {
-    id: 'ai-seo',
-    shortLabel: 'AI & SEO',
-    eyebrow: '04 · Growth & Automation',
-    headline: '24/7 grounded AI agents & #1 organic search rankings',
-    proofStat: '24/7 Live',
-    proofSub: 'AI Agents · Search Rank',
-    photo: '/img/hero-mobile/flagship-ai.webp',
-    photoAlt: 'Software engineers collaborating over a bright AI workflow automation screen',
-    href: '/services/ai-automation',
-    ctaText: 'Explore AI',
-    ms: 4400,
+    id: 'solutions',
+    tab: 'Solutions',
+    kineticBold: 'Digital Solutions',
+    kineticRest: 'Web, Brand, Video & AI',
+    footerText: 'Websites · Brand · Video · AI · SEO',
+    footerCta: 'Explore',
+    footerHref: '/services',
+    ms: 5100,
   },
   {
     id: 'academy',
-    shortLabel: 'Academy',
-    eyebrow: '05 · KR8 Academy & NextGen',
-    headline: '7 practical digital skill tracks — 100% tuition-free',
-    proofStat: '$0 · ₦0',
-    proofSub: '7 Free Tracks · Mentors',
-    photo: '/img/hero-mobile/flagship-academy.webp',
-    photoAlt: 'Young builders learning digital skills together in a warm KR8 Academy cohort',
-    href: 'https://academy.kr8digitals.com',
-    ctaText: 'Apply Free',
+    tab: 'Free Academy',
+    kineticBold: '100% Free Tuition',
+    kineticRest: 'Skills + Academics ($0)',
+    footerText: '100% Tuition-Free · 8-Week Cohorts',
+    footerCta: 'Join Free',
+    footerHref: 'https://academy.kr8digitals.com',
     external: true,
-    ms: 4600,
+    ms: 5100,
+  },
+  {
+    id: 'tribe',
+    tab: 'The Tribe',
+    kineticBold: '3,000+ Community',
+    kineticRest: 'Builders Growing Together',
+    footerText: '3,000+ Creatives, Builders & Scholars',
+    footerCta: 'Enter Tribe',
+    footerHref: '/tribe',
+    ms: 5100,
   },
 ];
+
+const SOLUTION_CARDS = [
+  {
+    key: 'web-ai',
+    tag: 'Web & AI Systems',
+    domain: 'afristem.org',
+    stat: 'Live Build',
+    img: '/img/sites/afristem-card.webp',
+    alt: 'Live KR8 web and AI platform engineered for AfriSTEM',
+  },
+  {
+    key: 'brand',
+    tag: 'Brand & Design',
+    domain: 'Motionverse × KR8',
+    stat: 'Identity',
+    img: '/img/brand/zoey-perfume-card.webp',
+    alt: 'KR8 brand identity and campaign visual design',
+  },
+  {
+    key: 'growth',
+    tag: 'Video & Search',
+    domain: 'Chigoma × KR8',
+    stat: '4K & SEO',
+    img: '/img/sites/cirenes-card.webp',
+    alt: 'KR8 commercial digital experience and storytelling',
+  },
+];
+
+const SKILL_ITEMS = ['Web & AI Systems', 'Brand & UI Design', 'Video & Motion'];
+const ACADEMIC_ITEMS = ['STEM Mastery', 'Arts & Writing', 'Exam Excellence'];
+
+const TRIBE_NODES = [
+  { id: 'nw', role: 'Builders', sub: 'Web & AI', pos: 'nw' },
+  { id: 'ne', role: 'Designers', sub: 'Brand & Art', pos: 'ne' },
+  { id: 'sw', role: 'Creators', sub: 'Film & Story', pos: 'sw' },
+  { id: 'se', role: 'Scholars', sub: 'STEM & Peer', pos: 'se' },
+] as const;
 
 export default function MobileHero({
   primaryHref,
@@ -100,47 +98,107 @@ export default function MobileHero({
   primaryLabel: string;
   secondaryHref: string;
 }) {
-  const [idx, setIdx] = useState(0);
+  const [actIdx, setActIdx] = useState(0);
+  const [subStep, setSubStep] = useState(0);
   const [paused, setPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  const slide = SLIDES[idx];
+  const activeAct = ACTS[actIdx];
 
-  const go = useCallback((next: number) => {
-    setIdx(((next % SLIDES.length) + SLIDES.length) % SLIDES.length);
+  const selectAct = useCallback((next: number) => {
+    const normalized = ((next % ACTS.length) + ACTS.length) % ACTS.length;
+    setActIdx(normalized);
+    setSubStep(0);
   }, []);
 
+  /* Advance across the 3 core acts */
   useEffect(() => {
     if (paused) return;
-    const timer = setTimeout(() => go(idx + 1), slide.ms);
+    const timer = setTimeout(() => selectAct(actIdx + 1), activeAct.ms);
     return () => clearTimeout(timer);
-  }, [idx, paused, slide.ms, go]);
+  }, [actIdx, paused, activeAct.ms, selectAct]);
+
+  /* Internal micro-choreography within each act (every 1.65s) */
+  useEffect(() => {
+    if (paused) return;
+    const interval = setInterval(() => {
+      setSubStep((s) => (s + 1) % 12);
+    }, 1650);
+    return () => clearInterval(interval);
+  }, [actIdx, paused]);
+
+  const activeCardIdx = subStep % SOLUTION_CARDS.length;
+  const activeTrackRow = subStep % 3;
+  const activeNodeIdx = subStep % TRIBE_NODES.length;
 
   return (
-    <div className="mhero mhero-v2">
-      {/* 1. Editorial Identity & Manifesto Headline */}
-      <div className="mhero-v2__top">
-        <div className="mhero-v2__eyebrow-row">
-          <span className="mhero-v2__badge">
-            <span className="badge-dot" /> KR8 Digitals
-          </span>
-          <span className="mhero-v2__live-pill">200+ Shipped Works</span>
-        </div>
-
-        <h1 className="mhero-v2__title">
-          <span className="mhero-v2__kicker">Whoever you are, whatever you do,</span>
-          <span className="mhero-v2__main text-grad">we exist because of you.</span>
+    <div className="mhero mhero-v3">
+      {/* 1. Direct, Magnetic Manifesto + Simplified Kinetic Copy (Zero Redundant Badge) */}
+      <div className="mhero-v3__intro">
+        <h1 className="mhero-v3__title">
+          <span className="mhero-v3__title-top">We exist</span>
+          <span className="mhero-v3__title-accent">because of you.</span>
         </h1>
 
-        <p className="mhero-v2__lead">
-          Websites, brand identity, video, SEO &amp; AI built to make you chosen — plus{' '}
-          <strong>100% free</strong> digital skills training.
+        {/* Kinetic vertical word-wheel synced to the active mobile stage */}
+        <div className="mhero-v3__kinetic" aria-live="polite">
+          <span className="mhero-v3__pulse-dot" aria-hidden />
+          <div className="mhero-v3__wheel-clip">
+            <div
+              className="mhero-v3__wheel-track"
+              style={{ transform: `translate3d(0, -${actIdx * 33.3333}%, 0)` }}
+            >
+              {ACTS.map((a) => (
+                <div key={a.id} className="mhero-v3__wheel-row">
+                  <strong>{a.kineticBold}</strong>
+                  <span className="mhero-v3__wheel-sep" aria-hidden>
+                    ·
+                  </span>
+                  <span>{a.kineticRest}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Crisp, simplified 2-line summary — interactive highlights, zero wall of text */}
+        <p className="mhero-v3__lead">
+          <span
+            role="button"
+            tabIndex={0}
+            className={`mhero-v3__inline-pill${actIdx === 0 ? ' is-lit' : ''}`}
+            onClick={() => selectAct(0)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectAct(0)}
+          >
+            Problem solvers
+          </span>{' '}
+          bringing real solutions — plus our{' '}
+          <span
+            role="button"
+            tabIndex={0}
+            className={`mhero-v3__inline-pill${actIdx === 1 ? ' is-lit' : ''}`}
+            onClick={() => selectAct(1)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectAct(1)}
+          >
+            free Academy
+          </span>{' '}
+          <span className="mhero-v3__paren">(skills + academics)</span> and{' '}
+          <span
+            role="button"
+            tabIndex={0}
+            className={`mhero-v3__inline-pill${actIdx === 2 ? ' is-lit' : ''}`}
+            onClick={() => selectAct(2)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectAct(2)}
+          >
+            The Tribe
+          </span>{' '}
+          community.
         </p>
       </div>
 
-      {/* 2. Luminous Full-Color Editorial Studio Reel */}
+      {/* 2. Purpose-Built Mobile Interactive Stage (Engineered Natively for Portrait) */}
       <div
-        className="mhero-v2__reel"
+        className={`mhero-v3__stage mhero-v3__stage--${activeAct.id}`}
         onTouchStart={(e) => {
           setPaused(true);
           setTouchStartX(e.touches[0]?.clientX ?? null);
@@ -150,140 +208,219 @@ export default function MobileHero({
           if (touchStartX === null) return;
           const endX = e.changedTouches[0]?.clientX ?? touchStartX;
           const dx = endX - touchStartX;
-          if (Math.abs(dx) > 30) {
-            go(dx < 0 ? idx + 1 : idx - 1);
+          if (Math.abs(dx) > 28) {
+            selectAct(dx < 0 ? actIdx + 1 : actIdx - 1);
           }
           setTouchStartX(null);
         }}
       >
-        <div className="mhero-v2__flare" aria-hidden />
+        <div className="mhero-v3__specular" aria-hidden />
 
-        {/* Story Progress Bars + Interactive Discipline Tabs */}
-        <div className="mhero-v2__chrome">
-          <div className="mhero-v2__bars" aria-hidden>
-            {SLIDES.map((s, i) => (
-              <span
-                key={s.id}
-                className={`mhero-v2__bar${i < idx ? ' is-done' : ''}${i === idx ? ' is-active' : ''}`}
-              >
-                <i
-                  className="mhero-v2__bar-fill"
-                  style={{
-                    animationDuration: `${s.ms}ms`,
-                    animationPlayState: i === idx && !paused ? 'running' : 'paused',
-                  }}
-                />
-              </span>
-            ))}
-          </div>
-
-          <div className="mhero-v2__tabs" role="tablist" aria-label="KR8 capabilities">
-            {SLIDES.map((s, i) => (
+        {/* Clean 3-Act Segmented Rail with Integrated Live Progress */}
+        <div className="mhero-v3__rail" role="tablist" aria-label="How KR8 serves you">
+          {ACTS.map((act, i) => {
+            const isActive = i === actIdx;
+            return (
               <button
-                key={s.id}
+                key={act.id}
                 type="button"
                 role="tab"
-                aria-selected={i === idx}
-                className={`mhero-v2__tab${i === idx ? ' is-active' : ''}`}
-                onClick={() => go(i)}
+                aria-selected={isActive}
+                className={`mhero-v3__tab${isActive ? ' is-active' : ''}`}
+                onClick={() => selectAct(i)}
               >
-                {s.shortLabel}
+                <span className="mhero-v3__tab-label">{act.tab}</span>
+                {isActive && (
+                  <span
+                    key={`${act.id}-${actIdx}`}
+                    className="mhero-v3__tab-progress"
+                    style={{
+                      animationDuration: `${act.ms}ms`,
+                      animationPlayState: paused ? 'paused' : 'running',
+                    }}
+                    aria-hidden
+                  />
+                )}
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
-        {/* Full-Clarity Sunlit Studio Frame */}
-        <div className="mhero-v2__viewport" key={slide.id}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={slide.photo}
-            alt={slide.photoAlt}
-            className="mhero-v2__photo"
-            loading={idx === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-          />
-          <div className="mhero-v2__scrim" aria-hidden />
+        {/* Native Portrait Motion Canvas */}
+        <div className="mhero-v3__canvas">
+          {/* Ambient Studio Backdrop Layers */}
+          <div className="mhero-v3__atmo" aria-hidden>
+            <div className="mhero-v3__atmo-grid" />
+            <div className="mhero-v3__atmo-orb mhero-v3__atmo-orb--a" />
+            <div className="mhero-v3__atmo-orb mhero-v3__atmo-orb--b" />
+          </div>
 
-          {/* Floating Proof Card inside the Stage */}
-          <div className="mhero-v2__overlay">
-            <div className="mhero-v2__eyebrow">{slide.eyebrow}</div>
-            <div className="mhero-v2__slide-title">{slide.headline}</div>
+          {/* ACT 1: SOLUTIONS — 3D Fanning Live Deliverables Deck */}
+          {activeAct.id === 'solutions' && (
+            <div className="mhero-v3__scene mhero-v3__scene--solutions" key="solutions">
+              <div className="mhero-v3__deck">
+                {SOLUTION_CARDS.map((card, i) => {
+                  const total = SOLUTION_CARDS.length;
+                  const diff = (i - activeCardIdx + total) % total;
+                  // 0 = center spotlight, 1 = right wing, 2 = left wing
+                  const slot = diff === 0 ? 'center' : diff === 1 ? 'right' : 'left';
+                  return (
+                    <button
+                      key={card.key}
+                      type="button"
+                      className={`mhero-v3__sol-card is-${slot}`}
+                      onClick={() => setSubStep(i)}
+                      aria-label={card.tag}
+                    >
+                      <div className="mhero-v3__sol-bar">
+                        <span className="mhero-v3__sol-dots" aria-hidden>
+                          <i />
+                          <i />
+                          <i />
+                        </span>
+                        <span className="mhero-v3__sol-domain">{card.domain}</span>
+                        <span className="mhero-v3__sol-live">{card.stat}</span>
+                      </div>
+                      <div className="mhero-v3__sol-media">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={card.img}
+                          alt={card.alt}
+                          loading={i === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
+                        />
+                        <span className="mhero-v3__sol-chip">
+                          <i aria-hidden /> {card.tag}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
-            <div className="mhero-v2__dock">
-              <div className="mhero-v2__proof">
-                {slide.thumb && (
-                  <span className="mhero-v2__thumb" aria-hidden>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={slide.thumb} alt="" decoding="async" />
-                  </span>
-                )}
-                <div className="mhero-v2__proof-copy">
-                  <strong>{slide.proofStat}</strong>
-                  <span>{slide.proofSub}</span>
-                </div>
+          {/* ACT 2: FREE ACADEMY — Synchronized Skills × Academics Dual Engine */}
+          {activeAct.id === 'academy' && (
+            <div className="mhero-v3__scene mhero-v3__scene--academy" key="academy">
+              <div className="mhero-v3__free-crown">
+                <span className="mhero-v3__free-dot" aria-hidden />
+                <span>$0 · ₦0 Tuition — Open to Everyone</span>
               </div>
 
-              {slide.external ? (
-                <a
-                  href={slide.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mhero-v2__chip-cta"
-                >
-                  {slide.ctaText} ↗
-                </a>
-              ) : (
-                <Link href={slide.href} className="mhero-v2__chip-cta">
-                  {slide.ctaText} →
-                </Link>
-              )}
+              <div className="mhero-v3__acad-grid">
+                <div className="mhero-v3__acad-wing">
+                  <div className="mhero-v3__acad-head">
+                    <span className="mhero-v3__acad-kicker">KR8 Academy</span>
+                    <strong>Digital Skills</strong>
+                  </div>
+                  <ul className="mhero-v3__acad-list">
+                    {SKILL_ITEMS.map((item, idx) => (
+                      <li key={item} className={activeTrackRow === idx ? 'is-lit' : undefined}>
+                        <i aria-hidden />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mhero-v3__acad-bridge" aria-hidden>
+                  <span className="mhero-v3__acad-plus">+</span>
+                </div>
+
+                <div className="mhero-v3__acad-wing">
+                  <div className="mhero-v3__acad-head">
+                    <span className="mhero-v3__acad-kicker">NextGen</span>
+                    <strong>Academics</strong>
+                  </div>
+                  <ul className="mhero-v3__acad-list">
+                    {ACADEMIC_ITEMS.map((item, idx) => (
+                      <li key={item} className={activeTrackRow === idx ? 'is-lit' : undefined}>
+                        <i aria-hidden />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
+          )}
+
+          {/* ACT 3: THE TRIBE — Living Community Signal Constellation */}
+          {activeAct.id === 'tribe' && (
+            <div className="mhero-v3__scene mhero-v3__scene--tribe" key="tribe">
+              <div className="mhero-v3__constellation">
+                <svg
+                  className="mhero-v3__constellation-svg"
+                  viewBox="0 0 320 156"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden
+                >
+                  <line x1="66" y1="34" x2="160" y2="78" className="mhero-v3__beam" />
+                  <line x1="254" y1="34" x2="160" y2="78" className="mhero-v3__beam mhero-v3__beam--d1" />
+                  <line x1="66" y1="122" x2="160" y2="78" className="mhero-v3__beam mhero-v3__beam--d2" />
+                  <line x1="254" y1="122" x2="160" y2="78" className="mhero-v3__beam mhero-v3__beam--d3" />
+                </svg>
+
+                {/* Central KR8 Community Core */}
+                <div className="mhero-v3__hub">
+                  <span className="mhero-v3__hub-ring mhero-v3__hub-ring--outer" aria-hidden />
+                  <span className="mhero-v3__hub-ring mhero-v3__hub-ring--inner" aria-hidden />
+                  <div className="mhero-v3__hub-core">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/img/brand/kr8-mark-256.webp" alt="KR8 Tribe Core" width={36} height={36} />
+                  </div>
+                </div>
+
+                {/* 4 Living Discipline Nodes */}
+                {TRIBE_NODES.map((node, i) => (
+                  <div
+                    key={node.id}
+                    className={`mhero-v3__node mhero-v3__node--${node.pos}${activeNodeIdx === i ? ' is-lit' : ''}`}
+                  >
+                    <strong>{node.role}</strong>
+                    <span>{node.sub}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Compact Single-Line Stage Footer (Zero Clutter) */}
+          <div className="mhero-v3__foot">
+            <span className="mhero-v3__foot-text">{activeAct.footerText}</span>
+            {activeAct.external ? (
+              <a
+                href={activeAct.footerHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mhero-v3__foot-link"
+              >
+                {activeAct.footerCta} ↗
+              </a>
+            ) : (
+              <Link href={activeAct.footerHref} className="mhero-v3__foot-link">
+                {activeAct.footerCta} →
+              </Link>
+            )}
           </div>
         </div>
       </div>
 
-      {/* 3. Thumb-Ergonomic Primary Action Bar */}
-      <div className="mhero-v2__actions">
-        <Link href={primaryHref} className="btn-primary mhero-v2__btn-primary">
-          {primaryLabel} <Icon name="arrow" size={17} />
+      {/* 3. Immediate Above-The-Fold CTA Row (Zero Useless Details Below) */}
+      <div className="mhero-v3__ctas">
+        <Link href={primaryHref} className="btn-primary mhero-v3__cta-main">
+          {primaryLabel} <Icon name="arrow" size={16} />
         </Link>
-        <div className="mhero-v2__btn-pair">
-          <a
-            href={secondaryHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-ghost mhero-v2__btn-secondary"
-          >
-            Learn Free <span>↗</span>
-          </a>
-          <Link href="/services" className="btn-ghost mhero-v2__btn-secondary">
-            6 Services
-          </Link>
-        </div>
-      </div>
-
-      {/* 4. Instant Credibility Strip */}
-      <div className="mhero-v2__trust" aria-label="KR8 key proof">
-        <div className="mhero-v2__trust-item">
-          <b>200+</b>
-          <span>Works</span>
-        </div>
-        <i aria-hidden />
-        <div className="mhero-v2__trust-item">
-          <b>100+</b>
-          <span>Clients</span>
-        </div>
-        <i aria-hidden />
-        <div className="mhero-v2__trust-item">
-          <b>$0</b>
-          <span>Academy</span>
-        </div>
-        <i aria-hidden />
-        <div className="mhero-v2__trust-item">
-          <b>3K+</b>
-          <span>Tribe</span>
-        </div>
+        <a
+          href={secondaryHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-ghost mhero-v3__cta-sec"
+        >
+          Free Academy <span aria-hidden>↗</span>
+        </a>
       </div>
     </div>
   );

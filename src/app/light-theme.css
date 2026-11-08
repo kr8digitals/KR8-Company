@@ -555,98 +555,260 @@ html[data-theme='light'] .stage-scenes .stage-scenes__btn[aria-selected='true'] 
   background: rgba(44, 18, 92, 0.20);
 }
 
-/* ---- Reimagined Mobile Homepage Hero (.mhero-v2) in Light Mode ---- */
+/* ---- Intentionally Built Mobile Homepage Hero (.mhero-v3) in Light Mode ---- */
 @media (max-width: 1023px) {
   html[data-theme='light'] .hero-bg::before {
     background-image:
-      linear-gradient(180deg, rgba(246, 242, 251, 0.86) 0%, rgba(246, 242, 251, 0.72) 48%, rgba(246, 242, 251, 0.92) 100%),
+      linear-gradient(
+        180deg,
+        rgba(248, 245, 253, 0.95) 0%,
+        rgba(246, 242, 251, 0.86) 44%,
+        rgba(246, 242, 251, 0.94) 100%
+      ),
       url('/img/hero/daylight-studio-arch.webp');
-    background-position: center center;
+    background-position: right center;
   }
-  html[data-theme='light'] .mhero-v2__badge {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(248, 236, 248, 0.92));
-    border-color: rgba(214, 24, 124, 0.32);
-    color: #86198f;
-    box-shadow: 0 4px 12px -6px rgba(214, 24, 124, 0.18);
-  }
-  html[data-theme='light'] .mhero-v2__live-pill {
-    background: #ffffff;
-    border-color: rgba(109, 40, 217, 0.18);
-    color: #5b21b6;
-    box-shadow: 0 4px 12px -6px rgba(26, 10, 58, 0.10);
-  }
-  html[data-theme='light'] .mhero-v2__kicker {
-    color: #2c1c48 !important;
-  }
-  html[data-theme='light'] .mhero-v2__lead {
-    color: #3e2e5c !important;
-  }
-  html[data-theme='light'] .mhero-v2__lead strong {
-    color: #120824 !important;
-  }
-  html[data-theme='light'] .mhero-v2__reel {
-    padding: 6px;
-    background: linear-gradient(165deg, #ffffff, #f2ebfb);
-    border: 1px solid rgba(109, 40, 217, 0.18);
-    box-shadow:
-      0 24px 54px -18px rgba(26, 10, 58, 0.22),
-      0 6px 16px rgba(214, 24, 124, 0.10),
-      inset 0 1px 0 #ffffff;
-  }
-  html[data-theme='light'] .mhero-v2__chrome {
-    background: linear-gradient(180deg, #ffffff, #f7f3fc);
-    border-bottom: 1px solid rgba(44, 18, 92, 0.09);
-    border-radius: 14px 14px 0 0;
-  }
-  html[data-theme='light'] .mhero-v2__bar {
-    background: rgba(44, 18, 92, 0.13);
-  }
-  html[data-theme='light'] .mhero-v2__tab {
-    background: rgba(109, 40, 217, 0.06);
-    color: #42315f;
-    border-color: rgba(44, 18, 92, 0.08);
-  }
-  html[data-theme='light'] .mhero-v2__tab.is-active {
-    background: linear-gradient(135deg, #7c3aed, #ec1e88);
-    border-color: transparent;
-    color: #ffffff;
-    box-shadow: 0 6px 14px -4px rgba(214, 24, 124, 0.45);
-  }
-  html[data-theme='light'] .mhero-v2__dock {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(44, 18, 92, 0.13);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 24px -8px rgba(12, 6, 28, 0.35);
-  }
-  html[data-theme='light'] .mhero-v2__proof-copy strong {
+
+  html[data-theme='light'] .mhero-v3__title-top {
     color: #120824;
   }
-  html[data-theme='light'] .mhero-v2__proof-copy span {
-    color: #51406c;
+
+  html[data-theme='light'] .mhero-v3__title-accent {
+    background: linear-gradient(
+      95deg,
+      #5b21b6 0%,
+      #db1a7d 36%,
+      #9333ea 64%,
+      #e11d74 100%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
-  html[data-theme='light'] .mhero-v2__thumb {
-    border-color: rgba(44, 18, 92, 0.15);
-    background: #efeaf7;
+
+  html[data-theme='light'] .mhero-v3__kinetic {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(245, 236, 252, 0.96));
+    border-color: rgba(109, 40, 217, 0.22);
+    box-shadow: 0 6px 16px -8px rgba(26, 10, 58, 0.14);
   }
-  html[data-theme='light'] .mhero-v2__btn-secondary {
-    background: rgba(255, 255, 255, 0.94) !important;
+
+  html[data-theme='light'] .mhero-v3__wheel-row {
+    color: #463564;
+  }
+
+  html[data-theme='light'] .mhero-v3__wheel-row strong {
+    color: #120824;
+  }
+
+  html[data-theme='light'] .mhero-v3__wheel-sep {
+    color: #db1a7d;
+  }
+
+  html[data-theme='light'] .mhero-v3__lead {
+    color: #3a2a57 !important;
+  }
+
+  html[data-theme='light'] .mhero-v3__inline-pill {
+    color: #120824;
+    border-bottom-color: rgba(109, 40, 217, 0.28);
+  }
+
+  html[data-theme='light'] .mhero-v3__inline-pill.is-lit {
+    background: transparent;
+    border-bottom-color: #db1a7d;
+    color: #a21262;
+  }
+
+  /* Sculpted Sunlit Pearl Stage Frame */
+  html[data-theme='light'] .mhero-v3__stage {
+    background: linear-gradient(165deg, #ffffff 0%, #f3ecfc 100%);
+    border: 1px solid rgba(109, 40, 217, 0.2);
+    box-shadow:
+      0 22px 46px -18px rgba(26, 10, 58, 0.2),
+      0 6px 16px -6px rgba(214, 24, 124, 0.1),
+      inset 0 1px 0 #ffffff;
+  }
+
+  html[data-theme='light'] .mhero-v3__specular {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(124, 58, 237, 0.65) 25%,
+      rgba(219, 26, 125, 0.8) 55%,
+      transparent 100%
+    );
+  }
+
+  html[data-theme='light'] .mhero-v3__rail {
+    background: rgba(244, 238, 252, 0.92);
+    border-bottom: 1px solid rgba(44, 18, 92, 0.1);
+  }
+
+  html[data-theme='light'] .mhero-v3__tab {
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(44, 18, 92, 0.08);
+    color: #4a3968;
+  }
+
+  html[data-theme='light'] .mhero-v3__tab.is-active {
+    background: #ffffff;
+    border-color: rgba(124, 58, 237, 0.34);
+    color: #120824;
+    box-shadow: 0 6px 14px -6px rgba(26, 10, 58, 0.16);
+  }
+
+  html[data-theme='light'] .mhero-v3__tab-progress {
+    background: linear-gradient(90deg, #7c3aed, #db1a7d);
+  }
+
+  html[data-theme='light'] .mhero-v3__atmo-grid {
+    background-image:
+      linear-gradient(to right, rgba(109, 40, 217, 0.075) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(109, 40, 217, 0.075) 1px, transparent 1px);
+  }
+
+  html[data-theme='light'] .mhero-v3__atmo-orb--a {
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.14) 0%, transparent 70%);
+  }
+
+  html[data-theme='light'] .mhero-v3__atmo-orb--b {
+    background: radial-gradient(circle, rgba(219, 26, 125, 0.12) 0%, transparent 70%);
+  }
+
+  /* Light Mode Scene 1: Solutions Deck */
+  html[data-theme='light'] .mhero-v3__sol-card {
+    background: #ffffff;
+    border: 1px solid rgba(44, 18, 92, 0.16);
+    box-shadow: 0 16px 32px -14px rgba(26, 10, 58, 0.24);
+  }
+
+  html[data-theme='light'] .mhero-v3__sol-card.is-center {
+    border-color: rgba(124, 58, 237, 0.45);
+    box-shadow:
+      0 20px 38px -14px rgba(26, 10, 58, 0.28),
+      0 0 22px -8px rgba(219, 26, 125, 0.28);
+  }
+
+  html[data-theme='light'] .mhero-v3__sol-bar {
+    background: #f8f5fc;
+    border-bottom: 1px solid rgba(44, 18, 92, 0.09);
+  }
+
+  html[data-theme='light'] .mhero-v3__sol-dots i {
+    background: rgba(44, 18, 92, 0.22);
+  }
+  html[data-theme='light'] .mhero-v3__sol-dots i:first-child {
+    background: #db1a7d;
+  }
+
+  html[data-theme='light'] .mhero-v3__sol-domain {
+    color: #2f1e4d;
+  }
+
+  html[data-theme='light'] .mhero-v3__sol-live {
+    background: rgba(5, 150, 105, 0.12);
+    color: #047857;
+  }
+
+  /* Light Mode Scene 2: Free Academy */
+  html[data-theme='light'] .mhero-v3__free-crown {
+    background: rgba(5, 150, 105, 0.1);
+    border-color: rgba(5, 150, 105, 0.3);
+    color: #065f46;
+  }
+
+  html[data-theme='light'] .mhero-v3__free-dot {
+    background: #059669;
+    box-shadow: 0 0 6px rgba(5, 150, 105, 0.45);
+  }
+
+  html[data-theme='light'] .mhero-v3__acad-wing {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(44, 18, 92, 0.12);
+    box-shadow: 0 8px 18px -10px rgba(26, 10, 58, 0.14);
+  }
+
+  html[data-theme='light'] .mhero-v3__acad-kicker {
+    color: #9333ea;
+  }
+
+  html[data-theme='light'] .mhero-v3__acad-head strong {
+    color: #120824;
+  }
+
+  html[data-theme='light'] .mhero-v3__acad-list li {
+    background: rgba(109, 40, 217, 0.04);
+    color: #463564;
+  }
+
+  html[data-theme='light'] .mhero-v3__acad-list li i {
+    background: rgba(109, 40, 217, 0.35);
+  }
+
+  html[data-theme='light'] .mhero-v3__acad-list li.is-lit {
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.14), rgba(219, 26, 125, 0.12));
+    border-color: rgba(219, 26, 125, 0.35);
+    color: #120824;
+  }
+
+  /* Light Mode Scene 3: The Tribe */
+  html[data-theme='light'] .mhero-v3__beam {
+    stroke: rgba(147, 51, 234, 0.42);
+  }
+
+  html[data-theme='light'] .mhero-v3__hub-ring--outer {
+    border-color: rgba(219, 26, 125, 0.38);
+  }
+
+  html[data-theme='light'] .mhero-v3__hub-ring--inner {
+    border-color: rgba(124, 58, 237, 0.42);
+  }
+
+  html[data-theme='light'] .mhero-v3__hub-core {
+    background: radial-gradient(circle at 35% 30%, #2b1454, #14082c);
+    border-color: rgba(124, 58, 237, 0.35);
+    box-shadow: 0 10px 24px -6px rgba(124, 58, 237, 0.38);
+  }
+
+  html[data-theme='light'] .mhero-v3__node {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(44, 18, 92, 0.13);
+    box-shadow: 0 8px 18px -10px rgba(26, 10, 58, 0.16);
+  }
+
+  html[data-theme='light'] .mhero-v3__node strong {
+    color: #120824;
+  }
+
+  html[data-theme='light'] .mhero-v3__node span {
+    color: #52416e;
+  }
+
+  html[data-theme='light'] .mhero-v3__node.is-lit {
+    border-color: rgba(219, 26, 125, 0.55);
+    box-shadow: 0 10px 22px -8px rgba(219, 26, 125, 0.32);
+  }
+
+  /* Light Mode Stage Footer & Secondary CTA */
+  html[data-theme='light'] .mhero-v3__foot {
+    background: rgba(246, 241, 253, 0.94);
+    border-top: 1px solid rgba(44, 18, 92, 0.09);
+  }
+
+  html[data-theme='light'] .mhero-v3__foot-text {
+    color: #463564;
+  }
+
+  html[data-theme='light'] .mhero-v3__foot-link {
+    color: #c01770;
+  }
+
+  html[data-theme='light'] .mhero-v3__cta-sec {
+    background: rgba(255, 255, 255, 0.95) !important;
     border: 1px solid rgba(44, 18, 92, 0.18) !important;
     color: #120824 !important;
     box-shadow: 0 6px 16px -8px rgba(26, 10, 58, 0.12), inset 0 1px 0 #ffffff;
-  }
-  html[data-theme='light'] .mhero-v2__trust {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(109, 40, 217, 0.15);
-    box-shadow: var(--sh-card);
-  }
-  html[data-theme='light'] .mhero-v2__trust > i {
-    background: rgba(44, 18, 92, 0.11);
-  }
-  html[data-theme='light'] .mhero-v2__trust-item b {
-    color: #120824;
-  }
-  html[data-theme='light'] .mhero-v2__trust-item span {
-    color: #51406c;
   }
 }
 

@@ -1149,184 +1149,284 @@ span.kr8-desk-only {
 }
 
 /* ============================================================================
-   6. REIMAGINED FLAGSHIP MOBILE HOMEPAGE HERO (.mhero-v2)
-   Luminous Full-Color Editorial Studio Reel — Engineered for 98% Mobile Traffic
+   6. INTENTIONALLY BUILT MOBILE HOMEPAGE HERO (.mhero-v3)
+   Native Portrait Motion Stage · Kinetic Typography · Immediate Above-Fold CTAs
    (Active on <= 1023px; Desktop >= 1024px HeroCinema remains 100% untouched)
    ========================================================================== */
 @media (max-width: 1023px) {
   .hero {
-    padding-top: 78px !important;
-    padding-bottom: 24px !important;
+    padding-top: 72px !important;
+    padding-bottom: 18px !important;
     overflow: hidden;
   }
 
-  .mhero-v2 {
+  .mhero-v3 {
     position: relative;
     z-index: 2;
     display: flex !important;
     flex-direction: column;
-    gap: 14px !important;
-    max-width: 620px !important;
+    gap: 11px !important;
+    max-width: 540px !important;
     margin: 0 auto;
   }
 
-  .mhero-v2__top {
+  /* ---- 1. Headline, Kinetic Word-Wheel & Simplified Interactive Copy ---- */
+  .mhero-v3__intro {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
-  .mhero-v2__eyebrow-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .mhero-v2__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 5px 11px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.24), rgba(255, 45, 155, 0.16));
-    border: 1px solid rgba(255, 45, 155, 0.36);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #f8f0ff;
-  }
-
-  .mhero-v2__live-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    font-family: var(--f-mono, ui-monospace, monospace);
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: #e9d5ff;
-  }
-
-  .mhero-v2__title {
-    margin: 2px 0 0 !important;
+  .mhero-v3__title {
+    margin: 0 !important;
     font-family: Montserrat, system-ui, sans-serif;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    font-size: clamp(1.94rem, 8.4vw, 2.55rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.035em !important;
   }
 
-  .mhero-v2__kicker {
+  .mhero-v3__title-top {
     display: block;
-    font-size: clamp(0.98rem, 4.1vw, 1.22rem);
-    font-weight: 600;
-    line-height: 1.24;
-    letter-spacing: -0.012em;
-    color: rgba(246, 240, 255, 0.94);
+    color: #ffffff;
+    animation: mheroV3Rise 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .mhero-v2__main {
+  .mhero-v3__title-accent {
     display: block;
-    font-size: clamp(1.82rem, 7.6vw, 2.55rem);
-    font-weight: 800;
-    line-height: 1.04;
-    letter-spacing: -0.03em;
     padding-bottom: 2px;
+    background: linear-gradient(
+      95deg,
+      #c084fc 0%,
+      #ff2d9b 36%,
+      #ffd1ef 54%,
+      #a855f7 78%,
+      #ff2d9b 100%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation:
+      mheroV3Rise 0.56s 0.06s cubic-bezier(0.22, 1, 0.36, 1) both,
+      mheroV3Sheen 7s linear infinite;
   }
 
-  .mhero-v2__lead {
-    margin: 0 !important;
-    font-size: clamp(13.5px, 3.6vw, 15px);
-    line-height: 1.48;
-    color: rgba(235, 228, 248, 0.9);
-  }
-  .mhero-v2__lead strong {
-    color: #fff;
-    font-weight: 700;
+  @keyframes mheroV3Rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
   }
 
-  /* ---- Luminous Full-Bleed Editorial Showcase Reel ---- */
-  .mhero-v2__reel {
-    position: relative;
-    border-radius: 22px;
+  @keyframes mheroV3Sheen {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 220% 50%;
+    }
+  }
+
+  /* Kinetic live role ticker */
+  .mhero-v3__kinetic {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 8px;
+    max-width: 100%;
+    height: 26px;
+    padding: 0 11px;
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.16);
+    border: 1px solid rgba(255, 45, 155, 0.34);
+  }
+
+  .mhero-v3__pulse-dot {
+    flex: 0 0 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ff2d9b;
+    box-shadow: 0 0 10px #ff2d9b;
+    animation: mheroV3DotPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes mheroV3DotPulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.75);
+      opacity: 0.65;
+    }
+  }
+
+  .mhero-v3__wheel-clip {
+    height: 20px;
     overflow: hidden;
-    background: #140b29;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    min-width: 0;
+  }
+
+  .mhero-v3__wheel-track {
+    display: grid;
+    grid-template-rows: repeat(3, 20px);
+    height: 60px;
+    transition: transform 0.52s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .mhero-v3__wheel-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 11.8px;
+    color: rgba(238, 230, 252, 0.88);
+    white-space: nowrap;
+  }
+
+  .mhero-v3__wheel-row strong {
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .mhero-v3__wheel-sep {
+    color: #ff2d9b;
+    font-weight: 800;
+  }
+
+  /* Simplified 2-line interactive summary */
+  .mhero-v3__lead {
+    margin: 1px 0 0 !important;
+    font-size: clamp(13.2px, 3.55vw, 14.4px) !important;
+    line-height: 1.45 !important;
+    color: rgba(232, 224, 248, 0.88) !important;
+  }
+
+  .mhero-v3__paren {
+    opacity: 0.86;
+    font-size: 0.94em;
+  }
+
+  .mhero-v3__inline-pill {
+    display: inline;
+    padding: 0 1px;
+    border: 0;
+    background: transparent;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.24);
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.22s ease, border-color 0.22s ease;
+  }
+
+  .mhero-v3__inline-pill.is-lit {
+    border-bottom-color: #ff2d9b;
+    color: #ffd6f0;
+  }
+
+  /* ---- 2. Purpose-Built Mobile Interactive Stage ---- */
+  .mhero-v3__stage {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(165deg, #170c30 0%, #0d071d 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     box-shadow:
-      0 26px 56px -22px rgba(0, 0, 0, 0.88),
-      0 0 42px -14px rgba(255, 45, 155, 0.34),
-      0 1px 0 rgba(255, 255, 255, 0.22) inset;
+      0 22px 48px -20px rgba(0, 0, 0, 0.86),
+      0 0 38px -16px rgba(255, 45, 155, 0.34),
+      0 1px 0 rgba(255, 255, 255, 0.18) inset;
     isolation: isolate;
     user-select: none;
   }
 
-  .mhero-v2__flare {
+  .mhero-v3__specular {
     position: absolute;
     top: 0;
-    left: 6%;
-    right: 6%;
-    height: 2px;
-    z-index: 5;
+    left: 8%;
+    right: 8%;
+    height: 1.5px;
+    z-index: 6;
     pointer-events: none;
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(124, 58, 237, 0.78) 24%,
-      rgba(255, 255, 255, 0.96) 50%,
-      rgba(255, 45, 155, 0.88) 76%,
+      rgba(124, 58, 237, 0.78) 25%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(255, 45, 155, 0.85) 75%,
       transparent 100%
     );
   }
 
-  .mhero-v2__chrome {
+  /* 3-Act Switcher Rail */
+  .mhero-v3__rail {
     position: relative;
-    z-index: 4;
-    padding: 10px 11px 9px;
-    background: linear-gradient(180deg, rgba(12, 7, 26, 0.94), rgba(16, 9, 34, 0.88));
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .mhero-v2__bars {
+    z-index: 5;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 5px;
-    margin-bottom: 8px;
+    padding: 6px;
+    background: rgba(9, 5, 20, 0.72);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
   }
 
-  .mhero-v2__bar {
+  .mhero-v3__tab {
     position: relative;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.18);
     overflow: hidden;
+    appearance: none;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(230, 220, 248, 0.74);
+    border-radius: 11px;
+    min-height: 30px;
+    padding: 5px 6px !important;
+    font-size: 11.5px !important;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
 
-  .mhero-v2__bar-fill {
-    display: block;
-    height: 100%;
-    width: 100%;
-    border-radius: inherit;
+  .mhero-v3__tab.is-active {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.36), rgba(255, 45, 155, 0.28));
+    border-color: rgba(255, 255, 255, 0.24);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .mhero-v3__tab-label {
+    position: relative;
+    z-index: 2;
+  }
+
+  .mhero-v3__tab-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2.5px;
     background: linear-gradient(90deg, #a855f7, #ff2d9b, #ffd6f0);
     transform-origin: left center;
     transform: scaleX(0);
-  }
-
-  .mhero-v2__bar.is-done .mhero-v2__bar-fill {
-    transform: scaleX(1);
-  }
-
-  .mhero-v2__bar.is-active .mhero-v2__bar-fill {
-    animation-name: mheroV2Progress;
+    animation-name: mheroV3Progress;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
   }
 
-  @keyframes mheroV2Progress {
+  @keyframes mheroV3Progress {
     from {
       transform: scaleX(0);
     }
@@ -1335,270 +1435,594 @@ span.kr8-desk-only {
     }
   }
 
-  .mhero-v2__tabs {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 4px;
-  }
-
-  .mhero-v2__tab {
-    appearance: none;
-    border: 1px solid transparent;
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(235, 226, 252, 0.8);
-    border-radius: 999px;
-    padding: 4px 2px !important;
-    min-height: 28px;
-    font-size: 10.8px !important;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    text-align: center;
-    white-space: nowrap;
-    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-  }
-
-  .mhero-v2__tab.is-active {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.55), rgba(255, 45, 155, 0.48));
-    border-color: rgba(255, 255, 255, 0.34);
-    color: #fff;
-    font-weight: 700;
-    box-shadow: 0 4px 14px -4px rgba(255, 45, 155, 0.45);
-  }
-
-  /* Viewport: Crisp 100%-Luminance Photography Window */
-  .mhero-v2__viewport {
+  /* Native Portrait Motion Canvas */
+  .mhero-v3__canvas {
     position: relative;
-    aspect-ratio: 16 / 11.4;
-    min-height: 248px;
+    height: 204px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     overflow: hidden;
-    animation: mheroV2Fade 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  @keyframes mheroV2Fade {
+  .mhero-v3__atmo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .mhero-v3__atmo-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(196, 181, 253, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(196, 181, 253, 0.06) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 35%, transparent 95%);
+  }
+
+  .mhero-v3__atmo-orb {
+    position: absolute;
+    border-radius: 50%;
+  }
+  .mhero-v3__atmo-orb--a {
+    width: 180px;
+    height: 180px;
+    top: -55px;
+    left: -30px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.34) 0%, transparent 70%);
+  }
+  .mhero-v3__atmo-orb--b {
+    width: 190px;
+    height: 190px;
+    bottom: -65px;
+    right: -35px;
+    background: radial-gradient(circle, rgba(255, 45, 155, 0.28) 0%, transparent 70%);
+  }
+
+  .mhero-v3__scene {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 auto;
+    width: 100%;
+    animation: mheroV3SceneIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes mheroV3SceneIn {
     from {
-      opacity: 0.72;
-      transform: scale(1.015);
+      opacity: 0;
+      transform: translate3d(0, 6px, 0) scale(0.985);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
     }
   }
 
-  .mhero-v2__photo {
-    position: absolute;
-    inset: 0;
+  /* ---- SCENE 1: 3D Fanning Live Deliverables Deck ---- */
+  .mhero-v3__deck {
+    position: relative;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 22%;
-    opacity: 1 !important;
-    filter: contrast(1.03) saturate(1.05);
+    height: 172px;
+    perspective: 880px;
   }
 
-  /* Clean dual scrim: upper 56% stays crystal-bright; bottom 44% anchors crisp white text */
-  .mhero-v2__scrim {
+  .mhero-v3__sol-card {
     position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      rgba(9, 5, 20, 0.04) 0%,
-      rgba(9, 5, 20, 0.06) 40%,
-      rgba(9, 5, 20, 0.76) 70%,
-      rgba(8, 4, 18, 0.96) 100%
-    );
-  }
-
-  .mhero-v2__overlay {
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: 11px;
-    z-index: 3;
+    top: 10px;
+    left: 50%;
+    width: min(64%, 224px);
+    height: 150px;
+    padding: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #160c2e;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 18px 34px -14px rgba(0, 0, 0, 0.82);
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    cursor: pointer;
+    transition:
+      transform 0.56s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.45s ease,
+      border-color 0.3s ease,
+      box-shadow 0.45s ease;
+    will-change: transform, opacity;
   }
 
-  .mhero-v2__eyebrow {
-    font-family: var(--f-mono, ui-monospace, monospace);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-    color: #ffd1ef;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.75);
+  .mhero-v3__sol-card.is-center {
+    transform: translate3d(-50%, 0, 0) scale(1) rotateY(0deg);
+    z-index: 4;
+    opacity: 1;
+    border-color: rgba(255, 45, 155, 0.55);
+    box-shadow:
+      0 20px 38px -14px rgba(0, 0, 0, 0.88),
+      0 0 26px -8px rgba(255, 45, 155, 0.42);
   }
 
-  .mhero-v2__slide-title {
-    font-family: Montserrat, system-ui, sans-serif;
-    font-size: clamp(15px, 4.2vw, 18.5px);
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: #fff;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+  .mhero-v3__sol-card.is-left {
+    transform: translate3d(-94%, 10px, -46px) scale(0.84) rotateY(15deg) rotateZ(-3.5deg);
+    z-index: 2;
+    opacity: 0.72;
   }
 
-  .mhero-v2__dock {
-    margin-top: 4px;
+  .mhero-v3__sol-card.is-right {
+    transform: translate3d(-6%, 10px, -46px) scale(0.84) rotateY(-15deg) rotateZ(3.5deg);
+    z-index: 2;
+    opacity: 0.72;
+  }
+
+  .mhero-v3__sol-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
-    padding: 7px 9px;
-    border-radius: 13px;
-    background: rgba(14, 8, 30, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    gap: 6px;
+    height: 23px;
+    padding: 0 8px;
+    background: rgba(10, 5, 22, 0.94);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 9.5px;
   }
 
-  .mhero-v2__proof {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 0;
+  .mhero-v3__sol-dots {
+    display: inline-flex;
+    gap: 3px;
+  }
+  .mhero-v3__sol-dots i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+  }
+  .mhero-v3__sol-dots i:first-child {
+    background: #ff2d9b;
   }
 
-  .mhero-v2__thumb {
-    flex: 0 0 38px;
-    width: 38px;
-    height: 30px;
-    border-radius: 7px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.26);
-    background: #1d1038;
-  }
-  .mhero-v2__thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .mhero-v2__proof-copy {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-  .mhero-v2__proof-copy strong {
-    font-size: 12px;
-    font-weight: 800;
-    line-height: 1.15;
-    color: #fff;
-  }
-  .mhero-v2__proof-copy span {
-    font-size: 10.5px;
-    line-height: 1.25;
-    color: rgba(232, 222, 250, 0.82);
+  .mhero-v3__sol-domain {
+    font-family: var(--f-mono, ui-monospace, monospace);
+    color: rgba(236, 228, 252, 0.85);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .mhero-v2__chip-cta {
-    flex: 0 0 auto;
+  .mhero-v3__sol-live {
+    padding: 1px 5px;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.18);
+    color: #6ee7b7;
+    font-weight: 700;
+    font-size: 8.8px;
+    white-space: nowrap;
+  }
+
+  .mhero-v3__sol-media {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .mhero-v3__sol-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .mhero-v3__sol-chip {
+    position: absolute;
+    left: 7px;
+    bottom: 7px;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 6px 11px;
-    min-height: 30px;
+    gap: 5px;
+    padding: 3.5px 8px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #9333ea, #ff2d9b);
-    color: #fff;
-    font-size: 11.5px;
+    background: rgba(10, 5, 24, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    font-size: 10px;
     font-weight: 700;
-    text-decoration: none;
     white-space: nowrap;
-    box-shadow: 0 6px 16px -6px rgba(255, 45, 155, 0.65);
   }
 
-  /* ---- Primary Thumb-Zone Conversion Dock ---- */
-  .mhero-v2__actions {
+  .mhero-v3__sol-chip i {
+    width: 5.5px;
+    height: 5.5px;
+    border-radius: 50%;
+    background: #ff2d9b;
+    box-shadow: 0 0 7px #ff2d9b;
+  }
+
+  /* ---- SCENE 2: Free Academy (Skills × Academics Dual Engine) ---- */
+  .mhero-v3__scene--academy {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    justify-content: center;
+    padding: 7px 10px 4px;
+    gap: 7px;
   }
 
-  .mhero-v2__btn-primary {
-    width: 100% !important;
-    justify-content: center !important;
-    min-height: 48px !important;
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    border-radius: 999px !important;
-    box-shadow: 0 14px 32px -10px rgba(255, 45, 155, 0.55) !important;
+  .mhero-v3__free-crown {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(52, 211, 153, 0.36);
+    color: #a7f3d0;
+    font-size: 10.2px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
   }
 
-  .mhero-v2__btn-pair {
+  .mhero-v3__free-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 8px #34d399;
+  }
+
+  .mhero-v3__acad-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr);
+    align-items: center;
+    gap: 5px;
   }
 
-  .mhero-v2__btn-secondary {
-    width: 100% !important;
-    justify-content: center !important;
-    min-height: 43px !important;
-    padding: 9px 12px !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    border-radius: 999px !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  .mhero-v3__acad-wing {
+    padding: 8px 8px 7px;
+    border-radius: 13px;
+    background: rgba(18, 10, 38, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
-  /* ---- Compact Credibility Ribbon ---- */
-  .mhero-v2__trust {
+  .mhero-v3__acad-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .mhero-v3__acad-kicker {
+    font-family: var(--f-mono, ui-monospace, monospace);
+    font-size: 8.8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f0abfc;
+  }
+
+  .mhero-v3__acad-head strong {
+    font-family: Montserrat, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+  }
+
+  .mhero-v3__acad-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5px;
+  }
+
+  .mhero-v3__acad-list li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3.5px 6px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+    font-size: 10.4px;
+    font-weight: 500;
+    color: rgba(230, 220, 248, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.28s ease;
+  }
+
+  .mhero-v3__acad-list li i {
+    flex: 0 0 5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(196, 181, 253, 0.45);
+    transition: all 0.28s ease;
+  }
+
+  .mhero-v3__acad-list li.is-lit {
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.32), rgba(255, 45, 155, 0.22));
+    border-color: rgba(255, 45, 155, 0.42);
+    color: #ffffff;
+    font-weight: 700;
+    transform: translateX(2px);
+  }
+
+  .mhero-v3__acad-list li.is-lit i {
+    background: #ff2d9b;
+    box-shadow: 0 0 7px #ff2d9b;
+  }
+
+  .mhero-v3__acad-bridge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mhero-v3__acad-plus {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #7c3aed, #ff2d9b);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    box-shadow: 0 0 14px rgba(255, 45, 155, 0.55);
+    animation: mheroV3BridgePulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes mheroV3BridgePulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.12);
+    }
+  }
+
+  /* ---- SCENE 3: The Tribe (Living Community Constellation) ---- */
+  .mhero-v3__constellation {
+    position: relative;
+    width: 100%;
+    height: 172px;
+  }
+
+  .mhero-v3__constellation-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .mhero-v3__beam {
+    stroke: rgba(232, 121, 249, 0.48);
+    stroke-width: 1.4;
+    stroke-dasharray: 5 5;
+    animation: mheroV3BeamFlow 2.6s linear infinite;
+  }
+  .mhero-v3__beam--d1 {
+    animation-delay: -0.65s;
+  }
+  .mhero-v3__beam--d2 {
+    animation-delay: -1.3s;
+  }
+  .mhero-v3__beam--d3 {
+    animation-delay: -1.95s;
+  }
+
+  @keyframes mheroV3BeamFlow {
+    from {
+      stroke-dashoffset: 20;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .mhero-v3__hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 62px;
+    height: 62px;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    z-index: 3;
+  }
+
+  .mhero-v3__hub-ring {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .mhero-v3__hub-ring--outer {
+    width: 82px;
+    height: 82px;
+    border: 1px dashed rgba(255, 45, 155, 0.42);
+    animation: mheroV3Spin 16s linear infinite;
+  }
+
+  .mhero-v3__hub-ring--inner {
+    width: 66px;
+    height: 66px;
+    border: 1px solid rgba(168, 85, 247, 0.52);
+    animation: mheroV3Spin 11s linear infinite reverse;
+  }
+
+  @keyframes mheroV3Spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .mhero-v3__hub-core {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #2b1454, #120826);
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 0 22px rgba(255, 45, 155, 0.45);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .mhero-v3__hub-core img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .mhero-v3__node {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    padding: 6px 10px;
+    min-width: 96px;
+    border-radius: 11px;
+    background: rgba(18, 10, 38, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mhero-v3__node--nw {
+    top: 14px;
+    left: 12px;
+  }
+  .mhero-v3__node--ne {
+    top: 14px;
+    right: 12px;
+    text-align: right;
+  }
+  .mhero-v3__node--sw {
+    bottom: 12px;
+    left: 12px;
+  }
+  .mhero-v3__node--se {
+    bottom: 12px;
+    right: 12px;
+    text-align: right;
+  }
+
+  .mhero-v3__node strong {
+    font-family: Montserrat, system-ui, sans-serif;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+  }
+
+  .mhero-v3__node span {
+    font-size: 9.8px;
+    color: rgba(226, 214, 248, 0.76);
+    line-height: 1.2;
+  }
+
+  .mhero-v3__node.is-lit {
+    border-color: rgba(255, 45, 155, 0.65);
+    box-shadow: 0 8px 20px -8px rgba(255, 45, 155, 0.52);
+    transform: translateY(-2px) scale(1.03);
+  }
+
+  /* Compact Single-Line Stage Footer */
+  .mhero-v3__foot {
+    position: relative;
+    z-index: 4;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 14px;
-    border-radius: 14px;
-    background: linear-gradient(160deg, rgba(26, 14, 52, 0.72), rgba(12, 7, 24, 0.88));
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 8px;
+    height: 31px;
+    padding: 0 11px;
+    background: rgba(8, 4, 18, 0.78);
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
   }
 
-  .mhero-v2__trust > i {
-    width: 1px;
-    height: 22px;
-    background: rgba(255, 255, 255, 0.12);
+  .mhero-v3__foot-text {
+    font-size: 10.8px;
+    font-weight: 500;
+    color: rgba(230, 220, 248, 0.82);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  .mhero-v2__trust-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1px;
+  .mhero-v3__foot-link {
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ff7ac6;
+    text-decoration: none;
+    white-space: nowrap;
   }
-  .mhero-v2__trust-item b {
-    font-family: Montserrat, system-ui, sans-serif;
-    font-size: 14.5px;
-    font-weight: 800;
-    line-height: 1.1;
-    color: #fff;
+
+  /* ---- 3. Immediate Above-The-Fold CTA Row ---- */
+  .mhero-v3__ctas {
+    display: grid;
+    grid-template-columns: 1.14fr 0.86fr;
+    gap: 9px;
   }
-  .mhero-v2__trust-item span {
-    font-size: 10.5px;
-    color: rgba(226, 214, 248, 0.76);
+
+  .mhero-v3__cta-main {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 47px !important;
+    padding: 11px 14px !important;
+    font-size: 14.2px !important;
+    font-weight: 700 !important;
+    border-radius: 999px !important;
+    white-space: nowrap;
+    box-shadow: 0 14px 30px -10px rgba(255, 45, 155, 0.55) !important;
+  }
+
+  .mhero-v3__cta-sec {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 47px !important;
+    padding: 11px 12px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    border-radius: 999px !important;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
   }
 }
 
 @media (max-width: 374px) {
-  .mhero-v2__main {
-    font-size: 1.62rem !important;
+  .mhero-v3__title {
+    font-size: 1.74rem !important;
   }
-  .mhero-v2__tab {
-    font-size: 10px;
-    padding: 4px 2px;
+  .mhero-v3__tab {
+    font-size: 10.6px !important;
+    padding: 5px 3px !important;
   }
-  .mhero-v2__viewport {
-    aspect-ratio: 4 / 3.3;
-    min-height: 236px;
+  .mhero-v3__acad-list li {
+    font-size: 9.8px;
+    padding: 3px 5px;
   }
-  .mhero-v2__thumb {
-    display: none;
+  .mhero-v3__node {
+    min-width: 84px;
+    padding: 5px 8px;
+  }
+  .mhero-v3__cta-main,
+  .mhero-v3__cta-sec {
+    font-size: 12.6px !important;
+    padding: 10px 10px !important;
+    min-height: 44px !important;
   }
 }
 
@@ -1653,7 +2077,10 @@ span.kr8-desk-only {
 @media (prefers-reduced-motion: reduce) {
   .kr8-cinema-frame img,
   .kr8-card-photo img,
-  .mhero-v2__viewport {
+  .mhero-v3__scene,
+  .mhero-v3__wheel-track,
+  .mhero-v3__sol-card,
+  .mhero-v3__title-accent {
     transition: none !important;
     animation: none !important;
   }
