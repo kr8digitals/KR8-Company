@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0a0614',
+  themeColor: '#f6f2fb',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -85,11 +85,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const navConfig = await getCmsNavigation();
 
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('kr8_theme');var m=t==='light'?'light':'dark';document.documentElement.setAttribute('data-theme',m);document.documentElement.style.colorScheme=m;if(m==='light'){var tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.setAttribute('content','#faf8fc');}}catch(e){}`,
+            __html: `try{var p=localStorage.getItem('kr8_theme_pref');var m;if(p==='light'||p==='dark'){m=p;}else{p='auto';var h=new Date().getHours();m=(h>=6&&h<18)?'light':'dark';}document.documentElement.setAttribute('data-theme',m);document.documentElement.setAttribute('data-theme-mode',p);document.documentElement.style.colorScheme=m;var tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.setAttribute('content',m==='light'?'#f6f2fb':'#0a0614');}catch(e){}`,
           }}
         />
         <link rel="preload" href="/fonts/montserrat.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />

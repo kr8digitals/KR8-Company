@@ -230,9 +230,15 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: 10,
+            flexWrap: 'wrap',
           }}
         >
-          <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--t-muted)' }}>Appearance</span>
+          <div>
+            <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t-strong)' }}>Appearance</div>
+            <div style={{ fontSize: 10.5, color: 'var(--t-sub)', marginTop: 1 }}>
+              Auto: Light by day · Dark by night
+            </div>
+          </div>
           <ThemeToggle variant="segmented" />
         </div>
 
