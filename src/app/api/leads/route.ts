@@ -29,6 +29,17 @@ function validEmail(v: string) {
   return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v);
 }
 
+function attribution(value: unknown) {
+  const c = value && typeof value === 'object' ? value as Record<string, unknown> : {};
+  return {
+    ctaId: clean(c.ctaId, 180),
+    sourcePath: clean(c.sourcePath, 240),
+    destination: clean(c.destination, 400),
+    label: clean(c.label, 120),
+    capturedAt: clean(c.capturedAt, 40),
+  };
+}
+
 const LABEL: Record<LeadType, string> = {
   quote: 'New quote request',
   'buy-site': 'Site purchase request',
@@ -78,6 +89,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Please accept the privacy notice so we can store and reply to this.' }, { status: 422 });
   }
 
+  const cta = attribution(body.cta);
   const record = {
     id: newId('ld_'),
     type,
@@ -91,6 +103,16 @@ export async function POST(req: Request) {
     portfolio: clean(body.portfolio, 300),
     partnerType: clean(body.partnerType, 80),
     siteId: clean(body.siteId, 80),
+    projectTiming: clean(body.projectTiming, 80),
+    experienceLevel: clean(body.experienceLevel, 80),
+    availability: clean(body.availability, 80),
+    location: clean(body.location, 120),
+    interest: clean(body.interest, 180),
+    ctaId: cta.ctaId || `${type}:${clean(body.siteId, 80) || 'direct'}`,
+    ctaSourcePath: cta.sourcePath || clean(body.source, 80) || 'site',
+    ctaDestination: cta.destination,
+    ctaLabel: cta.label,
+    ctaCapturedAt: cta.capturedAt,
     message,
     status: 'new' as const,
     assignee: '',

@@ -47,6 +47,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
   const [navDraft, setNavDraft] = useState<any>(null);
   const [selectedSeo, setSelectedSeo] = useState<any>(null);
   const [leadFilter, setLeadFilter] = useState('all');
+  const [leadCtaFilter, setLeadCtaFilter] = useState('all');
   const [selectedSession, setSelectedSession] = useState<string | null>(null);
   const [replyText, setReplyText] = useState('');
   const [settingsDraft, setSettingsDraft] = useState<Record<string, string>>({});
@@ -1828,8 +1829,13 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                               <a href={`mailto:${selectedProposal.email}`} style={{ color: 'var(--magenta)' }}>
                                 {selectedProposal.email}
                               </a>
-                              {selectedProposal.phone ? ` · ${selectedProposal.phone}` : ''}
-                            </div>
+                          {selectedProposal.phone ? ` · ${selectedProposal.phone}` : ''}
+                          <div style={{ marginTop: 5, fontSize: 12 }}>
+                            CTA: <strong>{selectedProposal.ctaLabel || selectedProposal.ctaId || 'Direct / legacy'}</strong>
+                            {selectedProposal.ctaSourcePath ? ` · FROM: ${selectedProposal.ctaSourcePath}` : ''}
+                            {selectedProposal.ctaId ? ` · ID: ${selectedProposal.ctaId}` : ''}
+                          </div>
+                        </div>
                           </div>
                           <span className={`kr8-cms-status ${selectedProposal.status || 'new'}`}>
                             {selectedProposal.status || 'new'}
@@ -2601,16 +2607,28 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                     </button>
                   ))}
                 </div>
-                <a
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--t-muted)' }}>
+                    CTA source
+                    <select value={leadCtaFilter} onChange={(e) => setLeadCtaFilter(e.target.value)} style={{ minWidth: 190, padding: '7px 10px', fontSize: 12 }}>
+                      <option value="all">All CTA sources</option>
+                      {Array.from(new Set((data.leads || []).map((lead: any) => lead.ctaId).filter(Boolean))).map((ctaId: any) => {
+                        const lead = (data.leads || []).find((item: any) => item.ctaId === ctaId);
+                        return <option key={ctaId} value={ctaId}>{lead?.ctaLabel || ctaId}</option>;
+                      })}
+                    </select>
+                  </label>
+                  <a
                   href="/api/admin/export?col=leads"
                   className="btn-ghost"
                   style={{ padding: '7px 13px', fontSize: 12.5 }}
                 >
                   Export CSV ↓
-                </a>
+                  </a>
+                </div>
               </div>
 
-              {(data.leads || []).filter((l: any) => leadFilter === 'all' || l.status === leadFilter).length ===
+              {(data.leads || []).filter((l: any) => (leadFilter === 'all' || l.status === leadFilter) && (leadCtaFilter === 'all' || l.ctaId === leadCtaFilter)).length ===
               0 ? (
                 <p style={{ color: 'var(--t-muted)', fontSize: 14 }}>
                   No submissions match this filter yet. Enquiries from Contact, Join the Team,
@@ -2619,7 +2637,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
               ) : (
                 <div style={{ display: 'grid', gap: 12 }}>
                   {(data.leads || [])
-                    .filter((l: any) => leadFilter === 'all' || l.status === leadFilter)
+                    .filter((l: any) => (leadFilter === 'all' || l.status === leadFilter) && (leadCtaFilter === 'all' || l.ctaId === leadCtaFilter))
                     .map((l: any) => (
                       <div
                         key={l.id}
@@ -2655,8 +2673,13 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                           </select>
                         </div>
                         <div style={{ fontSize: 12, fontFamily: 'var(--f-mono)', color: 'var(--t-muted)' }}>
-                          TYPE: {l.kind || 'quote'} {l.service ? `· SERVICE: ${l.service}` : ''}{' '}
+                          TYPE: {l.kind || l.type || 'quote'} {l.service ? `· SERVICE: ${l.service}` : ''}{' '}
                           {l.budget ? `· BUDGET: ${l.budget}` : ''}
+                        </div>
+                        <div style={{ fontSize: 12, color: 'var(--t-muted)' }}>
+                          CTA: <strong>{l.ctaLabel || l.ctaId || l.siteId || l.source || 'Direct / legacy'}</strong>
+                          {l.ctaSourcePath ? ` · FROM: ${l.ctaSourcePath}` : ''}
+                          {l.ctaId && l.ctaLabel ? ` · ID: ${l.ctaId}` : ''}
                         </div>
                         {l.message && <p style={{ fontSize: 14, color: 'var(--t-body)' }}>{l.message}</p>}
                       </div>
@@ -2734,8 +2757,13 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                           fontSize: 13.5,
                         }}
                       >
-                        <strong>{o.ref}</strong> · {o.service || o.tier} ·{' '}
+                        <strong>{o.reference || o.ref}</strong> · {o.item || o.service || o.tier} · {o.name || 'Customer'} ·{' '}
                         <span className={`kr8-cms-status ${o.status || 'pending'}`}>{o.status}</span>
+                        <div style={{ marginTop: 6, fontSize: 12, color: 'var(--t-muted)' }}>
+                          CTA: {o.ctaLabel || o.ctaId || o.siteId || 'Direct / legacy'}
+                          {o.ctaSourcePath ? ` · FROM: ${o.ctaSourcePath}` : ''}
+                          {o.ctaId ? ` · ID: ${o.ctaId}` : ''}
+                        </div>
                       </div>
                     ))}
                   </div>

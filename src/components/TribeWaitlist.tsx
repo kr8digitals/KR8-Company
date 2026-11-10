@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { track } from '@/lib/track';
 import { Icon } from './ui';
+import { getCtaAttribution } from '@/lib/cta-attribution';
 
 export default function TribeWaitlist() {
   const [done, setDone] = useState(false);
@@ -19,6 +20,7 @@ export default function TribeWaitlist() {
         body: JSON.stringify({
           type: 'tribe', name: fd.get('name'), email: fd.get('email'), phone: fd.get('phone'),
           message: fd.get('message') || 'Tribe waitlist', consent: true, siteId: 'tribe-waitlist',
+          cta: getCtaAttribution('tribe-waitlist:/tribe#join-tribe'),
         }),
       });
       const data = await res.json();

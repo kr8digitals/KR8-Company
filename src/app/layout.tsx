@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Host from '@/components/Host';
 import ChromeGuard from '@/components/ChromeGuard';
+import CtaAttribution from '@/components/CtaAttribution';
 import RevealProvider from '@/components/RevealProvider';
 import { getCmsNavigation } from '@/lib/cms';
 import { SITE_URL } from '@/lib/site-url';
@@ -100,6 +101,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema).replace(/</g, '\\u003c') }} />
       </head>
       <body>
+        <CtaAttribution />
         <a href="#main" className="skip-link">Skip to content</a>
         <RevealProvider>
           <ChromeGuard

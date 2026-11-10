@@ -44,6 +44,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Please enter a valid work or personal email address.' }, { status: 400 });
     }
 
+    const rawCta = body.cta && typeof body.cta === 'object' ? body.cta : {};
+    const cta = {
+      ctaId: String(rawCta.ctaId || 'partnership-proposal:/partners#propose').slice(0, 180),
+      ctaSourcePath: String(rawCta.sourcePath || '/partners').slice(0, 240),
+      ctaDestination: String(rawCta.destination || '/partners#propose').slice(0, 400),
+      ctaLabel: String(rawCta.label || 'Submit a Partnership Proposal').slice(0, 120),
+      ctaCapturedAt: String(rawCta.capturedAt || '').slice(0, 40),
+    };
+
     const proposal = await store.insert('partner_proposals', {
       id: newId('prop_'),
       createdAt: new Date().toISOString(),
@@ -59,6 +68,7 @@ export async function POST(req: Request) {
       timeline,
       status: 'new',
       adminNotes: '',
+      ...cta,
     });
 
     // Also mirror into leads inbox so unified Inbox + Partnerships modules stay synchronized
@@ -73,6 +83,7 @@ export async function POST(req: Request) {
       message: `[${track}] ${summary}${mutualValue ? `\n\nMutual Value: ${mutualValue}` : ''}${website ? `\nWebsite: ${website}` : ''}`,
       status: 'new',
       proposalId: proposal.id,
+      ...cta,
     });
 
     return NextResponse.json({ ok: true, id: proposal.id });

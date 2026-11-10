@@ -26,6 +26,15 @@ export async function POST(req: Request) {
   const amountNgn = Math.round((amountUsd * (rates.NGN || 1550)) / 100) * 100;
   const ref = reference();
 
+  const rawCta = body.cta && typeof body.cta === 'object' ? body.cta : {};
+  const cta = {
+    ctaId: String(rawCta.ctaId || `buy-site:${String(body.siteId || item)}`).slice(0, 180),
+    ctaSourcePath: String(rawCta.sourcePath || '/showcase').slice(0, 240),
+    ctaDestination: String(rawCta.destination || '/order').slice(0, 400),
+    ctaLabel: String(rawCta.label || 'Reserve this build').slice(0, 120),
+    ctaCapturedAt: String(rawCta.capturedAt || '').slice(0, 40),
+  };
+
   const order = await store.insert('orders', {
     id: newId('or_'),
     reference: ref,
@@ -39,6 +48,8 @@ export async function POST(req: Request) {
     email: String(body.email || '').slice(0, 160),
     phone: String(body.phone || '').slice(0, 40),
     note: String(body.note || '').slice(0, 500),
+    siteId: String(body.siteId || '').slice(0, 120),
+    ...cta,
     history: [{ at: new Date().toISOString(), what: 'created' }],
   });
 

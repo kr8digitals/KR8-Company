@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { track } from '@/lib/track';
+import { getCtaAttribution } from '@/lib/cta-attribution';
 import site from '../../data/site.json';
 import services from '../../data/services.json';
 import { Icon } from './ui';
@@ -82,7 +83,8 @@ export default function LeadForm({
     e.preventDefault();
     if (status === 'sending') return;
     const fd = new FormData(e.currentTarget);
-    const payload: Record<string, unknown> = { type: variant, consent: true, ref, siteId };
+    const cta = getCtaAttribution(`${variant}:${siteId || window.location.pathname}`);
+    const payload: Record<string, unknown> = { type: variant, consent: true, ref, siteId, cta };
     fd.forEach((v, k) => {
       if (k === 'consent' || k === '_hp') return;
       if (v !== '') payload[k] = String(v);
@@ -211,6 +213,57 @@ export default function LeadForm({
             <option value="Schools, hubs & NGOs">School, hub or NGO</option>
             <option value="Tools & platforms">Tools and platforms</option>
           </select>
+        </div>
+      )}
+
+      {variant === 'quote' && (
+        <div className="field">
+          <label htmlFor="project-timing">When would you like to begin?</label>
+          <select id="project-timing" name="projectTiming" className="select" defaultValue="">
+            <option value="">No fixed date yet</option>
+            <option value="Within 2 weeks">Within 2 weeks</option>
+            <option value="This month">This month</option>
+            <option value="Within 1–3 months">Within 1–3 months</option>
+            <option value="Planning ahead">Planning ahead</option>
+          </select>
+        </div>
+      )}
+
+      {variant === 'team' && (
+        <div className="form-row">
+          <div className="field">
+            <label htmlFor="team-experience">Relevant experience</label>
+            <select id="team-experience" name="experienceLevel" className="select" defaultValue="">
+              <option value="">Choose one</option>
+              <option value="Learning / entry level">Learning / entry level</option>
+              <option value="1–2 years">1–2 years</option>
+              <option value="3–5 years">3–5 years</option>
+              <option value="5+ years">5+ years</option>
+            </select>
+          </div>
+          <div className="field">
+            <label htmlFor="team-availability">Availability</label>
+            <select id="team-availability" name="availability" className="select" defaultValue="">
+              <option value="">Choose one</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Contract / project-based">Contract / project-based</option>
+              <option value="Internship / learning placement">Internship / learning placement</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {(variant === 'mindshift' || variant === 'tribe') && (
+        <div className="form-row">
+          <div className="field">
+            <label htmlFor={`${variant}-location`}>{variant === 'mindshift' ? 'City / area' : 'Your city / area'}</label>
+            <input id={`${variant}-location`} name="location" className="input" placeholder="e.g. Aba, Abia State" />
+          </div>
+          <div className="field">
+            <label htmlFor={`${variant}-interest`}>{variant === 'mindshift' ? 'What would you like to explore?' : 'What do you create or want to learn?'}</label>
+            <input id={`${variant}-interest`} name="interest" className="input" placeholder={variant === 'mindshift' ? 'Leadership, creativity, business…' : 'Design, video, code, writing…'} />
+          </div>
         </div>
       )}
 

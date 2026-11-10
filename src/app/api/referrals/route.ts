@@ -29,6 +29,14 @@ export async function POST(req: Request) {
   const email = String(b.email || '').trim().toLowerCase().slice(0, 160);
   const phone = String(b.phone || '').trim().slice(0, 40);
   const focus = String(b.focus || '').trim().slice(0, 80);
+  const rawCta = b.cta && typeof b.cta === 'object' ? b.cta : {};
+  const cta = {
+    ctaId: String(rawCta.ctaId || 'referral-signup:/referrals#join').slice(0, 180),
+    ctaSourcePath: String(rawCta.sourcePath || '/referrals').slice(0, 240),
+    ctaDestination: String(rawCta.destination || '/referrals#join').slice(0, 400),
+    ctaLabel: String(rawCta.label || 'Create your referral account').slice(0, 120),
+    ctaCapturedAt: String(rawCta.capturedAt || '').slice(0, 40),
+  };
 
   if (name.length < 2) return NextResponse.json({ ok: false, error: 'Please enter your name.' }, { status: 422 });
   if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) return NextResponse.json({ ok: false, error: 'Please enter a valid email.' }, { status: 422 });
@@ -49,6 +57,7 @@ export async function POST(req: Request) {
     id: newId('rf_'), code: c, name, email, phone, focus, key,
     status: 'active', paidReferrals: 0, earnedUsd: 0, confirmedUsd: 0, withdrawnUsd: 0,
     emailVerified: false, ip,
+    ...cta,
   });
 
   await sendMail({
