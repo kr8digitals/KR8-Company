@@ -1,4 +1,6 @@
 'use client';
+import { formatEditableText } from '@/lib/content-format';
+import { useEditableContent } from '@/components/EditableContentProvider';
 
 import { useState } from 'react';
 import { Icon } from './ui';
@@ -12,6 +14,9 @@ const TRACKS = [
 ];
 
 export default function PartnerProposalForm() {
+  const editableContent = useEditableContent("components:PartnerProposalForm");
+  const TRACKS = editableContent.blocks.TRACKS as EditableBlockTypes["TRACKS"];
+
   const [organisation, setOrganisation] = useState('');
   const [contactName, setContactName] = useState('');
   const [roleTitle, setRoleTitle] = useState('');
@@ -64,16 +69,12 @@ export default function PartnerProposalForm() {
     return (
       <div className="kr8-form-shell" role="status" aria-live="polite">
         <span className="kr8-pill kr8-pill--green">
-          <i className="kr8-pill__dot" /> Partnership Proposal Logged
-        </span>
+          <i className="kr8-pill__dot" /> {editableContent.texts.text_d4a8c2fdda}</span>
         <h3 className="section-title" style={{ fontSize: 28, marginTop: 16 }}>
-          Thank you, {contactName}. Your proposal for {organisation} is with our executive team.
-        </h3>
+          {editableContent.texts.text_00062849b3}{contactName}{editableContent.texts.text_3d1b4b3905}{organisation} {editableContent.texts.text_84071ee7bb}</h3>
         <p className="prose-lg" style={{ marginTop: 12 }}>
-          Reference ID: <code style={{ color: 'var(--t-accent-soft)' }}>{submittedId}</code>. Founding leadership reviews
-          partnership proposals directly and will reach out via <strong>{email}</strong>
-          {phone ? ` or ${phone}` : ''} to schedule an alignment conversation.
-        </p>
+          {editableContent.texts.text_70815632e1}<code style={{ color: 'var(--t-accent-soft)' }}>{submittedId}</code>{editableContent.texts.text_58ce981aab}<strong>{email}</strong>
+          {phone ? formatEditableText(editableContent.texts.copy_ebe26e8b71, [phone]) : ''} {editableContent.texts.text_199ede8f01}</p>
         <button
           type="button"
           className="btn-ghost"
@@ -84,8 +85,7 @@ export default function PartnerProposalForm() {
             setMutualValue('');
           }}
         >
-          Submit Another Proposal
-        </button>
+          {editableContent.texts.text_ca920fcec6}</button>
       </div>
     );
   }
@@ -93,62 +93,59 @@ export default function PartnerProposalForm() {
   return (
     <form className="kr8-form-shell" onSubmit={onSubmit}>
       <div style={{ marginBottom: 24 }}>
-        <span className="kr8-pill">Direct Executive Review</span>
+        <span className="kr8-pill">{editableContent.texts.text_8385f85431}</span>
         <h3 className="kr8-card__title" style={{ fontSize: 26, marginTop: 12 }}>
-          Submit a Partnership Proposal
-        </h3>
+          {editableContent.texts.text_42fee335b0}</h3>
         <p className="kr8-card__body" style={{ marginTop: 8 }}>
-          Tell us about your organisation, the collaboration model you have in mind, and what we can build or
-          teach together. Every proposal routes directly to the KR8 DIGITALS leadership dashboard.
-        </p>
+          {editableContent.texts.text_9c6ab64844}</p>
       </div>
 
       <div className="kr8-grid-2" style={{ gap: 18 }}>
         <label className="field">
-          <span>Organisation / Brand Name *</span>
+          <span>{editableContent.texts.text_5385eb1027}</span>
           <input
             type="text"
             required
-            placeholder="e.g. Horizon Crest Academy"
+            placeholder={editableContent.texts.field_8a6003e820}
             value={organisation}
             onChange={(e) => setOrganisation(e.target.value)}
           />
         </label>
 
         <label className="field">
-          <span>Your Full Name *</span>
+          <span>{editableContent.texts.text_12e4aee36c}</span>
           <input
             type="text"
             required
-            placeholder="Your full name"
+            placeholder={editableContent.texts.field_538b411179}
             value={contactName}
             onChange={(e) => setContactName(e.target.value)}
           />
         </label>
 
         <label className="field">
-          <span>Your Role / Title</span>
+          <span>{editableContent.texts.text_5a718ab96c}</span>
           <input
             type="text"
-            placeholder="e.g. Founder, Principal, Head of Partnerships"
+            placeholder={editableContent.texts.field_0dcee1b9d4}
             value={roleTitle}
             onChange={(e) => setRoleTitle(e.target.value)}
           />
         </label>
 
         <label className="field">
-          <span>Email Address *</span>
+          <span>{editableContent.texts.text_1b72562c82}</span>
           <input
             type="email"
             required
-            placeholder="you@organisation.com"
+            placeholder={editableContent.texts.field_e82b5491b0}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
 
         <label className="field">
-          <span>Phone / WhatsApp Number</span>
+          <span>{editableContent.texts.text_a75c8258e5}</span>
           <input
             type="tel"
             placeholder="+234 ..."
@@ -158,17 +155,17 @@ export default function PartnerProposalForm() {
         </label>
 
         <label className="field">
-          <span>Website or Portfolio Link</span>
+          <span>{editableContent.texts.text_14cb640d85}</span>
           <input
             type="text"
-            placeholder="https://..."
+            placeholder={editableContent.texts.field_e98a62ef23}
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
           />
         </label>
 
         <label className="field">
-          <span>Partnership Track *</span>
+          <span>{editableContent.texts.text_15a29eaf68}</span>
           <select value={track} onChange={(e) => setTrack(e.target.value)}>
             {TRACKS.map((t) => (
               <option key={t} value={t}>
@@ -179,32 +176,32 @@ export default function PartnerProposalForm() {
         </label>
 
         <label className="field">
-          <span>Target Start Horizon</span>
+          <span>{editableContent.texts.text_124bca88f6}</span>
           <select value={timeline} onChange={(e) => setTimeline(e.target.value)}>
-            <option value="Immediate (Next 2–4 weeks)">Immediate (Next 2–4 weeks)</option>
-            <option value="Ready within 30–60 days">Ready within 30–60 days</option>
-            <option value="Next Academic Term / Quarter">Next Academic Term / Quarter</option>
-            <option value="Exploratory Strategic Conversation">Exploratory Strategic Conversation</option>
+            <option value="Immediate (Next 2–4 weeks)">{editableContent.texts.text_1186ba59a0}</option>
+            <option value="Ready within 30–60 days">{editableContent.texts.text_bc4c089b16}</option>
+            <option value="Next Academic Term / Quarter">{editableContent.texts.text_e9a71fe4fe}</option>
+            <option value="Exploratory Strategic Conversation">{editableContent.texts.text_2f685f430e}</option>
           </select>
         </label>
       </div>
 
       <label className="field" style={{ marginTop: 18 }}>
-        <span>What would you like us to build, co-host, or achieve together? *</span>
+        <span>{editableContent.texts.text_e23340bb65}</span>
         <textarea
           rows={4}
           required
-          placeholder="Describe your organisation, the opportunity you see, and how a partnership with KR8 DIGITALS fits your goals..."
+          placeholder={editableContent.texts.field_02774ea415}
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
         />
       </label>
 
       <label className="field" style={{ marginTop: 16 }}>
-        <span>What strengths, audience, or resources does your organisation bring to the table?</span>
+        <span>{editableContent.texts.text_5d0f09757d}</span>
         <textarea
           rows={3}
-          placeholder="e.g. Specialist creative craft, student community, sponsorship capacity, distribution reach, or venue infrastructure..."
+          placeholder={editableContent.texts.field_0aca16b836}
           value={mutualValue}
           onChange={(e) => setMutualValue(e.target.value)}
         />
@@ -218,12 +215,13 @@ export default function PartnerProposalForm() {
 
       <div style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center' }}>
         <button type="submit" className="btn-primary" disabled={submitting}>
-          {submitting ? 'Submitting Proposal...' : 'Send Partnership Proposal'} <Icon name="arrow" size={17} />
+          {submitting ? editableContent.texts.copy_e5788fda9c : editableContent.texts.copy_4f0919423a} <Icon name="arrow" size={17} />
         </button>
         <span style={{ fontSize: 13, color: 'var(--t-sub)' }}>
-          Reviewed directly by KR8 DIGITALS leadership · Confidential handling
-        </span>
+          {editableContent.texts.text_9a5eaad1dd}</span>
       </div>
     </form>
   );
 }
+
+type EditableBlockTypes = { TRACKS: typeof TRACKS };

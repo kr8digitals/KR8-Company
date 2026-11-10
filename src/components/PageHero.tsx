@@ -1,8 +1,9 @@
+import { getEditableDocument } from '@/lib/editable-content';
 import Link from 'next/link';
 import { Icon } from './ui';
 import { SectionAtmosphere, type CinemaAssetName } from './MobileExperience';
 
-export default function PageHero({
+export default async function PageHero({
   eyebrow,
   title,
   lede,
@@ -21,6 +22,8 @@ export default function PageHero({
   accent?: string;
   cinemaBg?: CinemaAssetName;
 }) {
+  const editableContent = await getEditableDocument("components:PageHero");
+
   return (
     <section className="page-hero">
       <div className="hero-bg" aria-hidden>
@@ -32,8 +35,8 @@ export default function PageHero({
 
       <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
         {crumbs && (
-          <nav className="breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="breadcrumb" aria-label={editableContent.texts.field_2bd873d6c7}>
+            <Link href="/">{editableContent.texts.text_3a78695388}</Link>
             {crumbs.map((c) => (
               <span key={c.label}>
                 <span aria-hidden>/</span>
@@ -64,7 +67,7 @@ export default function PageHero({
   );
 }
 
-export function ClosingCTA({
+export async function ClosingCTA({
   title = 'Tell us what you need built.',
   copy = 'One form. A real reply within a working day. If you would rather talk, WhatsApp is on the right.',
   mobileCopy,
@@ -79,12 +82,14 @@ export function ClosingCTA({
   cta?: string;
   secondary?: { label: string; href: string; out?: boolean };
 }) {
+  const editableContent = await getEditableDocument("components:PageHero");
+
   return (
     <section className="section">
       <div className="wrap">
         <div className="cta-band cta-band--cinema reveal up">
           <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.52} mobOpacity={0.62} flare />
-          <div className="eyebrow eyebrow--lilac">Next step</div>
+          <div className="eyebrow eyebrow--lilac">{editableContent.texts.text_298a9207a7}</div>
           <h2>{title}</h2>
           {mobileCopy ? (
             <>

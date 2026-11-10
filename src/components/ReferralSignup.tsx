@@ -1,4 +1,6 @@
 'use client';
+import { formatEditableText } from '@/lib/content-format';
+import { useEditableContent } from '@/components/EditableContentProvider';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -6,6 +8,8 @@ import { track } from '@/lib/track';
 import { Icon } from './ui';
 
 export default function ReferralSignup() {
+  const editableContent = useEditableContent("components:ReferralSignup");
+
   const [state, setState] = useState<'idle' | 'busy' | 'done' | 'existing'>('idle');
   const [err, setErr] = useState('');
   const [out, setOut] = useState<{ link: string; code: string; key: string } | null>(null);
@@ -47,9 +51,9 @@ export default function ReferralSignup() {
     return (
       <div className="panel" style={{ padding: 30 }}>
         <div className="tag" style={{ color: 'var(--magenta)' }}>
-          {state === 'existing' ? 'You already had an account' : 'Account created'}
+          {state === 'existing' ? editableContent.texts.copy_8de208bb37 : editableContent.texts.copy_f63879fd69}
         </div>
-        <h3 style={{ fontSize: 22, marginTop: 10 }}>This is your link</h3>
+        <h3 style={{ fontSize: 22, marginTop: 10 }}>{editableContent.texts.text_ad69958e61}</h3>
         <div
           style={{
             marginTop: 16, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
@@ -64,29 +68,26 @@ export default function ReferralSignup() {
               try { await navigator.clipboard.writeText(out!.link); setCopied(true); setTimeout(() => setCopied(false), 2200); } catch { /* noop */ }
             }}
           >
-            {copied ? 'Copied' : 'Copy'}
+            {copied ? editableContent.texts.copy_8d525e5f15 : editableContent.texts.copy_e21f935f11}
           </button>
         </div>
         <p style={{ marginTop: 16, fontSize: 13.5, color: 'var(--t-muted)', lineHeight: 1.65 }}>
-          Anyone who reaches us through that link is credited to you for the life of their first project.
-          Your ledger lives at{' '}
-          <Link href="/referrals/dashboard" style={{ color: 'var(--magenta)', fontWeight: 600 }}>the dashboard</Link>
-          {' '}— it needs this device, or your code and key.
-        </p>
+          {editableContent.texts.text_d55aeb7003}{' '}
+          <Link href={editableContent.texts.field_ca3bd633b6} style={{ color: 'var(--magenta)', fontWeight: 600 }}>{editableContent.texts.text_5f142b7c15}</Link>
+          {' '}{editableContent.texts.text_21e2899364}</p>
         {out?.key && (
           <p style={{ marginTop: 10, fontSize: 12, color: 'var(--t-faint)' }}>
-            Private key (kept on this device, shown once): <code style={{ color: 'var(--t-body)' }}>{out.key}</code>
+            {editableContent.texts.text_1064d6aef7}<code style={{ color: 'var(--t-body)' }}>{out.key}</code>
           </p>
         )}
         <div style={{ display: 'flex', gap: 12, marginTop: 20, flexWrap: 'wrap' }}>
           <a
             className="btn-primary btn-sm"
             target="_blank" rel="noopener noreferrer"
-            href={`https://wa.me/?text=${encodeURIComponent(`I think this is worth your time — KR8 Digitals builds websites and brands that actually earn. Start here: ${out?.link}`)}`}
+            href={formatEditableText("https://wa.me/?text={0}", [encodeURIComponent(`I think this is worth your time — KR8 Digitals builds websites and brands that actually earn. Start here: ${out?.link}`)])}
           >
-            <Icon name="wa" size={16} /> Share on WhatsApp
-          </a>
-          <Link href="/referrals/dashboard" className="btn-ghost btn-sm">Open my dashboard</Link>
+            <Icon name="wa" size={16} /> {editableContent.texts.text_a0d01c1659}</a>
+          <Link href={editableContent.texts.field_ca3bd633b6} className="btn-ghost btn-sm">{editableContent.texts.text_2ede437c87}</Link>
         </div>
       </div>
     );
@@ -94,52 +95,48 @@ export default function ReferralSignup() {
 
   return (
     <form className="panel" onSubmit={submit} id="join" style={{ padding: 30 }}>
-      <div className="tag" style={{ color: 'var(--magenta)' }}>Free · no minimum followers</div>
+      <div className="tag" style={{ color: 'var(--magenta)' }}>{editableContent.texts.text_4b5e91cce4}</div>
       <h3 style={{ fontSize: 24, marginTop: 10, fontFamily: 'Montserrat,sans-serif', fontWeight: 800 }}>
-        Create your referral account
-      </h3>
+        {editableContent.texts.text_6448c4ef2b}</h3>
       <p style={{ marginTop: 8, fontSize: 14, color: 'var(--t-muted)', lineHeight: 1.6 }}>
-        Thirty seconds. You get a personal link and a ledger that shows every introduction, its status and
-        what it is worth.
-      </p>
+        {editableContent.texts.text_3c0a4889f1}</p>
       <div className="form-row" style={{ marginTop: 20 }}>
         <div className="field">
-          <label htmlFor="rn">Name <span className="req">*</span></label>
+          <label htmlFor="rn">{editableContent.texts.text_d297e206e6}<span className="req">*</span></label>
           <input id="rn" name="name" className="input" required autoComplete="name" />
         </div>
         <div className="field">
-          <label htmlFor="re">Email <span className="req">*</span></label>
+          <label htmlFor="re">{editableContent.texts.text_009557a4da}<span className="req">*</span></label>
           <input id="re" name="email" type="email" className="input" required autoComplete="email" />
         </div>
       </div>
       <div className="form-row">
         <div className="field">
-          <label htmlFor="rp">WhatsApp</label>
-          <input id="rp" name="phone" className="input" inputMode="tel" placeholder="Optional" />
+          <label htmlFor="rp">{editableContent.texts.text_6a40edf1fc}</label>
+          <input id="rp" name="phone" className="input" inputMode="tel" placeholder={editableContent.texts.field_59be71333c} />
         </div>
         <div className="field">
-          <label htmlFor="rf">Who do you know?</label>
+          <label htmlFor="rf">{editableContent.texts.text_5cd66a272c}</label>
           <select id="rf" name="focus" className="select">
-            <option value="">A bit of everything</option>
-            <option value="Schools">Schools and colleges</option>
-            <option value="Hospitals & clinics">Hospitals and clinics</option>
-            <option value="Retail & fashion">Retail and fashion</option>
-            <option value="Churches & NGOs">Churches and NGOs</option>
-            <option value="Founders">Founders and startups</option>
+            <option value="">{editableContent.texts.text_a4d70ed9e8}</option>
+            <option value="Schools">{editableContent.texts.text_25518b2753}</option>
+            <option value="Hospitals & clinics">{editableContent.texts.text_8949196fce}</option>
+            <option value="Retail & fashion">{editableContent.texts.text_0f9a7b9e89}</option>
+            <option value="Churches & NGOs">{editableContent.texts.text_80c8130d24}</option>
+            <option value="Founders">{editableContent.texts.text_f5f7c83807}</option>
           </select>
         </div>
       </div>
       <label className="consent">
         <input type="checkbox" name="consent" required />
         <span>
-          I accept the referral terms below, and that KR8 Digitals may contact me about introductions.
-        </span>
+          {editableContent.texts.text_79b41297f4}</span>
       </label>
       {err && <div className="form-status err">{err}</div>}
       <button className="btn-primary" type="submit" disabled={state === 'busy'} style={{ marginTop: 8 }}>
-        {state === 'busy' ? <><span className="spinner" /> Creating…</> : <>Create my account <Icon name="arrow" size={16} /></>}
+        {state === 'busy' ? <><span className="spinner" /> {editableContent.texts.text_c79ed9492e}</> : <>{editableContent.texts.text_ace851e865}<Icon name="arrow" size={16} /></>}
       </button>
-      <p className="form-note">No card, no fee, no quota. You only earn on work that is actually paid for.</p>
+      <p className="form-note">{editableContent.texts.text_30874e5b26}</p>
     </form>
   );
 }

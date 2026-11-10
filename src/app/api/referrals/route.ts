@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import crypto from 'node:crypto';
+import { isAuthed } from '@/lib/auth';
 import { store, newId } from '@/lib/store';
 import { sendMail, row, shell } from '@/lib/notify';
 
@@ -36,11 +37,9 @@ export async function POST(req: Request) {
 
   const existing = await store.findOne('referrals', { email });
   if (existing) {
-    return NextResponse.json({
-      ok: true, existing: true, code: existing.code, key: existing.key || '',
-      message: 'You already have a referral account. Sign in with your email to see the ledger.',
-      link: `/r/${existing.code}`,
-    });
+    return NextResponse.json({ ok: false,
+      error: 'Unable to create this account. If you already registered, use your saved code and private key or contact the team for verified recovery.'
+    }, { status: 409 });
   }
 
   const c = code(name);
@@ -64,17 +63,22 @@ export async function POST(req: Request) {
   });
 }
 
+function safeEqual(a: string, b: string) {
+  const left = Buffer.from(a), right = Buffer.from(b);
+  return left.length === right.length && crypto.timingSafeEqual(left, right);
+}
+
 export async function GET(req: Request) {
   // Ledger read. Requires the private key issued at signup (or the admin password).
   const url = new URL(req.url);
   const refCode = (url.searchParams.get('code') || '').trim();
-  const key = (url.searchParams.get('key') || '').trim();
-  const admin = (url.searchParams.get('admin') || '') === (process.env.ADMIN_PASSWORD || '');
+  const key = (req.headers.get('authorization')?.replace(/^Bearer /i, '') || '').trim();
+  const admin = isAuthed(req);
   if (!refCode) return NextResponse.json({ ok: false, error: 'Missing code' }, { status: 400 });
 
   const ref = await store.findOne('referrals', { code: refCode });
   if (!ref) return NextResponse.json({ ok: false, error: 'No such referral account' }, { status: 404 });
-  if (!admin && (!key || key !== ref.key)) {
+  if (!admin && (!key || !ref.key || !safeEqual(key, String(ref.key)))) {
     return NextResponse.json({ ok: false, error: 'That key does not match this account.' }, { status: 401 });
   }
 

@@ -1,13 +1,7 @@
 import crypto from 'node:crypto';
 
-/**
- * Signed order links.
- *
- * The order record still lives in the store, but the confirmation page must
- * never dead-end for someone who has just been told to transfer money. The
- * link therefore carries its own signed copy of the order: if the store has
- * the row we use it, if it does not we verify the signature and render from
- * the token. No customer ever sees a 404 after checkout.
+/** Signed private order links. Customer details remain in PostgreSQL, not URLs.
+ * A signed snapshot is not a substitute for a durable, authoritative order row.
  */
 
 export type OrderPayload = {
@@ -24,11 +18,9 @@ export type OrderPayload = {
 };
 
 function secret() {
-  return (
-    process.env.ORDER_SECRET ||
-    process.env.ADMIN_PASSWORD ||
-    'kr8-order-link-secret'
-  );
+  const value = process.env.ORDER_SECRET || process.env.ADMIN_PASSWORD;
+  if (!value || value.length < 32) throw new Error('Set ORDER_SECRET to at least 32 random characters.');
+  return value;
 }
 
 function b64url(input: Buffer | string) {
@@ -40,12 +32,13 @@ function sign(payload: string) {
 }
 
 export function signOrder(o: OrderPayload): string {
-  const payload = b64url(JSON.stringify(o));
+  const { name: _name, email: _email, phone: _phone, note: _note, ...publicOrder } = o;
+  const payload = b64url(JSON.stringify(publicOrder));
   return `${payload}.${sign(payload)}`;
 }
 
 export function verifyOrder(token: string | undefined | null): OrderPayload | null {
-  if (!token || !token.includes('.')) return null;
+  if (!token || token.split('.').length !== 2) return null;
   const [payload, mac] = token.split('.');
   if (!payload || !mac) return null;
   const expected = sign(payload);

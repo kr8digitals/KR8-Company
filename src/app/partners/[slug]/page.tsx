@@ -1,3 +1,5 @@
+import { getEditableDocument } from '@/lib/editable-content';
+import { getSiteCatalog } from '@/lib/site-content';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -81,6 +83,9 @@ const PARTNER_META: Record<
 };
 
 export default async function PartnerChapterPage({ params }: Props) {
+  const editableContent = await getEditableDocument("app:partners:[slug]:page");
+  const PARTNER_META = editableContent.blocks.PARTNER_META as EditableBlockTypes["PARTNER_META"];
+
   const { slug } = await params;
 
   if (slug === 'his-battle-axe') {
@@ -106,10 +111,10 @@ export default async function PartnerChapterPage({ params }: Props) {
       <section className="kr8-subhero">
         <SectionAtmosphere name={meta.atmo} deskOpacity={0.2} mobOpacity={0.32} flare />
         <div className="wrap">
-          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="kr8-breadcrumb" aria-label={editableContent.texts.field_2bd873d6c7}>
+            <Link href="/">{editableContent.texts.text_3a78695388}</Link>
             <span>/</span>
-            <Link href="/partners">Partners</Link>
+            <Link href={editableContent.texts.field_6d0f8c425c}>{editableContent.texts.text_5dab502bfb}</Link>
             <span>/</span>
             <span style={{ color: 'var(--t-strong)' }}>{partner.name}</span>
           </nav>
@@ -117,8 +122,7 @@ export default async function PartnerChapterPage({ params }: Props) {
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill">
-                <i className="kr8-pill__dot" /> {partner.type} · KR8 DIGITALS Network
-              </span>
+                <i className="kr8-pill__dot" /> {partner.type} {editableContent.texts.text_e13b187903}</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 14 }}>
                 <div className="partner-tile__mark" aria-hidden="true">
                   <span>{partner.mark}</span>
@@ -138,7 +142,7 @@ export default async function PartnerChapterPage({ params }: Props) {
                   color: 'var(--magenta)',
                 }}
               >
-                Led by {partner.person} · {partner.role}
+                {editableContent.texts.text_3f7d52ef9f}{partner.person} · {partner.role}
               </p>
 
               <ResponsiveCopy
@@ -154,8 +158,8 @@ export default async function PartnerChapterPage({ params }: Props) {
                     {meta.founderBtn} <Icon name="arrow" size={17} />
                   </Link>
                 )}
-                <Link href="/partners#propose" className="btn-ghost">
-                  Partner Like {partner.name}
+                <Link href={editableContent.texts.field_e97169a86c} className="btn-ghost">
+                  {editableContent.texts.text_24b4135735}{partner.name}
                 </Link>
               </div>
             </div>
@@ -176,7 +180,7 @@ export default async function PartnerChapterPage({ params }: Props) {
                 <div className="kr8-subhero__badge">
                   <div>
                     <span>{partner.type}</span>
-                    <strong>{partner.name} × KR8 DIGITALS</strong>
+                    <strong>{partner.name} {editableContent.texts.text_78d7580d32}</strong>
                   </div>
                   <span style={{ color: 'var(--t-lilac-strong)' }}>{partner.mark}</span>
                 </div>
@@ -191,8 +195,8 @@ export default async function PartnerChapterPage({ params }: Props) {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ gap: 22 }}>
             <article className="kr8-card kr8-card--accent">
-              <div className="kr8-card__num">ROLE INSIDE THE UMBRELLA</div>
-              <h2 className="kr8-card__title">How {partner.name} Collaborates With KR8 DIGITALS</h2>
+              <div className="kr8-card__num">{editableContent.texts.text_773212890a}</div>
+              <h2 className="kr8-card__title">{editableContent.texts.text_08418a26fc}{partner.name} {editableContent.texts.text_f2b4a37ab6}</h2>
               <ul className="kr8-check-list" style={{ marginTop: 14 }}>
                 {meta.highlights.map((h) => (
                   <li key={h}>{h}</li>
@@ -202,15 +206,14 @@ export default async function PartnerChapterPage({ params }: Props) {
 
             <div style={{ display: 'grid', gap: 16 }}>
               <article className="kr8-card" style={{ padding: '24px 28px' }}>
-                <div className="kr8-card__num">COMMERCIAL &amp; STRATEGIC CONTRIBUTION</div>
+                <div className="kr8-card__num">{editableContent.texts.text_9ba9a80c89}</div>
                 <h3 className="kr8-card__title" style={{ fontSize: 20 }}>
-                  Studio &amp; Ecosystem Scope
-                </h3>
+                  {editableContent.texts.text_d64fe61394}</h3>
                 <p className="kr8-card__body">{partner.contribution}</p>
               </article>
 
               <article className="kr8-card" style={{ padding: '24px 28px' }}>
-                <div className="kr8-card__num">EDUCATION &amp; MENTORSHIP TRACK</div>
+                <div className="kr8-card__num">{editableContent.texts.text_e82c31fa36}</div>
                 <h3 className="kr8-card__title" style={{ fontSize: 20 }}>
                   {partner.teaches}
                 </h3>
@@ -227,15 +230,15 @@ export default async function PartnerChapterPage({ params }: Props) {
           <div className="wrap">
             <div className="sec-head reveal up">
               <div>
-                <div className="eyebrow">KR8 DIGITALS × Motionverse</div>
-                <h2 className="section-title">Published design &amp; campaign work.</h2>
+                <div className="eyebrow">{editableContent.texts.text_d6251b5319}</div>
+                <h2 className="section-title">{editableContent.texts.text_2b52115757}</h2>
               </div>
-              <Link href="/contact?service=graphic-design" className="btn-primary">
-                Commission Design <Icon name="arrow" size={16} />
+              <Link href={editableContent.texts.field_8bffa0643a} className="btn-primary">
+                {editableContent.texts.text_20e08d19a1}<Icon name="arrow" size={16} />
               </Link>
             </div>
             <div style={{ marginTop: 26 }}>
-              <Showcase mode="flyers" />
+              <Showcase catalog={await getSiteCatalog()} mode="flyers" />
             </div>
           </div>
         </section>
@@ -246,15 +249,15 @@ export default async function PartnerChapterPage({ params }: Props) {
           <div className="wrap">
             <div className="sec-head reveal up">
               <div>
-                <div className="eyebrow">KR8 DIGITALS × Chigoma</div>
-                <h2 className="section-title">Published film &amp; documentary cuts.</h2>
+                <div className="eyebrow">{editableContent.texts.text_75adce0e26}</div>
+                <h2 className="section-title">{editableContent.texts.text_dbb6f5cc6c}</h2>
               </div>
-              <Link href="/contact?service=video-editing" className="btn-primary">
-                Commission Video Editing <Icon name="arrow" size={16} />
+              <Link href={editableContent.texts.field_877fc4ac7b} className="btn-primary">
+                {editableContent.texts.text_97cb8b7eed}<Icon name="arrow" size={16} />
               </Link>
             </div>
             <div style={{ marginTop: 26 }}>
-              <Showcase mode="videos" />
+              <Showcase catalog={await getSiteCatalog()} mode="videos" />
             </div>
           </div>
         </section>
@@ -264,8 +267,7 @@ export default async function PartnerChapterPage({ params }: Props) {
       <section className="section" style={{ borderTop: '1px solid var(--hair-soft)' }}>
         <div className="wrap">
           <div className="eyebrow" style={{ marginBottom: 16 }}>
-            Other Active Partners
-          </div>
+            {editableContent.texts.text_d953222b38}</div>
           <div className="kr8-grid-2">
             {otherPartners.map((op: any) => (
               <Link
@@ -279,7 +281,7 @@ export default async function PartnerChapterPage({ params }: Props) {
                 <p className="kr8-card__body">{op.blurb}</p>
                 <div className="kr8-card__foot">
                   <span className="btn-link">
-                    Read {op.name} Chapter <Icon name="arrow" size={14} />
+                    {editableContent.texts.text_1902cdc703}{op.name} {editableContent.texts.text_855d5a5345}<Icon name="arrow" size={14} />
                   </span>
                 </div>
               </Link>
@@ -289,24 +291,22 @@ export default async function PartnerChapterPage({ params }: Props) {
           <div className="kr8-cta-banner reveal up" style={{ marginTop: 34 }}>
             <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.45} mobOpacity={0.55} flare />
             <div>
-              <span className="kr8-pill">Open Partner Applications</span>
+              <span className="kr8-pill">{editableContent.texts.text_efe8b8f800}</span>
               <h2 className="section-title" style={{ marginTop: 14 }}>
-                Interested in building an alliance with KR8 DIGITALS?
-              </h2>
+                {editableContent.texts.text_ba01b7f137}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Submit a partnership proposal directly to our leadership team and explore how our organisations can create and teach together."
-                mobile="Submit a proposal directly to our founding team to build and teach together."
+                desktop={editableContent.texts.field_16b8a57c71}
+                mobile={editableContent.texts.field_abc8bb9e8f}
               />
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-              <Link href="/partners#propose" className="btn-primary">
-                Propose a Partnership <Icon name="arrow" size={17} />
+              <Link href={editableContent.texts.field_e97169a86c} className="btn-primary">
+                {editableContent.texts.text_1c8ed1d77f}<Icon name="arrow" size={17} />
               </Link>
-              <Link href="/partners" className="btn-ghost">
-                All Partners
-              </Link>
+              <Link href={editableContent.texts.field_6d0f8c425c} className="btn-ghost">
+                {editableContent.texts.text_7894eddc23}</Link>
             </div>
           </div>
         </div>
@@ -314,3 +314,5 @@ export default async function PartnerChapterPage({ params }: Props) {
     </>
   );
 }
+
+type EditableBlockTypes = { PARTNER_META: typeof PARTNER_META };

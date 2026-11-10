@@ -1,4 +1,7 @@
 'use client';
+import { formatEditableText } from '@/lib/content-format';
+import { useEditableContent } from '@/components/EditableContentProvider';
+import { usePublicContent } from '@/components/PublicContentProvider';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -11,6 +14,13 @@ import ThemeToggle from './ThemeToggle';
 const eco = nav.ecosystem;
 
 export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
+  const editableContent = useEditableContent("components:Header");
+
+
+  const publicData = usePublicContent();
+  const nav = publicData.site;
+  const eco = nav.ecosystem;
+
   const pathname = usePathname() || '/';
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -75,12 +85,12 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
     <>
       <header className={`site-header${scrolled ? ' is-scrolled' : ''}`}>
         <div className="scroll-progress" ref={barRef} aria-hidden />
-        <nav className="nav" aria-label="Primary">
+        <nav className="nav" aria-label={editableContent.texts.field_efe10c80ec}>
           <Link href="/" className="logo">
             <span className="logo__type">
-              KR8<span className="g" style={{ marginLeft: 7 }}>Digitals</span>
+              {editableContent.texts.text_be3b4e8ce7}<span className="g" style={{ marginLeft: 7 }}>{editableContent.texts.text_0381a64b55}</span>
             </span>
-            <span className="sr-only"> — home</span>
+            <span className="sr-only"> {editableContent.texts.text_7dc3a67c4a}</span>
           </Link>
 
           <div className="nav-links">
@@ -99,8 +109,7 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
                   if (!ecoOpen) track('eco_switcher_open');
                 }}
               >
-                KR8 network
-                <svg width="10" height="7" viewBox="0 0 10 7" aria-hidden>
+                {editableContent.texts.text_784aec5812}<svg width="10" height="7" viewBox="0 0 10 7" aria-hidden>
                   <path
                     d="M1 1l4 4 4-4"
                     stroke="currentColor"
@@ -113,8 +122,8 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
               <div className={`eco__menu${ecoOpen ? ' is-open' : ''}`} role="menu">
                 <Link className="eco__item eco__item--parent" href="/" role="menuitem">
                   <span>
-                    <b>KR8 Digitals</b>
-                    <span>The company · you are here</span>
+                    <b>{editableContent.texts.text_a2c7490db5}</b>
+                    <span>{editableContent.texts.text_c29ebcdd4b}</span>
                   </span>
                 </Link>
                 <div className="eco__sep" />
@@ -127,22 +136,22 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
                   onClick={() => track('outbound_click', { href: 'academy', label: 'eco_switcher' })}
                 >
                   <span>
-                    <b>KR8 Academy</b>
-                    <span>the school of KR8 Digitals</span>
+                    <b>{editableContent.texts.text_ca538eaf54}</b>
+                    <span>{editableContent.texts.text_8fa3d0488a}</span>
                   </span>
-                  <span className="eco__tag">Live ↗</span>
+                  <span className="eco__tag">{editableContent.texts.text_05bed7c2df}</span>
                 </a>
                 <Link
                   className="eco__item"
-                  href="/tribe"
+                  href={editableContent.texts.field_3df0ed1318}
                   role="menuitem"
                   onClick={() => track('outbound_click', { href: 'tribe', label: 'eco_switcher' })}
                 >
                   <span>
-                    <b>KR8 DIGITALS TRIBE</b>
-                    <span>the creative &amp; builder community</span>
+                    <b>{editableContent.texts.text_5c09b75136}</b>
+                    <span>{editableContent.texts.text_d1c8f5f1b7}</span>
                   </span>
-                  <span className="eco__tag">Join →</span>
+                  <span className="eco__tag">{editableContent.texts.text_cad1f8a29b}</span>
                 </Link>
               </div>
             </div>
@@ -163,7 +172,7 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
             <ThemeToggle variant="icon" />
             <button
               className={`burger${open ? ' is-open' : ''}`}
-              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-label={open ? editableContent.texts.copy_6ccd5c7856 : editableContent.texts.copy_b40b3713b4}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
             >
@@ -192,7 +201,7 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
         ))}
 
         <div className="sheet__eco" style={{ marginTop: 14 }}>
-          <div className="sheet__eco-lbl">KR8 Ecosystem &amp; Free Opportunities</div>
+          <div className="sheet__eco-lbl">{editableContent.texts.text_8925a79f6c}</div>
           <div className="sheet__quick-grid">
             <a
               href={eco.academy.url}
@@ -201,20 +210,20 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
               className="sheet__quick-tile"
               tabIndex={open ? 0 : -1}
             >
-              <b>KR8 Academy ↗</b>
-              <span>7 Free Skill Tracks</span>
+              <b>{editableContent.texts.text_2e3c6f63d0}</b>
+              <span>{editableContent.texts.text_3719a15571}</span>
             </a>
-            <Link href="/tribe" className="sheet__quick-tile" tabIndex={open ? 0 : -1}>
-              <b>KR8 Tribe →</b>
-              <span>3,000+ Creators</span>
+            <Link href={editableContent.texts.field_3df0ed1318} className="sheet__quick-tile" tabIndex={open ? 0 : -1}>
+              <b>{editableContent.texts.text_50b2c9d800}</b>
+              <span>{editableContent.texts.text_9ee465e241}</span>
             </Link>
-            <Link href="/programs/mindset-shift/invite" className="sheet__quick-tile" tabIndex={open ? 0 : -1}>
-              <b>Mindset Shift →</b>
-              <span>Free Live Forum</span>
+            <Link href={editableContent.texts.field_83281429bb} className="sheet__quick-tile" tabIndex={open ? 0 : -1}>
+              <b>{editableContent.texts.text_bef7597d8d}</b>
+              <span>{editableContent.texts.text_8a5a1c71f2}</span>
             </Link>
-            <Link href="/about/join-the-team" className="sheet__quick-tile" tabIndex={open ? 0 : -1}>
-              <b>Join the Team →</b>
-              <span>Merit Studio Path</span>
+            <Link href={editableContent.texts.field_78c2a55cd4} className="sheet__quick-tile" tabIndex={open ? 0 : -1}>
+              <b>{editableContent.texts.text_c52693fc51}</b>
+              <span>{editableContent.texts.text_5f1984bef9}</span>
             </Link>
           </div>
         </div>
@@ -234,10 +243,9 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
           }}
         >
           <div>
-            <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t-strong)' }}>Appearance</div>
+            <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t-strong)' }}>{editableContent.texts.text_3907fa7f80}</div>
             <div style={{ fontSize: 10.5, color: 'var(--t-sub)', marginTop: 1 }}>
-              Auto: Light by day · Dark by night
-            </div>
+              {editableContent.texts.text_874a64168b}</div>
           </div>
           <ThemeToggle variant="segmented" />
         </div>
@@ -252,15 +260,14 @@ export default function Header({ navConfig }: { navConfig?: CmsNavConfig }) {
             {ctaLabel}
           </Link>
           <a
-            href={`https://wa.me/${nav.company.whatsapp}`}
+            href={formatEditableText("https://wa.me/{0}", [nav.company.whatsapp])}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-ghost"
             style={{ justifyContent: 'center' }}
             tabIndex={open ? 0 : -1}
           >
-            WhatsApp ↗
-          </a>
+            {editableContent.texts.text_4206ac3f16}</a>
         </div>
       </div>
     </>

@@ -1,3 +1,6 @@
+import { formatEditableText } from '@/lib/content-format';
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
@@ -8,18 +11,21 @@ import { ResponsiveCopy, SectionAtmosphere } from '@/components/MobileExperience
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Contact & Project Briefs — Work With KR8 DIGITALS',
-  description:
-    'Request a fixed project scope for Website Design, Branding, Graphic Design, Video Editing, SEO Optimization, or AI Automation — or reach the KR8 DIGITALS team directly.',
-  alternates: { canonical: '/contact' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:contact:page")).blocks.metadata as Metadata;
+}
 
 type Props = {
   searchParams: Promise<{ service?: string; site?: string; ref?: string }>;
 };
 
 export default async function ContactPage({ searchParams }: Props) {
+  const editableContent = await getEditableDocument("app:contact:page");
+
+  const publicData = await getPublicContent();
+  const site = publicData.site;
+  const services = publicData.services;
+
   const sp = await searchParams;
   const matchedService = services.find((s) => s.slug === sp.service);
 
@@ -32,26 +38,21 @@ export default async function ContactPage({ searchParams }: Props) {
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill">
-                <i className="kr8-pill__dot" /> Start a Project · KR8 DIGITALS
-              </span>
+                <i className="kr8-pill__dot" /> {editableContent.texts.text_120b4967e2}</span>
               <h1 className="kr8-subhero__title">
-                Tell us what you are building.{' '}
-                <em>Get a real scope in writing.</em>
+                {editableContent.texts.text_6b19ffc76e}{' '}
+                <em>{editableContent.texts.text_55f066dd94}</em>
               </h1>
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={
                   <>
-                    Every commercial engagement at <strong>KR8 DIGITALS</strong> starts with clarity: your business
-                    objective, defined deliverables, timeline milestones, and a transparent fixed figure — answered
-                    directly by the practitioners who will build the work.
-                  </>
+                    {editableContent.texts.text_c9d05973ab}<strong>{editableContent.texts.text_0bbfb207b2}</strong> {editableContent.texts.text_0d9a0f7afe}</>
                 }
                 mobile={
                   <>
-                    Share your goal in a sentence or two — receive a clear written scope, timeline, and fixed
-                    quote within <strong>1 business day</strong>.
+                    {editableContent.texts.text_a82e1df408}<strong>{editableContent.texts.text_cae0c06b2d}</strong>.
                   </>
                 }
               />
@@ -59,57 +60,53 @@ export default async function ContactPage({ searchParams }: Props) {
 
             <div className="kr8-grid-2 kr8-contact-quad" style={{ gap: 14 }}>
               <a
-                href={`mailto:${site.company.email}`}
+                href={formatEditableText("mailto:{0}", [site.company.email])}
                 className="kr8-card"
                 style={{ textDecoration: 'none', padding: '22px 24px' }}
               >
-                <div className="kr8-card__num">DIRECT EMAIL</div>
+                <div className="kr8-card__num">{editableContent.texts.text_275a568aba}</div>
                 <strong style={{ color: 'var(--t-strong)', fontSize: 13.5, overflowWrap: 'anywhere' }}>
                   {site.company.email}
                 </strong>
                 <span style={{ fontSize: 12.5, color: 'var(--t-sub)', marginTop: 6, display: 'block' }}>
-                  Written briefs &amp; docs
-                </span>
+                  {editableContent.texts.text_5b6be7bbf9}</span>
               </a>
 
               <a
-                href={`https://wa.me/${site.company.whatsapp}`}
+                href={formatEditableText("https://wa.me/{0}", [site.company.whatsapp])}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="kr8-card kr8-card--accent"
                 style={{ textDecoration: 'none', padding: '22px 24px' }}
               >
-                <div className="kr8-card__num">WHATSAPP / PHONE</div>
+                <div className="kr8-card__num">{editableContent.texts.text_6dd68d4276}</div>
                 <strong style={{ color: 'var(--t-strong)', fontSize: 14.5 }}>{site.company.phone}</strong>
                 <span style={{ fontSize: 12.5, color: 'var(--t-sub)', marginTop: 6, display: 'block' }}>
-                  Fast executive reply →
-                </span>
+                  {editableContent.texts.text_f066f7bc47}</span>
               </a>
 
               <Link
-                href="/partners#propose"
+                href={editableContent.texts.field_e97169a86c}
                 className="kr8-card"
                 style={{ textDecoration: 'none', padding: '22px 24px' }}
               >
-                <div className="kr8-card__num">PARTNERSHIPS</div>
-                <strong style={{ color: 'var(--t-strong)', fontSize: 14.5 }}>Propose an Alliance</strong>
+                <div className="kr8-card__num">{editableContent.texts.text_88c4ce23a6}</div>
+                <strong style={{ color: 'var(--t-strong)', fontSize: 14.5 }}>{editableContent.texts.text_f917533459}</strong>
                 <span style={{ fontSize: 12.5, color: 'var(--t-sub)', marginTop: 6, display: 'block' }}>
-                  Studios, schools &amp; sponsors →
-                </span>
+                  {editableContent.texts.text_cae5a80b2f}</span>
               </Link>
 
               <a
-                href="https://academy.kr8digitals.com"
+                href={editableContent.texts.field_fd6b7397b2}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="kr8-card"
                 style={{ textDecoration: 'none', padding: '22px 24px' }}
               >
-                <div className="kr8-card__num">FREE TRAINING</div>
-                <strong style={{ color: 'var(--t-strong)', fontSize: 14.5 }}>KR8 Academy</strong>
+                <div className="kr8-card__num">{editableContent.texts.text_4633bbfb98}</div>
+                <strong style={{ color: 'var(--t-strong)', fontSize: 14.5 }}>{editableContent.texts.text_ca538eaf54}</strong>
                 <span style={{ fontSize: 12.5, color: 'var(--t-sub)', marginTop: 6, display: 'block' }}>
-                  100% free admissions ↗
-                </span>
+                  {editableContent.texts.text_6b89de70d6}</span>
               </a>
             </div>
           </div>
@@ -133,39 +130,32 @@ export default async function ContactPage({ searchParams }: Props) {
                 <div className="kr8-card-photo">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/img/contact/scoping-session.webp"
-                    alt="KR8 DIGITALS engineering and creative leads scoping a client project in a sunlit studio"
+                    src={editableContent.texts.field_55f987af05}
+                    alt={editableContent.texts.field_7858480091}
                   />
-                  <span className="kr8-card-photo__tag">1 Business Day Reply</span>
+                  <span className="kr8-card-photo__tag">{editableContent.texts.text_4b6e4d2f41}</span>
                 </div>
-                <div className="kr8-card__num">HOW SCOPING WORKS AT KR8 DIGITALS</div>
-                <h2 className="kr8-card__title">What happens after you send a brief</h2>
+                <div className="kr8-card__num">{editableContent.texts.text_8f486ddb7b}</div>
+                <h2 className="kr8-card__title">{editableContent.texts.text_6149acac42}</h2>
                 <ul className="kr8-check-list" style={{ marginTop: 14 }}>
                   <li>
-                    <strong>Practitioner Review:</strong> Your brief goes straight to our engineering, design, or
-                    post-production lead — never a scripted call center.
-                  </li>
+                    <strong>{editableContent.texts.text_a0c3b838d4}</strong> {editableContent.texts.text_f7d584521c}</li>
                   <li>
-                    <strong>Written Scope &amp; Fixed Figure:</strong> We reply with clear deliverables, milestone
-                    dates, and a fixed quote before you commit to anything.
-                  </li>
+                    <strong>{editableContent.texts.text_72c2d9c6a2}</strong> {editableContent.texts.text_5b796bcf7b}</li>
                   <li>
-                    <strong>100% Client Ownership:</strong> Domains, source repositories, brand master files, and
-                    final exports belong cleanly to your organisation.
-                  </li>
+                    <strong>{editableContent.texts.text_e1542e6ab0}</strong> {editableContent.texts.text_a5cba23ae5}</li>
                 </ul>
               </article>
 
               <article className="kr8-card">
-                <div className="kr8-card__num">SIX COMMERCIAL DISCIPLINES</div>
+                <div className="kr8-card__num">{editableContent.texts.text_0a9a0d978b}</div>
                 <h3 className="kr8-card__title" style={{ fontSize: 19 }}>
-                  Explore Service Specifications
-                </h3>
+                  {editableContent.texts.text_582e9356b1}</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
                   {services.map((s) => (
                     <Link
                       key={s.slug}
-                      href={`/services/${s.slug}`}
+                      href={formatEditableText("/services/{0}", [s.slug])}
                       className="btn-ghost btn-sm"
                     >
                       {s.short} <Icon name="arrow" size={13} />

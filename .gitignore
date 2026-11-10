@@ -4,3 +4,7 @@ node_modules
 .data
 *.log
 *.tsbuildinfo
+.env
+.env.*
+!.env.example
+.vercel

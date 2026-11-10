@@ -1,13 +1,13 @@
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
 import { SectionAtmosphere } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | KR8 DIGITALS',
-  description: 'How KR8 DIGITALS collects, uses, safeguards, and respects personal information across our website, programs, and services.',
-  alternates: { canonical: '/privacy' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:privacy:page")).blocks.metadata as Metadata;
+}
 
 const SECTIONS = [
   {
@@ -32,18 +32,22 @@ const SECTIONS = [
   },
 ];
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const editableContent = await getEditableDocument("app:privacy:page");
+  const SECTIONS = editableContent.blocks.SECTIONS as EditableBlockTypes["SECTIONS"];
+
+  const publicData = await getPublicContent();
+  const site = publicData.site;
+
   return (
     <>
       <section className="kr8-subhero" style={{ paddingBottom: 38 }}>
         <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.28} mobOpacity={0.38} flare />
         <div className="wrap">
-          <span className="kr8-pill">Legal &amp; Trust · KR8 DIGITALS</span>
-          <h1 className="kr8-subhero__title">Privacy Policy</h1>
+          <span className="kr8-pill">{editableContent.texts.text_e824db131e}</span>
+          <h1 className="kr8-subhero__title">{editableContent.texts.text_506ff39462}</h1>
           <p className="kr8-subhero__lede">
-            Clear, plain-English commitments on how KR8 DIGITALS handles inquiry data, partnership proposals,
-            referral records, and digital assistant conversations.
-          </p>
+            {editableContent.texts.text_2a46858950}</p>
         </div>
       </section>
 
@@ -60,18 +64,17 @@ export default function PrivacyPage() {
           </div>
 
           <div style={{ marginTop: 32, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-            <Link href="/terms" className="btn-ghost btn-sm">
-              Terms of Service
-            </Link>
-            <Link href="/accessibility" className="btn-ghost btn-sm">
-              Accessibility Statement
-            </Link>
-            <Link href="/contact" className="btn-ghost btn-sm">
-              Contact KR8 DIGITALS
-            </Link>
+            <Link href={editableContent.texts.field_2dda5c6b8e} className="btn-ghost btn-sm">
+              {editableContent.texts.text_4afa55bf7a}</Link>
+            <Link href={editableContent.texts.field_8034008c1a} className="btn-ghost btn-sm">
+              {editableContent.texts.text_78d4fc94c0}</Link>
+            <Link href={editableContent.texts.field_4eb9506365} className="btn-ghost btn-sm">
+              {editableContent.texts.text_6bae6b2c4e}</Link>
           </div>
         </div>
       </section>
     </>
   );
 }
+
+type EditableBlockTypes = { SECTIONS: typeof SECTIONS };

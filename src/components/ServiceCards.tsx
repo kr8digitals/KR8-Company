@@ -1,3 +1,4 @@
+import { getEditableDocument } from '@/lib/editable-content';
 import Link from 'next/link';
 import { Icon } from './ui';
 
@@ -102,7 +103,10 @@ const HOME_SERVICES: HomeServiceCard[] = [
   },
 ];
 
-export default function ServiceCards() {
+export default async function ServiceCards() {
+  const editableContent = await getEditableDocument("components:ServiceCards");
+  const HOME_SERVICES = editableContent.blocks.HOME_SERVICES as EditableBlockTypes["HOME_SERVICES"];
+
   return (
     <div className="svc-grid">
       {HOME_SERVICES.map((s, i) => (
@@ -141,3 +145,5 @@ export default function ServiceCards() {
     </div>
   );
 }
+
+type EditableBlockTypes = { HOME_SERVICES: typeof HOME_SERVICES };

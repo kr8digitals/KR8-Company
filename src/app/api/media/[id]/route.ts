@@ -10,7 +10,7 @@ export async function GET(
 ) {
   const { id } = await params;
   const item = await store.findOne('cms_media', { id });
-  if (!item || !item.dataBase64) {
+  if (!item || !item.dataBase64 || item.status === 'archived' || !['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(item.mimeType)) {
     return new NextResponse('Media not found', { status: 404 });
   }
 
@@ -21,7 +21,8 @@ export async function GET(
     status: 200,
     headers: {
       'Content-Type': item.mimeType || 'image/webp',
-      'Cache-Control': 'public, max-age=31536000, immutable',
+      'Cache-Control': 'public, max-age=3600',
+      'X-Content-Type-Options': 'nosniff',
     },
   });
 }

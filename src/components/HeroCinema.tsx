@@ -1,4 +1,6 @@
 'use client';
+import { useEditableContent } from '@/components/EditableContentProvider';
+import { usePublicContent } from '@/components/PublicContentProvider';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
@@ -48,9 +50,9 @@ const BEATS: Beat[] = [
 /** Sites in the order they deserve to be shown: client work first. */
 const HERO_SITES = ['afristem', 'cirenes', 'mcgettrick', 'rapha', 'monabliss', 'tastia', 'salt-lake', 'vegas', 'xenia', 'adig-suites'];
 
-function siteItems() {
+function siteItems(sitesData: typeof import('../../data/sites.json'), order: string[]) {
   const by = new Map(sitesData.sites.map((s) => [s.slug, s] as const));
-  const picked = HERO_SITES.map((slug) => by.get(slug)).filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const picked = order.map((slug) => by.get(slug)).filter((s): s is NonNullable<typeof s> => Boolean(s));
   return picked.map((s) => ({
     img: s.full || s.card,
     thumb: s.card,
@@ -62,7 +64,7 @@ function siteItems() {
   }));
 }
 
-function flyerItems() {
+function flyerItems(sitesData: typeof import('../../data/sites.json')) {
   return sitesData.flyers.map((f) => ({
     img: f.full || f.card,
     thumb: f.card,
@@ -90,14 +92,28 @@ const OFFERS = [
 const OFFER_MS = 1900;
 
 export default function HeroCinema() {
+  const editableContent = useEditableContent("components:HeroCinema");
+  const BEATS = editableContent.blocks.BEATS as EditableBlockTypes["BEATS"];
+  const FOUNDERS = editableContent.blocks.FOUNDERS as EditableBlockTypes["FOUNDERS"];
+  const HERO_SITES = editableContent.blocks.HERO_SITES as string[];
+
+  const publicData = usePublicContent();
+  const sitesData = publicData.catalog;
+  const services = publicData.services;
+  const programmes = publicData.programmes;
+
+  const OFFERS = [
+    ...services.map(s => ({ kind: 'Service', n: s.order, name: s.group || s.name, line: s.tagline, href: `/services#${s.anchor || s.slug}` })),
+    ...programmes.programmes.map(p => ({ kind: 'Programme', n: null as number | null, name: p.name, line: p.lede || '', href: '/programs' })),
+  ];
   const [beat, setBeat] = useState(0);
   const [paused, setPaused] = useState(false);
   const [slide, setSlide] = useState(0);
   const [offer, setOffer] = useState(0);
-  const current = BEATS[beat];
+  const current = BEATS[beat % BEATS.length];
 
-  const sites = useMemo(siteItems, []);
-  const flyers = useMemo(flyerItems, []);
+  const sites = useMemo(() => siteItems(sitesData, HERO_SITES), [sitesData, HERO_SITES]);
+  const flyers = useMemo(() => flyerItems(sitesData), [sitesData]);
 
   const go = useCallback((i: number) => setBeat(((i % BEATS.length) + BEATS.length) % BEATS.length), []);
 
@@ -123,17 +139,14 @@ export default function HeroCinema() {
 
   /* offers advance */
   useEffect(() => {
-    if (paused || current.id !== 'offers') return;
+    if (paused || current.id !== 'offers' || !OFFERS.length) return;
     const start = Date.now();
     const t = setInterval(() => setOffer(Math.floor((Date.now() - start) / OFFER_MS) % OFFERS.length), 150);
     return () => clearInterval(t);
-  }, [current.id, paused]);
+  }, [current.id, paused, OFFERS.length]);
 
-  const words = current.id === 'welcome'
-    ? ['Welcome', 'to', 'KR8\u00A0Digitals']
-    : current.id === 'built'
-      ? ['See', 'what', "we've", 'built', 'for', 'clients']
-      : current.title.split(' ');
+  const words = current.title.split(' ');
+  const activeOffer = OFFERS[offer % OFFERS.length];
 
   const isCarousel = current.id === 'sites' || current.id === 'design';
   const items = current.id === 'sites' ? sites : flyers;
@@ -149,7 +162,7 @@ export default function HeroCinema() {
     >
       <div className="cine__frame">
         {/* ---- background plates -------------------------------------------- */}
-        {['rays', 'glass', 'tunnel', 'bokeh'].map((p) => (
+        {["rays", "glass", "tunnel", "bokeh"].map((p) => (
           <div
             key={p}
             className={`cine__plate cine__plate--${p}${current.plate === p ? ' is-on' : ''}`}
@@ -182,8 +195,8 @@ export default function HeroCinema() {
             <span className="cine__mark-ring" />
             <span className="cine__mark-ring cine__mark-ring--2" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/img/brand/kr8-mark.webp" alt="" width={260} height={260} />
-            <span className="cine__mark-word">KR8<span>Digitals</span></span>
+            <img src={editableContent.texts.field_f3b8ba617d} alt="" width={260} height={260} />
+            <span className="cine__mark-word">{editableContent.texts.text_be3b4e8ce7}<span>{editableContent.texts.text_0381a64b55}</span></span>
           </div>
         )}
 
@@ -209,7 +222,7 @@ export default function HeroCinema() {
                   >
                     <div className="cine__chrome">
                       <span className="cine__dot" /><span className="cine__dot" /><span className="cine__dot" />
-                      <span className="cine__url">{it.kind === 'site' ? (it.href || '').replace(/^https?:\/\//, '').replace(/\/$/, '') : 'client artwork'}</span>
+                      <span className="cine__url">{it.kind === 'site' ? (it.href || '').replace(/^https?:\/\//, '').replace(/\/$/, '') : editableContent.texts.copy_a4b1d0d574}</span>
                     </div>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={it.img} alt={it.name} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
@@ -230,12 +243,12 @@ export default function HeroCinema() {
         )}
 
         {/* ---- beat 6: services, then programmes --------------------------- */}
-        {current.id === 'offers' && (
+        {current.id === 'offers' && activeOffer && (
           <div className="cine__offers" aria-hidden>
             <div className="cine__offer" key={offer}>
-              <div className="cine__offer-kind">{OFFERS[offer].kind}</div>
-              <div className="cine__offer-name">{OFFERS[offer].name}</div>
-              <div className="cine__offer-line">{OFFERS[offer].line}</div>
+              <div className="cine__offer-kind">{activeOffer.kind}</div>
+              <div className="cine__offer-name">{activeOffer.name}</div>
+              <div className="cine__offer-line">{activeOffer.line}</div>
             </div>
             <div className="cine__offer-count">
               <b>{String(offer + 1).padStart(2, '0')}</b><span>/</span>{String(OFFERS.length).padStart(2, '0')}
@@ -264,7 +277,7 @@ export default function HeroCinema() {
         <div className="cine__bar cine__bar--bot" aria-hidden />
       </div>
 
-      <div className="stage-scenes" role="tablist" aria-label="Hero chapters">
+      <div className="stage-scenes" role="tablist" aria-label={editableContent.texts.field_4555d9323a}>
         {BEATS.map((b, i) => (
           <button
             key={b.id}
@@ -284,3 +297,5 @@ export default function HeroCinema() {
     </div>
   );
 }
+
+type EditableBlockTypes = { BEATS: typeof BEATS; HERO_SITES: typeof HERO_SITES; FOUNDERS: typeof FOUNDERS };

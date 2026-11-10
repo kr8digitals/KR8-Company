@@ -1,3 +1,4 @@
+import { getEditableDocument } from '@/lib/editable-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
@@ -8,12 +9,9 @@ import {
   SectionAtmosphere,
 } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'KR8 DIGITALS TRIBE — The Creative & Builder Community',
-  description:
-    'KR8 DIGITALS TRIBE is the judgment-free creative family where designers, developers, video editors, and founders critique work, team up on sprints, and grow together.',
-  alternates: { canonical: '/tribe' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:tribe:page")).blocks.metadata as Metadata;
+}
 
 const TRIBE_PILLARS = [
   {
@@ -42,58 +40,55 @@ const TRIBE_PILLARS = [
   },
 ];
 
-export default function TribePage() {
+export default async function TribePage() {
+  const editableContent = await getEditableDocument("app:tribe:page");
+  const TRIBE_PILLARS = editableContent.blocks.TRIBE_PILLARS as EditableBlockTypes["TRIBE_PILLARS"];
+
   return (
     <>
       {/* ============================================================ HERO */}
       <section className="kr8-subhero">
         <SectionAtmosphere name="tribe-creative-room" deskOpacity={0.2} mobOpacity={0.34} flare />
         <div className="wrap">
-          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="kr8-breadcrumb" aria-label={editableContent.texts.field_2bd873d6c7}>
+            <Link href="/">{editableContent.texts.text_3a78695388}</Link>
             <span>/</span>
-            <Link href="/programs">Programs</Link>
+            <Link href={editableContent.texts.field_271bdd2473}>{editableContent.texts.text_b6747064b2}</Link>
             <span>/</span>
-            <span style={{ color: 'var(--t-strong)' }}>KR8 DIGITALS TRIBE</span>
+            <span style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_5c09b75136}</span>
           </nav>
 
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill kr8-pill--green">
-                <i className="kr8-pill__dot" /> KR8 DIGITALS TRIBE · Active Builder Community
-              </span>
+                <i className="kr8-pill__dot" /> {editableContent.texts.text_fa97e8b2c9}</span>
               <h1 className="kr8-subhero__title">
-                No builder grows to mastery{' '}
-                <em>in isolation.</em>
+                {editableContent.texts.text_87c8e303ca}{' '}
+                <em>{editableContent.texts.text_7345b95ce2}</em>
               </h1>
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={
                   <>
-                    <strong>KR8 DIGITALS TRIBE</strong> is the creative family keeping the studio room open for KR8
-                    Academy alumni and disciplined African designers, developers, video editors, and founders — built
-                    around honest critique, collaborative sprints, and shared momentum.
-                  </>
+                    <strong>{editableContent.texts.text_5c09b75136}</strong> {editableContent.texts.text_d8e5e1ffdb}</>
                 }
                 mobile={
                   <>
-                    Join <strong>3,000+</strong> African designers, developers, video editors, and founders for
-                    honest critique, sprint collaborations, and shared gig flow — 100% free.
-                  </>
+                    {editableContent.texts.text_bb23428b65}<strong>3,000+</strong> {editableContent.texts.text_d3f013528b}</>
                 }
               />
               <div className="kr8-subhero__actions">
-                <a href="#join-tribe" className="btn-primary">
-                  Request Tribe Access <Icon name="arrow" size={17} />
+                <a href={editableContent.texts.field_8262341aae} className="btn-primary">
+                  {editableContent.texts.text_7db6e5513a}<Icon name="arrow" size={17} />
                 </a>
                 <a
-                  href="https://academy.kr8digitals.com"
+                  href={editableContent.texts.field_fd6b7397b2}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-ghost"
                 >
-                  Start With KR8 Academy <Icon name="external" size={15} />
+                  {editableContent.texts.text_cedabd18c9}<Icon name="external" size={15} />
                 </a>
               </div>
             </div>
@@ -101,16 +96,16 @@ export default function TribePage() {
             <div className="kr8-subhero__frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/programs/tribe-community.webp"
-                alt="Designers, developers, and editors collaborating inside KR8 DIGITALS TRIBE"
+                src={editableContent.texts.field_7c5e8e588a}
+                alt={editableContent.texts.field_479e660c52}
               />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>100% Free Community · 3,000+ Members</span>
-                  <strong>Critique · Sprints · Accountability</strong>
+                  <span>{editableContent.texts.text_1a4e186fc9}</span>
+                  <strong>{editableContent.texts.text_66e59bae7b}</strong>
                 </div>
-                <a href="#join-tribe" className="btn-link" style={{ whiteSpace: 'nowrap' }}>
-                  Join List <Icon name="arrow" size={13} />
+                <a href={editableContent.texts.field_8262341aae} className="btn-link" style={{ whiteSpace: 'nowrap' }}>
+                  {editableContent.texts.text_f9a7f378c5}<Icon name="arrow" size={13} />
                 </a>
               </div>
             </div>
@@ -123,9 +118,9 @@ export default function TribePage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">How the Room Works</div>
+              <div className="eyebrow">{editableContent.texts.text_8ec006881b}</div>
               <h2 className="section-title">
-                Four pillars of <span className="text-grad">KR8 DIGITALS TRIBE.</span>
+                {editableContent.texts.text_09106d9c5a}<span className="text-grad">{editableContent.texts.text_f22ccae13a}</span>
               </h2>
             </div>
           </div>
@@ -133,7 +128,7 @@ export default function TribePage() {
           <div className="kr8-mob-only" style={{ marginTop: 16 }}>
             <CinemaVisual
               name="tribe-creative-room"
-              alt="Designers, developers, and editors reviewing live creative work inside KR8 DIGITALS TRIBE"
+              alt={editableContent.texts.field_08185259cb}
               badge="3,000+ Active Creators"
               caption="Honest critique, weekly sprints, and shared opportunity flow."
               mobileAspect="16 / 9"
@@ -170,21 +165,21 @@ export default function TribePage() {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
             <div>
-              <div className="eyebrow">Join the Community</div>
+              <div className="eyebrow">{editableContent.texts.text_050cedb55c}</div>
               <h2 className="section-title" style={{ marginTop: 10 }}>
-                Step into the room with builders <span className="text-grad">who take craft seriously.</span>
+                {editableContent.texts.text_c8a5057bf1}<span className="text-grad">{editableContent.texts.text_696038739f}</span>
               </h2>
               <ResponsiveCopy
                 as="p"
                 className="prose-lg"
-                desktop="Whether you graduated from a KR8 Academy cohort or have been sharpening your design, code, or editing skills independently, register below to receive your onboarding invitation into KR8 DIGITALS TRIBE."
-                mobile="Academy alumni and self-taught designers, developers, and editors are welcome. Register below for your free onboarding invite."
+                desktop={editableContent.texts.field_9e2ffab333}
+                mobile={editableContent.texts.field_56db656c74}
               />
 
               <ul className="kr8-check-list" style={{ marginTop: 18 }}>
-                <li>Zero membership fees — earned through active participation and respect for craft</li>
-                <li>Open across Web Development, Brand/Graphic Design, Video Editing, Content &amp; Marketing</li>
-                <li>Direct pathway to Mindset Shift sessions and studio talent consideration</li>
+                <li>{editableContent.texts.text_7271df4e6b}</li>
+                <li>{editableContent.texts.text_947a0fa50a}</li>
+                <li>{editableContent.texts.text_1110ebcade}</li>
               </ul>
             </div>
 
@@ -197,3 +192,5 @@ export default function TribePage() {
     </>
   );
 }
+
+type EditableBlockTypes = { TRIBE_PILLARS: typeof TRIBE_PILLARS };

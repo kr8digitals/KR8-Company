@@ -1,4 +1,5 @@
 import site from '../../data/site.json';
+import { store } from './store';
 
 /**
  * Notifications.
@@ -9,19 +10,25 @@ import site from '../../data/site.json';
  * WhatsApp forwarding can be added by filling KR8_WHATSAPP_WEBHOOK without
  * touching any caller (Section 18: "build so WhatsApp forwarding can be wired in later").
  */
-const FROM = process.env.RESEND_FROM || site.settings.notifications.resendFrom;
-const TO = (process.env.KR8_ADMIN_EMAILS || site.company.email).split(',').map((s) => s.trim()).filter(Boolean);
+async function notificationSettings() {
+  const row = await store.findOne('settings', { id: 'site' });
+  return row?.values || {};
+}
 
 export async function sendMail(opts: { subject: string; html: string; replyTo?: string; to?: string[] }) {
   const key = process.env.RESEND_API_KEY;
   if (!key) return { emailed: false, reason: 'RESEND_API_KEY not configured' };
   try {
+    const settings = await notificationSettings();
+    const from = process.env.RESEND_FROM || site.settings.notifications.resendFrom;
+    const to = (settings.notify_email || process.env.KR8_ADMIN_EMAILS || site.company.email).split(',').map((s: string) => s.trim()).filter(Boolean);
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
+      signal: AbortSignal.timeout(10000),
       headers: { authorization: `Bearer ${key}`, 'content-type': 'application/json' },
       body: JSON.stringify({
-        from: FROM,
-        to: opts.to || TO,
+        from,
+        to: opts.to || to,
         subject: opts.subject,
         html: opts.html,
         reply_to: opts.replyTo,
@@ -35,11 +42,13 @@ export async function sendMail(opts: { subject: string; html: string; replyTo?: 
 }
 
 export async function forwardWhatsApp(payload: Record<string, unknown>) {
-  const hook = process.env.KR8_WHATSAPP_WEBHOOK;
-  if (!hook) return { forwarded: false };
   try {
-    await fetch(hook, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
-    return { forwarded: true };
+    const settings = await notificationSettings();
+    const hook = settings.notify_webhook_url || process.env.KR8_WHATSAPP_WEBHOOK;
+    if (!hook) return { forwarded: false };
+    if (new URL(hook).protocol !== 'https:') return { forwarded: false };
+    const response = await fetch(hook, { method: 'POST', signal: AbortSignal.timeout(10000), headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
+    return { forwarded: response.ok };
   } catch {
     return { forwarded: false };
   }

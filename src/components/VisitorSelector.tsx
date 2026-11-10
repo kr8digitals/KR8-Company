@@ -1,4 +1,5 @@
 'use client';
+import { useEditableContent } from '@/components/EditableContentProvider';
 
 import Link from 'next/link';
 import { track } from '@/lib/track';
@@ -45,15 +46,17 @@ const OPTS: Opt[] = [
 ];
 
 export default function VisitorSelector() {
+  const editableContent = useEditableContent("components:VisitorSelector");
+  const OPTS = editableContent.blocks.OPTS as EditableBlockTypes["OPTS"];
+
   return (
     <section className="section" id="start" style={{ borderTop: '1px solid var(--hair-soft)' }}>
       <div className="wrap">
         <div className="reveal up" style={{ maxWidth: 760 }}>
-          <div className="eyebrow">Pick a door</div>
-          <h2 className="section-title">How can we help you?</h2>
+          <div className="eyebrow">{editableContent.texts.text_715a2231e1}</div>
+          <h2 className="section-title">{editableContent.texts.text_6e93d52935}</h2>
           <p className="section-lede">
-            Five ways in. Each one goes straight to the page that answers it — no menu hunting.
-          </p>
+            {editableContent.texts.text_93e1eb48ea}</p>
         </div>
 
         <div className="ways" style={{ marginTop: 36 }}>
@@ -71,7 +74,7 @@ export default function VisitorSelector() {
               <b>{o.label}</b>
               <span>{o.sub}</span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 12, fontSize: 12, fontWeight: 600, color: 'var(--lilac)' }}>
-                Take me there <Icon name="arrow" size={13} />
+                {editableContent.texts.text_3346ca03b8}<Icon name="arrow" size={13} />
               </span>
             </Link>
           ))}
@@ -80,3 +83,5 @@ export default function VisitorSelector() {
     </section>
   );
 }
+
+type EditableBlockTypes = { OPTS: typeof OPTS };

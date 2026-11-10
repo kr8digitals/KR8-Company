@@ -1,4 +1,7 @@
 'use client';
+import { formatEditableText } from '@/lib/content-format';
+import { useEditableContent } from '@/components/EditableContentProvider';
+import { usePublicContent } from '@/components/PublicContentProvider';
 
 import Link from 'next/link';
 import pricing from '../../data/pricing.json';
@@ -7,6 +10,12 @@ import { CurrencyPicker, Icon, Price, useCurrency } from './ui';
 import { ResponsiveCopy } from './MobileExperience';
 
 export default function Pricing({ slug }: { slug: string }) {
+  const editableContent = useEditableContent("components:Pricing");
+
+  const publicData = usePublicContent();
+  const pricing = publicData.pricing;
+  const settings = publicData.site;
+
   const { code, rates, setCode, ready } = useCurrency();
   const block = (pricing.services as any)[slug];
   const published = settings.settings.publicPriceDisplay === true;
@@ -20,26 +29,26 @@ export default function Pricing({ slug }: { slug: string }) {
           <div className="panel" style={{ padding: 34 }}>
             <div className="split" style={{ alignItems: 'flex-start', gap: 40 }}>
               <div style={{ maxWidth: 560 }}>
-                <div className="eyebrow">Pricing</div>
-                <h2 style={{ fontSize: 30, marginTop: 10 }}>Quoted per scope, in dollars, paid in naira</h2>
+                <div className="eyebrow">{editableContent.texts.text_dfe95783ed}</div>
+                <h2 style={{ fontSize: 30, marginTop: 10 }}>{editableContent.texts.text_18e521c932}</h2>
                 <ResponsiveCopy
                   as="p"
-                  desktop={`Every engagement is quoted as a transparent fixed figure against a written scope — ${block.unit}, never an open-ended hourly meter. Request a quote below to receive your tailored scope and fixed figure in writing.`}
-                  mobile={`Transparent fixed milestone quotes (${block.unit}) — never an hourly meter. Request your written scope below in USD or NGN.`}
+                  desktop={formatEditableText(editableContent.texts.copy_c9981479d0, [block.unit])}
+                  mobile={formatEditableText(editableContent.texts.copy_61f6a62793, [block.unit])}
                 />
                 <div style={{ display: 'flex', gap: 12, marginTop: 20, flexWrap: 'wrap', alignItems: 'center' }}>
-                  <Link href="/contact" className="btn-primary btn-sm">
-                    Get a fixed quote <Icon name="arrow" size={15} />
+                  <Link href={editableContent.texts.field_4eb9506365} className="btn-primary btn-sm">
+                    {editableContent.texts.text_8967f97ea7}<Icon name="arrow" size={15} />
                   </Link>
                   {ready && <CurrencyPicker code={code} setCode={setCode} />}
                 </div>
                 <p style={{ marginTop: 12, fontSize: 12, color: 'var(--t-faint)' }}>
-                  Show a currency and we will quote in it: <b style={{ color: 'var(--t-body)' }}>{code}</b>
-                  {code !== 'USD' && ` · 1 USD ≈ ${Math.round(rates[code] || 1).toLocaleString('en-US')} ${code}`}
+                  {editableContent.texts.text_fd5740bb7b}<b style={{ color: 'var(--t-body)' }}>{code}</b>
+                  {code !== 'USD' && formatEditableText(editableContent.texts.copy_7d39432b12, [Math.round(rates[code] || 1).toLocaleString('en-US'), code])}
                 </p>
               </div>
               <div className="panel" style={{ padding: 22, minWidth: 260, background: 'var(--surface-subtle)' }}>
-                <div className="tag" style={{ color: 'var(--magenta)' }}>The bands we quote inside</div>
+                <div className="tag" style={{ color: 'var(--magenta)' }}>{editableContent.texts.text_a40806a54b}</div>
                 <ul className="price-list" style={{ marginTop: 12 }}>
                   {block.tiers.map((t: any) => (
                     <li key={t.name} style={{ color: 'var(--t-body)' }}>
@@ -51,8 +60,7 @@ export default function Pricing({ slug }: { slug: string }) {
                   ))}
                 </ul>
                 <p style={{ marginTop: 14, fontSize: 11.5, color: 'var(--t-faint)', lineHeight: 1.6 }}>
-                  Written milestone figures delivered within 1 business day.
-                </p>
+                  {editableContent.texts.text_6da4553c09}</p>
               </div>
             </div>
           </div>
@@ -66,8 +74,8 @@ export default function Pricing({ slug }: { slug: string }) {
       <div className="wrap">
         <div className="split" style={{ alignItems: 'end', marginBottom: 30 }}>
           <div>
-            <div className="eyebrow">Pricing</div>
-            <h2 className="section-title" style={{ fontSize: 36 }}>Fixed figures, published</h2>
+            <div className="eyebrow">{editableContent.texts.text_dfe95783ed}</div>
+            <h2 className="section-title" style={{ fontSize: 36 }}>{editableContent.texts.text_68356db78d}</h2>
           </div>
           <CurrencyPicker code={code} setCode={setCode} />
         </div>
@@ -83,8 +91,8 @@ export default function Pricing({ slug }: { slug: string }) {
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" className="btn-primary btn-sm" style={{ marginTop: 18 }}>
-                Start here <Icon name="arrow" size={14} />
+              <Link href={editableContent.texts.field_4eb9506365} className="btn-primary btn-sm" style={{ marginTop: 18 }}>
+                {editableContent.texts.text_86e8ccf0e4}<Icon name="arrow" size={14} />
               </Link>
             </div>
           ))}

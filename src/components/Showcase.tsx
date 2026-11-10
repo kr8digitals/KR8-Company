@@ -1,15 +1,18 @@
 'use client';
+import { formatEditableText } from '@/lib/content-format';
+import { useEditableContent } from '@/components/EditableContentProvider';
+import { usePublicContent } from '@/components/PublicContentProvider';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import sitesData from '../../data/sites.json';
+import sitesSeed from '../../data/sites.json';
 import { Icon } from './ui';
 
 export type ShowcaseMode = 'sites' | 'branding' | 'flyers' | 'videos' | 'ai' | 'seo';
 
-type Site = (typeof sitesData.sites)[number];
-type Flyer = (typeof sitesData.flyers)[number];
-type Video = (typeof sitesData.videos)[number];
+type Site = (typeof sitesSeed.sites)[number];
+type Flyer = (typeof sitesSeed.flyers)[number];
+type Video = (typeof sitesSeed.videos)[number];
 
 type Open =
   | { kind: 'site'; item: Site }
@@ -46,13 +49,23 @@ export default function Showcase({
   mode,
   limit,
   filters = true,
+  catalog,
 }: {
+  catalog?: typeof sitesSeed;
   mode: ShowcaseMode;
   limit?: number;
   filters?: boolean;
   showPrices?: boolean;
   heading?: string;
 }) {
+  const editableContent = useEditableContent("components:Showcase");
+  const BRAND_SYSTEM_DELIVERABLES = editableContent.blocks.BRAND_SYSTEM_DELIVERABLES as EditableBlockTypes["BRAND_SYSTEM_DELIVERABLES"];
+
+  const publicData = usePublicContent();
+  const sitesSeed = publicData.catalog;
+
+  const sitesData = catalog || publicData.catalog;
+  const WHATSAPP = publicData.site.company.whatsapp;
   const [open, setOpen] = useState<Open>(null);
   const [cat, setCat] = useState('All');
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -61,22 +74,22 @@ export default function Showcase({
     if (mode === 'sites') return ['All', ...sitesData.categories];
     if (mode === 'flyers') return ['All', 'Event flyers', 'Product flyers', 'Retail', 'Social templates'];
     return [];
-  }, [mode]);
+  }, [mode, sitesData]);
 
   const sites = useMemo(() => {
     let list = sitesData.sites;
     if (cat !== 'All') list = list.filter((s) => s.category === cat);
     return limit ? list.slice(0, limit) : list;
-  }, [cat, limit]);
+  }, [cat, limit, sitesData]);
 
   const flyers = useMemo(() => {
     const list = cat === 'All' ? sitesData.flyers : sitesData.flyers.filter((f) => f.kind === cat);
     return limit ? list.slice(0, limit) : list;
-  }, [cat, limit]);
+  }, [cat, limit, sitesData]);
 
   const videos = useMemo(
     () => (limit ? sitesData.videos.slice(0, limit) : sitesData.videos),
-    [limit]
+    [limit, sitesData]
   );
 
   const close = useCallback(() => setOpen(null), []);
@@ -105,7 +118,7 @@ export default function Showcase({
     <div className="gal">
       {filters && cats.length > 1 && (
         <div className="gal__bar">
-          <div className="gal__filters" role="group" aria-label={`Filter ${mode}`}>
+          <div className="gal__filters" role="group" aria-label={formatEditableText(editableContent.texts.copy_50ee55cd30, [mode])}>
             {cats.map((c) => (
               <button key={c} onClick={() => setCat(c)} aria-pressed={cat === c}>
                 {c}
@@ -126,24 +139,24 @@ export default function Showcase({
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Open ${s.name} live deployment in a new tab`}
+                  aria-label={formatEditableText(editableContent.texts.copy_1d801b3762, [s.name])}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={s.card}
-                    alt={`${s.name} website engineered and deployed by KR8 DIGITALS`}
+                    alt={formatEditableText(editableContent.texts.copy_356038a262, [s.name])}
                     width={880}
                     height={611}
                     loading="lazy"
                     decoding="async"
                   />
                   <span className="gal-card__open">
-                    Open live site <span aria-hidden>↗</span>
+                    {editableContent.texts.text_8f15e78aac}<span aria-hidden>↗</span>
                   </span>
                 </a>
                 <div className="gal-card__body">
                   <div className="gal-card__top">
-                    <span className="badge-status paid">Live Deployment</span>
+                    <span className="badge-status paid">{editableContent.texts.text_934e792141}</span>
                     <span className="tag">{s.kind}</span>
                   </div>
                   <h3>{s.name}</h3>
@@ -155,13 +168,13 @@ export default function Showcase({
                       rel="noopener noreferrer"
                       className="btn-link"
                     >
-                      Visit Live <Icon name="external" size={13} />
+                      {editableContent.texts.text_1bfd3e5c78}<Icon name="external" size={13} />
                     </a>
                     <button
                       className="btn-link"
                       onClick={() => setOpen({ kind: 'site', item: s })}
                     >
-                      Inspect Build <Icon name="arrow" size={14} />
+                      {editableContent.texts.text_0a748c3040}<Icon name="arrow" size={14} />
                     </button>
                   </div>
                 </div>
@@ -169,9 +182,7 @@ export default function Showcase({
             ))}
           </div>
           <p className="gal__note">
-            Every platform above is a real, deployed web build engineered by KR8 DIGITALS — click any preview to
-            test speed and responsiveness live in your browser.
-          </p>
+            {editableContent.texts.text_470225fab3}</p>
         </>
       )}
 
@@ -182,24 +193,20 @@ export default function Showcase({
             <div className="kr8-subhero__frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/services/brand-identity.webp"
-                alt="KR8 DIGITALS × Motionverse Brand Identity Architecture and Guidelines"
+                src={editableContent.texts.field_8fd0572178}
+                alt={editableContent.texts.field_7a938f6c5d}
               />
             </div>
             <div className="kr8-card kr8-card--accent">
-              <div className="kr8-card__num">KR8 DIGITALS × MOTIONVERSE</div>
+              <div className="kr8-card__num">{editableContent.texts.text_d1b746c2ea}</div>
               <h3 className="kr8-card__title">
-                Complete Brand Architecture — Built Beyond Just a Logo
-              </h3>
+                {editableContent.texts.text_a1885e0fa5}</h3>
               <p className="kr8-card__body">
-                Directed with Co-Founder <strong>Steveoking</strong> (Stevenson) of{' '}
-                <strong>Motionverse</strong>, every branding engagement delivers strategic market positioning,
-                scalable vector mark suites, typographic rules, and practical brand guidelines so your entire
-                organisation presents one unmistakable face.
-              </p>
+                {editableContent.texts.text_e609efabe0}<strong>{editableContent.texts.text_d5b3fef0ee}</strong> {editableContent.texts.text_45d3aedae1}{' '}
+                <strong>{editableContent.texts.text_6271b13e79}</strong>{editableContent.texts.text_77951e7d33}</p>
               <div className="kr8-card__foot">
-                <Link href="/contact?service=branding" className="btn-primary">
-                  Request a Brand Identity Scope <Icon name="arrow" size={16} />
+                <Link href={editableContent.texts.field_0c3072e476} className="btn-primary">
+                  {editableContent.texts.text_2d9bdf1793}<Icon name="arrow" size={16} />
                 </Link>
               </div>
             </div>
@@ -230,16 +237,16 @@ export default function Showcase({
                 <button
                   className="gal-card__shot"
                   onClick={() => setOpen({ kind: 'flyer', item: f })}
-                  aria-label={`View ${f.title} full size`}
+                  aria-label={formatEditableText(editableContent.texts.copy_86e97c04fc, [f.title])}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={f.card}
-                    alt={`${f.title} — commercial design by KR8 DIGITALS in association with Motionverse`}
+                    alt={formatEditableText(editableContent.texts.copy_69ffb345a1, [f.title])}
                     loading="lazy"
                     decoding="async"
                   />
-                  <span className="gal-card__open">Inspect full artwork</span>
+                  <span className="gal-card__open">{editableContent.texts.text_3fce40924f}</span>
                 </button>
                 <div className="gal-card__body">
                   <div className="gal-card__top">
@@ -247,15 +254,13 @@ export default function Showcase({
                   </div>
                   <h3>{f.title}</h3>
                   <p>{f.note}</p>
-                  <div className="gal-card__credit">KR8 DIGITALS × Motionverse</div>
+                  <div className="gal-card__credit">{editableContent.texts.text_d6251b5319}</div>
                 </div>
               </article>
             ))}
           </div>
           <p className="gal__note">
-            Commissioned client campaign artwork designed by KR8 DIGITALS in association with co-founding design
-            partner Motionverse.
-          </p>
+            {editableContent.texts.text_9740256464}</p>
         </>
       )}
 
@@ -268,12 +273,12 @@ export default function Showcase({
                 <button
                   className="gal-card__shot gal-card__shot--video"
                   onClick={() => setOpen({ kind: 'video', item: v })}
-                  aria-label={`Play ${v.title} — ${v.duration}`}
+                  aria-label={formatEditableText(editableContent.texts.copy_55952a001e, [v.title, v.duration])}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={v.poster}
-                    alt={`Poster frame from ${v.title}`}
+                    alt={formatEditableText(editableContent.texts.copy_43e45be6f6, [v.title])}
                     loading="lazy"
                     decoding="async"
                   />
@@ -295,9 +300,7 @@ export default function Showcase({
             ))}
           </div>
           <p className="gal__note">
-            Streamed directly in browser — select any cut above to play pacing, captions, and sound design in
-            place. Directed with Chigoma.
-          </p>
+            {editableContent.texts.text_0ae6e514f6}</p>
         </>
       )}
 
@@ -305,55 +308,51 @@ export default function Showcase({
       {mode === 'ai' && (
         <div className="gal__grid gal__grid--duo">
           <article className="gal-card">
-            <Link className="gal-card__shot" href="/contact?service=ai-automation" aria-label="Commission an AI agent">
+            <Link className="gal-card__shot" href={editableContent.texts.field_b9cdf20824} aria-label={editableContent.texts.field_8579b271bc}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/services/ai-automation.webp"
-                alt="Custom AI Agent and operational automation architecture by KR8 DIGITALS"
+                src={editableContent.texts.field_d9e4a9647c}
+                alt={editableContent.texts.field_f38a16fd6f}
                 loading="lazy"
               />
-              <span className="gal-card__open">Scope an AI Agent</span>
+              <span className="gal-card__open">{editableContent.texts.text_5fca73acb6}</span>
             </Link>
             <div className="gal-card__body">
               <div className="gal-card__top">
-                <span className="badge-status earned">Live In Production</span>
-                <span className="tag">Grounded Assistant</span>
+                <span className="badge-status earned">{editableContent.texts.text_6808ff36fa}</span>
+                <span className="tag">{editableContent.texts.text_7f1b0406c6}</span>
               </div>
-              <h3>RIYA — KR8 DIGITALS Intelligent AI Representative</h3>
+              <h3>{editableContent.texts.text_0f7db721cf}</h3>
               <p>
-                Running live across every page of this website: understands visitor intent, retrieves verified
-                organizational knowledge, captures feedback, and routes conversations directly to our team.
-              </p>
+                {editableContent.texts.text_2c028acf04}</p>
             </div>
           </article>
           <article className="gal-card">
             <a
               className="gal-card__shot"
-              href="https://jev-and-ai-sdk-zeta-seven.vercel.app"
+              href={editableContent.texts.field_f5c9198e2e}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Open the Jev AI form router in a new tab"
+              aria-label={editableContent.texts.field_2806b7d135}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/sites/jev-card.webp"
-                alt="Jev intelligent intake router engineered by KR8 DIGITALS"
+                src={editableContent.texts.field_a6844162c7}
+                alt={editableContent.texts.field_50da402b14}
                 loading="lazy"
               />
               <span className="gal-card__open">
-                Open live build <span aria-hidden>↗</span>
+                {editableContent.texts.text_c4e90039f8}<span aria-hidden>↗</span>
               </span>
             </a>
             <div className="gal-card__body">
               <div className="gal-card__top">
-                <span className="badge-status earned">Live Deployment</span>
-                <span className="tag">Workflow Triage</span>
+                <span className="badge-status earned">{editableContent.texts.text_934e792141}</span>
+                <span className="tag">{editableContent.texts.text_64de1152ed}</span>
               </div>
-              <h3>Jev Intelligent Intake Router</h3>
+              <h3>{editableContent.texts.text_634c2656a5}</h3>
               <p>
-                Classifies incoming submissions automatically across sales leads, general inquiries, and support
-                escalations — routing each to the exact right desk without manual sorting.
-              </p>
+                {editableContent.texts.text_84fbe2182d}</p>
             </div>
           </article>
         </div>
@@ -364,10 +363,10 @@ export default function Showcase({
         <div className="seo-visual">
           <div className="seo-visual__steps">
             {[
-              ['01', 'Technical Crawl', 'Comprehensive audit of indexing, sitemaps, speed, and schema health.'],
-              ['02', 'Infrastructure Fix', 'Metadata, OpenGraph, Core Web Vitals, and mobile usability remediation.'],
-              ['03', 'Intent Pages', 'Dedicated high-conversion landing routes for every service and market.'],
-              ['04', 'Monthly Proof', 'Transparent Search Console reporting tracking impressions, clicks, and queries.'],
+              ['01', editableContent.texts.copy_5624a80b66, editableContent.texts.copy_c03d6ea035],
+              ['02', editableContent.texts.copy_d0f769e6c4, editableContent.texts.copy_a1cece819a],
+              ['03', editableContent.texts.copy_3a86b6b5cf, editableContent.texts.copy_3ea144db3a],
+              ['04', editableContent.texts.copy_e5682c9018, editableContent.texts.copy_9ba966d517],
             ].map(([n, t, d]) => (
               <div className="seo-step" key={n}>
                 <span className="seo-step__n">{n}</span>
@@ -377,27 +376,22 @@ export default function Showcase({
             ))}
           </div>
           <div className="seo-visual__panel panel">
-            <div className="eyebrow eyebrow--lilac">Search Architecture Standard</div>
-            <h3 style={{ marginTop: 10 }}>Built into our own platform first.</h3>
+            <div className="eyebrow eyebrow--lilac">{editableContent.texts.text_58f471fb85}</div>
+            <h3 style={{ marginTop: 10 }}>{editableContent.texts.text_84eee32be9}</h3>
             <ul className="price-list">
               <li>
-                <Icon name="check" size={16} /> Distinct canonical titles &amp; descriptions on every route
-              </li>
+                <Icon name="check" size={16} /> {editableContent.texts.text_dca792a95c}</li>
               <li>
-                <Icon name="check" size={16} /> Verified OpenGraph &amp; social preview cards
-              </li>
+                <Icon name="check" size={16} /> {editableContent.texts.text_c1cdb153c9}</li>
               <li>
-                <Icon name="check" size={16} /> Automated XML sitemap &amp; clean robots directives
-              </li>
+                <Icon name="check" size={16} /> {editableContent.texts.text_8bf5c41ebd}</li>
               <li>
-                <Icon name="check" size={16} /> Semantic heading hierarchy &amp; JSON-LD Organization schema
-              </li>
+                <Icon name="check" size={16} /> {editableContent.texts.text_f3fb779d9a}</li>
               <li>
-                <Icon name="check" size={16} /> Mobile-first rendering &amp; compressed WebP media delivery
-              </li>
+                <Icon name="check" size={16} /> {editableContent.texts.text_88f9a66efc}</li>
             </ul>
-            <Link href="/contact?service=seo" className="btn-primary" style={{ marginTop: 8 }}>
-              Request an SEO Audit <Icon name="arrow" size={16} />
+            <Link href={editableContent.texts.field_7ec5152c33} className="btn-primary" style={{ marginTop: 8 }}>
+              {editableContent.texts.text_0f2695fa8b}<Icon name="arrow" size={16} />
             </Link>
           </div>
         </div>
@@ -405,9 +399,9 @@ export default function Showcase({
 
       {/* ----------------------------------------------------------- LIGHTBOX */}
       {open && (
-        <div className="lb" role="dialog" aria-modal="true" aria-label="Portfolio Preview" onClick={close}>
+        <div className="lb" role="dialog" aria-modal="true" aria-label={editableContent.texts.field_f5e76408ee} onClick={close}>
           <div className="lb__panel" onClick={(e) => e.stopPropagation()}>
-            <button className="lb__close" onClick={close} ref={closeRef} aria-label="Close preview">
+            <button className="lb__close" onClick={close} ref={closeRef} aria-label={editableContent.texts.field_7d8ab36821}>
               ✕
             </button>
 
@@ -415,11 +409,11 @@ export default function Showcase({
               <>
                 <div className="lb__media">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={open.item.full} alt={`${open.item.name} — full deployment preview`} />
+                  <img src={open.item.full} alt={formatEditableText(editableContent.texts.copy_856b50b6c8, [open.item.name])} />
                 </div>
                 <div className="lb__body">
                   <div className="gal-card__top">
-                    <span className="badge-status paid">Live Deployment</span>
+                    <span className="badge-status paid">{editableContent.texts.text_934e792141}</span>
                     <span className="tag">{open.item.kind}</span>
                   </div>
                   <h3>{open.item.name}</h3>
@@ -431,22 +425,20 @@ export default function Showcase({
                       rel="noopener noreferrer"
                       className="btn-primary"
                     >
-                      Open Live Website <span aria-hidden>↗</span>
+                      {editableContent.texts.text_d269621cdb}<span aria-hidden>↗</span>
                     </a>
                     <Link
-                      href={`/contact?service=website-design&ref=${open.item.slug}`}
+                      href={formatEditableText("/contact?service=website-design&ref={0}", [open.item.slug])}
                       className="btn-ghost"
                     >
-                      Request a Similar Build
-                    </Link>
+                      {editableContent.texts.text_19fd78774d}</Link>
                     <a
                       href={waQuote(open.item.name)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-ghost"
                     >
-                      <Icon name="wa" size={16} /> Chat on WhatsApp
-                    </a>
+                      <Icon name="wa" size={16} /> {editableContent.texts.text_80f6ac1699}</a>
                   </div>
                 </div>
               </>
@@ -456,7 +448,7 @@ export default function Showcase({
               <>
                 <div className="lb__media lb__media--poster">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={open.item.full} alt={`${open.item.title} — full-size campaign design`} />
+                  <img src={open.item.full} alt={formatEditableText(editableContent.texts.copy_f7d546f65f, [open.item.title])} />
                 </div>
                 <div className="lb__body">
                   <div className="gal-card__top">
@@ -465,15 +457,14 @@ export default function Showcase({
                   <h3>{open.item.title}</h3>
                   <p>{open.item.note}</p>
                   <div className="gal-card__credit">
-                    KR8 DIGITALS × Motionverse{open.item.client ? ` · Client: ${open.item.client}` : ''}
+                    {editableContent.texts.text_d6251b5319}{open.item.client ? formatEditableText(editableContent.texts.copy_0cf33ff228, [open.item.client]) : ''}
                   </div>
                   <div className="actions" style={{ marginTop: 18 }}>
-                    <Link href="/contact?service=graphic-design" className="btn-primary">
-                      Commission Similar Design <Icon name="arrow" size={16} />
+                    <Link href={editableContent.texts.field_8bffa0643a} className="btn-primary">
+                      {editableContent.texts.text_16888e1b41}<Icon name="arrow" size={16} />
                     </Link>
                     <a href={open.item.full} target="_blank" rel="noopener noreferrer" className="btn-ghost">
-                      View Full Resolution
-                    </a>
+                      {editableContent.texts.text_4e76b5306a}</a>
                   </div>
                 </div>
               </>
@@ -499,8 +490,8 @@ export default function Showcase({
                   <h3>{open.item.title}</h3>
                   <p>{open.item.note}</p>
                   <div className="actions" style={{ marginTop: 18 }}>
-                    <Link href="/contact?service=video-editing" className="btn-primary">
-                      Start a Video Project <Icon name="arrow" size={16} />
+                    <Link href={editableContent.texts.field_877fc4ac7b} className="btn-primary">
+                      {editableContent.texts.text_6ecf039e1f}<Icon name="arrow" size={16} />
                     </Link>
                   </div>
                 </div>
@@ -512,3 +503,5 @@ export default function Showcase({
     </div>
   );
 }
+
+type EditableBlockTypes = { BRAND_SYSTEM_DELIVERABLES: typeof BRAND_SYSTEM_DELIVERABLES };

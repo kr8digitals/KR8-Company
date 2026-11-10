@@ -1,4 +1,7 @@
 'use client';
+import { formatEditableText } from '@/lib/content-format';
+import { useEditableContent } from '@/components/EditableContentProvider';
+import { usePublicContent } from '@/components/PublicContentProvider';
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
@@ -89,6 +92,11 @@ function renderFormattedText(text: string) {
 }
 
 export default function Host() {
+  const editableContent = useEditableContent("components:Host");
+
+  const publicData = usePublicContent();
+  const site = publicData.site;
+
   const pathname = usePathname() || '/';
   const router = useRouter();
   const hide = pathname.startsWith('/admin');
@@ -651,7 +659,7 @@ export default function Host() {
       <div
         className={`host-welcome ${nudge && !open ? 'is-open' : ''}`}
         role="dialog"
-        aria-label="RIYA page question"
+        aria-label={editableContent.texts.field_9b49c8b6d8}
       >
         <button
           type="button"
@@ -660,8 +668,8 @@ export default function Host() {
             e.stopPropagation();
             dismissNudge(false);
           }}
-          aria-label="Close RIYA popup"
-          title="Close"
+          aria-label={editableContent.texts.field_0032f27178}
+          title={editableContent.texts.field_7d9eb7acb1}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3">
             <path d="M6 6l12 12M18 6L6 18" />
@@ -675,18 +683,17 @@ export default function Host() {
             </svg>
           </div>
           <div className="host-welcome__txt">
-            <b>{nudge?.title || 'Quick question'}</b>
+            <b>{nudge?.title || editableContent.texts.copy_fde6973405}</b>
             <span>{nudge?.question}</span>
           </div>
         </div>
 
         <div className="host-welcome__actions">
           <button type="button" className="yes" onClick={engageNudge}>
-            {nudge?.ctaLabel || 'Reply to RIYA'}
+            {nudge?.ctaLabel || editableContent.texts.copy_b9a10f72be}
           </button>
           <button type="button" className="no" onClick={() => dismissNudge(false)}>
-            Close
-          </button>
+            {editableContent.texts.text_7d9eb7acb1}</button>
         </div>
         <div style={{ marginTop: 8, textAlign: 'right' }}>
           <button
@@ -703,8 +710,7 @@ export default function Host() {
               padding: '2px 4px',
             }}
           >
-            Mute pop-up tips
-          </button>
+            {editableContent.texts.text_8b83aa5cce}</button>
         </div>
       </div>
 
@@ -719,7 +725,7 @@ export default function Host() {
             setOpen(true);
             setTimeout(() => inputRef.current?.focus(), 120);
           }}
-          aria-label="Open RIYA — KR8 DIGITALS AI Representative"
+          aria-label={editableContent.texts.field_b2202e1ccf}
         >
           <span className="host-launcher__ava" style={{ position: 'relative' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
@@ -727,29 +733,28 @@ export default function Host() {
             </svg>
             <span className="host-launcher__dot" />
           </span>
-          <span>Chat with RIYA</span>
+          <span>{editableContent.texts.text_1e54860406}</span>
         </button>
       )}
 
       {/* RIYA Conversational Panel */}
-      <aside className={`host-panel ${open ? 'is-open' : ''}`} aria-label="RIYA — KR8 DIGITALS Representative">
+      <aside className={`host-panel ${open ? 'is-open' : ''}`} aria-label={editableContent.texts.field_7211d51abf}>
         <div className="host-head">
           <div className="host-head__ava" style={{ fontWeight: 800, fontSize: 11.5, letterSpacing: '0.04em' }}>
-            RIYA
-          </div>
+            {editableContent.texts.text_e7932a8be5}</div>
           <div className="host-head__meta">
-            <div className="host-head__name">RIYA</div>
+            <div className="host-head__name">{editableContent.texts.text_e7932a8be5}</div>
             <div className="host-head__status">
               <i />
-              {handoffActive ? 'KR8 Team notified · Live thread' : 'Online · Personal Guide'}
+              {handoffActive ? editableContent.texts.copy_2a81a2a415 : editableContent.texts.copy_f848a203d7}
             </div>
           </div>
           <button
             type="button"
             className="host-icon-btn"
             onClick={resetConversation}
-            title="Start fresh chat"
-            aria-label="Start fresh chat"
+            title={editableContent.texts.field_9a6cc8a492}
+            aria-label={editableContent.texts.field_9a6cc8a492}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
               <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
@@ -761,8 +766,8 @@ export default function Host() {
             className="host-icon-btn"
             aria-pressed={voice}
             onClick={toggleVoice}
-            title={voice ? 'Voice replies on' : 'Turn on voice replies'}
-            aria-label="Toggle voice replies"
+            title={voice ? editableContent.texts.copy_2f084475a4 : editableContent.texts.copy_70e09074f6}
+            aria-label={editableContent.texts.field_1735e49e5a}
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
               <path d="M11 5L6 9H2v6h4l5 4V5z" />
@@ -773,10 +778,10 @@ export default function Host() {
             type="button"
             className="host-close-pill"
             onClick={closePanel}
-            aria-label="Close RIYA chat"
-            title="Close RIYA"
+            aria-label={editableContent.texts.field_38b8a80946}
+            title={editableContent.texts.field_014372dcd1}
           >
-            <span>Close</span>
+            <span>{editableContent.texts.text_7d9eb7acb1}</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3">
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>
@@ -791,7 +796,7 @@ export default function Host() {
                 m.who === 'you' ? 'host-msg--user' : m.who === 'team' ? 'host-msg--team' : 'host-msg--bot'
               }`}
             >
-              {m.who === 'team' && <div className="host-msg__who">{m.name || 'KR8 Team'} · Live</div>}
+              {m.who === 'team' && <div className="host-msg__who">{m.name || editableContent.texts.copy_28478a9c3f} {editableContent.texts.text_296aeb8bc7}</div>}
               <div>{renderFormattedText(m.text)}</div>
 
               {m.submissionRef && (
@@ -807,7 +812,7 @@ export default function Host() {
                     fontWeight: 600,
                   }}
                 >
-                  Logged to KR8 Admin · Ref: {m.submissionRef}
+                  {editableContent.texts.text_81de0636d7}{m.submissionRef}
                 </div>
               )}
 
@@ -870,14 +875,14 @@ export default function Host() {
                   }}
                 >
                   {m.rated ? (
-                    <span style={{ color: 'var(--status-ok-fg)', fontWeight: 600 }}>Thanks for your feedback!</span>
+                    <span style={{ color: 'var(--status-ok-fg)', fontWeight: 600 }}>{editableContent.texts.text_f2082eaee3}</span>
                   ) : (
                     <>
-                      <span style={{ color: 'var(--t-faint)' }}>Helpful? </span>
+                      <span style={{ color: 'var(--t-faint)' }}>{editableContent.texts.text_03b310b916}</span>
                       <button
                         type="button"
                         onClick={() => rateMessage(m.id, true, m.intent)}
-                        aria-label="Mark reply helpful"
+                        aria-label={editableContent.texts.field_21a0a39579}
                         style={{
                           padding: '1px 7px',
                           borderRadius: 4,
@@ -886,12 +891,11 @@ export default function Host() {
                           cursor: 'pointer',
                         }}
                       >
-                        Yes
-                      </button>{' '}
+                        {editableContent.texts.text_85a39ab345}</button>{' '}
                       <button
                         type="button"
                         onClick={() => rateMessage(m.id, false, m.intent)}
-                        aria-label="Mark reply unhelpful"
+                        aria-label={editableContent.texts.field_8405f0bafa}
                         style={{
                           padding: '1px 7px',
                           borderRadius: 4,
@@ -900,8 +904,7 @@ export default function Host() {
                           cursor: 'pointer',
                         }}
                       >
-                        No
-                      </button>
+                        {editableContent.texts.text_1ea442a134}</button>
                     </>
                   )}
                 </div>
@@ -910,7 +913,7 @@ export default function Host() {
           ))}
 
           {typing && (
-            <div className="host-msg host-msg--bot" aria-label="RIYA is typing">
+            <div className="host-msg host-msg--bot" aria-label={editableContent.texts.field_d219199740}>
               <span className="host-typing">
                 <i />
                 <i />
@@ -944,8 +947,8 @@ export default function Host() {
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Talk freely with RIYA…"
-            aria-label="Message RIYA"
+            placeholder={editableContent.texts.field_c18700f6ac}
+            aria-label={editableContent.texts.field_f137002dc9}
           />
           {canSR && (
             <button
@@ -953,8 +956,8 @@ export default function Host() {
               className="host-icon-btn"
               aria-pressed={listening}
               onClick={toggleListen}
-              title="Speak your message"
-              aria-label="Voice input"
+              title={editableContent.texts.field_baf16278df}
+              aria-label={editableContent.texts.field_8748f23993}
               style={{ alignSelf: 'center' }}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -963,7 +966,7 @@ export default function Host() {
               </svg>
             </button>
           )}
-          <button type="submit" className="host-send" disabled={!input.trim() || typing} aria-label="Send message">
+          <button type="submit" className="host-send" disabled={!input.trim() || typing} aria-label={editableContent.texts.field_93a26b1eaf}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
@@ -971,10 +974,9 @@ export default function Host() {
         </form>
 
         <div className="host-foot">
-          RIYA · KR8 DIGITALS · <Link href="/privacy" onClick={closePanel}>Privacy</Link> ·{' '}
-          <a href={`https://wa.me/${site.company.whatsapp}`} target="_blank" rel="noopener noreferrer">
-            WhatsApp
-          </a>
+          {editableContent.texts.text_3250b13cf3}<Link href={editableContent.texts.field_0ece7f7c30} onClick={closePanel}>{editableContent.texts.text_54a57c3147}</Link> ·{' '}
+          <a href={formatEditableText("https://wa.me/{0}", [site.company.whatsapp])} target="_blank" rel="noopener noreferrer">
+            {editableContent.texts.text_6a40edf1fc}</a>
         </div>
       </aside>
     </>

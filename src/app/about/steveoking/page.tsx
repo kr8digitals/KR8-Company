@@ -1,3 +1,6 @@
+import { formatEditableText } from '@/lib/content-format';
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import sitesData from '../../../../data/sites.json';
@@ -8,12 +11,9 @@ import {
   SectionAtmosphere,
 } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'Steveoking (Stevenson) — Co-Founder & Brand/Graphic Designer | KR8 DIGITALS',
-  description:
-    'Profile of Steveoking (Stevenson) — Professional Graphic Designer, Brand Designer, Founder of Motionverse, and Co-Founder of KR8 DIGITALS.',
-  alternates: { canonical: '/about/steveoking' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:about:steveoking:page")).blocks.metadata as Metadata;
+}
 
 const DESIGN_PILLARS = [
   {
@@ -39,7 +39,13 @@ const DESIGN_PILLARS = [
   },
 ];
 
-export default function SteveokingProfilePage() {
+export default async function SteveokingProfilePage() {
+  const editableContent = await getEditableDocument("app:about:steveoking:page");
+  const DESIGN_PILLARS = editableContent.blocks.DESIGN_PILLARS as EditableBlockTypes["DESIGN_PILLARS"];
+
+  const publicData = await getPublicContent();
+  const sitesData = publicData.catalog;
+
   const featuredFlyers = sitesData.flyers.slice(0, 4);
 
   return (
@@ -48,25 +54,23 @@ export default function SteveokingProfilePage() {
       <section className="kr8-subhero">
         <SectionAtmosphere name="founder-craft-design" deskOpacity={0.32} mobOpacity={0.42} flare />
         <div className="wrap">
-          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="kr8-breadcrumb" aria-label={editableContent.texts.field_2bd873d6c7}>
+            <Link href="/">{editableContent.texts.text_3a78695388}</Link>
             <span>/</span>
-            <Link href="/about">About</Link>
+            <Link href={editableContent.texts.field_979bddc4a8}>{editableContent.texts.text_4efca0d10c}</Link>
             <span>/</span>
-            <span style={{ color: 'var(--t-strong)' }}>Steveoking</span>
+            <span style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_d5b3fef0ee}</span>
           </nav>
 
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill">
-                <i className="kr8-pill__dot" /> Co-Founder · KR8 DIGITALS &amp; Motionverse
-              </span>
+                <i className="kr8-pill__dot" /> {editableContent.texts.text_2b7945630c}</span>
               <h1
                 className="kr8-subhero__title"
                 style={{ wordBreak: 'keep-all', overflowWrap: 'normal', hyphens: 'none' }}
               >
-                Steveoking
-              </h1>
+                {editableContent.texts.text_d5b3fef0ee}</h1>
               <p
                 style={{
                   marginTop: 8,
@@ -77,24 +81,18 @@ export default function SteveokingProfilePage() {
                   color: 'var(--magenta)',
                 }}
               >
-                Stevenson · Brand Designer, Graphic Designer &amp; Founder of Motionverse
-              </p>
+                {editableContent.texts.text_25f2800360}</p>
 
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={
                   <>
-                    <strong>Steveoking</strong> (Stevenson) is a professional graphic designer, brand designer,
-                    Founder of <strong>Motionverse</strong>, and Co-Founder of <strong>KR8 DIGITALS</strong>. He
-                    leads brand identity architecture, commercial campaign design, and visual design mentorship across
-                    the KR8 DIGITALS ecosystem.
-                  </>
+                    <strong>{editableContent.texts.text_d5b3fef0ee}</strong> {editableContent.texts.text_bc2d2b1ccc}<strong>{editableContent.texts.text_6271b13e79}</strong>{editableContent.texts.text_1dafab9f6e}<strong>{editableContent.texts.text_0bbfb207b2}</strong>{editableContent.texts.text_b009af0544}</>
                 }
                 mobile={
                   <>
-                    <strong>Steveoking</strong> (Stevenson) is a professional graphic designer, brand designer,
-                    Founder of <strong>Motionverse</strong>, and Co-Founder of <strong>KR8 DIGITALS</strong>.
+                    <strong>{editableContent.texts.text_d5b3fef0ee}</strong> {editableContent.texts.text_bc2d2b1ccc}<strong>{editableContent.texts.text_6271b13e79}</strong>{editableContent.texts.text_1dafab9f6e}<strong>{editableContent.texts.text_0bbfb207b2}</strong>.
                   </>
                 }
               />
@@ -111,32 +109,29 @@ export default function SteveokingProfilePage() {
                   color: 'var(--t-body)',
                 }}
               >
-                &ldquo;Great brand and graphic design earns trust in half a second — before a prospect reads a
-                single paragraph.&rdquo;
-              </blockquote>
+                {editableContent.texts.text_292400fe7e}</blockquote>
 
               <div className="kr8-subhero__actions">
-                <Link href="/contact?service=branding" className="btn-primary">
-                  Start a Brand or Design Brief <Icon name="arrow" size={17} />
+                <Link href={editableContent.texts.field_0c3072e476} className="btn-primary">
+                  {editableContent.texts.text_a3d6660096}<Icon name="arrow" size={17} />
                 </Link>
-                <Link href="/partners/motionverse" className="btn-ghost">
-                  Explore Motionverse
-                </Link>
+                <Link href={editableContent.texts.field_fbac472c84} className="btn-ghost">
+                  {editableContent.texts.text_2aa0a2d608}</Link>
               </div>
             </div>
 
             <div className="kr8-subhero__frame kr8-subhero__frame--portrait">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/team/stevenson.jpg"
-                alt="Steveoking (Stevenson), Co-Founder of KR8 DIGITALS and Founder of Motionverse"
+                src={editableContent.texts.field_2eb65709d3}
+                alt={editableContent.texts.field_7a183be09e}
               />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>Founder 02 · Brand &amp; Visual Design</span>
-                  <strong>Steveoking · Stevenson</strong>
+                  <span>{editableContent.texts.text_86daeda098}</span>
+                  <strong>{editableContent.texts.text_3f99034bd9}</strong>
                 </div>
-                <span style={{ color: 'var(--t-lilac-strong)' }}>Motionverse</span>
+                <span style={{ color: 'var(--t-lilac-strong)' }}>{editableContent.texts.text_6271b13e79}</span>
               </div>
             </div>
           </div>
@@ -148,48 +143,33 @@ export default function SteveokingProfilePage() {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ alignItems: 'center', gap: 36 }}>
             <div>
-              <div className="eyebrow">Creative Direction &amp; Story</div>
+              <div className="eyebrow">{editableContent.texts.text_ee4cbe9d8b}</div>
               <h2 className="section-title" style={{ marginTop: 10 }}>
-                Where strategic brand clarity meets <span className="text-grad">unforgettable visual craft.</span>
+                {editableContent.texts.text_79460fe499}<span className="text-grad">{editableContent.texts.text_9e42d18224}</span>
               </h2>
 
               <div className="prose-lg kr8-desk-only" style={{ marginTop: 18, display: 'grid', gap: 16 }}>
                 <p>
-                  Every organisation communicates visually long before anyone reads its pitch. Through his design
-                  practice <strong>Motionverse</strong> and as Co-Founder of <strong>KR8 DIGITALS</strong>,{' '}
-                  <strong>Steveoking</strong> (Stevenson) ensures businesses show up with visual authority worthy
-                  of the products and services they deliver.
-                </p>
+                  {editableContent.texts.text_8d74ad8cf1}<strong>{editableContent.texts.text_6271b13e79}</strong> {editableContent.texts.text_790ffcfe92}<strong>{editableContent.texts.text_0bbfb207b2}</strong>,{' '}
+                  <strong>{editableContent.texts.text_d5b3fef0ee}</strong> {editableContent.texts.text_8000730ddd}</p>
                 <p>
-                  His practice spans two distinct yet connected disciplines: foundational{' '}
-                  <strong>Branding</strong> (identity systems, logos, typography, and brand books that define who a
-                  company is) and high-velocity <strong>Graphic Design</strong> (campaign flyers, retail product
-                  key art, and event visuals engineered to stop the scroll and drive immediate customer action).
-                </p>
+                  {editableContent.texts.text_8ebc5592c9}{' '}
+                  <strong>{editableContent.texts.text_d417aa16da}</strong> {editableContent.texts.text_7d364e6691}<strong>{editableContent.texts.text_b5fe7b887a}</strong> {editableContent.texts.text_0678934fb7}</p>
                 <p>
-                  Committed to multiplying creative excellence beyond client briefs, Steveoking teaches the
-                  Graphic Design track inside <strong>KR8 Academy</strong> — mentoring emerging designers in
-                  hierarchy, typography, lighting, and commercial discipline at zero tuition cost.
-                </p>
+                  {editableContent.texts.text_ed58cdcec8}<strong>{editableContent.texts.text_ca538eaf54}</strong> {editableContent.texts.text_3b10a37c76}</p>
               </div>
 
               <div className="kr8-mob-only" style={{ marginTop: 12 }}>
                 <p className="kr8-card__body">
-                  Through <strong>Motionverse</strong> and <strong>KR8 DIGITALS</strong>,{' '}
-                  <strong>Steveoking</strong> (Stevenson) directs foundational Brand Identity systems and
-                  high-converting Campaign Graphic Design — while mentoring designers tuition-free inside{' '}
-                  <strong>KR8 Academy</strong>.
+                  {editableContent.texts.text_ba242f3314}<strong>{editableContent.texts.text_6271b13e79}</strong> {editableContent.texts.text_427a379ae3}<strong>{editableContent.texts.text_0bbfb207b2}</strong>,{' '}
+                  <strong>{editableContent.texts.text_d5b3fef0ee}</strong> {editableContent.texts.text_1cd8949058}{' '}
+                  <strong>{editableContent.texts.text_ca538eaf54}</strong>.
                 </p>
                 <MobileDisclosure label="Read Steveoking's full creative story">
                   <p>
-                    His practice spans foundational Branding (identity systems, vector logos, typography, and
-                    Brand Books) alongside high-velocity Graphic Design (campaign flyers, retail product key art,
-                    and event visuals built to convert).
-                  </p>
+                    {editableContent.texts.text_413f39b9fe}</p>
                   <p>
-                    Inside KR8 Academy, he mentors emerging designers in hierarchy, typography, lighting, and
-                    commercial discipline at zero tuition cost.
-                  </p>
+                    {editableContent.texts.text_ffecfe0344}</p>
                 </MobileDisclosure>
               </div>
             </div>
@@ -197,13 +177,13 @@ export default function SteveokingProfilePage() {
             <div className="kr8-subhero__frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/services/brand-identity.webp"
-                alt="Brand identity guidelines and visual design systems directed at KR8 DIGITALS with Motionverse"
+                src={editableContent.texts.field_8fd0572178}
+                alt={editableContent.texts.field_450626bd27}
               />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>KR8 DIGITALS × Motionverse</span>
-                  <strong>Brand Systems · Campaign Art Direction</strong>
+                  <span>{editableContent.texts.text_d6251b5319}</span>
+                  <strong>{editableContent.texts.text_f7d786396b}</strong>
                 </div>
               </div>
             </div>
@@ -217,9 +197,9 @@ export default function SteveokingProfilePage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Design Leadership</div>
+              <div className="eyebrow">{editableContent.texts.text_98f9ceccf3}</div>
               <h2 className="section-title">
-                What Steveoking leads <span className="text-grad">at KR8 DIGITALS.</span>
+                {editableContent.texts.text_86d02fb445}<span className="text-grad">{editableContent.texts.text_13b7efeb17}</span>
               </h2>
             </div>
           </div>
@@ -256,21 +236,21 @@ export default function SteveokingProfilePage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Selected Commercial Artwork</div>
-              <h2 className="section-title">Client design crafted with Motionverse.</h2>
+              <div className="eyebrow">{editableContent.texts.text_2a6e3cf015}</div>
+              <h2 className="section-title">{editableContent.texts.text_32a25737b9}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Real commercial campaign flyers and retail visuals designed for named clients inside the KR8 DIGITALS × Motionverse practice."
-                mobile="Commercial campaign flyers and retail visuals designed inside KR8 DIGITALS × Motionverse."
+                desktop={editableContent.texts.field_dadbb4749c}
+                mobile={editableContent.texts.field_97baea890c}
               />
             </div>
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-              <Link href="/services/branding" className="btn-link">
-                Branding Service <Icon name="arrow" size={14} />
+              <Link href={editableContent.texts.field_71996fae4a} className="btn-link">
+                {editableContent.texts.text_2139850c3b}<Icon name="arrow" size={14} />
               </Link>
-              <Link href="/services/graphic-design" className="btn-link">
-                Graphic Design Gallery <Icon name="arrow" size={14} />
+              <Link href={editableContent.texts.field_14a852f28e} className="btn-link">
+                {editableContent.texts.text_9f6f9d7cf5}<Icon name="arrow" size={14} />
               </Link>
             </div>
           </div>
@@ -283,7 +263,7 @@ export default function SteveokingProfilePage() {
                   style={{ margin: '0 0 12px', aspectRatio: '4 / 5' }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={f.card} alt={`${f.title} — commercial design for ${f.client}`} loading="lazy" />
+                  <img src={f.card} alt={formatEditableText(editableContent.texts.copy_21e0d9b8b6, [f.title, f.client])} loading="lazy" />
                 </div>
                 <div className="kr8-card__num" style={{ marginBottom: 4 }}>
                   {f.kind}
@@ -293,7 +273,7 @@ export default function SteveokingProfilePage() {
                 </h3>
                 {f.client && (
                   <p className="kr8-card__body" style={{ fontSize: 12.5, marginTop: 4 }}>
-                    Client: {f.client}
+                    {editableContent.texts.text_407b45ec2d}{f.client}
                   </p>
                 )}
               </article>
@@ -307,37 +287,35 @@ export default function SteveokingProfilePage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Founding Leadership</div>
-              <h2 className="section-title">Meet the rest of the founding team.</h2>
+              <div className="eyebrow">{editableContent.texts.text_65612a9656}</div>
+              <h2 className="section-title">{editableContent.texts.text_c7f2918bb5}</h2>
             </div>
-            <Link href="/about#founders" className="btn-link">
-              Back to About KR8 DIGITALS <Icon name="arrow" size={15} />
+            <Link href={editableContent.texts.field_6cbb86594e} className="btn-link">
+              {editableContent.texts.text_b1dbcb4a65}<Icon name="arrow" size={15} />
             </Link>
           </div>
 
           <div className="kr8-grid-2" style={{ marginTop: 24 }}>
-            <Link href="/about/timfire" className="kr8-card" style={{ textDecoration: 'none' }}>
-              <div className="kr8-card__num">FOUNDER &amp; CHIEF EXECUTIVE</div>
-              <h3 className="kr8-card__title">Timfire (Kenneth Timothy Iziogo)</h3>
+            <Link href={editableContent.texts.field_9fa8f30927} className="kr8-card" style={{ textDecoration: 'none' }}>
+              <div className="kr8-card__num">{editableContent.texts.text_049fc61799}</div>
+              <h3 className="kr8-card__title">{editableContent.texts.text_0ce53ad94a}</h3>
               <p className="kr8-card__body">
-                Website developer, AI agent developer, and Founder &amp; Chief Executive of KR8 DIGITALS.
-              </p>
+                {editableContent.texts.text_025bca27c5}</p>
               <div className="kr8-card__foot">
                 <span className="btn-link">
-                  Read About Timfire <Icon name="arrow" size={14} />
+                  {editableContent.texts.text_c2976959e0}<Icon name="arrow" size={14} />
                 </span>
               </div>
             </Link>
 
-            <Link href="/about/creative-expression" className="kr8-card" style={{ textDecoration: 'none' }}>
-              <div className="kr8-card__num">CO-FOUNDER · CHIGOMA</div>
-              <h3 className="kr8-card__title">Creative Expression (Daniel Akachukwu Augustine)</h3>
+            <Link href={editableContent.texts.field_57d47ac737} className="kr8-card" style={{ textDecoration: 'none' }}>
+              <div className="kr8-card__num">{editableContent.texts.text_33e8c46c0f}</div>
+              <h3 className="kr8-card__title">{editableContent.texts.text_18b315253e}</h3>
               <p className="kr8-card__body">
-                Professional video editor, Founder of Chigoma, and Co-Founder of KR8 DIGITALS.
-              </p>
+                {editableContent.texts.text_427e6b35e8}</p>
               <div className="kr8-card__foot">
                 <span className="btn-link">
-                  Read About Creative Expression <Icon name="arrow" size={14} />
+                  {editableContent.texts.text_51ed52c16e}<Icon name="arrow" size={14} />
                 </span>
               </div>
             </Link>
@@ -346,22 +324,18 @@ export default function SteveokingProfilePage() {
           <div className="kr8-cta-banner reveal up" style={{ marginTop: 34 }}>
             <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.45} mobOpacity={0.55} flare />
             <div>
-              <span className="kr8-pill">Work With Steveoking &amp; Motionverse</span>
+              <span className="kr8-pill">{editableContent.texts.text_47f0102e02}</span>
               <h2 className="section-title" style={{ marginTop: 14 }}>
-                Ready for a brand identity or campaign visual suite that stands apart?
-              </h2>
+                {editableContent.texts.text_0081a82a3a}</h2>
               <p className="section-lede" style={{ marginTop: 10 }}>
-                Commission Brand Strategy &amp; Identity or Commercial Graphic Design directly through KR8
-                DIGITALS.
-              </p>
+                {editableContent.texts.text_a465f466d7}</p>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-              <Link href="/contact?service=branding" className="btn-primary">
-                Commission Branding <Icon name="arrow" size={17} />
+              <Link href={editableContent.texts.field_0c3072e476} className="btn-primary">
+                {editableContent.texts.text_8d4170f695}<Icon name="arrow" size={17} />
               </Link>
-              <Link href="/services/graphic-design" className="btn-ghost">
-                Graphic Design
-              </Link>
+              <Link href={editableContent.texts.field_14a852f28e} className="btn-ghost">
+                {editableContent.texts.text_b5fe7b887a}</Link>
             </div>
           </div>
         </div>
@@ -369,3 +343,5 @@ export default function SteveokingProfilePage() {
     </>
   );
 }
+
+type EditableBlockTypes = { DESIGN_PILLARS: typeof DESIGN_PILLARS };

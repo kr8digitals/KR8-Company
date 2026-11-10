@@ -68,7 +68,7 @@ const bank: Provider = {
 const paystack: Provider = {
   id: 'paystack',
   label: 'Card, transfer and USSD via Paystack',
-  available: () => Boolean(process.env.PAYSTACK_SECRET_KEY),
+  available: () => false, // Disabled until verified checkout/webhooks are implemented.
   create: (o) => ({
     orderId: o.id,
     reference: o.reference,

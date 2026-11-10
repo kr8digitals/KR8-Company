@@ -10,7 +10,6 @@ const ALLOWED_TYPES = new Set([
   'image/jpeg',
   'image/png',
   'image/webp',
-  'image/svg+xml',
   'image/gif',
 ]);
 
@@ -28,13 +27,13 @@ export async function POST(req: Request) {
       const { title, alt, category, mimeType, dataBase64, replaceId } = body;
       if (!mimeType || !ALLOWED_TYPES.has(mimeType)) {
         return NextResponse.json(
-          { ok: false, error: 'Unsupported file type. Upload PNG, JPG, WEBP, GIF, or SVG.' },
+          { ok: false, error: 'Unsupported file type. Upload PNG, JPG, WEBP, or GIF.' },
           { status: 400 }
         );
       }
-      if (!dataBase64 || String(dataBase64).length > 5_500_000) {
+      if (!dataBase64 || String(dataBase64).length > 2_600_000) {
         return NextResponse.json(
-          { ok: false, error: 'File too large (max ~4 MB).' },
+          { ok: false, error: 'File too large (max ~1.9 MB).' },
           { status: 400 }
         );
       }

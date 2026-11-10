@@ -1,3 +1,6 @@
+import { formatEditableText } from '@/lib/content-format';
+import { getEditableDocument } from '@/lib/editable-content';
+import { getSiteCatalog } from '@/lib/site-content';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -40,6 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ServiceDetailPage({ params }: Props) {
+  const editableContent = await getEditableDocument("app:services:[slug]:page");
+
   const { slug } = await params;
 
   if (slug === 'brand-graphic-design') {
@@ -59,10 +64,10 @@ export default async function ServiceDetailPage({ params }: Props) {
       <section className="kr8-subhero">
         <SectionAtmosphere name={heroAtmo} deskOpacity={0.16} mobOpacity={0.28} flare />
         <div className="wrap">
-          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="kr8-breadcrumb" aria-label={editableContent.texts.field_2bd873d6c7}>
+            <Link href="/">{editableContent.texts.text_3a78695388}</Link>
             <span>/</span>
-            <Link href="/services">Services</Link>
+            <Link href={editableContent.texts.field_3b1aeccb74}>{editableContent.texts.text_604dce445e}</Link>
             <span>/</span>
             <span style={{ color: 'var(--t-strong)' }}>{service.name}</span>
           </nav>
@@ -70,8 +75,7 @@ export default async function ServiceDetailPage({ params }: Props) {
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill">
-                <i className="kr8-pill__dot" /> Service 0{service.order} · KR8 DIGITALS
-              </span>
+                <i className="kr8-pill__dot" /> {editableContent.texts.text_57dc8930b7}{service.order} {editableContent.texts.text_a95e56ac61}</span>
               <h1 className="kr8-subhero__title">{service.name}</h1>
               <p
                 style={{
@@ -97,29 +101,28 @@ export default async function ServiceDetailPage({ params }: Props) {
               </div>
 
               <div className="kr8-subhero__actions">
-                <Link href={`/contact?service=${service.slug}`} className="btn-primary">
+                <Link href={formatEditableText("/contact?service={0}", [service.slug])} className="btn-primary">
                   {service.cta} <Icon name="arrow" size={17} />
                 </Link>
-                <a href="#live-proof" className="btn-ghost">
-                  Inspect Live Work
-                </a>
+                <a href={editableContent.texts.field_3f5e93f798} className="btn-ghost">
+                  {editableContent.texts.text_1c06746715}</a>
               </div>
             </div>
 
             <div className="kr8-subhero__frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={service.heroImage} alt={`${service.name} — KR8 DIGITALS`} />
+              <img src={service.heroImage} alt={formatEditableText(editableContent.texts.copy_37d293a3e4, [service.name])} />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>Commercial Delivery</span>
+                  <span>{editableContent.texts.text_8267926758}</span>
                   <strong>{service.name}</strong>
                 </div>
                 <Link
-                  href={`/contact?service=${service.slug}`}
+                  href={formatEditableText("/contact?service={0}", [service.slug])}
                   className="btn-link"
                   style={{ whiteSpace: 'nowrap' }}
                 >
-                  Get Scope <Icon name="arrow" size={13} />
+                  {editableContent.texts.text_6d560425ea}<Icon name="arrow" size={13} />
                 </Link>
               </div>
             </div>
@@ -132,22 +135,22 @@ export default async function ServiceDetailPage({ params }: Props) {
         <div className="wrap">
           <div className="kr8-grid-2">
             <article className="kr8-card">
-              <div className="kr8-card__num">01 · WHO THIS IS BUILT FOR</div>
-              <h2 className="kr8-card__title">Organisations &amp; Leaders We Serve</h2>
+              <div className="kr8-card__num">{editableContent.texts.text_a62d21afd3}</div>
+              <h2 className="kr8-card__title">{editableContent.texts.text_aeae31f3a9}</h2>
               <p className="kr8-card__body">{service.forWhom}</p>
             </article>
 
             <article className="kr8-card kr8-card--accent">
-              <div className="kr8-card__num">02 · THE COMMERCIAL BOTTLENECK</div>
-              <h2 className="kr8-card__title">Why Generic Execution Costs Revenue</h2>
+              <div className="kr8-card__num">{editableContent.texts.text_c99258c680}</div>
+              <h2 className="kr8-card__title">{editableContent.texts.text_520731a40b}</h2>
               <p className="kr8-card__body">{service.problem}</p>
             </article>
           </div>
 
           <div className="kr8-grid-3" style={{ marginTop: 22 }}>
             <article className="kr8-card">
-              <div className="kr8-card__num">OUR APPROACH</div>
-              <h3 className="kr8-card__title">How We Engineer Results</h3>
+              <div className="kr8-card__num">{editableContent.texts.text_52cae1e20f}</div>
+              <h3 className="kr8-card__title">{editableContent.texts.text_251e7b4a8c}</h3>
               <ul className="kr8-check-list">
                 {service.approach.map((a: string) => (
                   <li key={a}>{a}</li>
@@ -156,8 +159,8 @@ export default async function ServiceDetailPage({ params }: Props) {
             </article>
 
             <article className="kr8-card">
-              <div className="kr8-card__num">MEASURABLE OUTCOMES</div>
-              <h3 className="kr8-card__title">What Changes After Launch</h3>
+              <div className="kr8-card__num">{editableContent.texts.text_e6f8e680da}</div>
+              <h3 className="kr8-card__title">{editableContent.texts.text_79e8189834}</h3>
               <ul className="kr8-check-list">
                 {service.outcomes.map((o: string) => (
                   <li key={o}>{o}</li>
@@ -166,8 +169,8 @@ export default async function ServiceDetailPage({ params }: Props) {
             </article>
 
             <article className="kr8-card">
-              <div className="kr8-card__num">INCLUDED DELIVERABLES</div>
-              <h3 className="kr8-card__title">What You Receive</h3>
+              <div className="kr8-card__num">{editableContent.texts.text_5162f1bc34}</div>
+              <h3 className="kr8-card__title">{editableContent.texts.text_08c3142ccc}</h3>
               <ul className="kr8-check-list">
                 {service.deliverables.map((d: string) => (
                   <li key={d}>{d}</li>
@@ -184,9 +187,9 @@ export default async function ServiceDetailPage({ params }: Props) {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Execution Workflow</div>
+              <div className="eyebrow">{editableContent.texts.text_cc4522954f}</div>
               <h2 className="section-title">
-                Four clear steps <span className="text-grad">from brief to handover.</span>
+                {editableContent.texts.text_7bf2840ce7}<span className="text-grad">{editableContent.texts.text_da6bcde3b4}</span>
               </h2>
             </div>
           </div>
@@ -194,7 +197,7 @@ export default async function ServiceDetailPage({ params }: Props) {
           <div className="kr8-grid-4" style={{ marginTop: 26 }}>
             {service.process.map((st: any) => (
               <div className="kr8-card reveal up" key={st.n} style={{ padding: '24px 26px' }}>
-                <div className="kr8-card__num">STEP {st.n}</div>
+                <div className="kr8-card__num">{editableContent.texts.text_94bccdb1d5}{st.n}</div>
                 <h3 className="kr8-card__title" style={{ fontSize: 19 }}>
                   {st.t}
                 </h3>
@@ -216,18 +219,17 @@ export default async function ServiceDetailPage({ params }: Props) {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Shipped Work &amp; Proof</div>
+              <div className="eyebrow">{editableContent.texts.text_a110fc1fc6}</div>
               <h2 className="section-title">
-                Inspect real {service.short.toLowerCase()} deliverables.
-              </h2>
+                {editableContent.texts.text_697547a35a}{service.short.toLowerCase()} {editableContent.texts.text_dc65230477}</h2>
             </div>
-            <Link href={`/contact?service=${service.slug}`} className="btn-primary">
+            <Link href={formatEditableText("/contact?service={0}", [service.slug])} className="btn-primary">
               {service.cta} <Icon name="arrow" size={16} />
             </Link>
           </div>
 
           <div style={{ marginTop: 26 }}>
-            <Showcase mode={service.gallery as ShowcaseMode} />
+            <Showcase catalog={await getSiteCatalog()} mode={service.gallery as ShowcaseMode} />
           </div>
         </div>
       </section>
@@ -239,8 +241,8 @@ export default async function ServiceDetailPage({ params }: Props) {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Common Questions</div>
-              <h2 className="section-title">{service.name} — FAQs.</h2>
+              <div className="eyebrow">{editableContent.texts.text_dfbe4d437b}</div>
+              <h2 className="section-title">{service.name} {editableContent.texts.text_b65c2b5de2}</h2>
             </div>
           </div>
 
@@ -270,17 +272,16 @@ export default async function ServiceDetailPage({ params }: Props) {
           {/* Cross-navigation to remaining 5 services */}
           <div style={{ marginTop: 44 }}>
             <div className="eyebrow" style={{ marginBottom: 16 }}>
-              Explore Other KR8 DIGITALS Services
-            </div>
+              {editableContent.texts.text_041ce3f2f6}</div>
             <div className="kr8-grid-3">
               {others.slice(0, 3).map((o: any) => (
                 <Link
-                  href={`/services/${o.slug}`}
+                  href={formatEditableText("/services/{0}", [o.slug])}
                   key={o.slug}
                   className="kr8-card"
                   style={{ textDecoration: 'none', padding: '22px 24px' }}
                 >
-                  <div className="kr8-card__num">SERVICE 0{o.order}</div>
+                  <div className="kr8-card__num">{editableContent.texts.text_2cdae4a9f6}{o.order}</div>
                   <h3 className="kr8-card__title" style={{ fontSize: 20 }}>
                     {o.name}
                   </h3>

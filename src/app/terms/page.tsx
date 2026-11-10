@@ -1,13 +1,13 @@
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
 import { SectionAtmosphere } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'Terms of Service | KR8 DIGITALS',
-  description: 'Commercial engagement, program participation, referral attribution, and website usage terms for KR8 DIGITALS.',
-  alternates: { canonical: '/terms' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:terms:page")).blocks.metadata as Metadata;
+}
 
 const CLAUSES = [
   {
@@ -32,18 +32,22 @@ const CLAUSES = [
   },
 ];
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const editableContent = await getEditableDocument("app:terms:page");
+  const CLAUSES = editableContent.blocks.CLAUSES as EditableBlockTypes["CLAUSES"];
+
+  const publicData = await getPublicContent();
+  const site = publicData.site;
+
   return (
     <>
       <section className="kr8-subhero" style={{ paddingBottom: 38 }}>
         <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.28} mobOpacity={0.38} flare />
         <div className="wrap">
-          <span className="kr8-pill">Legal &amp; Governance · KR8 DIGITALS</span>
-          <h1 className="kr8-subhero__title">Terms of Service</h1>
+          <span className="kr8-pill">{editableContent.texts.text_182c2e12aa}</span>
+          <h1 className="kr8-subhero__title">{editableContent.texts.text_4afa55bf7a}</h1>
           <p className="kr8-subhero__lede">
-            Straightforward operating terms governing commercial projects, intellectual property handover,
-            ecosystem programs, and the KR8 DIGITALS referral network.
-          </p>
+            {editableContent.texts.text_09bfae4836}</p>
         </div>
       </section>
 
@@ -60,18 +64,17 @@ export default function TermsPage() {
           </div>
 
           <div style={{ marginTop: 32, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-            <Link href="/privacy" className="btn-ghost btn-sm">
-              Privacy Policy
-            </Link>
-            <Link href="/accessibility" className="btn-ghost btn-sm">
-              Accessibility Statement
-            </Link>
-            <Link href="/contact" className="btn-ghost btn-sm">
-              Contact KR8 DIGITALS
-            </Link>
+            <Link href={editableContent.texts.field_0ece7f7c30} className="btn-ghost btn-sm">
+              {editableContent.texts.text_506ff39462}</Link>
+            <Link href={editableContent.texts.field_8034008c1a} className="btn-ghost btn-sm">
+              {editableContent.texts.text_78d4fc94c0}</Link>
+            <Link href={editableContent.texts.field_4eb9506365} className="btn-ghost btn-sm">
+              {editableContent.texts.text_6bae6b2c4e}</Link>
           </div>
         </div>
       </section>
     </>
   );
 }
+
+type EditableBlockTypes = { CLAUSES: typeof CLAUSES };

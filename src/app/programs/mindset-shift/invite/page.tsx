@@ -1,3 +1,4 @@
+import { getEditableDocument } from '@/lib/editable-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
@@ -8,12 +9,9 @@ import {
   SectionAtmosphere,
 } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'Mindset Shift — Leadership & Perspective Forum | KR8 DIGITALS',
-  description:
-    'Register interest for Mindset Shift by KR8 DIGITALS — candid practitioner conversations challenging limiting beliefs around career, craft, value creation, and leadership.',
-  alternates: { canonical: '/programs/mindset-shift/invite' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:programs:mindset-shift:invite:page")).blocks.metadata as Metadata;
+}
 
 const THEMES = [
   {
@@ -36,71 +34,68 @@ const THEMES = [
   },
 ];
 
-export default function MindsetShiftInvitePage() {
+export default async function MindsetShiftInvitePage() {
+  const editableContent = await getEditableDocument("app:programs:mindset-shift:invite:page");
+  const THEMES = editableContent.blocks.THEMES as EditableBlockTypes["THEMES"];
+
   return (
     <>
       {/* ============================================================ HERO */}
       <section className="kr8-subhero">
         <SectionAtmosphere name="mindset-shift-stage" deskOpacity={0.2} mobOpacity={0.34} flare />
         <div className="wrap">
-          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="kr8-breadcrumb" aria-label={editableContent.texts.field_2bd873d6c7}>
+            <Link href="/">{editableContent.texts.text_3a78695388}</Link>
             <span>/</span>
-            <Link href="/programs">Programs</Link>
+            <Link href={editableContent.texts.field_271bdd2473}>{editableContent.texts.text_b6747064b2}</Link>
             <span>/</span>
-            <span style={{ color: 'var(--t-strong)' }}>Mindset Shift</span>
+            <span style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_7e4dd262de}</span>
           </nav>
 
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill kr8-pill--amber">
-                <i className="kr8-pill__dot" /> Free Twice-Monthly Forum · 1st &amp; 3rd Sundays at 9PM
-              </span>
+                <i className="kr8-pill__dot" /> {editableContent.texts.text_9abfa4cbae}</span>
               <h1 className="kr8-subhero__title">
-                Mindset Shift:{' '}
-                <em>rethinking what you believe is possible.</em>
+                {editableContent.texts.text_79b1d41c3e}{' '}
+                <em>{editableContent.texts.text_446e0ab530}</em>
               </h1>
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={
                   <>
-                    Skill is rarely the only barrier holding talented young people back. Convened by{' '}
-                    <strong>Timfire</strong> and guest practitioners inside the <strong>KR8 DIGITALS</strong>{' '}
-                    ecosystem, Mindset Shift brings builders, students, and founders together for candid conversations
-                    on discipline, career architecture, and value creation.
-                  </>
+                    {editableContent.texts.text_cac0f8ae64}{' '}
+                    <strong>{editableContent.texts.text_e490bfa3fb}</strong> {editableContent.texts.text_9060608fbb}<strong>{editableContent.texts.text_0bbfb207b2}</strong>{' '}
+                    {editableContent.texts.text_aa0bbe25a1}</>
                 }
                 mobile={
                   <>
-                    Hosted by <strong>Timfire</strong> and guest leaders on the <strong>1st &amp; 3rd Sundays at 9PM</strong> —
-                    candid conversations on discipline, career longevity, and ethical wealth. Open to any profession.
-                  </>
+                    {editableContent.texts.text_d04444a24a}<strong>{editableContent.texts.text_e490bfa3fb}</strong> {editableContent.texts.text_a853697c91}<strong>{editableContent.texts.text_2bfe5b550d}</strong> {editableContent.texts.text_72728bfc67}</>
                 }
               />
               <div className="kr8-subhero__actions">
-                <a href="#register" className="btn-primary">
-                  Join the Invitation List <Icon name="arrow" size={17} />
+                <a href={editableContent.texts.field_b6331134d3} className="btn-primary">
+                  {editableContent.texts.text_e738102f13}<Icon name="arrow" size={17} />
                 </a>
-                <Link href="/programs" className="btn-ghost">
-                  All Ecosystem Programs
-                </Link>
+                <Link href={editableContent.texts.field_271bdd2473} className="btn-ghost">
+                  {editableContent.texts.text_98361cccee}</Link>
               </div>
             </div>
 
             <div className="kr8-subhero__frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/programs/mindset-shift-forum.webp"
-                alt="Mindset Shift leadership and career perspective forum hosted by KR8 DIGITALS"
+                src={editableContent.texts.field_d70d13ab09}
+                alt={editableContent.texts.field_109d91dab8}
               />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>Hosted by Timfire &amp; Guest Practitioners</span>
-                  <strong>Leadership · Craft · Value Creation</strong>
+                  <span>{editableContent.texts.text_a85e446990}</span>
+                  <strong>{editableContent.texts.text_16ef89c1d1}</strong>
                 </div>
-                <a href="#register" className="btn-link" style={{ whiteSpace: 'nowrap' }}>
-                  Register <Icon name="arrow" size={13} />
+                <a href={editableContent.texts.field_b6331134d3} className="btn-link" style={{ whiteSpace: 'nowrap' }}>
+                  {editableContent.texts.text_4f9d559aa2}<Icon name="arrow" size={13} />
                 </a>
               </div>
             </div>
@@ -113,9 +108,9 @@ export default function MindsetShiftInvitePage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Inside the Room</div>
+              <div className="eyebrow">{editableContent.texts.text_a42a2ae92b}</div>
               <h2 className="section-title">
-                Conversations built around <span className="text-grad">honest execution.</span>
+                {editableContent.texts.text_b47e126cc5}<span className="text-grad">{editableContent.texts.text_a972334027}</span>
               </h2>
             </div>
           </div>
@@ -123,7 +118,7 @@ export default function MindsetShiftInvitePage() {
           <div className="kr8-mob-only" style={{ marginTop: 16 }}>
             <CinemaVisual
               name="mindset-shift-stage"
-              alt="Mindset Shift evening leadership stage with warm bokeh stage lighting"
+              alt={editableContent.texts.field_a223f3c8e2}
               badge="1st & 3rd Sundays · 9PM"
               caption="Open to builders, students, and professionals from every field."
               mobileAspect="16 / 9"
@@ -160,24 +155,23 @@ export default function MindsetShiftInvitePage() {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
             <div>
-              <div className="eyebrow">Direct Edition Notifications</div>
+              <div className="eyebrow">{editableContent.texts.text_12ff3ffa08}</div>
               <h2 className="section-title" style={{ marginTop: 10 }}>
-                Be first in the room when the <span className="text-grad">next edition is confirmed.</span>
+                {editableContent.texts.text_354174b916}<span className="text-grad">{editableContent.texts.text_bc7e1aab45}</span>
               </h2>
               <ResponsiveCopy
                 as="p"
                 className="prose-lg"
-                desktop="We publish Mindset Shift dates, guest speakers, and venue/livestream access details strictly once each edition is formally locked in. Register your email or WhatsApp below so your invitation arrives first."
-                mobile="Register your email or WhatsApp below to receive speaker lineups and direct livestream access before each session."
+                desktop={editableContent.texts.field_2b5f32c671}
+                mobile={editableContent.texts.field_812d2d4d6f}
               />
 
               <div className="kr8-card" style={{ marginTop: 22, padding: '20px 22px' }}>
-                <div className="kr8-card__num">SPEAKERS &amp; SPONSORS</div>
+                <div className="kr8-card__num">{editableContent.texts.text_be5222812f}</div>
                 <p className="kr8-card__body" style={{ marginTop: 4 }}>
-                  Want to co-sponsor an edition of Mindset Shift or propose an experienced practitioner speaker?{' '}
-                  <Link href="/partners#propose" style={{ color: 'var(--t-accent-soft)', fontWeight: 600 }}>
-                    Submit a Partnership Proposal →
-                  </Link>
+                  {editableContent.texts.text_d9d3808a8d}{' '}
+                  <Link href={editableContent.texts.field_e97169a86c} style={{ color: 'var(--t-accent-soft)', fontWeight: 600 }}>
+                    {editableContent.texts.text_d0c4037c00}</Link>
                 </p>
               </div>
             </div>
@@ -191,3 +185,5 @@ export default function MindsetShiftInvitePage() {
     </>
   );
 }
+
+type EditableBlockTypes = { THEMES: typeof THEMES };

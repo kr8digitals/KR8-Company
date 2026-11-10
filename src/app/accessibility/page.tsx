@@ -1,13 +1,13 @@
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
 import { SectionAtmosphere } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'Accessibility Statement | KR8 DIGITALS',
-  description: 'Accessibility engineering standards and feedback channel for the KR8 DIGITALS website.',
-  alternates: { canonical: '/accessibility' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:accessibility:page")).blocks.metadata as Metadata;
+}
 
 const STANDARDS = [
   {
@@ -32,18 +32,22 @@ const STANDARDS = [
   },
 ];
 
-export default function AccessibilityPage() {
+export default async function AccessibilityPage() {
+  const editableContent = await getEditableDocument("app:accessibility:page");
+  const STANDARDS = editableContent.blocks.STANDARDS as EditableBlockTypes["STANDARDS"];
+
+  const publicData = await getPublicContent();
+  const site = publicData.site;
+
   return (
     <>
       <section className="kr8-subhero" style={{ paddingBottom: 38 }}>
         <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.28} mobOpacity={0.38} flare />
         <div className="wrap">
-          <span className="kr8-pill">Inclusive Engineering · KR8 DIGITALS</span>
-          <h1 className="kr8-subhero__title">Accessibility Statement</h1>
+          <span className="kr8-pill">{editableContent.texts.text_bcf1d5a078}</span>
+          <h1 className="kr8-subhero__title">{editableContent.texts.text_78d4fc94c0}</h1>
           <p className="kr8-subhero__lede">
-            Our commitment to keeping KR8 DIGITALS usable, legible, and fast across assistive technologies,
-            screen sizes, and network conditions.
-          </p>
+            {editableContent.texts.text_d45e60e75a}</p>
         </div>
       </section>
 
@@ -60,18 +64,17 @@ export default function AccessibilityPage() {
           </div>
 
           <div style={{ marginTop: 32, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-            <Link href="/privacy" className="btn-ghost btn-sm">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="btn-ghost btn-sm">
-              Terms of Service
-            </Link>
-            <Link href="/contact" className="btn-ghost btn-sm">
-              Report an Issue
-            </Link>
+            <Link href={editableContent.texts.field_0ece7f7c30} className="btn-ghost btn-sm">
+              {editableContent.texts.text_506ff39462}</Link>
+            <Link href={editableContent.texts.field_2dda5c6b8e} className="btn-ghost btn-sm">
+              {editableContent.texts.text_4afa55bf7a}</Link>
+            <Link href={editableContent.texts.field_4eb9506365} className="btn-ghost btn-sm">
+              {editableContent.texts.text_f6a30a10bc}</Link>
           </div>
         </div>
       </section>
     </>
   );
 }
+
+type EditableBlockTypes = { STANDARDS: typeof STANDARDS };

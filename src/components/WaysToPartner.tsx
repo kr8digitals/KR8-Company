@@ -1,4 +1,5 @@
 'use client';
+import { useEditableContent } from '@/components/EditableContentProvider';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -59,12 +60,15 @@ const WAYS: Way[] = [
 ];
 
 export default function WaysToPartner() {
+  const editableContent = useEditableContent("components:WaysToPartner");
+  const WAYS = editableContent.blocks.WAYS as EditableBlockTypes["WAYS"];
+
   const [active, setActive] = useState(0);
   const w = WAYS[active];
 
   return (
     <div>
-      <div className="ways ways--4" role="tablist" aria-label="Four ways to partner">
+      <div className="ways ways--4" role="tablist" aria-label={editableContent.texts.field_9d438c81dd}>
         {WAYS.map((x, i) => (
           <button
             key={x.id}
@@ -82,7 +86,7 @@ export default function WaysToPartner() {
       <div className="panel way__panel reveal is-in" key={w.id} role="tabpanel" aria-label={w.label}>
         <div className="duo" style={{ gap: 30 }}>
           <div>
-            <div className="eyebrow">{w.label} with KR8 Digitals</div>
+            <div className="eyebrow">{w.label} {editableContent.texts.text_a9f38e9ae9}</div>
             <h3 style={{ marginTop: 10, fontFamily: 'Montserrat, sans-serif', fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em' }}>
               {w.line}
             </h3>
@@ -107,3 +111,5 @@ export default function WaysToPartner() {
     </div>
   );
 }
+
+type EditableBlockTypes = { WAYS: typeof WAYS };

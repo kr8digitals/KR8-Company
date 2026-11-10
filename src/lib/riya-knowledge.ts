@@ -1,4 +1,6 @@
 import crypto from 'node:crypto';
+import { getPublicContent } from './public-content';
+import { getEditableBundle } from './editable-content';
 import siteSeed from '../../data/site.json';
 import sitesSeed from '../../data/sites.json';
 import pricingSeed from '../../data/pricing.json';
@@ -279,6 +281,10 @@ async function extractAllVerifiedKnowledge(version: number): Promise<{
   pagesAnalyzed: { route: string; title: string; recordCount: number; qaCount: number }[];
 }> {
   const nowIso = new Date().toISOString();
+  const publicData = await getPublicContent();
+  const siteSeed = publicData.site;
+  const sitesSeed = publicData.catalog;
+  const pricingSeed = publicData.pricing;
   const [pages, services, programs, teamBundle, partners, navCfg, seoAll, customRows] =
     await Promise.all([
       getCmsPages({ includeDrafts: false }),
@@ -1169,6 +1175,18 @@ async function extractAllVerifiedKnowledge(version: number): Promise<{
     });
   }
 
+  const contentBundle = await getEditableBundle();
+  for (const [key, document] of Object.entries(contentBundle)) {
+    if (!key.startsWith('app:') || key.includes('order') || key.includes('[...slug]')) continue;
+    const route = '/' + key.replace(/^app:/, '').replace(/:page$/, '').replace(/^page$/, '').replace(/:/g, '/');
+    const copy = [...Object.values(document.texts), JSON.stringify(document.blocks)].join(' ').slice(0, 22000);
+    add({ id: `kb-editable-${key}`, category: 'general_organizational_information', route,
+      source: `Admin Content: ${document.label}`, topicKey: key, title: document.label,
+      summary: copy.slice(0, 250), content: copy, audience: 'Website visitors',
+      purpose: 'Synchronize administrator-edited public content', actions: [`Open ${route}`],
+      links: [{ label: 'Read official page', href: route }], keywords: normalizeTokens(copy).slice(0, 80), questions: [], relevance: 1.1 });
+  }
+
   // Individual deployed portfolio sites as distinct retrievable knowledge records
   for (const siteItem of sitesSeed.sites) {
     add({
@@ -1318,7 +1336,7 @@ async function extractAllVerifiedKnowledge(version: number): Promise<{
    IN-MEMORY BM25F + CHARACTER TRIGRAM INDEXER & AUTO-SYNC CONTROLLER
    ========================================================================= */
 async function computeCmsFingerprint(): Promise<string> {
-  const [pages, services, programs, team, partners, nav, seo, custom] = await Promise.all([
+  const [pages, services, programs, team, partners, nav, seo, custom, contentRows] = await Promise.all([
     getCmsPages({ includeDrafts: false }),
     getCmsServices({ includeDrafts: false }),
     getCmsPrograms({ includeDrafts: false }),
@@ -1327,10 +1345,11 @@ async function computeCmsFingerprint(): Promise<string> {
     getCmsNavigation(),
     getCmsSeoAll(),
     store.all('riya_kb_custom', 1000),
+    store.all('settings', 1000),
   ]);
   return crypto
     .createHash('sha256')
-    .update(JSON.stringify({ pages, services, programs, team: team.all, partners, nav, seo, custom }))
+    .update(JSON.stringify({ pages, services, programs, team: team.all, partners, nav, seo, custom, contentRows }))
     .digest('hex')
     .slice(0, 24);
 }

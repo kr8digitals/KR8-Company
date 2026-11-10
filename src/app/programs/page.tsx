@@ -1,3 +1,6 @@
+import CmsSections from '@/components/CmsSections';
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import programmesSeed from '../../../data/programmes.json';
@@ -12,6 +15,9 @@ import {
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const publicData = await getPublicContent();
+  const programmesSeed = publicData.programmes;
+
   const seo = await getCmsSeoForRoute('/programs');
   return {
     title:
@@ -49,6 +55,12 @@ const AUDIENCE_FIT = [
 ];
 
 export default async function ProgramsPage() {
+  const editableContent = await getEditableDocument("app:programs:page");
+  const AUDIENCE_FIT = editableContent.blocks.AUDIENCE_FIT as EditableBlockTypes["AUDIENCE_FIT"];
+
+  const publicData = await getPublicContent();
+  const programmesSeed = publicData.programmes;
+
   const [cmsPrograms, pageDoc] = await Promise.all([
     getCmsPrograms(),
     getCmsPageBySlug('programs'),
@@ -69,27 +81,26 @@ export default async function ProgramsPage() {
                 <i className="kr8-pill__dot" /> {pageDoc?.eyebrow || programmes.intro.eyebrow}
               </span>
               <h1 className="kr8-subhero__title">
-                {pageDoc?.heroTitle || 'Human capacity built alongside'}{' '}
-                <em>{pageDoc?.heroHighlight || 'commercial craft.'}</em>
+                {pageDoc?.heroTitle || editableContent.texts.copy_a0ae5e075a}{' '}
+                <em>{pageDoc?.heroHighlight || editableContent.texts.copy_fc281bf831}</em>
               </h1>
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={pageDoc?.heroLede || programmes.intro.lede}
-                mobile="Four 100% free human-capacity pathways ($0 / ₦0): KR8 Academy & Next Gen Scholars, our 3,000+ creator Tribe, Mindset Shift, and Join the Team."
+                mobile={editableContent.texts.field_cd82b8cefc}
               />
               <div className="kr8-subhero__actions">
                 <a
-                  href="https://academy.kr8digitals.com"
+                  href={editableContent.texts.field_fd6b7397b2}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary"
                 >
-                  Explore KR8 Academy <Icon name="external" size={16} />
+                  {editableContent.texts.text_9968032c97}<Icon name="external" size={16} />
                 </a>
-                <a href="#program-lineup" className="btn-ghost">
-                  Compare All 4 Programs
-                </a>
+                <a href={editableContent.texts.field_9373c53d9b} className="btn-ghost">
+                  {editableContent.texts.text_7eb3bade98}</a>
               </div>
             </div>
 
@@ -98,11 +109,11 @@ export default async function ProgramsPage() {
               <img src={programmes.intro.image} alt={programmes.intro.imageAlt} />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>Zero Tuition Gatekeeping</span>
-                  <strong>KR8 Academy · Next Gen Scholars · KR8 Tribe</strong>
+                  <span>{editableContent.texts.text_53c4eaa67f}</span>
+                  <strong>{editableContent.texts.text_327eed8eec}</strong>
                 </div>
-                <Link href="/tribe" className="btn-link" style={{ whiteSpace: 'nowrap' }}>
-                  Join Tribe <Icon name="arrow" size={13} />
+                <Link href={editableContent.texts.field_3df0ed1318} className="btn-link" style={{ whiteSpace: 'nowrap' }}>
+                  {editableContent.texts.text_d6d8889112}<Icon name="arrow" size={13} />
                 </Link>
               </div>
             </div>
@@ -115,27 +126,27 @@ export default async function ProgramsPage() {
         <div className="wrap">
           <div className="kr8-grid-2">
             <div className="kr8-card kr8-card--accent">
-              <div className="kr8-card__num">HERE FOR HUMAN CAPACITY · PROGRAMS</div>
-              <h2 className="kr8-card__title">If you are here to learn, belong, or build with us</h2>
+              <div className="kr8-card__num">{editableContent.texts.text_904b50db44}</div>
+              <h2 className="kr8-card__title">{editableContent.texts.text_8b77b2d0d0}</h2>
               <ResponsiveCopy
                 as="p"
                 className="kr8-card__body"
-                desktop="Our four ecosystem programs exist for learners, creatives, students, and builders — offering tuition-free skill education, peer community, leadership conversations, and studio career pathways."
-                mobile="For learners, students, and creatives: 100% free skill cohorts, WAEC/JAMB prep, peer critique, and studio roles."
+                desktop={editableContent.texts.field_3e251053da}
+                mobile={editableContent.texts.field_b482eb3fed}
               />
             </div>
             <div className="kr8-card">
-              <div className="kr8-card__num">HIRING FOR YOUR BUSINESS? · COMMERCIAL SERVICES</div>
-              <h2 className="kr8-card__title">If you run an organisation commissioning digital work</h2>
+              <div className="kr8-card__num">{editableContent.texts.text_3c6c122724}</div>
+              <h2 className="kr8-card__title">{editableContent.texts.text_db0c93c2b6}</h2>
               <ResponsiveCopy
                 as="p"
                 className="kr8-card__body"
-                desktop="Looking to hire KR8 DIGITALS for custom Website Design, Branding, Graphic Design, Video Editing, SEO Optimization, or AI Automation? Head directly to our commercial services hub."
-                mobile="Need a custom website, brand identity, graphic suite, video edit, SEO, or AI agent? Explore our commercial studio."
+                desktop={editableContent.texts.field_7241b2f904}
+                mobile={editableContent.texts.field_39d4015790}
               />
               <div className="kr8-card__foot">
-                <Link href="/services" className="btn-link">
-                  Go to Commercial Services <Icon name="arrow" size={14} />
+                <Link href={editableContent.texts.field_3b1aeccb74} className="btn-link">
+                  {editableContent.texts.text_b5324b7b23}<Icon name="arrow" size={14} />
                 </Link>
               </div>
             </div>
@@ -149,9 +160,9 @@ export default async function ProgramsPage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Four Structured Initiatives</div>
+              <div className="eyebrow">{editableContent.texts.text_808eecfbbe}</div>
               <h2 className="section-title">
-                Every pathway inside the <span className="text-grad">KR8 DIGITALS ecosystem.</span>
+                {editableContent.texts.text_bb2531317a}<span className="text-grad">{editableContent.texts.text_fa025140af}</span>
               </h2>
             </div>
           </div>
@@ -161,8 +172,8 @@ export default async function ProgramsPage() {
               const fit = AUDIENCE_FIT.find((a) => a.slug === p.slug);
               const pillClass =
                 p.status === 'open' || p.status === 'active'
-                  ? 'kr8-pill kr8-pill--green'
-                  : 'kr8-pill kr8-pill--amber';
+                  ? "kr8-pill kr8-pill--green"
+                  : "kr8-pill kr8-pill--amber";
 
               return (
                 <article
@@ -175,7 +186,7 @@ export default async function ProgramsPage() {
                     <div className={idx % 2 === 1 ? 'prog-col-text--alt' : 'prog-col-text'}>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
                         <span className="kr8-card__num" style={{ marginBottom: 0 }}>
-                          PROGRAM {String(idx + 1).padStart(2, '0')} · {p.type}
+                          {editableContent.texts.text_2e1e603e41}{String(idx + 1).padStart(2, '0')} · {p.type}
                         </span>
                         <span className={pillClass}>
                           <i className="kr8-pill__dot" /> {p.statusLabel}
@@ -224,7 +235,7 @@ export default async function ProgramsPage() {
                                 color: 'var(--magenta)',
                               }}
                             >
-                              Who This Is Built For · {fit.who}
+                              {editableContent.texts.text_8a3e07456b}{fit.who}
                             </div>
                             <p style={{ marginTop: 6, fontSize: 14, lineHeight: 1.6, color: 'var(--t-body)' }}>
                               {fit.gain}
@@ -238,7 +249,7 @@ export default async function ProgramsPage() {
                           <p>{p.body}</p>
                           {fit && (
                             <p>
-                              <strong>Built for {fit.who}:</strong> {fit.gain}
+                              <strong>{editableContent.texts.text_c91fcbcecc}{fit.who}:</strong> {fit.gain}
                             </p>
                           )}
                         </MobileDisclosure>
@@ -343,15 +354,15 @@ export default async function ProgramsPage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Program Standards</div>
-              <h2 className="section-title">How every KR8 DIGITALS initiative is run.</h2>
+              <div className="eyebrow">{editableContent.texts.text_b2faf8eae9}</div>
+              <h2 className="section-title">{editableContent.texts.text_f0625cf8fa}</h2>
             </div>
           </div>
 
           <div className="kr8-grid-3" style={{ marginTop: 26 }}>
             {programmes.principles.map((pr, i) => (
               <article className="kr8-card reveal up" key={pr.t}>
-                <div className="kr8-card__num">PRINCIPLE 0{i + 1}</div>
+                <div className="kr8-card__num">{editableContent.texts.text_af695005a0}{i + 1}</div>
                 <h3 className="kr8-card__title">{pr.t}</h3>
                 <p className="kr8-card__body">{pr.d}</p>
               </article>
@@ -361,28 +372,29 @@ export default async function ProgramsPage() {
           <div className="kr8-cta-banner reveal up" style={{ marginTop: 36 }}>
             <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.45} mobOpacity={0.55} flare />
             <div>
-              <span className="kr8-pill">Institutional &amp; Educational Sponsors</span>
+              <span className="kr8-pill">{editableContent.texts.text_45eb688745}</span>
               <h2 className="section-title" style={{ marginTop: 14 }}>
-                Want to co-host a cohort, sponsor learners, or partner with KR8 Academy?
-              </h2>
+                {editableContent.texts.text_caec91ba1c}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Schools, NGOs, brands, and community organisations collaborate directly with KR8 DIGITALS to expand tuition-free training impact."
-                mobile="Schools, NGOs, and organisations partner directly with us to expand free digital and academic training."
+                desktop={editableContent.texts.field_1f325b89c1}
+                mobile={editableContent.texts.field_bacd01e85f}
               />
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-              <Link href="/partners#propose" className="btn-primary">
-                Propose a Partnership <Icon name="arrow" size={17} />
+              <Link href={editableContent.texts.field_e97169a86c} className="btn-primary">
+                {editableContent.texts.text_1c8ed1d77f}<Icon name="arrow" size={17} />
               </Link>
-              <Link href="/contact" className="btn-ghost">
-                Contact Our Team
-              </Link>
+              <Link href={editableContent.texts.field_4eb9506365} className="btn-ghost">
+                {editableContent.texts.text_59d01e78d7}</Link>
             </div>
           </div>
         </div>
       </section>
+      <CmsSections sections={pageDoc?.sections || []} />
     </>
   );
 }
+
+type EditableBlockTypes = { AUDIENCE_FIT: typeof AUDIENCE_FIT };

@@ -1,3 +1,5 @@
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
@@ -9,12 +11,9 @@ import {
   SectionAtmosphere,
 } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'Join the Team — Studio Talent Pathway | KR8 DIGITALS',
-  description:
-    'Apply to join the KR8 DIGITALS studio delivery team across web engineering, brand & graphic design, video post-production, SEO, and AI automation.',
-  alternates: { canonical: '/about/join-the-team' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:about:join-the-team:page")).blocks.metadata as Metadata;
+}
 
 const DISCIPLINES = [
   {
@@ -66,60 +65,60 @@ const EVALUATION_STEPS = [
   },
 ];
 
-export default function JoinTheTeamPage() {
+export default async function JoinTheTeamPage() {
+  const editableContent = await getEditableDocument("app:about:join-the-team:page");
+  const DISCIPLINES = editableContent.blocks.DISCIPLINES as EditableBlockTypes["DISCIPLINES"];
+  const EVALUATION_STEPS = editableContent.blocks.EVALUATION_STEPS as EditableBlockTypes["EVALUATION_STEPS"];
+
+  const publicData = await getPublicContent();
+  const team = publicData.team;
+
   return (
     <>
       {/* ============================================================ HERO */}
       <section className="kr8-subhero">
         <SectionAtmosphere name="join-team-builders" deskOpacity={0.2} mobOpacity={0.34} flare />
         <div className="wrap">
-          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="kr8-breadcrumb" aria-label={editableContent.texts.field_2bd873d6c7}>
+            <Link href="/">{editableContent.texts.text_3a78695388}</Link>
             <span>/</span>
-            <Link href="/about">About</Link>
+            <Link href={editableContent.texts.field_979bddc4a8}>{editableContent.texts.text_4efca0d10c}</Link>
             <span>/</span>
-            <span style={{ color: 'var(--t-strong)' }}>Join the Team</span>
+            <span style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_a24ec95fbf}</span>
           </nav>
 
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill kr8-pill--amber">
-                <i className="kr8-pill__dot" /> Rolling Talent Review · $0 Application Fee
-              </span>
+                <i className="kr8-pill__dot" /> {editableContent.texts.text_913c1b2333}</span>
               <h1 className="kr8-subhero__title">
-                Show us what you build.{' '}
-                <em>Ship real work with us.</em>
+                {editableContent.texts.text_fcf6b28753}{' '}
+                <em>{editableContent.texts.text_9812c37074}</em>
               </h1>
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={
                   <>
-                    <strong>KR8 DIGITALS</strong> grows from proven craft rather than paper credentials. Whether you
-                    sharpened your skill inside <strong>KR8 Academy</strong> or built an independent body of work,
-                    exceptional builders are invited to submit portfolios for our studio delivery roster.
-                  </>
+                    <strong>{editableContent.texts.text_0bbfb207b2}</strong> {editableContent.texts.text_c6be933abc}<strong>{editableContent.texts.text_ca538eaf54}</strong> {editableContent.texts.text_a56e611a56}</>
                 }
                 mobile={
                   <>
-                    <strong>KR8 DIGITALS</strong> hires by proven craft — zero application fee ($0). Academy alumni
-                    and independent engineers, designers, and editors can submit work below.
-                  </>
+                    <strong>{editableContent.texts.text_0bbfb207b2}</strong> {editableContent.texts.text_448f71d2b7}</>
                 }
               />
               <div className="kr8-subhero__actions">
-                <a href="#apply" className="btn-primary">
-                  Submit Your Portfolio <Icon name="arrow" size={17} />
+                <a href={editableContent.texts.field_b131d571c5} className="btn-primary">
+                  {editableContent.texts.text_30fef3bdff}<Icon name="arrow" size={17} />
                 </a>
-                <Link href="/programs#free-training" className="btn-ghost">
-                  Still Learning? Train Free First
-                </Link>
+                <Link href={editableContent.texts.field_70ea9c52a0} className="btn-ghost">
+                  {editableContent.texts.text_bb7d9e25d8}</Link>
               </div>
             </div>
 
             <CinemaVisual
               name="join-team-builders"
-              alt="Designers, developers, and video editors collaborating inside KR8 DIGITALS"
+              alt={editableContent.texts.field_f1d292931a}
               badge="Merit-Based Studio Pathway"
               caption="Engineering · Brand · Design · Film · SEO"
               aspect="16 / 10"
@@ -134,9 +133,9 @@ export default function JoinTheTeamPage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Disciplines We Review</div>
+              <div className="eyebrow">{editableContent.texts.text_ee379e8df8}</div>
               <h2 className="section-title">
-                Where builders plug into <span className="text-grad">KR8 DIGITALS.</span>
+                {editableContent.texts.text_ae94534749}<span className="text-grad">{editableContent.texts.text_6dc5d75ad9}</span>
               </h2>
             </div>
           </div>
@@ -162,7 +161,7 @@ export default function JoinTheTeamPage() {
           <div className="kr8-grid-4" style={{ marginTop: 24 }}>
             {EVALUATION_STEPS.map((st) => (
               <div className="kr8-card reveal up" key={st.n} style={{ padding: '22px 24px' }}>
-                <div className="kr8-card__num">STAGE {st.n}</div>
+                <div className="kr8-card__num">{editableContent.texts.text_b0e57d2d9f}{st.n}</div>
                 <h3 className="kr8-card__title" style={{ fontSize: 18.5 }}>
                   {st.t}
                 </h3>
@@ -185,19 +184,19 @@ export default function JoinTheTeamPage() {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
             <div>
-              <div className="eyebrow">Talent Application</div>
+              <div className="eyebrow">{editableContent.texts.text_d74da55156}</div>
               <h2 className="section-title" style={{ marginTop: 10 }}>
-                Send us two or three pieces <span className="text-grad">you are proud of.</span>
+                {editableContent.texts.text_663ee987e7}<span className="text-grad">{editableContent.texts.text_96505d4586}</span>
               </h2>
               <ResponsiveCopy
                 as="p"
                 className="prose-lg"
-                desktop="Include links to live websites, GitHub repositories, Figma/Behance boards, Google Drive reels, or published client work. Every submission routes directly into our studio talent inbox and is reviewed by the discipline lead."
-                mobile="Share links to live websites, GitHub repos, Figma/Behance boards, or video reels — reviewed directly by our founding craft leads."
+                desktop={editableContent.texts.field_a34fbea4a5}
+                mobile={editableContent.texts.field_710d6d7b97}
               />
 
               <div className="kr8-card" style={{ marginTop: 22, padding: '20px 22px' }}>
-                <div className="kr8-card__num">LEADERSHIP REVIEWING YOUR CRAFT</div>
+                <div className="kr8-card__num">{editableContent.texts.text_c20434d850}</div>
                 <ul className="kr8-check-list" style={{ marginTop: 8 }}>
                   {team.founders.map((f) => (
                     <li key={f.slug}>
@@ -228,3 +227,5 @@ export default function JoinTheTeamPage() {
     </>
   );
 }
+
+type EditableBlockTypes = { DISCIPLINES: typeof DISCIPLINES; EVALUATION_STEPS: typeof EVALUATION_STEPS };
