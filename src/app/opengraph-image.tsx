@@ -5,6 +5,8 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 export const runtime = 'nodejs';
+// Rendered on request and always from live content, never frozen at build time.
+export const dynamic = 'force-dynamic';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 export const alt = 'KR8 Digitals — whoever you are, whatever you do, we exist because of you';
