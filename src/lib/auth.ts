@@ -32,15 +32,15 @@ export function verifyToken(token?: string | null) {
   if (parts.length !== 3) return false;
   const payload = `${parts[0]}.${parts[1]}`;
   const expected = sign(payload);
-  if (expected.length !== parts[2].length) return false;
-  if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(parts[2]))) return false;
+  const a = Buffer.from(expected), b = Buffer.from(parts[2]);
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return false;
   const issued = parseInt(parts[0], 36);
   if (!Number.isFinite(issued)) return false;
-  return Date.now() - issued < 12 * 60 * 60 * 1000; // 12 hours
+  return issued <= Date.now() && Date.now() - issued < 12 * 60 * 60 * 1000; // 12 hours
 }
 
 export function isAuthed(req: Request) {
   const cookie = req.headers.get('cookie') || '';
-  const match = cookie.match(new RegExp(`${COOKIE}=([^;]+)`));
+  const match = cookie.match(new RegExp(`(?:^|;\\s*)${COOKIE}=([^;]+)`));
   return verifyToken(match?.[1]);
 }

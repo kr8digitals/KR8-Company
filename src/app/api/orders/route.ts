@@ -4,23 +4,31 @@ import { getRates } from '@/lib/rates';
 import { activeProvider } from '@/lib/payments';
 import { sendMail, row, shell } from '@/lib/notify';
 import { signOrder } from '@/lib/order-token';
+import { getSiteCatalog } from '@/lib/site-content';
+import crypto from 'node:crypto';
 
 export const runtime = 'nodejs';
 
 function reference() {
-  const chunk = () => Math.random().toString(36).slice(2, 6).toUpperCase();
-  return `KR8-${chunk()}-${chunk()}`;
+  return `KR8-${crypto.randomBytes(8).toString('hex').toUpperCase()}`;
 }
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
   if (!body) return NextResponse.json({ ok: false, error: 'Bad request' }, { status: 400 });
 
-  const item = String(body.item || '').slice(0, 120);
-  const amountUsd = Math.round(Number(body.amountUsd));
-  if (!item || !Number.isFinite(amountUsd) || amountUsd <= 0) {
-    return NextResponse.json({ ok: false, error: 'That order is not valid.' }, { status: 422 });
+  if (String(body.name || '').trim().length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(body.email || '').trim())) {
+    return NextResponse.json({ ok: false, error: 'Enter your name and a valid email address.' }, { status: 422 });
   }
+  const catalog = await getSiteCatalog();
+  const selected = catalog.sites.find(s => s.slug === String(body.siteId || '') && s.status === 'for-sale');
+  if (!selected || typeof selected.priceUsd !== 'number' || !Number.isFinite(selected.priceUsd) || selected.priceUsd <= 0) {
+    return NextResponse.json({ ok: false, error: 'Select an available site from the catalogue.' }, { status: 422 });
+  }
+  const item = `${selected.name} — ready-built site`;
+  const amountUsd = selected.priceUsd;
+  // Validate signing configuration before persisting an order.
+  signOrder({ id: 'check', reference: 'check', item, amountUsd, amountNgn: 0, createdAt: new Date().toISOString() });
 
   const { rates } = await getRates();
   const amountNgn = Math.round((amountUsd * (rates.NGN || 1550)) / 100) * 100;

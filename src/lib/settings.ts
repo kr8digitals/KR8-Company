@@ -1,5 +1,6 @@
 import site from '../../data/site.json';
 import { store } from './store';
+import { getSiteContent } from './site-content';
 
 /**
  * Effective site settings.
@@ -12,12 +13,8 @@ import { store } from './store';
 export type Settings = typeof site.settings;
 
 export async function getSettings(): Promise<Settings> {
-  const base = JSON.parse(JSON.stringify(site.settings)) as Settings;
-  try {
-    const doc = (await store.find('settings', { id: 'site' }, 1))[0];
-    const values = (doc?.values || {}) as Record<string, unknown>;
-    return { ...base, ...values } as Settings;
-  } catch {
-    return base;
-  }
+  const base = (await getSiteContent()).settings;
+  const doc = await store.findOne('settings', { id: 'site' });
+  const allowed = Object.fromEntries(Object.keys(base).filter(key => key in (doc?.values || {})).map(key => [key, doc!.values[key]]));
+  return { ...base, ...allowed } as Settings;
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Icon } from './ui';
 import RiyaAdminPanel from './RiyaAdminPanel';
 import ThemeToggle from './ThemeToggle';
+import SiteContentEditor from './SiteContentEditor';
 
 type Tab =
   | 'overview'
@@ -62,6 +63,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
   const load = useCallback(async () => {
     const r = await fetch('/api/admin/data', { cache: 'no-store' });
     const j = await r.json();
+    if (!r.ok) { setErr(j.error || 'Unable to load dashboard'); return; }
     if (!j.authed) {
       setAuthed(false);
       return;
@@ -73,7 +75,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
   }, [navDraft, settingsDraft]);
 
   useEffect(() => {
-    if (configured) load();
+    if (configured) load().catch(() => { setErr('Unable to load dashboard. Please retry.'); setAuthed(false); });
     else setAuthed(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configured]);
@@ -573,6 +575,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
 
         <div className="kr8-cms-body">
           {/* ================================================= 1. OVERVIEW */}
+          {tab === 'overview' && <SiteContentEditor />}
           {tab === 'overview' && (
             <div style={{ display: 'grid', gap: 24 }}>
               <div className="kr8-cms-kpis">
@@ -2734,8 +2737,9 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                           fontSize: 13.5,
                         }}
                       >
-                        <strong>{o.ref}</strong> · {o.service || o.tier} ·{' '}
+                        <strong>{o.reference}</strong> · {o.item} ·{' '}
                         <span className={`kr8-cms-status ${o.status || 'pending'}`}>{o.status}</span>
+                        {o.status !== 'paid' && <button type="button" className="btn-ghost" disabled={busy} onClick={() => legacyAction({ op: 'order.paid', id: o.id })}>Confirm received payment</button>}
                       </div>
                     ))}
                   </div>
@@ -2746,7 +2750,7 @@ export default function AdminApp({ configured }: { configured: boolean }) {
                 className="kr8-cms-panel"
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  await legacyAction({ op: 'settings.save', values: settingsDraft });
+                  await legacyAction({ op: 'settings.save', patch: settingsDraft });
                 }}
                 style={{ display: 'grid', gap: 14 }}
               >

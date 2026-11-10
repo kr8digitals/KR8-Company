@@ -1,3 +1,7 @@
+import { PublicContentProvider } from '@/components/PublicContentProvider';
+import { EditableContentProvider } from '@/components/EditableContentProvider';
+import { getEditableBundle } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './mobile-experience.css';
@@ -10,9 +14,11 @@ import RevealProvider from '@/components/RevealProvider';
 import { getCmsNavigation } from '@/lib/cms';
 import site from '../../data/site.json';
 
+export const dynamic = 'force-dynamic';
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kr8company.vercel.app';
 
-export const metadata: Metadata = {
+const metadataDefaults: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: 'KR8 Digitals — websites, brands, films, AI and SEO',
@@ -53,6 +59,13 @@ export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
 };
 
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getPublicContent();
+  return { ...metadataDefaults, description: site.company.positioning,
+    openGraph: { ...metadataDefaults.openGraph, siteName: site.company.name, description: site.company.shortDescription },
+  };
+}
+
 export const viewport: Viewport = {
   themeColor: '#f6f2fb',
   width: 'device-width',
@@ -82,7 +95,16 @@ const orgSchema = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const publicData = await getPublicContent();
+  const site = publicData.site;
+
   const navConfig = await getCmsNavigation();
+  const editableBundle = await getEditableBundle();
+  const liveOrgSchema = { ...orgSchema, name: site.company.name, email: site.company.email,
+    telephone: site.company.phone, description: site.company.shortDescription,
+    founder: publicData.team.founders.map(f => ({ '@type': 'Person', name: f.fullName, alternateName: f.name, jobTitle: f.role })),
+    sameAs: site.company.socials.map(s => s.href).filter(Boolean) };
+
 
   return (
     <html lang="en" data-theme="light" suppressHydrationWarning>
@@ -94,10 +116,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
         <link rel="preload" href="/fonts/montserrat.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/sora.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(liveOrgSchema).replace(/</g, '\\u003c') }} />
       </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
+        <PublicContentProvider value={publicData}>
+        <EditableContentProvider value={editableBundle}>
         <RevealProvider>
           <ChromeGuard
             header={<Header navConfig={navConfig} />}
@@ -107,6 +131,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {children}
           </ChromeGuard>
         </RevealProvider>
+        </EditableContentProvider>
+        </PublicContentProvider>
       </body>
     </html>
   );

@@ -1,5 +1,12 @@
 # KR8 Digitals — company website
 
+> **Production rebuild in progress (2026-11-10).** PostgreSQL migrations and the
+> document adapter are implemented, but deployment, destination GitHub integration,
+> Resend/DNS verification and complete CMS coverage are not finished. See
+> [current implementation status](docs/IMPLEMENTATION_STATUS.md) for completed work,
+> verification and required setup. Older feature/test descriptions below are not a
+> production acceptance report.
+
 The full company site: home, five services, about, programmes, partners, referrals,
 contact, the Host, an admin dashboard, and the legal set. Next.js 15 App Router,
 plain CSS, TypeScript strict. No component library, no page builder.
@@ -64,20 +71,27 @@ Two flags in `data/site.json → settings` gate money on the public site:
 
 ## Storage
 
-One narrow interface (`src/lib/store.ts`) with two drivers:
+`src/lib/store.ts` preserves the existing collection interface over PostgreSQL JSONB.
+Apply `supabase/migrations/*.sql` in order to a new Supabase project. Production and
+Vercel require `SUPABASE_URL` and server-only `SUPABASE_SERVICE_KEY` (or
+`SUPABASE_SERVICE_ROLE_KEY`); missing credentials fail closed, never fall back to `/tmp`.
+The current connected project's migrations have already been applied.
 
-- **file** — JSON in `.data/` (or `/tmp` on serverless). Zero config, used in local dev
-  and on the preview deployment.
-- **supabase** — activates automatically when `SUPABASE_URL` and
-  `SUPABASE_SERVICE_KEY` are present. Same calls, no component changes.
+The database uses private `kr8_collections` and `kr8_documents` tables for 27 logical
+collections, indexed by collection, creation time, identifiers and JSON containment.
+Browser access is denied by RLS/grants. CMS seed initialization, document patching
+and commission transitions use server-role-only SQL functions.
 
-Collections: `leads`, `referrals`, `commissions`, `orders`, `host_sessions`,
-`host_messages`, `events`, `settings`.
+Local development can still use JSON under `.data/` if `KR8_REQUIRE_DATABASE` is
+unset/false. This is not a production storage option. Run `npm test` for adapter and
+security regression tests. For an existing file export, `npm run db:import` performs
+a count-only dry run; `npm run db:import -- --apply` inserts missing IDs without
+overwriting existing records. Never commit exports or credentials.
 
-> **On Vercel without a database, the file driver is ephemeral.** Writes land in
-> `/tmp`, survive the life of the instance, and are not shared between instances.
-> Forms, orders and the referral ledger therefore need Supabase (or any Postgres)
-> before they are relied on in production. Nothing in the UI pretends otherwise.
+Set a dedicated `ORDER_SECRET` of at least 32 random characters before using orders.
+The admin overview includes an advanced editor for homepage hero/site data and the
+site catalogue; it does not make every hardcoded component editable. Custom pages
+use supported section types, not arbitrary executable plugins.
 
 ---
 

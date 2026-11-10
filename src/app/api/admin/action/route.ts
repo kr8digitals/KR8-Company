@@ -1,20 +1,11 @@
 import { NextResponse } from 'next/server';
 import { isAuthed } from '@/lib/auth';
-import { store } from '@/lib/store';
+import { store, databaseConfigured, databaseRequest, decodeRow } from '@/lib/store';
 import { sendMail, row, shell } from '@/lib/notify';
-import site from '../../../../../data/site.json';
+import { getSettings } from '@/lib/settings';
 
 export const runtime = 'nodejs';
 
-const RATES = site.settings.referralRates;
-
-function rateFor(type: string, paidCount: number) {
-  const t = (type || '').toLowerCase();
-  if (paidCount >= RATES.bonusAfterPaidReferrals) return RATES.bonus;
-  if (t.includes('design') || t.includes('video') || t.includes('seo') || t.includes('search') || t.includes('brand')) return RATES.design;
-  if (t.includes('small')) return RATES.small;
-  return RATES.website;
-}
 
 export async function POST(req: Request) {
   if (!isAuthed(req)) return NextResponse.json({ ok: false, error: 'unauthorised' }, { status: 401 });
@@ -38,52 +29,28 @@ export async function POST(req: Request) {
         return NextResponse.json({ ok: true, doc: out });
       }
 
-      case 'commission.confirm': {
-        if (!id) throw new Error('id required');
-        const cm = (await store.find('commissions', { id }, 1))[0];
-        if (!cm) throw new Error('not found');
-        const ref = (await store.find('referrals', { code: cm.referrerCode }, 1))[0];
-        const value = Number(patch?.valueUsd ?? cm.valueUsd) || 0;
-        const paidCount = (await store.find('commissions', { referrerCode: cm.referrerCode, status: 'paid' }, 200)).length;
-        const rate = rateFor(cm.type, paidCount);
-        let commissionUsd = Math.round((value * rate) / 100);
-        if ((cm.type || '').toLowerCase().includes('small')) commissionUsd = Math.max(commissionUsd, RATES.smallMinimumUsd);
-
-        const updated = await store.update('commissions', id, {
-          valueUsd: value, ratePct: rate, commissionUsd, status: 'earned', confirmedAt: new Date().toISOString(),
-        });
-
-        if (ref) {
-          await store.update('referrals', ref.id, {
-            earnedUsd: (Number(ref.earnedUsd) || 0) + commissionUsd,
-            paidReferrals: Number(ref.paidReferrals) || 0,
-          });
-          await sendMail({
-            subject: `Your referral commission is confirmed — $${commissionUsd}`,
-            to: [ref.email],
-            html: shell('Commission confirmed', [
-              row('Referred', cm.leadName), row('Project value', `$${value}`),
-              row('Your rate', `${rate}%`), row('You earned', `$${commissionUsd}`),
-            ].join(''), 'It is now in your ledger at kr8digitals.com/referrals/dashboard.'),
-          });
-        }
-        return NextResponse.json({ ok: true, doc: updated });
-      }
-
+      case 'commission.confirm':
       case 'commission.pay': {
         if (!id) throw new Error('id required');
-        const cm = (await store.find('commissions', { id }, 1))[0];
-        const updated = await store.update('commissions', id, { status: 'paid', paidAt: new Date().toISOString(), paidNote: patch?.note || '' });
-        if (cm) {
-          const ref = (await store.find('referrals', { code: cm.referrerCode }, 1))[0];
-          if (ref) {
-            await store.update('referrals', ref.id, {
-              withdrawnUsd: (Number(ref.withdrawnUsd) || 0) + (Number(cm.commissionUsd) || 0),
-              paidReferrals: (Number(ref.paidReferrals) || 0) + 1,
-            });
-          }
+        if (!databaseConfigured()) throw new Error('Financial actions require the production database.');
+        const value = patch?.valueUsd === undefined ? null : Number(patch.valueUsd);
+        if (value !== null && (!Number.isFinite(value) || value <= 0)) throw new Error('Project value must be positive');
+        const result = await databaseRequest('rpc/kr8_commission_transition', {
+          method: 'POST', body: JSON.stringify({ p_id: id,
+            p_action: op === 'commission.confirm' ? 'confirm' : 'pay',
+            p_value: value, p_note: String(patch?.note || '').slice(0, 1000), p_rates: (await getSettings()).referralRates }),
+        });
+        const doc = decodeRow(result);
+        let notification = { emailed: false };
+        if (op === 'commission.confirm' && result.transitioned) {
+          const referrer = await store.findOne('referrals', { code: doc.referrerCode });
+          if (referrer?.email) notification = await sendMail({
+            to: [referrer.email], subject: `Your referral commission is confirmed — $${doc.commissionUsd}`,
+            html: shell('Commission confirmed', row('Referred', doc.leadName) + row('Your commission', `$${doc.commissionUsd}`),
+              'View your ledger at kr8digitals.com/referrals/dashboard.'),
+          });
         }
-        return NextResponse.json({ ok: true, doc: updated });
+        return NextResponse.json({ ok: true, doc, ...notification });
       }
 
       case 'lead.reply': {
@@ -102,6 +69,8 @@ export async function POST(req: Request) {
       }
 
       case 'settings.save': {
+        if (patch?.notify_email && !String(patch.notify_email).split(',').every(email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))) throw new Error('Enter valid notification email addresses');
+        if (patch?.notify_webhook_url && new URL(patch.notify_webhook_url).protocol !== 'https:') throw new Error('Webhook URL must use HTTPS');
         const existing = (await store.find('settings', { id: 'site' }, 1))[0];
         if (existing) {
           const out = await store.update('settings', existing.id, { values: { ...(existing.values || {}), ...(patch || {}) } });

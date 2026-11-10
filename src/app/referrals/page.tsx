@@ -1,3 +1,5 @@
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
@@ -14,14 +16,16 @@ import {
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Referral Program — Introduce a Client, Earn Commission | KR8 DIGITALS',
-  description:
-    'Introduce an organisation to KR8 DIGITALS for Website Design, Branding, Graphic Design, Video Editing, SEO, or AI Automation — and earn transparent commission when the invoice is paid.',
-  alternates: { canonical: '/referrals' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:referrals:page")).blocks.metadata as Metadata;
+}
 
 export default async function ReferralsPage() {
+  const editableContent = await getEditableDocument("app:referrals:page");
+
+  const publicData = await getPublicContent();
+  const site = publicData.site;
+
   const settings = await getSettings();
   const r = settings.referralRates;
   const ex = site.referrals.workedExample;
@@ -35,25 +39,23 @@ export default async function ReferralsPage() {
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill kr8-pill--green">
-                <i className="kr8-pill__dot" /> KR8 DIGITALS Referral Network
-              </span>
+                <i className="kr8-pill__dot" /> {editableContent.texts.text_8290f4eb2b}</span>
               <h1 className="kr8-subhero__title">
-                You may not build the code.{' '}
-                <em>You know the decision-maker.</em>
+                {editableContent.texts.text_7b9839e90b}{' '}
+                <em>{editableContent.texts.text_7a62989119}</em>
               </h1>
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={site.referrals.lede}
-                mobile="Introduce a school, clinic, hotel, retailer, or founder to KR8 DIGITALS and earn 8%–12% commission once their project invoice clears."
+                mobile={editableContent.texts.field_0f493a4eca}
               />
               <div className="kr8-subhero__actions">
-                <a href="#signup" className="btn-primary">
-                  Generate Your Referral Link <Icon name="arrow" size={17} />
+                <a href={editableContent.texts.field_1cb17dd17e} className="btn-primary">
+                  {editableContent.texts.text_3e1438e80c}<Icon name="arrow" size={17} />
                 </a>
-                <Link href="/referrals/dashboard" className="btn-ghost">
-                  Open Referrer Ledger
-                </Link>
+                <Link href={editableContent.texts.field_ca3bd633b6} className="btn-ghost">
+                  {editableContent.texts.text_1f7542748b}</Link>
               </div>
             </div>
 
@@ -61,24 +63,23 @@ export default async function ReferralsPage() {
               <div className="kr8-card-photo" style={{ marginBottom: 16 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/img/cinema/referrals-network-cinema-desk.webp"
-                  alt="KR8 DIGITALS Referral Network partner connecting a decision-maker from smartphone"
+                  src={editableContent.texts.field_a0c40a426c}
+                  alt={editableContent.texts.field_9c549b5607}
                 />
-                <span className="kr8-card-photo__tag">Open to Everyone · $0 Fee</span>
+                <span className="kr8-card-photo__tag">{editableContent.texts.text_72762eb15d}</span>
               </div>
-              <div className="kr8-card__num">WORKED COMMISSION EXAMPLE</div>
+              <div className="kr8-card__num">{editableContent.texts.text_ef26d616af}</div>
               <h2 className="kr8-card__title" style={{ fontSize: 22 }}>
                 {ex.project}
               </h2>
               <p className="kr8-card__body">
-                When you refer a client whose confirmed website scope closes at{' '}
-                <strong>${ex.projectUsd.toLocaleString('en-US')}</strong>, your{' '}
-                <strong>{r.website}%</strong> commission credits{' '}
+                {editableContent.texts.text_dcc035b32e}{' '}
+                <strong>${ex.projectUsd.toLocaleString('en-US')}</strong>{editableContent.texts.text_c1aa3908a4}{' '}
+                <strong>{r.website}%</strong> {editableContent.texts.text_510e9d5ee7}{' '}
                 <strong style={{ color: 'var(--t-accent-soft)' }}>
                   ${Math.round((ex.projectUsd * r.website) / 100).toLocaleString('en-US')}
                 </strong>{' '}
-                (paid in NGN at settlement) directly to your ledger once the invoice clears.
-              </p>
+                {editableContent.texts.text_b5bf0e2570}</p>
               <div
                 style={{
                   marginTop: 16,
@@ -91,17 +92,16 @@ export default async function ReferralsPage() {
               >
                 <div>
                   <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: 'var(--t-strong)' }}>{r.website}%</div>
-                  <div style={{ fontSize: 11.5, color: 'var(--t-sub)' }}>Websites &amp; AI</div>
+                  <div style={{ fontSize: 11.5, color: 'var(--t-sub)' }}>{editableContent.texts.text_98064a0414}</div>
                 </div>
                 <div>
                   <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: 'var(--t-strong)' }}>{r.design}%</div>
-                  <div style={{ fontSize: 11.5, color: 'var(--t-sub)' }}>Brand, Design &amp; Film</div>
+                  <div style={{ fontSize: 11.5, color: 'var(--t-sub)' }}>{editableContent.texts.text_fd51565eb8}</div>
                 </div>
                 <div>
                   <div style={{ fontSize: 'clamp(20px, 5vw, 26px)', fontWeight: 800, color: 'var(--t-accent-soft)' }}>{r.bonus}%</div>
                   <div style={{ fontSize: 11.5, color: 'var(--t-sub)' }}>
-                    After {r.bonusAfterPaidReferrals} Deals
-                  </div>
+                    {editableContent.texts.text_3029db7d50}{r.bonusAfterPaidReferrals} {editableContent.texts.text_145603eb8a}</div>
                 </div>
               </div>
             </div>
@@ -148,7 +148,7 @@ export default async function ReferralsPage() {
                   <img src={s.img} alt={s.alt} loading="lazy" />
                   <span className="kr8-card-photo__tag">{s.tag}</span>
                 </div>
-                <div className="kr8-card__num">STEP {s.n}</div>
+                <div className="kr8-card__num">{editableContent.texts.text_94bccdb1d5}{s.n}</div>
                 <h3 className="kr8-card__title">{s.t}</h3>
                 <ResponsiveCopy as="p" className="kr8-card__body" desktop={s.d} mobile={s.m} />
               </article>
@@ -169,9 +169,9 @@ export default async function ReferralsPage() {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
             <div>
-              <div className="eyebrow">Transparent Program Rules</div>
+              <div className="eyebrow">{editableContent.texts.text_2a49527316}</div>
               <h2 className="section-title" style={{ marginTop: 10 }}>
-                Get your personal link <span className="text-grad">in 30 seconds.</span>
+                {editableContent.texts.text_6a4cc3d516}<span className="text-grad">{editableContent.texts.text_d8452b6751}</span>
               </h2>
 
               <div className="kr8-desk-only">
@@ -184,8 +184,7 @@ export default async function ReferralsPage() {
 
               <div className="kr8-mob-only" style={{ marginTop: 12 }}>
                 <p className="kr8-card__body">
-                  10% on Websites/AI · 8% on Brand/Design/Film/SEO · 12% loyalty bonus after 3 paid deals · $20 minimum payout.
-                </p>
+                  {editableContent.texts.text_0e8e9a5dcf}</p>
                 <MobileDisclosure label="Read full referral terms & payout rules">
                   <ul className="kr8-check-list">
                     {site.referrals.terms.map((t) => (
@@ -196,8 +195,8 @@ export default async function ReferralsPage() {
               </div>
 
               <p style={{ marginTop: 18 }}>
-                <Link href="/referrals/dashboard" className="btn-link">
-                  Already registered? Open your Referrer Ledger <Icon name="arrow" size={14} />
+                <Link href={editableContent.texts.field_ca3bd633b6} className="btn-link">
+                  {editableContent.texts.text_b6086ea7e7}<Icon name="arrow" size={14} />
                 </Link>
               </p>
             </div>

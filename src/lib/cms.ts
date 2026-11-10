@@ -266,10 +266,8 @@ const SEO_SEED: Omit<CmsSeoEntry, 'updatedAt'>[] = [
 ];
 
 async function ensureSeeded<T extends Record<string, any>>(c: Collection, seedFn: () => T[]): Promise<any[]> {
-  const existing = await store.all(c, 1000);
-  if (existing.length > 0) return existing;
-  const seeded = await store.replaceAll(c, seedFn());
-  return seeded;
+  await store.seed(c, seedFn());
+  return store.all(c, 1000);
 }
 
 export async function logRevision(params: {
@@ -481,6 +479,7 @@ const ENTITY_COLLECTION: Record<string, Collection> = {
   partner: 'cms_partners',
   navigation: 'cms_navigation',
   seo: 'cms_seo',
+  content: 'settings',
 };
 
 export async function restoreCmsRevision(revisionId: string) {

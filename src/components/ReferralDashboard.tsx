@@ -1,4 +1,6 @@
 'use client';
+import { formatEditableText } from '@/lib/content-format';
+import { useEditableContent } from '@/components/EditableContentProvider';
 
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -13,6 +15,8 @@ type Ledger = {
 };
 
 export default function ReferralDashboard() {
+  const editableContent = useEditableContent("components:ReferralDashboard");
+
   const [code, setCode] = useState('');
   const [key, setKey] = useState('');
   const [data, setData] = useState<Ledger | null>(null);
@@ -22,7 +26,7 @@ export default function ReferralDashboard() {
   const load = useCallback(async (c: string, k: string) => {
     setBusy(true); setErr('');
     try {
-      const res = await fetch(`/api/referrals?code=${encodeURIComponent(c)}&key=${encodeURIComponent(k)}`);
+      const res = await fetch(`/api/referrals?code=${encodeURIComponent(c)}`, { headers: { authorization: `Bearer ${k}` }, cache: 'no-store' });
       const json = await res.json();
       if (!res.ok || !json.ok) { setErr(json.error || 'Could not load your ledger.'); setData(null); }
       else setData(json);
@@ -56,7 +60,7 @@ export default function ReferralDashboard() {
           {[
             { k: 'Earned and confirmed', v: `$${formatMoney(totals.earnedUsd)}`, s: 'cleared, awaiting payout' },
             { k: 'Paid out', v: `$${formatMoney(totals.paidUsd)}`, s: 'settled by bank transfer' },
-            { k: 'In the pipeline', v: `$${formatMoney(totals.pendingUsd)}`, s: `${totals.leads} introduction${totals.leads === 1 ? '' : 's'} to date` },
+            { k: 'In the pipeline', v: `$${formatMoney(totals.pendingUsd)}`, s: formatEditableText(editableContent.texts.copy_28d4406919, [totals.leads, totals.leads === 1 ? '' : 's']) },
           ].map((c) => (
             <div className="admin-stat" key={c.k}>
               <div className="tag">{c.k}</div>
@@ -69,40 +73,39 @@ export default function ReferralDashboard() {
         <div className="panel" style={{ marginTop: 22, padding: 24 }}>
           <div className="split" style={{ alignItems: 'center' }}>
             <div>
-              <div className="tag" style={{ color: 'var(--magenta)' }}>Your link</div>
+              <div className="tag" style={{ color: 'var(--magenta)' }}>{editableContent.texts.text_0afdb9bcf8}</div>
               <code style={{ display: 'block', marginTop: 8, fontSize: 13.5, wordBreak: 'break-all' }}>
-                {typeof window !== 'undefined' ? `${window.location.origin}/r/${data.referrer.code}` : `/r/${data.referrer.code}`}
+                {typeof window !== 'undefined' ? formatEditableText(editableContent.texts.copy_64fdf1d123, [window.location.origin, data.referrer.code]) : formatEditableText("/r/{0}", [data.referrer.code])}
               </code>
             </div>
             <button
               className="btn-ghost btn-sm"
               onClick={() => { try { navigator.clipboard.writeText(`${window.location.origin}/r/${data.referrer.code}`); } catch { /* noop */ } }}
-            >Copy link</button>
+            >{editableContent.texts.text_dbf362d4f2}</button>
           </div>
           {data.rate && (
             <p style={{ marginTop: 14, fontSize: 13, color: 'var(--lilac)' }}>
-              Bonus rate active: {data.rate}% on every new referral.
-            </p>
+              {editableContent.texts.text_32af3b73dc}{data.rate}{editableContent.texts.text_e7cf9dd98e}</p>
           )}
         </div>
 
         <div className="tbl-wrap" style={{ marginTop: 26 }}>
           <table className="tbl">
-            <thead><tr><th>Date</th><th>Introduction</th><th>Service</th><th className="num">Value</th><th className="num">Commission</th><th>Status</th></tr></thead>
+            <thead><tr><th>{editableContent.texts.text_99c40ab405}</th><th>{editableContent.texts.text_b605350bc0}</th><th>{editableContent.texts.text_d677190e0a}</th><th className="num">{editableContent.texts.text_8e37953d23}</th><th className="num">{editableContent.texts.text_3d41e1a66a}</th><th>{editableContent.texts.text_920e413c7d}</th></tr></thead>
             <tbody>
               {commissions.length === 0 && (
-                <tr><td colSpan={6} style={{ color: 'var(--t-faint)' }}>No introductions yet. Share your link — the first one usually lands within a week.</td></tr>
+                <tr><td colSpan={6} style={{ color: 'var(--t-faint)' }}>{editableContent.texts.text_a85623a0e1}</td></tr>
               )}
               {commissions.map((c) => (
                 <tr key={c.id}>
                   <td>{new Date(c.at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
                   <td><b>{c.lead || '—'}</b></td>
-                  <td style={{ color: 'var(--t-muted)' }}>{c.type || 'Enquiry'}</td>
+                  <td style={{ color: 'var(--t-muted)' }}>{c.type || editableContent.texts.copy_0e3416f5f2}</td>
                   <td className="num">${formatMoney(c.value || 0)}</td>
                   <td className="num">${formatMoney(c.commission || 0)}</td>
                   <td>
                     <span className={`badge-status ${c.status}`}>
-                      {c.status === 'paid' ? 'Paid' : c.status === 'earned' ? 'Confirmed' : 'Awaiting payment'}
+                      {c.status === 'paid' ? editableContent.texts.copy_fb81b961af : c.status === 'earned' ? editableContent.texts.copy_fe00b67b6d : editableContent.texts.copy_7c2788959f}
                     </span>
                   </td>
                 </tr>
@@ -112,10 +115,9 @@ export default function ReferralDashboard() {
         </div>
 
         <div style={{ display: 'flex', gap: 12, marginTop: 24, flexWrap: 'wrap' }}>
-          <Link href="/referrals" className="btn-ghost btn-sm">How referrals work</Link>
+          <Link href={editableContent.texts.field_5c28ab56d1} className="btn-ghost btn-sm">{editableContent.texts.text_b3815df11a}</Link>
           <button className="btn-ghost btn-sm" onClick={() => { setData(null); try { localStorage.removeItem('kr8.ref.key'); localStorage.removeItem('kr8.ref.code'); } catch { /* noop */ } }}>
-            Sign out of this device
-          </button>
+            {editableContent.texts.text_b4e09a6437}</button>
         </div>
       </div>
     );
@@ -124,36 +126,30 @@ export default function ReferralDashboard() {
   return (
     <div className="split" style={{ alignItems: 'start', gap: 48 }}>
       <form className="panel" onSubmit={submit} style={{ padding: 30, maxWidth: 520 }}>
-        <div className="tag" style={{ color: 'var(--magenta)' }}>Sign in</div>
-        <h3 style={{ fontSize: 22, marginTop: 10 }}>Your code and private key</h3>
+        <div className="tag" style={{ color: 'var(--magenta)' }}>{editableContent.texts.text_bfd402b2f6}</div>
+        <h3 style={{ fontSize: 22, marginTop: 10 }}>{editableContent.texts.text_719eefb7a0}</h3>
         <p style={{ marginTop: 8, fontSize: 13.5, color: 'var(--t-muted)', lineHeight: 1.6 }}>
-          Both were shown when you created the account, and the key is stored on the device you signed up
-          on. No password to forget.
-        </p>
+          {editableContent.texts.text_085851a073}</p>
         <div className="field" style={{ marginTop: 18 }}>
-          <label htmlFor="dc">Referral code</label>
-          <input id="dc" className="input" value={code} onChange={(e) => setCode(e.target.value)} placeholder="e.g. chidinma4f2a" required />
+          <label htmlFor="dc">{editableContent.texts.text_64f124b1f0}</label>
+          <input id="dc" className="input" value={code} onChange={(e) => setCode(e.target.value)} placeholder={editableContent.texts.field_b88d3ce662} required />
         </div>
         <div className="field">
-          <label htmlFor="dk">Private key</label>
-          <input id="dk" className="input" value={key} onChange={(e) => setKey(e.target.value)} placeholder="Shown when you signed up" required />
+          <label htmlFor="dk">{editableContent.texts.text_477bf990a2}</label>
+          <input id="dk" className="input" value={key} onChange={(e) => setKey(e.target.value)} placeholder={editableContent.texts.field_2f644f33c0} required />
         </div>
         {err && <div className="form-status err">{err}</div>}
         <button className="btn-primary" disabled={busy} type="submit" style={{ marginTop: 8 }}>
-          {busy ? <><span className="spinner" /> Loading…</> : <>Open my ledger <Icon name="arrow" size={16} /></>}
+          {busy ? <><span className="spinner" /> {editableContent.texts.text_ba3bbbe10d}</> : <>{editableContent.texts.text_ae038b75bb}<Icon name="arrow" size={16} /></>}
         </button>
         <p className="form-note">
-          Lost your key? <Link href="/contact" style={{ color: 'var(--magenta)' }}>Message the team</Link> from the
-          email you signed up with and we will reissue it.
-        </p>
+          {editableContent.texts.text_b8daa0a70d}<Link href={editableContent.texts.field_4eb9506365} style={{ color: 'var(--magenta)' }}>{editableContent.texts.text_85e6c8fa30}</Link> {editableContent.texts.text_f4f15ddebc}</p>
       </form>
       <div className="panel" style={{ padding: 30 }}>
-        <h3 style={{ fontSize: 20 }}>No account yet?</h3>
+        <h3 style={{ fontSize: 20 }}>{editableContent.texts.text_7316cc510f}</h3>
         <p style={{ marginTop: 10, fontSize: 14, color: 'var(--t-muted)', lineHeight: 1.65 }}>
-          Creating one takes thirty seconds and there is no approval step. You get the link and the ledger
-          immediately.
-        </p>
-        <Link href="/referrals#join" className="btn-primary btn-sm" style={{ marginTop: 18 }}>Create my link <Icon name="arrow" size={15} /></Link>
+          {editableContent.texts.text_e6e8949d42}</p>
+        <Link href={editableContent.texts.field_3edf20c5af} className="btn-primary btn-sm" style={{ marginTop: 18 }}>{editableContent.texts.text_ce5ae38e5f}<Icon name="arrow" size={15} /></Link>
       </div>
     </div>
   );

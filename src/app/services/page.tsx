@@ -1,6 +1,9 @@
+import CmsSections from '@/components/CmsSections';
+import { formatEditableText } from '@/lib/content-format';
+import { getEditableDocument } from '@/lib/editable-content';
+import { getSiteCatalog } from '@/lib/site-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import sitesData from '../../../data/sites.json';
 import { getCmsPageBySlug, getCmsSeoForRoute, getCmsServices } from '@/lib/cms';
 import { Icon } from '@/components/ui';
 import Showcase, { type ShowcaseMode } from '@/components/Showcase';
@@ -69,6 +72,11 @@ const MOBILE_SERVICE_SUMMARIES: Record<string, string> = {
 };
 
 export default async function ServicesPage() {
+  const editableContent = await getEditableDocument("app:services:page");
+  const DIAGNOSTIC_ROUTES = editableContent.blocks.DIAGNOSTIC_ROUTES as EditableBlockTypes["DIAGNOSTIC_ROUTES"];
+  const MOBILE_SERVICE_SUMMARIES = editableContent.blocks.MOBILE_SERVICE_SUMMARIES as EditableBlockTypes["MOBILE_SERVICE_SUMMARIES"];
+
+  const sitesData = await getSiteCatalog();
   const [publishedServices, pageDoc] = await Promise.all([
     getCmsServices(),
     getCmsPageBySlug('services'),
@@ -83,46 +91,44 @@ export default async function ServicesPage() {
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill">
-                <i className="kr8-pill__dot" /> {pageDoc?.eyebrow || 'Six Commercial Disciplines · One Standard'}
+                <i className="kr8-pill__dot" /> {pageDoc?.eyebrow || editableContent.texts.copy_8fc76601be}
               </span>
               <h1 className="kr8-subhero__title">
-                {pageDoc?.heroTitle || 'Every digital layer that makes your organisation'}{' '}
-                <em>{pageDoc?.heroHighlight || 'found, trusted, and chosen.'}</em>
+                {pageDoc?.heroTitle || editableContent.texts.copy_9734c89fc4}{' '}
+                <em>{pageDoc?.heroHighlight || editableContent.texts.copy_f0c5255537}</em>
               </h1>
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={
                   pageDoc?.heroLede ||
-                  'KR8 DIGITALS brings engineering, brand strategy, graphic design, film editing, search visibility, and applied AI under one accountable roof. Explore our six commercial services below — each backed by real, inspectable client deliverables.'
+                  editableContent.texts.copy_186def940b
                 }
-                mobile="Websites, brand identity, campaign design, video editing, SEO, and AI automation under one accountable roof — backed by 200+ shipped works."
+                mobile={editableContent.texts.field_4b80f7092e}
               />
               <div className="kr8-subhero__actions">
-                <Link href="/contact" className="btn-primary">
-                  Request a Written Scope <Icon name="arrow" size={17} />
+                <Link href={editableContent.texts.field_4eb9506365} className="btn-primary">
+                  {editableContent.texts.text_98ee7ba71e}<Icon name="arrow" size={17} />
                 </Link>
-                <a href="#service-matrix" className="btn-ghost">
-                  Compare All 6 Services
-                </a>
+                <a href={editableContent.texts.field_b2db58732f} className="btn-ghost">
+                  {editableContent.texts.text_5b4c85d789}</a>
               </div>
             </div>
 
             <div className="kr8-subhero__frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/sites/afristem-full.webp"
-                alt="Live commercial digital platform engineered by KR8 DIGITALS"
+                src={editableContent.texts.field_ff837143d1}
+                alt={editableContent.texts.field_f7bd4fd15d}
               />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>Verified Live Portfolio</span>
+                  <span>{editableContent.texts.text_9650bb7598}</span>
                   <strong>
-                    {sitesData.sites.length} Live Web Builds · Brand Systems · Campaign Reels
-                  </strong>
+                    {sitesData.sites.length} {editableContent.texts.text_348471df26}</strong>
                 </div>
-                <Link href="/contact" className="btn-link" style={{ whiteSpace: 'nowrap' }}>
-                  Start Brief <Icon name="arrow" size={13} />
+                <Link href={editableContent.texts.field_4eb9506365} className="btn-link" style={{ whiteSpace: 'nowrap' }}>
+                  {editableContent.texts.text_429dc95d12}<Icon name="arrow" size={13} />
                 </Link>
               </div>
             </div>
@@ -136,15 +142,15 @@ export default async function ServicesPage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Commercial Capabilities</div>
+              <div className="eyebrow">{editableContent.texts.text_9a95dd348b}</div>
               <h2 className="section-title">
-                Six distinct services. <span className="text-grad">Zero guesswork.</span>
+                {editableContent.texts.text_bcac3e5d03}<span className="text-grad">{editableContent.texts.text_5f7d4ff28a}</span>
               </h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Commission a single focused engagement — such as a website build, a complete brand identity, or a campaign graphic suite — or combine disciplines seamlessly on one project scope."
-                mobile="Commission one focused build or combine web, brand, video, SEO, and AI into a single milestone scope."
+                desktop={editableContent.texts.field_67bb4b813b}
+                mobile={editableContent.texts.field_3c87f664ec}
               />
             </div>
           </div>
@@ -157,10 +163,10 @@ export default async function ServicesPage() {
               >
                 <div className="kr8-card__media">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={s.heroImage} alt={`${s.name} — KR8 DIGITALS commercial service`} loading="lazy" />
+                  <img src={s.heroImage} alt={formatEditableText(editableContent.texts.copy_b3e1e6cbcd, [s.name])} loading="lazy" />
                 </div>
                 <div className="kr8-card__num">
-                  SERVICE {String(idx + 1).padStart(2, '0')} · {s.short}
+                  {editableContent.texts.text_9c4a4ad229}{String(idx + 1).padStart(2, '0')} · {s.short}
                 </div>
                 <h3 className="kr8-card__title">{s.name}</h3>
                 <ResponsiveCopy
@@ -175,12 +181,11 @@ export default async function ServicesPage() {
                   ))}
                 </ul>
                 <div className="kr8-card__foot">
-                  <Link href={`/services/${s.slug}`} className="btn-link">
-                    Service Details <Icon name="arrow" size={14} />
+                  <Link href={formatEditableText("/services/{0}", [s.slug])} className="btn-link">
+                    {editableContent.texts.text_4c4e5f812f}<Icon name="arrow" size={14} />
                   </Link>
                   <a href={`#${s.anchor}`} className="btn-link" style={{ opacity: 0.78 }}>
-                    See Proof ↓
-                  </a>
+                    {editableContent.texts.text_43fcf769a1}</a>
                 </div>
               </article>
             ))}
@@ -193,9 +198,9 @@ export default async function ServicesPage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Where Should We Start?</div>
+              <div className="eyebrow">{editableContent.texts.text_c3a8a3f7f0}</div>
               <h2 className="section-title">
-                Match the bottleneck you are facing <span className="text-grad">to the right craft.</span>
+                {editableContent.texts.text_1a3f94a444}<span className="text-grad">{editableContent.texts.text_ee39b96546}</span>
               </h2>
             </div>
           </div>
@@ -243,17 +248,16 @@ export default async function ServicesPage() {
                 />
               </div>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
-                <Link href={`/services/${s.slug}`} className="btn-ghost">
-                  Full {s.short} Scope
-                </Link>
-                <Link href={`/contact?service=${s.slug}`} className="btn-primary">
+                <Link href={formatEditableText("/services/{0}", [s.slug])} className="btn-ghost">
+                  {editableContent.texts.text_66036c01a0}{s.short} {editableContent.texts.text_b073f6c68e}</Link>
+                <Link href={formatEditableText("/contact?service={0}", [s.slug])} className="btn-primary">
                   {s.cta} <Icon name="arrow" size={16} />
                 </Link>
               </div>
             </div>
 
             <div style={{ marginTop: 26 }}>
-              <Showcase
+              <Showcase catalog={sitesData}
                 mode={s.gallery as ShowcaseMode}
                 limit={s.gallery === 'sites' ? 6 : undefined}
               />
@@ -261,8 +265,8 @@ export default async function ServicesPage() {
 
             {s.gallery === 'sites' && (
               <div style={{ marginTop: 22, display: 'flex', justifyContent: 'center' }}>
-                <Link href="/services/website-design" className="btn-ghost">
-                  Explore All {sitesData.sites.length} Deployed Websites <Icon name="arrow" size={15} />
+                <Link href={editableContent.texts.field_8b058c1ad9} className="btn-ghost">
+                  {editableContent.texts.text_7618820c9b}{sitesData.sites.length} {editableContent.texts.text_145a9bcc06}<Icon name="arrow" size={15} />
                 </Link>
               </div>
             )}
@@ -276,28 +280,29 @@ export default async function ServicesPage() {
           <div className="kr8-cta-banner reveal up">
             <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.45} mobOpacity={0.55} flare />
             <div>
-              <span className="kr8-pill">Transparent Fixed Scopes</span>
+              <span className="kr8-pill">{editableContent.texts.text_a83bc4dca1}</span>
               <h2 className="section-title" style={{ marginTop: 14 }}>
-                Tell us what your organisation needs to launch, fix, or scale.
-              </h2>
+                {editableContent.texts.text_c22f19fda2}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Every project is scoped clearly in writing with defined deliverables, timeline milestones, and a transparent fixed figure before work begins."
-                mobile="Defined deliverables, clear milestones, and a fixed written quote in USD or NGN within 1 business day."
+                desktop={editableContent.texts.field_8a37074238}
+                mobile={editableContent.texts.field_706baab178}
               />
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-              <Link href="/contact" className="btn-primary">
-                Request a Project Quote <Icon name="arrow" size={17} />
+              <Link href={editableContent.texts.field_4eb9506365} className="btn-primary">
+                {editableContent.texts.text_807cb8165d}<Icon name="arrow" size={17} />
               </Link>
-              <Link href="/partners" className="btn-ghost">
-                Agency &amp; Org Partnerships
-              </Link>
+              <Link href={editableContent.texts.field_6d0f8c425c} className="btn-ghost">
+                {editableContent.texts.text_c8e3d99e54}</Link>
             </div>
           </div>
         </div>
       </section>
+      <CmsSections sections={pageDoc?.sections || []} />
     </>
   );
 }
+
+type EditableBlockTypes = { DIAGNOSTIC_ROUTES: typeof DIAGNOSTIC_ROUTES; MOBILE_SERVICE_SUMMARIES: typeof MOBILE_SERVICE_SUMMARIES };

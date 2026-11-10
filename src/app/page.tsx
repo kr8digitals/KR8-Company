@@ -1,5 +1,9 @@
+import { formatEditableText } from '@/lib/content-format';
+import type { Metadata } from 'next';
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
-import site from '../../data/site.json';
+import { getSiteContent, getHomeContent } from '@/lib/site-content';
 import team from '../../data/team.json';
 import { Counter, Icon } from '@/components/ui';
 import HeroCinema from '@/components/HeroCinema';
@@ -13,7 +17,6 @@ import {
   SectionAtmosphere,
 } from '@/components/MobileExperience';
 
-const eco = site.ecosystem;
 const mainPartners = [
   {
     slug: 'motionverse',
@@ -38,13 +41,20 @@ const mainPartners = [
   },
 ];
 
-export const metadata = {
-  title: 'KR8 Digitals — Whoever you are, whatever you do, we exist because of you.',
-  description:
-    'KR8 Digitals designs and builds websites, brands, films, AI systems and SEO optimisation for organisations that need to be found, trusted and chosen.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:page")).blocks.metadata as Metadata;
+}
 
-export default function Home() {
+export default async function Home() {
+  const editableContent = await getEditableDocument("app:page");
+  const mainPartners = editableContent.blocks.mainPartners as EditableBlockTypes["mainPartners"];
+
+  const publicData = await getPublicContent();
+  const team = publicData.team;
+
+  const site = publicData.site;
+  const hero = await getHomeContent();
+  const eco = site.ecosystem;
   return (
     <>
       {/* ------------------------------------------------------------ HERO */}
@@ -58,16 +68,14 @@ export default function Home() {
           <div className="hero-grid hero-grid--desktop">
             <div className="hero-copy-col">
               <span className="badge">
-                <span className="badge-dot" /> A creative company
+                <span className="badge-dot" /> {hero.badge}
               </span>
               <h1 className="hero-title">
-                <span className="line line--small">Whoever you are, whatever you do,</span>
-                <span className="line line--big text-grad">we exist because of you.</span>
+                <span className="line line--small">{hero.title}</span>
+                <span className="line line--big text-grad">{hero.highlight}</span>
               </h1>
               <p className="hero-copy">
-                We design and engineer fast websites, unmistakable brand identities, scroll-stopping video,
-                AI systems, and search authority for organisations ready to lead — while training the next
-                generation of digital builders for free.
+                {hero.description}
               </p>
               <div className="hero-actions">
                 <Link href={site.hero.primary.href} className="btn-primary">
@@ -77,14 +85,14 @@ export default function Home() {
                   {site.hero.secondary.label} <span className="arrow-out">↗</span>
                 </a>
               </div>
-              <div className="hero-pillars" aria-label="Core capabilities">
-                <span>Websites &amp; Apps</span>
+              <div className="hero-pillars" aria-label={editableContent.texts.field_3152e8ca94}>
+                <span>{editableContent.texts.text_a6e88f5444}</span>
                 <i aria-hidden />
-                <span>Branding &amp; Design</span>
+                <span>{editableContent.texts.text_4f6a7fb8cb}</span>
                 <i aria-hidden />
-                <span>Video &amp; AI</span>
+                <span>{editableContent.texts.text_c2b1ecea59}</span>
                 <i aria-hidden />
-                <span>Free Academy</span>
+                <span>{editableContent.texts.text_9c9985381d}</span>
               </div>
             </div>
             <div className="hero-stage-col">
@@ -93,6 +101,8 @@ export default function Home() {
           </div>
 
           <MobileHero
+            title={hero.mobileTitle}
+            highlight={hero.mobileHighlight}
             primaryHref={site.hero.primary.href}
             primaryLabel={site.hero.primary.label}
             secondaryHref={site.hero.secondary.href}
@@ -105,7 +115,7 @@ export default function Home() {
         <div className="marquee-track">
           {[...Array(2)].map((_, k) => (
             <div key={k} className="marquee-item" style={{ display: 'flex' }}>
-              {['Websites', 'Brand', 'Video', 'AI', 'SEO', 'Training', 'Community', 'Partnership'].map((w) => (
+              {[editableContent.texts.copy_bec8768fab, editableContent.texts.copy_090ed4316f, editableContent.texts.copy_d534be829e, editableContent.texts.copy_11fb682be0, editableContent.texts.copy_6bc4718fbb, editableContent.texts.copy_36a798e3f3, editableContent.texts.copy_bb501d7877, editableContent.texts.copy_b61dd8f401].map((w) => (
                 <span key={w} className="marquee-item">
                   <span className="marquee-text">{w}</span>
                   <span className="diamond" />
@@ -119,7 +129,7 @@ export default function Home() {
       </div>
 
       {/* ------------------------------------------------------ 3 · PROOF STRIP */}
-      <section className="proof" aria-label="KR8 Digitals in numbers">
+      <section className="proof" aria-label={editableContent.texts.field_049a550384}>
         <div className="wrap" style={{ paddingLeft: 0, paddingRight: 0 }}>
           <div className="proof-grid">
             {site.stats.map((s, i) => (
@@ -141,17 +151,17 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Services</div>
-              <h2 className="section-title">What we build for clients</h2>
+              <div className="eyebrow">{editableContent.texts.text_604dce445e}</div>
+              <h2 className="section-title">{editableContent.texts.text_0df52fe9e4}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Great organisations lose opportunities quietly when their digital presence feels slow, generic, or disconnected. We engineer every layer of how the market finds, perceives, and buys from you — custom websites, category-defining brand identity, campaign design, high-retention video, search visibility, and intelligent automation under one roof."
-                mobile="Six integrated studio capabilities engineered to get your brand found, trusted, and chosen on sight."
+                desktop={editableContent.texts.field_c174fff9c4}
+                mobile={editableContent.texts.field_0c77371319}
               />
             </div>
-            <Link href="/services" className="btn-link">
-              All services <Icon name="arrow" size={15} />
+            <Link href={editableContent.texts.field_3b1aeccb74} className="btn-link">
+              {editableContent.texts.text_9bf9122d26}<Icon name="arrow" size={15} />
             </Link>
           </div>
           <ServiceCards />
@@ -164,27 +174,23 @@ export default function Home() {
         <div className="wrap">
           <div className="ft-grid reveal up">
             <div className="ft-copy">
-              <div className="eyebrow">Flagship Initiative · Free Digital Skills Training</div>
+              <div className="eyebrow">{editableContent.texts.text_79c796457f}</div>
               <h2 className="section-title">
-                Empowering people to become <span className="text-grad">creators of opportunities</span> — at zero cost.
-              </h2>
+                {editableContent.texts.text_1aaed248b3}<span className="text-grad">{editableContent.texts.text_4818331d9f}</span> {editableContent.texts.text_8d5bcbf7f5}</h2>
 
               <p className="section-lede kr8-desk-only">
-                Talent is everywhere, yet expensive bootcamps lock millions out of the digital economy. Through{' '}
-                <strong style={{ color: 'var(--t-strong)' }}>KR8 Academy</strong>, we teach practical, high-income digital
-                crafts completely free — equipping learners to build products, launch studios, win clients, and
-                create opportunities rather than wait in line as job seekers.
-              </p>
+                {editableContent.texts.text_efde5601b3}{' '}
+                <strong style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_ca538eaf54}</strong>{editableContent.texts.text_d2ad679b2e}</p>
 
               <div className="kr8-mob-only" style={{ marginTop: 12 }}>
                 <p className="section-lede" style={{ marginTop: 0 }}>
-                  Learn high-income digital skills <strong style={{ color: 'var(--t-strong)' }}>100% tuition-free ($0 / ₦0)</strong>{' '}
-                  through 8-week live cohorts at <strong style={{ color: 'var(--t-strong)' }}>KR8 Academy</strong>.
+                  {editableContent.texts.text_41e944bfbc}<strong style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_4e85762786}</strong>{' '}
+                  {editableContent.texts.text_737d26e744}<strong style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_ca538eaf54}</strong>.
                 </p>
                 <div style={{ marginTop: 14 }}>
                   <CinemaVisual
                     name="academy-cohort-cinema"
-                    alt="KR8 Academy learners collaborating during a free hands-on digital skills cohort"
+                    alt={editableContent.texts.field_0a4fc54588}
                     badge="KR8 Academy · $0 Tuition"
                     caption="8-week practical cohorts · Live mentorship · Verifiable KR8 ID"
                   />
@@ -197,8 +203,8 @@ export default function Home() {
                     <Icon name="spark" size={18} />
                   </span>
                   <div>
-                    <b>100% Tuition-Free Access</b>
-                    <p>Zero tuition, zero hidden charges, and zero graduation fees across every cohort.</p>
+                    <b>{editableContent.texts.text_699fad4db3}</b>
+                    <p>{editableContent.texts.text_83428cef08}</p>
                   </div>
                 </div>
                 <div className="ft-pillar">
@@ -206,8 +212,8 @@ export default function Home() {
                     <Icon name="layers" size={18} />
                   </span>
                   <div>
-                    <b>Practical Craft Over Theory</b>
-                    <p>8-week intensive cohorts led by practicing builders — you graduate with shipped work, not slides.</p>
+                    <b>{editableContent.texts.text_3174cb5754}</b>
+                    <p>{editableContent.texts.text_e1c59ffe33}</p>
                   </div>
                 </div>
                 <div className="ft-pillar">
@@ -215,19 +221,18 @@ export default function Home() {
                     <Icon name="award" size={18} />
                   </span>
                   <div>
-                    <b>Verifiable KR8 Graduate Identity</b>
-                    <p>Earn an official verifiable KR8 ID, portfolio review, and pathways into real client projects.</p>
+                    <b>{editableContent.texts.text_345fbe4831}</b>
+                    <p>{editableContent.texts.text_21bb4e4d21}</p>
                   </div>
                 </div>
               </div>
 
               <div className="actions" style={{ marginTop: 24 }}>
                 <a href={eco.academy.url} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                  Start Learning Free <span className="arrow-out">↗</span>
+                  {editableContent.texts.text_327bf5133a}<span className="arrow-out">↗</span>
                 </a>
-                <Link href="/programs#free-training" className="btn-ghost">
-                  Explore 7 Tracks
-                </Link>
+                <Link href={editableContent.texts.field_70ea9c52a0} className="btn-ghost">
+                  {editableContent.texts.text_4efa546c5d}</Link>
               </div>
             </div>
 
@@ -237,29 +242,29 @@ export default function Home() {
                   <span className="ft-dot ft-dot--pink" />
                   <span className="ft-dot" />
                   <span className="ft-dot" />
-                  <span className="ft-url">academy.kr8digitals.com</span>
-                  <span className="ft-free-pill">₦0 · $0 TUITION</span>
+                  <span className="ft-url">{editableContent.texts.text_75a1d5d506}</span>
+                  <span className="ft-free-pill">{editableContent.texts.text_4092d8aee4}</span>
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/img/academy-home.jpg"
-                  alt="KR8 Academy — tuition-free digital skills training platform by KR8 Digitals"
+                  src={editableContent.texts.field_c62179466b}
+                  alt={editableContent.texts.field_8d99949e39}
                   loading="lazy"
                   decoding="async"
                 />
               </div>
 
-              <div className="ft-tracks-card" aria-label="Available free training tracks">
-                <span className="ft-tracks__label">7 Practical Skill Tracks · Zero Tuition</span>
+              <div className="ft-tracks-card" aria-label={editableContent.texts.field_5817074902}>
+                <span className="ft-tracks__label">{editableContent.texts.text_b14b16f65b}</span>
                 <div className="ft-tracks__list">
                   {[
-                    'Website Development',
-                    'Front-End Engineering',
-                    'Graphic Design',
-                    'Video Editing & Motion',
-                    'Content Creation',
-                    'Social Media Management',
-                    'Digital Marketing',
+                    editableContent.texts.copy_6837aab9ca,
+                    editableContent.texts.copy_a95b7a5655,
+                    editableContent.texts.copy_b5fe7b887a,
+                    editableContent.texts.copy_e36b227a5e,
+                    editableContent.texts.copy_2ca313baf1,
+                    editableContent.texts.copy_1b286e778e,
+                    editableContent.texts.copy_29ff60a8ca,
                   ].map((track) => (
                     <span key={track} className="ft-track-chip">
                       {track}
@@ -271,15 +276,15 @@ export default function Home() {
               <div className="ft-proof-card">
                 <div className="ft-avatars" aria-hidden>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/work/p-grant.jpg" alt="" loading="lazy" />
+                  <img src={editableContent.texts.field_541ec58199} alt="" loading="lazy" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/work/p-elizabeth.jpg" alt="" loading="lazy" />
+                  <img src={editableContent.texts.field_acc7bb7dda} alt="" loading="lazy" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/work/p-chinenye.jpg" alt="" loading="lazy" />
+                  <img src={editableContent.texts.field_ed0e204bb9} alt="" loading="lazy" />
                 </div>
                 <div className="ft-proof-card__text">
-                  <b>From Curious Learners to Working Creators</b>
-                  <span>8-week hands-on cohorts · Senior mentorship · Plus WAEC &amp; JAMB support via Next Gen Scholars</span>
+                  <b>{editableContent.texts.text_d3d782baaa}</b>
+                  <span>{editableContent.texts.text_420b8c673a}</span>
                 </div>
               </div>
             </div>
@@ -294,32 +299,22 @@ export default function Home() {
           <div className="tribe-shell reveal up">
             <div className="tribe-head">
               <div className="tribe-head__copy">
-                <div className="eyebrow">KR8 Digitals&apos; Tribe · The Creative Community</div>
+                <div className="eyebrow">{editableContent.texts.text_35461b7dd0}</div>
                 <h2 className="section-title">
-                  Isolation kills craft.
-                  <br />
-                  <span className="text-grad">Never build alone again.</span>
+                  {editableContent.texts.text_ba58126a6c}<br />
+                  <span className="text-grad">{editableContent.texts.text_c368f061a7}</span>
                 </h2>
 
                 <p className="section-lede kr8-desk-only">
-                  Most learners finish a course and lose the room — left staring at Figma, Premiere, or VS Code
-                  alone with nobody to review their work or point them toward real opportunities.{' '}
-                  <strong style={{ color: 'var(--t-strong)' }}>KR8 Digitals&apos; Tribe</strong> is our unbroken creative
-                  community where designers, web developers, video directors, and digital builders stay connected
-                  to sharpen their craft, collaborate across disciplines, and grow into financially independent
-                  creators together.
-                </p>
+                  {editableContent.texts.text_2a0c7c293b}{' '}
+                  <strong style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_485bc59846}</strong> {editableContent.texts.text_b5d9798753}</p>
 
                 <div className="kr8-mob-only" style={{ marginTop: 10 }}>
                   <p className="section-lede" style={{ marginTop: 0 }}>
-                    Join <strong style={{ color: 'var(--t-strong)' }}>3,000+ designers, developers, and filmmakers</strong>{' '}
-                    sharing honest critiques, cross-skill collaborations, and paid client gig flow — free.
-                  </p>
+                    {editableContent.texts.text_bb23428b65}<strong style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_3524e3ed1f}</strong>{' '}
+                    {editableContent.texts.text_b9e527495b}</p>
                   <MobileDisclosure label="Why we built the Tribe">
-                    Most learners finish a course and lose the room — left staring at Figma, Premiere, or VS Code
-                    alone. KR8 Digitals&apos; Tribe keeps creators connected with senior reviews, cross-discipline
-                    team-ups, and real client overflow opportunities.
-                  </MobileDisclosure>
+                    {editableContent.texts.text_8f814023a9}</MobileDisclosure>
                 </div>
               </div>
 
@@ -327,7 +322,7 @@ export default function Home() {
                 <div style={{ marginBottom: 12 }}>
                   <CinemaVisual
                     name="tribe-creative-room"
-                    alt="KR8 Digitals Tribe members reviewing creative work together in studio"
+                    alt={editableContent.texts.field_a1be62c2b9}
                     badge="3,000+ Active Creators"
                     aspect="16 / 9.5"
                     mobileAspect="16 / 10"
@@ -335,19 +330,18 @@ export default function Home() {
                 </div>
                 <div className="tribe-cluster__faces" aria-hidden>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/work/p-grant.jpg" alt="" loading="lazy" />
+                  <img src={editableContent.texts.field_541ec58199} alt="" loading="lazy" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/work/p-chinenye.jpg" alt="" loading="lazy" />
+                  <img src={editableContent.texts.field_ed0e204bb9} alt="" loading="lazy" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/work/p-peter.jpg" alt="" loading="lazy" />
+                  <img src={editableContent.texts.field_27e3b280f8} alt="" loading="lazy" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/work/p-elizabeth.jpg" alt="" loading="lazy" />
+                  <img src={editableContent.texts.field_acc7bb7dda} alt="" loading="lazy" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/img/work/p-maduka.jpg" alt="" loading="lazy" />
+                  <img src={editableContent.texts.field_a22d62850b} alt="" loading="lazy" />
                 </div>
                 <p className="tribe-cluster__note">
-                  Designers · Developers · Video Editors · Strategists · Founders building side by side.
-                </p>
+                  {editableContent.texts.text_2d295c4906}</p>
               </div>
             </div>
 
@@ -359,11 +353,11 @@ export default function Home() {
                     <Icon name="palette" size={18} />
                   </span>
                 </div>
-                <h3>Critique Over Clout</h3>
+                <h3>{editableContent.texts.text_64fb287699}</h3>
                 <ResponsiveCopy
                   as="p"
-                  desktop="Share messy work-in-progress drafts and receive honest, specific technical feedback from senior practitioners who care about raising your standard — without ego or judgment."
-                  mobile="Honest, ego-free technical feedback on your drafts from senior practitioners."
+                  desktop={editableContent.texts.field_c7550534d9}
+                  mobile={editableContent.texts.field_0ca73a115a}
                 />
               </article>
 
@@ -374,11 +368,11 @@ export default function Home() {
                     <Icon name="users" size={18} />
                   </span>
                 </div>
-                <h3>Internal Gig &amp; Lead Flow</h3>
+                <h3>{editableContent.texts.text_b33ab11dbd}</h3>
                 <ResponsiveCopy
                   as="p"
-                  desktop="When client projects expand or retainers overflow, opportunities go to trusted builders inside the Tribe room first — turning proven skill into real paid work."
-                  mobile="Overflow studio projects and client leads shared with trusted builders first."
+                  desktop={editableContent.texts.field_0942f94263}
+                  mobile={editableContent.texts.field_4799b27751}
                 />
               </article>
 
@@ -389,11 +383,11 @@ export default function Home() {
                     <Icon name="layers" size={18} />
                   </span>
                 </div>
-                <h3>Cross-Skill Collaboration</h3>
+                <h3>{editableContent.texts.text_c0ac1e82e3}</h3>
                 <ResponsiveCopy
                   as="p"
-                  desktop="Web developers partner with brand designers, motion artists, and writers to pitch, execute, and deliver complete client solutions none of them could ship alone."
-                  mobile="Devs, designers, and editors team up to ship full client projects together."
+                  desktop={editableContent.texts.field_387943cdd7}
+                  mobile={editableContent.texts.field_47f62ae097}
                 />
               </article>
 
@@ -404,11 +398,11 @@ export default function Home() {
                     <Icon name="compass" size={18} />
                   </span>
                 </div>
-                <h3>Accountability &amp; Growth</h3>
+                <h3>{editableContent.texts.text_207c07104b}</h3>
                 <ResponsiveCopy
                   as="p"
-                  desktop="Live teardowns on freelancing, client psychology, pricing, and staying consistent alongside ambitious peers walking the exact same road."
-                  mobile="Live teardowns on pricing, client psychology, and consistent career growth."
+                  desktop={editableContent.texts.field_773fc4dfcc}
+                  mobile={editableContent.texts.field_460a216cd0}
                 />
               </article>
             </div>
@@ -416,25 +410,20 @@ export default function Home() {
             <div className="tribe-foot">
               <div className="tribe-rules">
                 <span>
-                  <Icon name="check" size={14} /> Zero spam or guru hype
-                </span>
+                  <Icon name="check" size={14} /> {editableContent.texts.text_61a630abdc}</span>
                 <span>
-                  <Icon name="check" size={14} /> Actionable senior feedback
-                </span>
+                  <Icon name="check" size={14} /> {editableContent.texts.text_bd0b3c2183}</span>
                 <span>
-                  <Icon name="check" size={14} /> Shared leads &amp; gigs
-                </span>
+                  <Icon name="check" size={14} /> {editableContent.texts.text_e99fce7902}</span>
                 <span>
-                  <Icon name="check" size={14} /> Lift as you climb
-                </span>
+                  <Icon name="check" size={14} /> {editableContent.texts.text_895eb68748}</span>
               </div>
               <div className="actions">
-                <Link href="/tribe" className="btn-primary">
-                  Step Into the Tribe <Icon name="arrow" size={17} />
+                <Link href={editableContent.texts.field_3df0ed1318} className="btn-primary">
+                  {editableContent.texts.text_49c100eb0d}<Icon name="arrow" size={17} />
                 </Link>
-                <Link href="/programs#tribe" className="btn-ghost">
-                  How the Tribe Fits
-                </Link>
+                <Link href={editableContent.texts.field_0e277ad2ae} className="btn-ghost">
+                  {editableContent.texts.text_212a0743cf}</Link>
               </div>
             </div>
           </div>
@@ -446,17 +435,17 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Beyond Client Services · Ecosystem Initiatives</div>
-              <h2 className="section-title">Other things we do</h2>
+              <div className="eyebrow">{editableContent.texts.text_9fb4826482}</div>
+              <h2 className="section-title">{editableContent.texts.text_b5e3326dea}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Alongside client delivery, tuition-free training, and the Tribe, we run two focused ecosystem initiatives — one designed to rewire how ambitious people think about growth and opportunity, and another opening a merit-based path onto our production team."
-                mobile="Two focused pathways: live conversations on wealth & clarity, and merit-based entry onto our studio team."
+                desktop={editableContent.texts.field_afcdf0372e}
+                mobile={editableContent.texts.field_4467fb5b88}
               />
             </div>
-            <Link href="/programs" className="btn-link">
-              All initiatives <Icon name="arrow" size={15} />
+            <Link href={editableContent.texts.field_271bdd2473} className="btn-link">
+              {editableContent.texts.text_f51743fdd1}<Icon name="arrow" size={15} />
             </Link>
           </div>
 
@@ -467,7 +456,7 @@ export default function Home() {
               <div style={{ marginBottom: 14 }}>
                 <CinemaVisual
                   name="mindset-shift-stage"
-                  alt="Mindset Shift — KR8 Digitals twice-monthly live conversation forum"
+                  alt={editableContent.texts.field_71788b48fc}
                   badge="1st & 3rd Sundays · 9 PM"
                   aspect="16 / 8.8"
                   mobileAspect="16 / 9.5"
@@ -475,40 +464,39 @@ export default function Home() {
               </div>
               <div className="otwd-card__head">
                 <span className="otwd-badge">
-                  <Icon name="spark" size={15} /> Initiative 01 · Live Gathering Series
-                </span>
-                <span className="pill pill--live">Free Entry</span>
+                  <Icon name="spark" size={15} /> {editableContent.texts.text_a94d9f0206}</span>
+                <span className="pill pill--live">{editableContent.texts.text_bb75ca0622}</span>
               </div>
 
-              <h3 className="otwd-card__title">Mindset Shift</h3>
+              <h3 className="otwd-card__title">{editableContent.texts.text_7e4dd262de}</h3>
               <ResponsiveCopy
                 as="p"
                 className="otwd-card__desc"
-                desktop="Technical skill is rarely the only gap — belief is. Mindset Shift is our recurring live conversation series bringing accomplished founders, authors, and strategists into the room to challenge limiting assumptions around money, career ceiling, business, and personal agency — so capable people stop holding themselves back."
-                mobile="Twice-monthly live conversations with founders and strategists on money, career leverage, and business clarity — free for every profession."
+                desktop={editableContent.texts.field_827ad6e7b5}
+                mobile={editableContent.texts.field_80188903d1}
               />
 
               <ul className="otwd-list">
                 <li>
                   <Icon name="check" size={15} />
-                  <span>Candid, zero-hype conversations on wealth, business, and clarity</span>
+                  <span>{editableContent.texts.text_d2836e02c3}</span>
                 </li>
                 <li>
                   <Icon name="check" size={15} />
-                  <span>Hosted live twice monthly with guest thinkers and practitioners</span>
+                  <span>{editableContent.texts.text_9a8dcfe86e}</span>
                 </li>
                 <li>
                   <Icon name="check" size={15} />
-                  <span>Actionable takeaways you can apply the very same week</span>
+                  <span>{editableContent.texts.text_217ef94413}</span>
                 </li>
               </ul>
 
               <div className="otwd-card__foot">
-                <Link href="/programs/mindset-shift/invite" className="btn-primary btn-sm">
-                  Register Interest <Icon name="arrow" size={15} />
+                <Link href={editableContent.texts.field_83281429bb} className="btn-primary btn-sm">
+                  {editableContent.texts.text_da872d2840}<Icon name="arrow" size={15} />
                 </Link>
-                <Link href="/programs#mindset-shift" className="btn-link">
-                  About Mindset Shift <Icon name="arrow" size={14} />
+                <Link href={editableContent.texts.field_5be18a86f0} className="btn-link">
+                  {editableContent.texts.text_219c5d7f0b}<Icon name="arrow" size={14} />
                 </Link>
               </div>
             </article>
@@ -519,7 +507,7 @@ export default function Home() {
               <div style={{ marginBottom: 14 }}>
                 <CinemaVisual
                   name="join-team-builders"
-                  alt="KR8 Digitals commercial production suite for web, design, and film specialists"
+                  alt={editableContent.texts.field_53e8618567}
                   badge="Portfolio-First · $0 Fee"
                   aspect="16 / 8.8"
                   mobileAspect="16 / 9.5"
@@ -527,40 +515,39 @@ export default function Home() {
               </div>
               <div className="otwd-card__head">
                 <span className="otwd-badge">
-                  <Icon name="users" size={15} /> Initiative 02 · Professional Studio Pathway
-                </span>
-                <span className="pill">Merit-Based</span>
+                  <Icon name="users" size={15} /> {editableContent.texts.text_da12783d9a}</span>
+                <span className="pill">{editableContent.texts.text_f8f28e372c}</span>
               </div>
 
-              <h3 className="otwd-card__title">Join the Team</h3>
+              <h3 className="otwd-card__title">{editableContent.texts.text_a24ec95fbf}</h3>
               <ResponsiveCopy
                 as="p"
                 className="otwd-card__desc"
-                desktop="KR8 Digitals is built by practitioners who prove their craft through real output. Join the Team is our structured bridge from independent builder or standout Academy graduate into our core delivery team — collaborating on live client websites, brand systems, films, and AI builds held to commercial standards."
-                mobile="Our merit-based bridge into the paid KR8 production studio — judged on shipped portfolio work, never paper degrees."
+                desktop={editableContent.texts.field_53ef234e55}
+                mobile={editableContent.texts.field_c019939eca}
               />
 
               <ul className="otwd-list">
                 <li>
                   <Icon name="check" size={15} />
-                  <span>Portfolio-first evaluation — judged by shipped work, not paper</span>
+                  <span>{editableContent.texts.text_befb1fe07f}</span>
                 </li>
                 <li>
                   <Icon name="check" size={15} />
-                  <span>Hands-on collaboration with senior leads on real paid client briefs</span>
+                  <span>{editableContent.texts.text_0f904fb6de}</span>
                 </li>
                 <li>
                   <Icon name="check" size={15} />
-                  <span>Open to standout KR8 graduates and disciplined external builders</span>
+                  <span>{editableContent.texts.text_43971b964b}</span>
                 </li>
               </ul>
 
               <div className="otwd-card__foot">
-                <Link href="/about/join-the-team" className="btn-primary btn-sm">
-                  How to Join <Icon name="arrow" size={15} />
+                <Link href={editableContent.texts.field_78c2a55cd4} className="btn-primary btn-sm">
+                  {editableContent.texts.text_f0b70c974b}<Icon name="arrow" size={15} />
                 </Link>
-                <Link href="/about/join-the-team#roles" className="btn-link">
-                  See Open Roles <Icon name="arrow" size={14} />
+                <Link href={editableContent.texts.field_8527bfb1db} className="btn-link">
+                  {editableContent.texts.text_c45236aa8c}<Icon name="arrow" size={14} />
                 </Link>
               </div>
             </article>
@@ -574,17 +561,17 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Partners</div>
-              <h2 className="section-title">We do not build alone</h2>
+              <div className="eyebrow">{editableContent.texts.text_5dab502bfb}</div>
+              <h2 className="section-title">{editableContent.texts.text_f7d3f95f34}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Enduring impact is built through shared standards and complementary strengths. Our partner organisations co-create commercial design and film alongside KR8 Digitals, lead specialised instruction across our free training cohorts, and expand what every client and learner gains from our ecosystem."
-                mobile="Allied studios and academic partners co-producing commercial work and powering our free cohorts."
+                desktop={editableContent.texts.field_a0f237f79c}
+                mobile={editableContent.texts.field_994cbf0dcb}
               />
             </div>
-            <Link href="/partners" className="btn-link">
-              See all partners <Icon name="arrow" size={15} />
+            <Link href={editableContent.texts.field_6d0f8c425c} className="btn-link">
+              {editableContent.texts.text_29f63c45e7}<Icon name="arrow" size={15} />
             </Link>
           </div>
 
@@ -596,10 +583,10 @@ export default function Home() {
                 <small>{p.role}</small>
               </Link>
             ))}
-            <Link href="/partners" className="logo-slot logo-slot--invite">
+            <Link href={editableContent.texts.field_6d0f8c425c} className="logo-slot logo-slot--invite">
               <span className="logo-slot__mark">+</span>
-              <b>Your Logo Here</b>
-              <small>Tell Us What You Can Bring →</small>
+              <b>{editableContent.texts.text_0601c766cb}</b>
+              <small>{editableContent.texts.text_e22e76fe15}</small>
             </Link>
           </div>
         </div>
@@ -610,17 +597,17 @@ export default function Home() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">The team</div>
-              <h2 className="section-title">Three founders. One company.</h2>
+              <div className="eyebrow">{editableContent.texts.text_012a283b46}</div>
+              <h2 className="section-title">{editableContent.texts.text_f2ee5d751c}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Three complementary crafts united under one shared standard. Rather than working in isolated silos, our founders bring engineering, brand design, and film production onto the same table — collaborating directly across client engagements, free training cohorts, and the community we build together."
-                mobile="Engineering, brand design, and film production united under one roof by three practicing founders."
+                desktop={editableContent.texts.field_b97090f040}
+                mobile={editableContent.texts.field_f3fa3308e8}
               />
             </div>
-            <Link href="/about" className="btn-link">
-              About KR8 <Icon name="arrow" size={15} />
+            <Link href={editableContent.texts.field_979bddc4a8} className="btn-link">
+              {editableContent.texts.text_08dd5bc5aa}<Icon name="arrow" size={15} />
             </Link>
           </div>
 
@@ -649,27 +636,18 @@ export default function Home() {
       <div id="join-team">
         <Duo
           eyebrow="Join the team"
-          title="If you can build, we want to meet you."
+          title={editableContent.texts.field_0f27e4e55e}
           mobileSummary={
             <p>
-              Whether you trained inside KR8 Academy or built your track record independently across web,
-              design, video, SEO, or AI — we judge by shipped work, never résumé theatre.
-            </p>
+              {editableContent.texts.text_0a25d217c4}</p>
           }
           mobileExpandLabel="How our portfolio review works"
           body={
             <>
               <p>
-                Exceptional client work comes from practitioners who care deeply about the craft behind every
-                pixel, frame, and line of code. Whether you sharpened your skills inside KR8 Academy or built
-                your track record independently across web engineering, brand design, video production, SEO, or
-                AI automation, there is a seat here for builders whose work speaks for itself.
-              </p>
+                {editableContent.texts.text_e7e463b687}</p>
               <p>
-                We skip résumé theatre entirely. Show us what you have shipped, walk us through how you solve
-                real problems, and collaborate directly with our founders and senior leads on paid commercial
-                projects. Even when no role is publicly listed, strong portfolios always get read.
-              </p>
+                {editableContent.texts.text_2f723c555c}</p>
             </>
           }
           bullets={[
@@ -705,24 +683,22 @@ export default function Home() {
               mobPosition="center 25%"
               flare
             />
-            <div className="eyebrow eyebrow--lilac">Referrals</div>
+            <div className="eyebrow eyebrow--lilac">{editableContent.texts.text_76ffc344c6}</div>
             <h2>
-              You may not have the skill.
-              <br />
-              <span className="text-grad">You have the people.</span>
+              {editableContent.texts.text_d4fd252886}<br />
+              <span className="text-grad">{editableContent.texts.text_f82c24a51b}</span>
             </h2>
             <ResponsiveCopy
               as="p"
-              desktop="You know a school that needs a website. A bakery that needs a brand. A founder nobody can find on Google. Introduce them. When the work is paid, you are paid."
-              mobile="Know a clinic, hotel, school, or founder needing digital work? Introduce them — earn 8% to 12% cash once paid."
+              desktop={editableContent.texts.field_efd7ceaccb}
+              mobile={editableContent.texts.field_5d73369d45}
             />
             <div className="actions" style={{ marginTop: 24 }}>
-              <Link href="/referrals" className="btn-primary" data-track="become_referrer">
-                Become a referrer <Icon name="arrow" size={17} />
+              <Link href={editableContent.texts.field_5c28ab56d1} className="btn-primary" data-track="become_referrer">
+                {editableContent.texts.text_172b9b4d08}<Icon name="arrow" size={17} />
               </Link>
               <span style={{ fontSize: 13, color: 'var(--t-muted)' }}>
-                10% on projects · 8% on creative · 12% after three
-              </span>
+                {editableContent.texts.text_d4b55ad7cc}</span>
             </div>
           </div>
         </div>
@@ -735,21 +711,19 @@ export default function Home() {
           <div className="split reveal up" style={{ alignItems: 'center', gap: 24 }}>
             <div>
               <h2 className="section-title" style={{ marginBottom: 0 }}>
-                If you run a school, a business, or a brand, we should talk.
-              </h2>
+                {editableContent.texts.text_4dd022e291}</h2>
             </div>
             <div className="actions">
-              <Link href="/contact" className="btn-primary">
-                Work with us <Icon name="arrow" size={17} />
+              <Link href={editableContent.texts.field_4eb9506365} className="btn-primary">
+                {editableContent.texts.text_c6a53ce263}<Icon name="arrow" size={17} />
               </Link>
               <a
-                href={`https://wa.me/${site.company.whatsapp}`}
+                href={formatEditableText("https://wa.me/{0}", [site.company.whatsapp])}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost"
               >
-                <Icon name="wa" size={16} /> WhatsApp
-              </a>
+                <Icon name="wa" size={16} /> {editableContent.texts.text_6a40edf1fc}</a>
             </div>
           </div>
         </div>
@@ -757,3 +731,5 @@ export default function Home() {
     </>
   );
 }
+
+type EditableBlockTypes = { mainPartners: typeof mainPartners };

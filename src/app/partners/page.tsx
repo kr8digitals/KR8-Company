@@ -1,3 +1,6 @@
+import CmsSections from '@/components/CmsSections';
+import { formatEditableText } from '@/lib/content-format';
+import { getEditableDocument } from '@/lib/editable-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getCmsPageBySlug, getCmsPartners, getCmsSeoForRoute } from '@/lib/cms';
@@ -125,6 +128,11 @@ const PROCESS_STEPS = [
 ];
 
 export default async function PartnersPage() {
+  const editableContent = await getEditableDocument("app:partners:page");
+  const WHY_PARTNER = editableContent.blocks.WHY_PARTNER as EditableBlockTypes["WHY_PARTNER"];
+  const COLLABORATION_TRACKS = editableContent.blocks.COLLABORATION_TRACKS as EditableBlockTypes["COLLABORATION_TRACKS"];
+  const PROCESS_STEPS = editableContent.blocks.PROCESS_STEPS as EditableBlockTypes["PROCESS_STEPS"];
+
   const [partners, pageDoc] = await Promise.all([
     getCmsPartners(),
     getCmsPageBySlug('partners'),
@@ -138,44 +146,43 @@ export default async function PartnersPage() {
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill">
-                <i className="kr8-pill__dot" /> {pageDoc?.eyebrow || 'Strategic Alliances · KR8 DIGITALS'}
+                <i className="kr8-pill__dot" /> {pageDoc?.eyebrow || editableContent.texts.copy_fc87585f9d}
               </span>
               <h1 className="kr8-subhero__title">
-                {pageDoc?.heroTitle || 'Why partner with'}{' '}
-                <em>{pageDoc?.heroHighlight || 'KR8 DIGITALS?'}</em>
+                {pageDoc?.heroTitle || editableContent.texts.copy_7c2606cf3f}{' '}
+                <em>{pageDoc?.heroHighlight || editableContent.texts.copy_215d4ea9cb}</em>
               </h1>
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={
                   pageDoc?.heroLede ||
-                  'Ambitious outcomes move faster when complementary strengths share one roof. Whether you lead a specialist creative studio, an academic institution, a corporate impact initiative, or a growing company — partnering with KR8 DIGITALS connects your mission to full-stack digital execution and an active talent ecosystem.'
+                  editableContent.texts.copy_25a4538e41
                 }
-                mobile="Whether you lead a specialist studio, school, foundation, or agency — partner with KR8 DIGITALS for full-stack execution and youth talent impact."
+                mobile={editableContent.texts.field_1615da111e}
               />
               <div className="kr8-subhero__actions">
-                <a href="#propose" className="btn-primary">
-                  Propose a Partnership <Icon name="arrow" size={17} />
+                <a href={editableContent.texts.field_29a333b3c4} className="btn-primary">
+                  {editableContent.texts.text_1c8ed1d77f}<Icon name="arrow" size={17} />
                 </a>
-                <a href="#existing-partners" className="btn-ghost">
-                  Meet Active Partners
-                </a>
+                <a href={editableContent.texts.field_dc57395c1d} className="btn-ghost">
+                  {editableContent.texts.text_864e2bbd07}</a>
               </div>
             </div>
 
             <div className="kr8-subhero__frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/partners/partnership-collaboration.webp"
-                alt="Strategic partnership alignment session with KR8 DIGITALS leadership"
+                src={editableContent.texts.field_f1d162b5a5}
+                alt={editableContent.texts.field_ba05bcd8cd}
               />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>Active Partner Network</span>
-                  <strong>Motionverse · Chigoma · Next Gen Scholars</strong>
+                  <span>{editableContent.texts.text_ece787f674}</span>
+                  <strong>{editableContent.texts.text_0110ec805c}</strong>
                 </div>
-                <a href="#propose" className="btn-link" style={{ whiteSpace: 'nowrap' }}>
-                  Apply Now <Icon name="arrow" size={13} />
+                <a href={editableContent.texts.field_29a333b3c4} className="btn-link" style={{ whiteSpace: 'nowrap' }}>
+                  {editableContent.texts.text_98a1472b4b}<Icon name="arrow" size={13} />
                 </a>
               </div>
             </div>
@@ -188,15 +195,15 @@ export default async function PartnersPage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">The Strategic Case</div>
+              <div className="eyebrow">{editableContent.texts.text_096dcd9f57}</div>
               <h2 className="section-title">
-                Built for <span className="text-grad">mutual leverage — never one-sided logos.</span>
+                {editableContent.texts.text_c91fcbcecc}<span className="text-grad">{editableContent.texts.text_84a742cba9}</span>
               </h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="We do not collect decorative partner badges. Every organisation inside our network builds real commercial deliverables, teaches real learners, or expands real opportunity."
-                mobile="Zero decorative badges. Every partner builds real work, mentors learners, or expands real opportunity."
+                desktop={editableContent.texts.field_3457460659}
+                mobile={editableContent.texts.field_ec5c745e47}
               />
             </div>
           </div>
@@ -227,9 +234,9 @@ export default async function PartnersPage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Ways We Collaborate</div>
+              <div className="eyebrow">{editableContent.texts.text_3dea7ccb1a}</div>
               <h2 className="section-title">
-                Four structured <span className="text-grad">partnership pathways.</span>
+                {editableContent.texts.text_57fb4d5252}<span className="text-grad">{editableContent.texts.text_6301de3936}</span>
               </h2>
             </div>
           </div>
@@ -245,7 +252,7 @@ export default async function PartnersPage() {
                 <div className="kr8-card__num">{t.tag}</div>
                 <h3 className="kr8-card__title">{t.title}</h3>
                 <p className="kr8-card__body" style={{ fontWeight: 500, color: 'var(--t-lilac-strong)' }}>
-                  Ideal for: {t.who}
+                  {editableContent.texts.text_b99995922d}{t.who}
                 </p>
                 <div className="kr8-desk-only">
                   <ul className="kr8-check-list">
@@ -264,8 +271,8 @@ export default async function PartnersPage() {
                   </MobileDisclosure>
                 </div>
                 <div className="kr8-card__foot">
-                  <a href="#propose" className="btn-link">
-                    Propose This Track <Icon name="arrow" size={14} />
+                  <a href={editableContent.texts.field_29a333b3c4} className="btn-link">
+                    {editableContent.texts.text_7ac9762a6c}<Icon name="arrow" size={14} />
                   </a>
                 </div>
               </article>
@@ -276,7 +283,7 @@ export default async function PartnersPage() {
           <div className="kr8-grid-4" style={{ marginTop: 24 }}>
             {PROCESS_STEPS.map((st) => (
               <div className="kr8-card reveal up" key={st.n} style={{ padding: '22px 24px' }}>
-                <div className="kr8-card__num">STEP {st.n}</div>
+                <div className="kr8-card__num">{editableContent.texts.text_94bccdb1d5}{st.n}</div>
                 <h3 className="kr8-card__title" style={{ fontSize: 18.5 }}>
                   {st.t}
                 </h3>
@@ -298,15 +305,15 @@ export default async function PartnersPage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Proof of the Umbrella in Action</div>
+              <div className="eyebrow">{editableContent.texts.text_1c3e050f79}</div>
               <h2 className="section-title">
-                Active organisations partnering <span className="text-grad">inside KR8 DIGITALS.</span>
+                {editableContent.texts.text_8e9981b730}<span className="text-grad">{editableContent.texts.text_fe25094921}</span>
               </h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Explore how our co-founding studios and academic partner collaborate across commercial delivery and tuition-free education."
-                mobile="See how Motionverse, Chigoma, and Next Gen Scholars build and teach inside the umbrella."
+                desktop={editableContent.texts.field_dc7f5b8c7b}
+                mobile={editableContent.texts.field_d1d04b56d3}
               />
             </div>
           </div>
@@ -318,12 +325,12 @@ export default async function PartnersPage() {
                 chigoma: '/img/services/video-editing-suite.webp',
                 'next-gen-scholars': '/img/partners/track-schools.webp',
               };
-              const cardImg = partnerCardPhotos[p.slug] || '/img/partners/partnership-collaboration.webp';
+              const cardImg = partnerCardPhotos[p.slug] || editableContent.texts.copy_f1d162b5a5;
               return (
                 <article className="kr8-card reveal up" key={p.slug}>
                   <div className="kr8-card-photo">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={cardImg} alt={`${p.name} — ${p.type} inside KR8 DIGITALS`} loading="lazy" />
+                    <img src={cardImg} alt={formatEditableText(editableContent.texts.copy_11f2b02015, [p.name, p.type])} loading="lazy" />
                     <span className="kr8-card-photo__tag">{p.mark} · {p.name}</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 14 }}>
@@ -340,7 +347,7 @@ export default async function PartnersPage() {
                     </div>
                   </div>
 
-                  <p style={{ fontSize: 13.5, color: 'var(--t-accent-soft)', fontWeight: 600 }}>Lead: {p.person}</p>
+                  <p style={{ fontSize: 13.5, color: 'var(--t-accent-soft)', fontWeight: 600 }}>{editableContent.texts.text_495e7222ff}{p.person}</p>
                   <ResponsiveCopy
                     as="p"
                     className="kr8-card__body"
@@ -359,12 +366,12 @@ export default async function PartnersPage() {
                       color: 'var(--t-body)',
                     }}
                   >
-                    <strong style={{ color: 'var(--t-strong)' }}>Academy Role:</strong> {p.teaches}
+                    <strong style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_de89663c45}</strong> {p.teaches}
                   </div>
 
                   <div className="kr8-card__foot">
                     <Link href={p.href} className="btn-link">
-                      Read {p.name} Chapter <Icon name="arrow" size={14} />
+                      {editableContent.texts.text_1902cdc703}{p.name} {editableContent.texts.text_855d5a5345}<Icon name="arrow" size={14} />
                     </Link>
                   </div>
                 </article>
@@ -384,23 +391,23 @@ export default async function PartnersPage() {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
             <div>
-              <div className="eyebrow">Start a Strategic Conversation</div>
+              <div className="eyebrow">{editableContent.texts.text_425daaa648}</div>
               <h2 className="section-title" style={{ marginTop: 10 }}>
-                Let&apos;s build something neither of us could build <span className="text-grad">alone.</span>
+                {editableContent.texts.text_be4c6a7b97}<span className="text-grad">{editableContent.texts.text_72c2c9c19e}</span>
               </h2>
               <ResponsiveCopy
                 as="p"
                 className="prose-lg"
-                desktop="Whether you represent a creative studio ready to collaborate on larger commercial mandates, a school seeking digital & academic empowerment for students, or an organisation ready to sponsor tuition-free cohorts — we welcome thoughtful proposals."
-                mobile="Submit your proposal below — founding leadership reviews every studio, school, and sponsorship request directly."
+                desktop={editableContent.texts.field_359231eca4}
+                mobile={editableContent.texts.field_2d793e8ccf}
               />
 
               <div className="kr8-card" style={{ marginTop: 22, padding: '20px 22px' }}>
-                <div className="kr8-card__num">WHAT HAPPENS AFTER YOU SUBMIT</div>
+                <div className="kr8-card__num">{editableContent.texts.text_831799fac9}</div>
                 <ul className="kr8-check-list" style={{ marginTop: 8 }}>
-                  <li>Your proposal is logged immediately in the KR8 DIGITALS Partnerships Dashboard.</li>
-                  <li>Founding leadership reviews alignment across commercial, educational, and brand standards.</li>
-                  <li>We reply directly via email or WhatsApp to schedule an executive discovery call.</li>
+                  <li>{editableContent.texts.text_1dd8a77b98}</li>
+                  <li>{editableContent.texts.text_3fe8f6f4ef}</li>
+                  <li>{editableContent.texts.text_b4a2938483}</li>
                 </ul>
               </div>
             </div>
@@ -409,6 +416,9 @@ export default async function PartnersPage() {
           </div>
         </div>
       </section>
+      <CmsSections sections={pageDoc?.sections || []} />
     </>
   );
 }
+
+type EditableBlockTypes = { WHY_PARTNER: typeof WHY_PARTNER; COLLABORATION_TRACKS: typeof COLLABORATION_TRACKS; PROCESS_STEPS: typeof PROCESS_STEPS };

@@ -1,0 +1,2704 @@
+{
+  "app:[...slug]:page": {
+    "label": "app/[...slug]/page.tsx",
+    "texts": {
+      "text_b09c10bf9c": "DRAFT PREVIEW MODE — Only visible to signed-in administrators. Publish inside /admin to make public."
+    },
+    "blocks": {}
+  },
+  "app:about:creative-expression:page": {
+    "label": "app/about/creative-expression/page.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "field_979bddc4a8": "/about",
+      "text_4efca0d10c": "About",
+      "text_ebb49eeed8": "Creative Expression",
+      "text_134217c4bc": "Co-Founder · KR8 DIGITALS & Chigoma",
+      "text_1baca3f7ac": "Daniel Akachukwu Augustine · Professional Video Editor & Founder of Chigoma",
+      "text_78b3f28cc3": "(Daniel Akachukwu Augustine) is a professional video editor, Founder of ",
+      "text_b24de82168": "Chigoma",
+      "text_1dafab9f6e": ", and Co-Founder of ",
+      "text_0bbfb207b2": "KR8 DIGITALS",
+      "text_d69c50e919": ". He directs video post-production, narrative pacing, commercial film cuts, and hands-on editing mentorship across KR8 DIGITALS.",
+      "text_45d6c33c70": "“Raw footage is only potential. Deliberate pacing, sound, and clarity turn a recording into proof people stay to watch.”",
+      "field_877fc4ac7b": "/contact?service=video-editing",
+      "text_20d9dda017": "Commission a Video Edit ",
+      "field_35435b9b43": "/partners/chigoma",
+      "text_f15047b9c5": "Explore Chigoma",
+      "field_154028babb": "/img/team/daniel.jpg",
+      "field_6a413ff1ac": "Creative Expression (Daniel Akachukwu Augustine), Co-Founder of KR8 DIGITALS and Founder of Chigoma",
+      "text_bd2d484b0a": "Founder 03 · Video & Post-Production",
+      "text_2c5ec94b78": "Creative Expression · Daniel Akachukwu Augustine",
+      "text_69c49613e7": "Post-Production Craft & Story",
+      "text_b6f7fe6828": "Turning unshaped footage into ",
+      "text_7fb0222cb2": "stories that earn trust.",
+      "text_f6e7fb4976": "In an attention economy where viewers decide within three seconds whether to stay or scroll past, video editing is no longer an afterthought — it is where commercial persuasion happens. Working under his creative moniker ",
+      "text_61d8ee2d14": "and as Founder of",
+      "text_7f64505efc": ", Daniel Akachukwu Augustine co-founded ",
+      "text_23f5f47337": "to anchor the studio's moving-image standard.",
+      "text_db5b201ecf": "Whether shaping vertical campaign reels, documentary testimonials, event films, or product walkthroughs, his editing philosophy prioritizes human truth, rhythmic clarity, clean dialogue mixes, and mobile-first framing that communicates clearly even before sound is turned on.",
+      "text_8379295e03": "Inside ",
+      "text_ca538eaf54": "KR8 Academy",
+      "text_efe8930e10": ", he brings that exact commercial edit-bay discipline into the classroom — training emerging video editors free of tuition so they graduate with watchable client reels rather than abstract exercises.",
+      "text_f64e02d51d": "As Founder of ",
+      "text_b646bd6843": "and Co-Founder of ",
+      "text_8df98b3e62": "(Daniel Akachukwu Augustine) anchors our commercial edit bay — shaping vertical reels, brand documentaries, and tuition-free Video Editing mentorship inside",
+      "text_aca1ca10e4": "Whether shaping vertical campaign reels, documentary testimonials, event films, or product walkthroughs, his editing prioritizes human truth, rhythmic clarity, clean dialogue mixes, and mobile-first framing.",
+      "text_7a8e094253": "Inside KR8 Academy, he brings that exact commercial edit-bay discipline into the classroom so students graduate with real client-grade reels at zero tuition cost.",
+      "field_fcee33f6ef": "/img/services/video-editing-suite.webp",
+      "field_8386ca2f6a": "Commercial film editing and colour-grading studio at KR8 DIGITALS with Chigoma",
+      "text_75adce0e26": "KR8 DIGITALS × Chigoma",
+      "text_18af9ec313": "Narrative Pacing · Color · Sound · Motion",
+      "text_00b370dd5f": "Production Leadership",
+      "text_05359d3e4a": "What Creative Expression leads ",
+      "text_13b7efeb17": "at KR8 DIGITALS.",
+      "text_7f993faa62": "Selected Cuts & Stories",
+      "text_b6dd9344df": "Published documentary & vertical cuts.",
+      "field_a09c273be6": "Play any of the films below directly in place — real stories and vertical edits published across the KR8 DIGITALS ecosystem.",
+      "field_67bc2c31a7": "Tap any film below to play real vertical reels and documentary cuts in place.",
+      "field_be2f7496d9": "/services/video-editing",
+      "text_15072e4e09": "Explore Video Editing Service ",
+      "text_65612a9656": "Founding Leadership",
+      "text_c7f2918bb5": "Meet the rest of the founding team.",
+      "field_6cbb86594e": "/about#founders",
+      "text_b1dbcb4a65": "Back to About KR8 DIGITALS ",
+      "field_9fa8f30927": "/about/timfire",
+      "text_049fc61799": "FOUNDER & CHIEF EXECUTIVE",
+      "text_0ce53ad94a": "Timfire (Kenneth Timothy Iziogo)",
+      "text_025bca27c5": "Website developer, AI agent developer, and Founder & Chief Executive of KR8 DIGITALS.",
+      "text_c2976959e0": "Read About Timfire ",
+      "field_a3b5a1f01c": "/about/steveoking",
+      "text_df01a8efa8": "CO-FOUNDER · MOTIONVERSE",
+      "text_cf3cd9881e": "Steveoking (Stevenson)",
+      "text_446b653f17": "Professional graphic designer, brand designer, Founder of Motionverse, and Co-Founder of KR8 DIGITALS.",
+      "text_0fb5cd0e3f": "Read About Stevenson ",
+      "text_a481cbf2d2": "Work With Creative Expression & Chigoma",
+      "text_2be0596b37": "Have raw footage or an upcoming campaign that needs sharp video editing?",
+      "text_78cf3bc458": "Send us your brief — we deliver paced, captioned, color-graded cuts built for real viewer retention.",
+      "text_6ecf039e1f": "Start a Video Project ",
+      "text_9d451e807a": "Video Editing Service"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Creative Expression (Daniel Akachukwu Augustine) — Co-Founder & Video Editor | KR8 DIGITALS",
+        "description": "Profile of Creative Expression (Daniel Akachukwu Augustine) — Professional Video Editor, Founder of Chigoma, and Co-Founder of KR8 DIGITALS.",
+        "alternates": {
+          "canonical": "/about/creative-expression"
+        }
+      },
+      "FILM_PILLARS": [
+        {
+          "num": "CRAFT 01 · RETENTION-DRIVEN VIDEO EDITING",
+          "title": "Commercial Cuts Engineered for How Modern Audiences Watch",
+          "body": "Creative Expression transforms raw camera rolls into crisp, persuasive narratives — opening with immediate visual hooks, deliberate rhythmic pacing, and burned-in kinetic captions that hold attention whether watched with sound on or muted.",
+          "mobileBody": "Raw footage turned into high-retention reels with sharp visual hooks, tight pacing, and dynamic captions.",
+          "tags": [
+            "Commercial Reels",
+            "Hook & Rhythm Pacing",
+            "Dynamic Captions",
+            "Multi-Aspect Delivery"
+          ]
+        },
+        {
+          "num": "CRAFT 02 · DOCUMENTARY & BRAND STORYTELLING",
+          "title": "Authentic Human Proof Through Color, Sound & Structure",
+          "body": "Through Chigoma and KR8 DIGITALS, he shapes founder stories, student journeys, and client testimonials with clean dialogue mastering, purposeful sound design, and cohesive color grading.",
+          "mobileBody": "Founder films, documentaries, and client stories finished with clean audio mastering and color grading.",
+          "tags": [
+            "Brand Documentaries",
+            "Client Testimonials",
+            "Audio Sweetening",
+            "Color Grading"
+          ]
+        },
+        {
+          "num": "CRAFT 03 · CHIGOMA & FILM MENTORSHIP",
+          "title": "Founder of Chigoma & Video Editing Instructor at KR8 Academy",
+          "body": "Alongside leading post-production across KR8 DIGITALS client briefs, Creative Expression mentors aspiring filmmakers and editors inside KR8 Academy’s tuition-free Video Editing track.",
+          "mobileBody": "Leads Chigoma post-production and mentors emerging video editors tuition-free inside KR8 Academy.",
+          "tags": [
+            "Chigoma Founder",
+            "KR8 Co-Founder",
+            "Video Editing Mentor",
+            "Portfolio Reviews"
+          ]
+        }
+      ]
+    }
+  },
+  "app:about:join-the-team:page": {
+    "label": "app/about/join-the-team/page.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "field_979bddc4a8": "/about",
+      "text_4efca0d10c": "About",
+      "text_a24ec95fbf": "Join the Team",
+      "text_913c1b2333": "Rolling Talent Review · $0 Application Fee",
+      "text_fcf6b28753": "Show us what you build.",
+      "text_9812c37074": "Ship real work with us.",
+      "text_0bbfb207b2": "KR8 DIGITALS",
+      "text_c6be933abc": "grows from proven craft rather than paper credentials. Whether you sharpened your skill inside ",
+      "text_ca538eaf54": "KR8 Academy",
+      "text_a56e611a56": "or built an independent body of work, exceptional builders are invited to submit portfolios for our studio delivery roster.",
+      "text_448f71d2b7": "hires by proven craft — zero application fee ($0). Academy alumni and independent engineers, designers, and editors can submit work below.",
+      "field_b131d571c5": "#apply",
+      "text_30fef3bdff": "Submit Your Portfolio ",
+      "field_70ea9c52a0": "/programs#free-training",
+      "text_bb7d9e25d8": "Still Learning? Train Free First",
+      "field_f1d292931a": "Designers, developers, and video editors collaborating inside KR8 DIGITALS",
+      "text_ee379e8df8": "Disciplines We Review",
+      "text_ae94534749": "Where builders plug into ",
+      "text_6dc5d75ad9": "KR8 DIGITALS.",
+      "text_b0e57d2d9f": "STAGE ",
+      "text_d74da55156": "Talent Application",
+      "text_663ee987e7": "Send us two or three pieces ",
+      "text_96505d4586": "you are proud of.",
+      "field_a34fbea4a5": "Include links to live websites, GitHub repositories, Figma/Behance boards, Google Drive reels, or published client work. Every submission routes directly into our studio talent inbox and is reviewed by the discipline lead.",
+      "field_710d6d7b97": "Share links to live websites, GitHub repos, Figma/Behance boards, or video reels — reviewed directly by our founding craft leads.",
+      "text_c20434d850": "LEADERSHIP REVIEWING YOUR CRAFT"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Join the Team — Studio Talent Pathway | KR8 DIGITALS",
+        "description": "Apply to join the KR8 DIGITALS studio delivery team across web engineering, brand & graphic design, video post-production, SEO, and AI automation.",
+        "alternates": {
+          "canonical": "/about/join-the-team"
+        }
+      },
+      "DISCIPLINES": [
+        {
+          "num": "TRACK 01 · ENGINEERING & AI",
+          "title": "Web Developers & AI Workflow Builders",
+          "desc": "Full-stack Next.js/React engineers, UI craftsmen, and applied AI builders who care deeply about mobile performance, accessibility, and clean architecture.",
+          "mobileDesc": "Next.js/React engineers, mobile UI specialists, and applied AI workflow builders."
+        },
+        {
+          "num": "TRACK 02 · BRAND & GRAPHIC DESIGN",
+          "title": "Brand Identity & Campaign Designers",
+          "desc": "Designers with sharp typographic instinct, composition discipline, and commercial clarity — collaborating alongside Steveoking and Motionverse.",
+          "mobileDesc": "Identity & campaign designers collaborating directly with Steveoking and Motionverse."
+        },
+        {
+          "num": "TRACK 03 · VIDEO POST-PRODUCTION",
+          "title": "Narrative & Commercial Video Editors",
+          "desc": "Editors who understand retention hooks, sound design, dialogue clarity, and color grading — collaborating alongside Creative Expression and Chigoma.",
+          "mobileDesc": "Retention-focused commercial & documentary editors collaborating with Creative Expression and Chigoma."
+        },
+        {
+          "num": "TRACK 04 · SEARCH & OPERATIONS",
+          "title": "SEO Specialists & Project Coordinators",
+          "desc": "Technical SEO practitioners, content strategists, and organized project operators who keep scopes moving smoothly on schedule.",
+          "mobileDesc": "Technical SEO practitioners, content strategists, and disciplined project coordinators."
+        }
+      ],
+      "EVALUATION_STEPS": [
+        {
+          "n": "01",
+          "t": "Portfolio & Work Review",
+          "d": "Send links to real things you have built, designed, or cut — shipped work speaks louder than CVs."
+        },
+        {
+          "n": "02",
+          "t": "Craft Conversation",
+          "d": "Walk our leads through how you made a piece, the constraints you faced, and what you would refine."
+        },
+        {
+          "n": "03",
+          "t": "Scoped Trial Collaboration",
+          "d": "Collaborate on a bounded, real studio brief under senior review to test communication and quality."
+        },
+        {
+          "n": "04",
+          "t": "Studio Onboarding",
+          "d": "Join active client deliveries and ecosystem projects as part of the KR8 DIGITALS delivery roster."
+        }
+      ]
+    }
+  },
+  "app:about:page": {
+    "label": "app/about/page.tsx",
+    "texts": {
+      "field_c66614f871": "Whether you're launching a business project, learning a digital skill for free, joining our 3,000+ creator community, or partnering for impact — there is a place for you here.",
+      "field_4eb9506365": "/contact",
+      "text_2bc200c6f4": "Work With Us ",
+      "field_3b1aeccb74": "/services",
+      "text_2093ef4e36": "Explore Services",
+      "field_4620b98e6c": "#founders",
+      "text_f2ef0affcf": "Meet the Founders ",
+      "field_3c3d42a4a6": "/img/about/kr8-ecosystem-studio.webp",
+      "field_3464a9fbc6": "Engineers, brand designers, and video editors collaborating inside the KR8 DIGITALS studio ecosystem",
+      "text_e1435609d5": "Unified Studio & Academy",
+      "text_92ab0272d7": "Engineering · Design · Film · Capacity",
+      "field_271bdd2473": "/programs",
+      "text_42ca95b409": "Our Programs ",
+      "field_46ac130f46": "KR8 DIGITALS verified company metrics",
+      "field_49f14a3b2b": "We are problem solvers — uniting distinct minds to solve what no one can solve alone.",
+      "text_8629d49c83": "Real breakthroughs happen when distinct minds gather around one table. Under one roof,",
+      "text_e490bfa3fb": "Timfire",
+      "text_7c5df38c8d": "(Web & AI), ",
+      "text_d5b3fef0ee": "Steveoking",
+      "text_6271b13e79": "Motionverse",
+      "text_ebb49eeed8": "Creative Expression",
+      "text_b24de82168": "Chigoma",
+      "text_a5009f2d99": "), and ",
+      "text_391f14ed70": "Next Gen Scholars",
+      "text_43eddb7804": "turn tough challenges into working solutions — and pass those skills on tuition-free.",
+      "text_f2d2bcaca2": "Our Philosophy:",
+      "text_3ab6aeb82c": "Listen first, diagnose the real bottleneck, and build until solved.",
+      "text_9f8b2acd25": "Meaningful challenges rarely fit neatly inside a single skill. When people encounter problems too complex to solve in isolation, real breakthroughs happen the moment distinct minds, disciplines, and lived experiences come together around one table.",
+      "text_1e8bc927f3": "That conviction is why ",
+      "text_0bbfb207b2": "KR8 DIGITALS",
+      "text_3659ad43b2": "exists. Under one accountable roof, web and AI engineering led by ",
+      "text_a16509f23a": "unites with ",
+      "text_783ffbcaf6": ") in brand and graphic design, ",
+      "text_7bb9fc415e": ") in narrative video, and ",
+      "text_383d62a807": "in academics — turning tough organisational and human challenges into working solutions, while passing those same skills on tuition-free.",
+      "text_3f74c6ddee": "Listen first, diagnose the real bottleneck, bring the right capabilities together, and build until the problem is genuinely solved.",
+      "text_2675e10e64": "Direction & Conviction",
+      "text_f935b3f2e0": "Purpose, Mission & ",
+      "text_4226a13ecc": "Long-Term Vision.",
+      "text_6919fabfdc": "Every commercial build we ship and every free cohort we host is anchored to three clear commitments.",
+      "text_523120e30e": "01 · OUR PURPOSE",
+      "text_d5f71bfd27": "Why KR8 DIGITALS Exists",
+      "text_053769c0a2": "02 · OUR MISSION",
+      "text_e714e766d1": "What We Execute Every Week",
+      "text_a3d625b71e": "03 · OUR VISION",
+      "text_92fb8cd5b3": "The Institution We Are Building",
+      "text_ca42ea49a8": "How the Ecosystem Works",
+      "text_4b5d669661": "Two engines that ",
+      "text_878f06e42c": "strengthen each other.",
+      "field_2665c6681b": "Commercial excellence funds and sharpens our curriculum; rigorous training cultivates disciplined talent capable of meeting real client standards.",
+      "field_8b710757dc": "Paid commercial delivery funds our free training; rigorous cohorts raise the next wave of studio builders.",
+      "text_94bccdb1d5": "STEP ",
+      "field_9694e5df2f": "Free Digital Skills Training & the KR8 DIGITALS TRIBE.",
+      "text_3780833d6b": "Zero tuition ($0 / ₦0)",
+      "text_5890ad8827": "across 7 digital skill tracks at ",
+      "text_ca538eaf54": "KR8 Academy",
+      "text_c708108e37": "plus WAEC & JAMB prep via ",
+      "text_4f06b25bb7": "— backed by lifelong critique and gig flow inside ",
+      "text_5c09b75136": "KR8 DIGITALS TRIBE",
+      "text_b8bc0d84df": "Our flagship social commitment is simple and uncompromising: ",
+      "text_c7c9c2cfd4": "zero tuition",
+      "text_1e20c52145": "for earnest learners ready to do the work. Through ",
+      "text_fa308387fc": ", students train across Website Development, Front-End Engineering, Graphic Design, Video Editing, Content Creation, Social Media Management, and Digital Marketing — while ",
+      "text_6378672aee": "equips secondary learners across Sciences and Arts for WAEC and JAMB.",
+      "text_34c185c823": "When a cohort concludes, growth continues inside ",
+      "text_ea325e3794": "— our builder community dedicated to honest work-in-progress critique, interdisciplinary sprints, peer accountability, and shared creative momentum.",
+      "text_65612a9656": "Founding Leadership",
+      "text_c9eb0dea63": "Three founders. Three crafts. ",
+      "text_de7ef46b88": "One company.",
+      "field_f487f968ae": "Meet the practitioners who lead engineering, brand & graphic design, and video production at KR8 DIGITALS. Explore each founder's dedicated profile page for their full story and body of work.",
+      "field_3ac1bd7ecb": "Meet the three practicing founders leading Web & AI, Brand Design, and Video Production at KR8 DIGITALS.",
+      "text_45687ec36d": "Operations & Execution",
+      "text_bdc53a7fe0": "Core Leadership Team.",
+      "field_6d80e637b0": "The operational leaders stewarding financial strategy, project milestones, general management, and accountability across KR8 DIGITALS.",
+      "field_41abd9d0fb": "Stewarding finance, project milestones, studio operations, and accountability across every delivery.",
+      "field_78c2a55cd4": "/about/join-the-team",
+      "text_d4592b3403": "Apply to Join the Team ",
+      "text_0b5031a111": "Co-Founding & Academic Partners",
+      "text_eb45439861": "Organisations building ",
+      "text_1c5d3210dc": "under the same roof.",
+      "field_eec5100683": "Partner studios and educational institutions collaborate directly inside KR8 DIGITALS — retaining their distinct identity while multiplying impact across client work and free education.",
+      "field_c314851add": "Co-founding studios and academic partners multiplying impact across client work and free cohorts.",
+      "field_6d0f8c425c": "/partners",
+      "text_098985f8c7": "Partner With KR8 DIGITALS ",
+      "text_53e261e321": "Read Partner Profile ",
+      "text_226366c330": "Next Step",
+      "text_4e342a0849": "Ready to build with KR8 DIGITALS — or grow inside our ecosystem?",
+      "field_3eba2734ec": "Commission a commercial project with a clear written scope, propose an institutional partnership, or step into our tuition-free training programs today.",
+      "field_54b3692f77": "Start a custom project brief, propose a partnership, or join a 100% free cohort today.",
+      "text_4655aa144a": "Start a Project ",
+      "text_be3dde060b": "Partner With Us",
+      "copy_feb5329249": "About KR8 DIGITALS",
+      "copy_41a6197fd7": "We are writing a story,",
+      "copy_8fd8f4006f": "and you can be a big part of it.",
+      "copy_a676c4ca21": "KR8 DIGITALS is a home for builders, dreamers, and organisations shaping what comes next. Whether you come to solve an important business challenge, master a digital craft for free, collaborate inside our creative community, or partner for lasting impact — there is a meaningful place for you in what we are building together.",
+      "copy_206af0bed4": "{0} ({1}) — {2} at KR8 DIGITALS",
+      "copy_6aec40e429": "{0} — {1} at KR8 DIGITALS",
+      "copy_f1d162b5a5": "/img/partners/partnership-collaboration.webp",
+      "copy_11f2b02015": "{0} — {1} inside KR8 DIGITALS"
+    },
+    "blocks": {
+      "PILLARS_DUAL": [
+        {
+          "num": "ENGINE 01 · COMMERCIAL CRAFT",
+          "title": "Executive Digital Delivery for Ambitious Organisations",
+          "body": "Businesses, schools, hospitality brands, clinics, and founders commission KR8 DIGITALS when generic templates and fragmented freelancers fall short. Under one coordinated roof, we engineer fast web platforms, distinctive brand identities, scroll-stopping campaign graphics, retention-cut video reels, search engine authority, and grounded AI workflows.",
+          "mobileBody": "One accountable roof for businesses, schools, clinics, and founders — uniting custom websites, brand identity, campaign design, video reels, SEO, and AI workflows.",
+          "points": [
+            "Website Design & Full-Stack Development",
+            "Brand Strategy & Visual Identity Systems",
+            "Commercial Graphic Design & Campaign Key Art",
+            "Video Editing & Narrative Post-Production",
+            "Technical & Local SEO Optimization",
+            "Custom AI Agents & Workflow Automation"
+          ],
+          "ctaLabel": "Explore Commercial Services",
+          "ctaHref": "/services"
+        },
+        {
+          "num": "ENGINE 02 · HUMAN CAPACITY",
+          "title": "Tuition-Free Training, Community & Talent Pathways",
+          "body": "We believe world-class digital capability should never be locked behind financial gatekeeping. Alongside client delivery, KR8 DIGITALS runs tuition-free digital skills cohorts via KR8 Academy, academic preparation with Next Gen Scholars, peer mentorship inside KR8 DIGITALS TRIBE, Mindset Shift leadership conversations, and a merit-based studio recruitment pipeline.",
+          "mobileBody": "Zero financial gatekeeping: 100% free digital skills at KR8 Academy, WAEC/JAMB prep with Next Gen Scholars, our 3,000+ creator Tribe, Mindset Shift, and merit-based studio roles.",
+          "points": [
+            "100% Tuition-Free Digital Skills Training (KR8 Academy)",
+            "Sciences, Arts, WAEC & JAMB Prep (Next Gen Scholars)",
+            "KR8 DIGITALS TRIBE Peer Critique & Builder Network",
+            "Mindset Shift Career & Perspective Forum",
+            "Merit-Based Studio Pathway (Join the Team)"
+          ],
+          "ctaLabel": "Explore Ecosystem Programs",
+          "ctaHref": "/programs"
+        }
+      ],
+      "JOURNEY": [
+        {
+          "step": "01",
+          "phase": "Commercial Foundation",
+          "title": "Built around shipped client outcomes",
+          "desc": "KR8 DIGITALS began as an execution-first creative and engineering studio — judged strictly by websites that load fast, visuals that convert attention, and systems real customers use daily.",
+          "mobileDesc": "Started as an execution-first studio judged strictly by fast sites, high-converting visuals, and real results."
+        },
+        {
+          "step": "02",
+          "phase": "The Umbrella Model",
+          "title": "Three specialist practices, one unified standard",
+          "desc": "Timfire united web & AI engineering with Steveoking (Motionverse) in brand & graphic design and Creative Expression (Chigoma) in film editing — preserving each creative voice under one accountable company.",
+          "mobileDesc": "Timfire united web & AI with Steveoking (Motionverse) and Creative Expression (Chigoma) under one company."
+        },
+        {
+          "step": "03",
+          "phase": "KR8 Academy & Next Gen",
+          "title": "Opening the craft at zero tuition cost",
+          "desc": "Rather than gatekeep practical knowledge, the practitioners shipping paid client work opened structured, tuition-free digital tracks — joined by Next Gen Scholars for secondary and pre-university academics.",
+          "mobileDesc": "Our working studio leads opened 7 free digital skill tracks plus free WAEC/JAMB prep via Next Gen Scholars."
+        },
+        {
+          "step": "04",
+          "phase": "Tribe & Ecosystem",
+          "title": "A self-reinforcing creative institution",
+          "desc": "Graduates and independent builders gather in KR8 DIGITALS TRIBE and Mindset Shift to sharpen standards, collaborate on briefs, and grow into the next generation of studio leaders.",
+          "mobileDesc": "3,000+ builders connect in KR8 Tribe and Mindset Shift to critique work, collaborate, and lead."
+        }
+      ]
+    }
+  },
+  "app:about:steveoking:page": {
+    "label": "app/about/steveoking/page.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "field_979bddc4a8": "/about",
+      "text_4efca0d10c": "About",
+      "text_d5b3fef0ee": "Steveoking",
+      "text_2b7945630c": "Co-Founder · KR8 DIGITALS & Motionverse",
+      "text_25f2800360": "Stevenson · Brand Designer, Graphic Designer & Founder of Motionverse",
+      "text_bc2d2b1ccc": "(Stevenson) is a professional graphic designer, brand designer, Founder of ",
+      "text_6271b13e79": "Motionverse",
+      "text_1dafab9f6e": ", and Co-Founder of ",
+      "text_0bbfb207b2": "KR8 DIGITALS",
+      "text_b009af0544": ". He leads brand identity architecture, commercial campaign design, and visual design mentorship across the KR8 DIGITALS ecosystem.",
+      "text_292400fe7e": "“Great brand and graphic design earns trust in half a second — before a prospect reads a single paragraph.”",
+      "field_0c3072e476": "/contact?service=branding",
+      "text_a3d6660096": "Start a Brand or Design Brief ",
+      "field_fbac472c84": "/partners/motionverse",
+      "text_2aa0a2d608": "Explore Motionverse",
+      "field_2eb65709d3": "/img/team/stevenson.jpg",
+      "field_7a183be09e": "Steveoking (Stevenson), Co-Founder of KR8 DIGITALS and Founder of Motionverse",
+      "text_86daeda098": "Founder 02 · Brand & Visual Design",
+      "text_3f99034bd9": "Steveoking · Stevenson",
+      "text_ee4cbe9d8b": "Creative Direction & Story",
+      "text_79460fe499": "Where strategic brand clarity meets ",
+      "text_9e42d18224": "unforgettable visual craft.",
+      "text_8d74ad8cf1": "Every organisation communicates visually long before anyone reads its pitch. Through his design practice ",
+      "text_790ffcfe92": "and as Co-Founder of ",
+      "text_8000730ddd": "(Stevenson) ensures businesses show up with visual authority worthy of the products and services they deliver.",
+      "text_8ebc5592c9": "His practice spans two distinct yet connected disciplines: foundational",
+      "text_d417aa16da": "Branding",
+      "text_7d364e6691": "(identity systems, logos, typography, and brand books that define who a company is) and high-velocity ",
+      "text_b5fe7b887a": "Graphic Design",
+      "text_0678934fb7": "(campaign flyers, retail product key art, and event visuals engineered to stop the scroll and drive immediate customer action).",
+      "text_ed58cdcec8": "Committed to multiplying creative excellence beyond client briefs, Steveoking teaches the Graphic Design track inside ",
+      "text_ca538eaf54": "KR8 Academy",
+      "text_3b10a37c76": "— mentoring emerging designers in hierarchy, typography, lighting, and commercial discipline at zero tuition cost.",
+      "text_ba242f3314": "Through ",
+      "text_427a379ae3": "and ",
+      "text_1cd8949058": "(Stevenson) directs foundational Brand Identity systems and high-converting Campaign Graphic Design — while mentoring designers tuition-free inside",
+      "text_413f39b9fe": "His practice spans foundational Branding (identity systems, vector logos, typography, and Brand Books) alongside high-velocity Graphic Design (campaign flyers, retail product key art, and event visuals built to convert).",
+      "text_ffecfe0344": "Inside KR8 Academy, he mentors emerging designers in hierarchy, typography, lighting, and commercial discipline at zero tuition cost.",
+      "field_8fd0572178": "/img/services/brand-identity.webp",
+      "field_450626bd27": "Brand identity guidelines and visual design systems directed at KR8 DIGITALS with Motionverse",
+      "text_d6251b5319": "KR8 DIGITALS × Motionverse",
+      "text_f7d786396b": "Brand Systems · Campaign Art Direction",
+      "text_98f9ceccf3": "Design Leadership",
+      "text_86d02fb445": "What Steveoking leads ",
+      "text_13b7efeb17": "at KR8 DIGITALS.",
+      "text_2a6e3cf015": "Selected Commercial Artwork",
+      "text_32a25737b9": "Client design crafted with Motionverse.",
+      "field_dadbb4749c": "Real commercial campaign flyers and retail visuals designed for named clients inside the KR8 DIGITALS × Motionverse practice.",
+      "field_97baea890c": "Commercial campaign flyers and retail visuals designed inside KR8 DIGITALS × Motionverse.",
+      "field_71996fae4a": "/services/branding",
+      "text_2139850c3b": "Branding Service ",
+      "field_14a852f28e": "/services/graphic-design",
+      "text_9f6f9d7cf5": "Graphic Design Gallery ",
+      "text_407b45ec2d": "Client: ",
+      "text_65612a9656": "Founding Leadership",
+      "text_c7f2918bb5": "Meet the rest of the founding team.",
+      "field_6cbb86594e": "/about#founders",
+      "text_b1dbcb4a65": "Back to About KR8 DIGITALS ",
+      "field_9fa8f30927": "/about/timfire",
+      "text_049fc61799": "FOUNDER & CHIEF EXECUTIVE",
+      "text_0ce53ad94a": "Timfire (Kenneth Timothy Iziogo)",
+      "text_025bca27c5": "Website developer, AI agent developer, and Founder & Chief Executive of KR8 DIGITALS.",
+      "text_c2976959e0": "Read About Timfire ",
+      "field_57d47ac737": "/about/creative-expression",
+      "text_33e8c46c0f": "CO-FOUNDER · CHIGOMA",
+      "text_18b315253e": "Creative Expression (Daniel Akachukwu Augustine)",
+      "text_427e6b35e8": "Professional video editor, Founder of Chigoma, and Co-Founder of KR8 DIGITALS.",
+      "text_51ed52c16e": "Read About Creative Expression ",
+      "text_47f0102e02": "Work With Steveoking & Motionverse",
+      "text_0081a82a3a": "Ready for a brand identity or campaign visual suite that stands apart?",
+      "text_a465f466d7": "Commission Brand Strategy & Identity or Commercial Graphic Design directly through KR8 DIGITALS.",
+      "text_8d4170f695": "Commission Branding ",
+      "copy_21e0d9b8b6": "{0} — commercial design for {1}"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Steveoking (Stevenson) — Co-Founder & Brand/Graphic Designer | KR8 DIGITALS",
+        "description": "Profile of Steveoking (Stevenson) — Professional Graphic Designer, Brand Designer, Founder of Motionverse, and Co-Founder of KR8 DIGITALS.",
+        "alternates": {
+          "canonical": "/about/steveoking"
+        }
+      },
+      "DESIGN_PILLARS": [
+        {
+          "num": "DISCIPLINE 01 · BRAND STRATEGY & IDENTITY",
+          "title": "Visual Identity Systems That Command Category Authority",
+          "body": "Steveoking crafts complete brand architectures — primary and secondary logomarks, typographic pairings, color systems, and comprehensive Brand Guidelines designed to keep growing organisations unmistakable across every physical and digital touchpoint.",
+          "mobileBody": "Complete logo suites, typography, color systems, and Brand Playbooks engineered for unmistakable authority.",
+          "tags": [
+            "Logo Architecture",
+            "Brand Guidelines",
+            "Typography & Color",
+            "Visual Positioning"
+          ]
+        },
+        {
+          "num": "DISCIPLINE 02 · COMMERCIAL GRAPHIC DESIGN",
+          "title": "Campaign Key Art & Promotional Flyers Built to Convert",
+          "body": "Through Motionverse and KR8 DIGITALS, Steveoking directs campaign artwork engineered for the critical first half-second on mobile feeds and print — giving product launches, retail brands, and events immediate visual gravity.",
+          "mobileBody": "Scroll-stopping campaign flyers, product key art, and event visual suites across mobile feeds and print.",
+          "tags": [
+            "Campaign Key Art",
+            "Product & Retail Flyers",
+            "Event Visual Suites",
+            "Print & Social Formats"
+          ]
+        },
+        {
+          "num": "DISCIPLINE 03 · MOTIONVERSE & ACADEMY MENTORSHIP",
+          "title": "Leading Motionverse & Teaching the Next Generation",
+          "body": "As Founder of Motionverse and Co-Founder of KR8 DIGITALS, Steveoking bridges active studio art direction with hands-on Graphic Design instruction inside KR8 Academy — holding learners to real commercial composition standards.",
+          "mobileBody": "Leads Motionverse art direction and mentors emerging designers inside KR8 Academy’s free Graphic Design track.",
+          "tags": [
+            "Motionverse Founder",
+            "KR8 Co-Founder",
+            "Graphic Design Instructor",
+            "Creative Critique"
+          ]
+        }
+      ]
+    }
+  },
+  "app:about:timfire:page": {
+    "label": "app/about/timfire/page.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "field_979bddc4a8": "/about",
+      "text_4efca0d10c": "About",
+      "text_e490bfa3fb": "Timfire",
+      "text_5c744eff69": "Founder & Chief Executive · KR8 DIGITALS",
+      "text_707298ce1b": "Kenneth Timothy Iziogo · Website Developer & AI Agent Developer",
+      "text_2f152c15af": "(Kenneth Timothy Iziogo) is a website developer, AI agent developer, and the Founder & Chief Executive of ",
+      "text_0bbfb207b2": "KR8 DIGITALS",
+      "text_a3f242aebd": ". He leads technical architecture, product engineering, and overall company direction — uniting commercial software delivery with KR8 DIGITALS' tuition-free training and builder ecosystem.",
+      "text_74acb166cb": "(Kenneth Timothy Iziogo) is a website developer, AI agent developer, and Founder & Chief Executive of ",
+      "text_7f1bb1a28f": "— leading custom web & AI engineering alongside our free training ecosystem.",
+      "text_41d70c143e": "“Whoever you are, whatever you do, we exist because of you — to build digital infrastructure worthy of your ambition, and to keep the door open for the next builder.”",
+      "field_1e9e316dc1": "/contact?service=website-design",
+      "text_de535da04f": "Commission a Web or AI Build ",
+      "field_2034d21436": "/services/ai-automation",
+      "text_fec9d9f085": "Explore AI Automation",
+      "field_d5d4d89245": "/img/team/founder-timfire.jpg",
+      "field_0e61784195": "Timfire (Kenneth Timothy Iziogo), Founder and Chief Executive of KR8 DIGITALS",
+      "text_5921278204": "Founder 01 · Executive & Engineering",
+      "text_dec628808e": "Timfire · Kenneth Timothy Iziogo",
+      "text_c20793eb42": "Executive Biography & Approach",
+      "text_7f701882a4": "Engineering systems that work on Monday morning — ",
+      "text_5b11226239": "not just in demos.",
+      "text_631a36079d": "Timfire founded ",
+      "text_c54370a6ef": "around a practical observation: businesses and institutions across Africa and beyond rarely fail for lack of vision — they lose momentum when their websites load slowly, bury the customer's next step, or leave enquiries unanswered in fragmented inboxes.",
+      "text_3c3fe34ff5": "As a hands-on website developer and AI agent engineer, he approaches every engagement from the outcome backward. Whether architecting a multi-page institutional platform, engineering a custom search-ready storefront, or deploying a domain-grounded AI agent like RIYA on this website, every line of code is measured by speed, clarity, and commercial utility.",
+      "text_d2eeb5491c": "Recognizing that sustainable companies require continuous human capacity, Timfire brought specialist co-founders ",
+      "text_d5b3fef0ee": "Steveoking",
+      "text_ffddb0edae": "(Motionverse) and",
+      "text_ebb49eeed8": "Creative Expression",
+      "text_7da937fd35": "(Chigoma) together under one umbrella — building KR8 Academy, KR8 DIGITALS TRIBE, and Mindset Shift so emerging talent can master real digital crafts without tuition barriers.",
+      "text_ec00c1ea49": "to engineer fast, outcome-driven websites and domain-grounded AI agents (including RIYA) — uniting co-founders ",
+      "text_dde45afe9a": "(Motionverse) and ",
+      "text_d951693d26": "(Chigoma) under one studio and opening KR8 Academy at zero tuition.",
+      "text_aa60e1f22e": "Businesses and institutions rarely fail for lack of vision — they lose momentum when their websites load slowly, bury the customer's next step, or leave enquiries unanswered in fragmented inboxes.",
+      "text_c9ac6b1fc3": "Whether architecting a multi-page institutional platform, engineering a search-ready storefront, or deploying an operational AI agent, every line of code is measured by speed, clarity, and commercial utility — while KR8 Academy, KR8 DIGITALS TRIBE, and Mindset Shift equip the next generation free of tuition.",
+      "field_6533fc0951": "/img/team/founder-timfire-wide.jpg",
+      "field_fbbfed4f1f": "Timfire working on web architecture and engineering systems at KR8 DIGITALS",
+      "text_d8164c070c": "Hands-On Technical Leadership",
+      "text_574e921477": "Web Platforms · AI Agents · Architecture",
+      "text_31fa1a286c": "Core Responsibilities",
+      "text_56ee2726cd": "What Timfire leads ",
+      "text_fe25094921": "inside KR8 DIGITALS.",
+      "text_b1094e57e7": "Shipped Web Architecture",
+      "text_bae3c6a984": "Live web builds from the KR8 studio.",
+      "field_e5932ae109": "Every platform below is deployed and live on the public web — open any project to experience its speed, structure, and responsiveness firsthand.",
+      "field_29ac9fe830": "Live, publicly deployed web platforms engineered at KR8 DIGITALS — tap any build to test live.",
+      "field_8b058c1ad9": "/services/website-design",
+      "text_724b162f1a": "View All Web Builds ",
+      "text_331dc21cbb": "Visit Live Deployment ",
+      "text_239be78fc2": "Meet the Co-Founders",
+      "text_a603fe441f": "Explore the rest of the founding leadership.",
+      "field_6cbb86594e": "/about#founders",
+      "text_b1dbcb4a65": "Back to About KR8 DIGITALS ",
+      "field_a3b5a1f01c": "/about/steveoking",
+      "text_df01a8efa8": "CO-FOUNDER · MOTIONVERSE",
+      "text_cf3cd9881e": "Steveoking (Stevenson)",
+      "text_446b653f17": "Professional graphic designer, brand designer, Founder of Motionverse, and Co-Founder of KR8 DIGITALS.",
+      "text_0fb5cd0e3f": "Read About Stevenson ",
+      "field_57d47ac737": "/about/creative-expression",
+      "text_33e8c46c0f": "CO-FOUNDER · CHIGOMA",
+      "text_18b315253e": "Creative Expression (Daniel Akachukwu Augustine)",
+      "text_427e6b35e8": "Professional video editor, Founder of Chigoma, and Co-Founder of KR8 DIGITALS.",
+      "text_51ed52c16e": "Read About Creative Expression ",
+      "text_d0d26a179f": "Work With Timfire & KR8 Engineering",
+      "text_ca8117bf42": "Need a custom website, web application, or intelligent AI workflow?",
+      "text_ebbf29f4ec": "Share your goals and timeline — our team will respond with a clear technical scope and fixed figure.",
+      "field_4eb9506365": "/contact",
+      "text_8db0ef5f0e": "Start a Conversation ",
+      "field_3b1aeccb74": "/services",
+      "text_7a8b4ce4cd": "All Services",
+      "copy_ac6c120ee6": "{0} website engineered by KR8 DIGITALS"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Timfire (Kenneth Timothy Iziogo) — Founder & Chief Executive | KR8 DIGITALS",
+        "description": "Profile of Timfire (Kenneth Timothy Iziogo) — Website Developer, AI Agent Developer, and Founder & Chief Executive of KR8 DIGITALS.",
+        "alternates": {
+          "canonical": "/about/timfire"
+        }
+      },
+      "SPECIALISMS": [
+        {
+          "num": "CRAFT 01 · FULL-STACK WEB ARCHITECTURE",
+          "title": "Conversion-Engineered Websites & Web Platforms",
+          "body": "Timfire architects and builds custom web platforms from the ground up — focusing on sub-second mobile performance, clear information hierarchy, and measurable customer action across hospitality, education, healthcare, corporate, and institutional sectors.",
+          "mobileBody": "Custom Next.js web platforms engineered for sub-second mobile speed, clear UX, and measurable conversions.",
+          "tags": [
+            "Next.js & Modern Web",
+            "Mobile-First UI/UX",
+            "Technical SEO Architecture",
+            "Conversion Systems"
+          ]
+        },
+        {
+          "num": "CRAFT 02 · APPLIED AI & AUTOMATION",
+          "title": "Domain-Grounded AI Agents & Business Workflows",
+          "body": "Moving past fragile hype demos, Timfire builds reliable operational AI assistants, intelligent inquiry routers, and automated lead pipelines bounded by verified company knowledge and human-in-the-loop escalation.",
+          "mobileBody": "Reliable operational AI agents (including RIYA), WhatsApp/CRM lead routing, and automated business workflows.",
+          "tags": [
+            "Custom AI Assistants",
+            "Lead Triage & Routing",
+            "Operational Automation",
+            "Human-in-the-Loop Guardrails"
+          ]
+        },
+        {
+          "num": "CRAFT 03 · ECOSYSTEM LEADERSHIP",
+          "title": "Executive Stewardship, KR8 Academy & Mindset Shift",
+          "body": "As Founder and Chief Executive, Timfire leads company strategy across KR8 DIGITALS, oversees tuition-free engineering tracks inside KR8 Academy, and convenes Mindset Shift to equip emerging builders with disciplined career vision.",
+          "mobileBody": "Leads KR8 DIGITALS strategy, oversees free engineering tracks at KR8 Academy, and hosts Mindset Shift.",
+          "tags": [
+            "Company Strategy",
+            "KR8 Academy Mentorship",
+            "Mindset Shift Host",
+            "Partner Ecosystem"
+          ]
+        }
+      ]
+    }
+  },
+  "app:accessibility:page": {
+    "label": "app/accessibility/page.tsx",
+    "texts": {
+      "text_bcf1d5a078": "Inclusive Engineering · KR8 DIGITALS",
+      "text_78d4fc94c0": "Accessibility Statement",
+      "text_d45e60e75a": "Our commitment to keeping KR8 DIGITALS usable, legible, and fast across assistive technologies, screen sizes, and network conditions.",
+      "field_0ece7f7c30": "/privacy",
+      "text_506ff39462": "Privacy Policy",
+      "field_2dda5c6b8e": "/terms",
+      "text_4afa55bf7a": "Terms of Service",
+      "field_4eb9506365": "/contact",
+      "text_f6a30a10bc": "Report an Issue"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Accessibility Statement | KR8 DIGITALS",
+        "description": "Accessibility engineering standards and feedback channel for the KR8 DIGITALS website.",
+        "alternates": {
+          "canonical": "/accessibility"
+        }
+      },
+      "STANDARDS": [
+        {
+          "num": "01 · SEMANTIC NAVIGATION & KEYBOARD",
+          "title": "Keyboard-Operable Controls & Skip Links",
+          "body": "Every interactive drawer, lightbox, tab list, and form control on this platform is engineered for full keyboard navigation, visible focus states, Escape-to-dismiss behavior, and a top-of-page Skip to Content link."
+        },
+        {
+          "num": "02 · CONTRAST & TYPOGRAPHY",
+          "title": "High-Contrast Legibility Across Devices",
+          "body": "Display headlines, body copy, and interactive buttons are paired against deep obsidian surfaces to maintain strong visual contrast on indoor and outdoor mobile screens, with scalable fluid typography up to 200% zoom."
+        },
+        {
+          "num": "03 · MOTION & MEDIA RESPECT",
+          "title": "Reduced-Motion Support & Captioned Cuts",
+          "body": "System prefers-reduced-motion settings are respected across transitions, hero cinema plates include pause controls, and vertical video stories incorporate burned-in captions so narratives remain legible without audio."
+        },
+        {
+          "num": "04 · CONTINUOUS FEEDBACK",
+          "title": "Report Any Barrier Directly",
+          "body": "If any page, media element, or form creates a barrier with your screen reader or assistive device, email kr8digitals01@gmail.com with the page URL and our engineering team will remediate it promptly."
+        }
+      ]
+    }
+  },
+  "app:contact:page": {
+    "label": "app/contact/page.tsx",
+    "texts": {
+      "text_120b4967e2": "Start a Project · KR8 DIGITALS",
+      "text_6b19ffc76e": "Tell us what you are building.",
+      "text_55f066dd94": "Get a real scope in writing.",
+      "text_c9d05973ab": "Every commercial engagement at ",
+      "text_0bbfb207b2": "KR8 DIGITALS",
+      "text_0d9a0f7afe": "starts with clarity: your business objective, defined deliverables, timeline milestones, and a transparent fixed figure — answered directly by the practitioners who will build the work.",
+      "text_a82e1df408": "Share your goal in a sentence or two — receive a clear written scope, timeline, and fixed quote within ",
+      "text_cae0c06b2d": "1 business day",
+      "text_275a568aba": "DIRECT EMAIL",
+      "text_5b6be7bbf9": "Written briefs & docs",
+      "text_6dd68d4276": "WHATSAPP / PHONE",
+      "text_f066f7bc47": "Fast executive reply →",
+      "field_e97169a86c": "/partners#propose",
+      "text_88c4ce23a6": "PARTNERSHIPS",
+      "text_f917533459": "Propose an Alliance",
+      "text_cae5a80b2f": "Studios, schools & sponsors →",
+      "field_fd6b7397b2": "https://academy.kr8digitals.com",
+      "text_4633bbfb98": "FREE TRAINING",
+      "text_ca538eaf54": "KR8 Academy",
+      "text_6b89de70d6": "100% free admissions ↗",
+      "field_55f987af05": "/img/contact/scoping-session.webp",
+      "field_7858480091": "KR8 DIGITALS engineering and creative leads scoping a client project in a sunlit studio",
+      "text_4b6e4d2f41": "1 Business Day Reply",
+      "text_8f486ddb7b": "HOW SCOPING WORKS AT KR8 DIGITALS",
+      "text_6149acac42": "What happens after you send a brief",
+      "text_a0c3b838d4": "Practitioner Review:",
+      "text_f7d584521c": "Your brief goes straight to our engineering, design, or post-production lead — never a scripted call center.",
+      "text_72c2d9c6a2": "Written Scope & Fixed Figure:",
+      "text_5b796bcf7b": "We reply with clear deliverables, milestone dates, and a fixed quote before you commit to anything.",
+      "text_e1542e6ab0": "100% Client Ownership:",
+      "text_a5cba23ae5": "Domains, source repositories, brand master files, and final exports belong cleanly to your organisation.",
+      "text_0a9a0d978b": "SIX COMMERCIAL DISCIPLINES",
+      "text_582e9356b1": "Explore Service Specifications"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Contact & Project Briefs — Work With KR8 DIGITALS",
+        "description": "Request a fixed project scope for Website Design, Branding, Graphic Design, Video Editing, SEO Optimization, or AI Automation — or reach the KR8 DIGITALS team directly.",
+        "alternates": {
+          "canonical": "/contact"
+        }
+      }
+    }
+  },
+  "app:not-found": {
+    "label": "app/not-found.tsx",
+    "texts": {
+      "text_ae86d1e408": "404 · Page Not Found",
+      "text_6929b59ea9": "That address isn't here —",
+      "text_883ce48e09": "let's get you to the right room.",
+      "text_680b9b6619": "The link you followed may have moved or been mistyped. Jump straight to any core destination across KR8 DIGITALS below.",
+      "text_3449554599": "Back to Homepage ",
+      "field_3b1aeccb74": "/services",
+      "text_2093ef4e36": "Explore Services",
+      "field_271bdd2473": "/programs",
+      "text_90e70a8ba3": "Free Programs",
+      "field_6d0f8c425c": "/partners",
+      "text_5dab502bfb": "Partners",
+      "field_4eb9506365": "/contact",
+      "text_98b67063cf": "Contact Us"
+    },
+    "blocks": {}
+  },
+  "app:order:[ref]:page": {
+    "label": "app/order/[ref]/page.tsx",
+    "texts": {
+      "text_4683840232": "Order Lookup",
+      "text_1b16d7e18c": "Order reference not found",
+      "text_ab0cedb8fb": "Reference ",
+      "text_b0ce014c34": "could not be located. If you recently requested an invoice or settlement instruction, message our team on WhatsApp with your reference and we will assist right away.",
+      "text_03a9e7ed61": "Confirm on WhatsApp",
+      "field_3b1aeccb74": "/services",
+      "text_27c68678da": "Back to Services",
+      "text_01a2d3f916": "ORDER REFERENCE · ",
+      "text_ca6adce9d1": "Confirmed settlement summary for ",
+      "text_c67bea61b0": ". Quote reference ",
+      "text_a1667db2f4": "on your transfer narration so our finance desk matches it immediately.",
+      "text_9bb4213079": "Settlement Amount (NGN):",
+      "text_4be33ffe82": "Bank:",
+      "text_af540d8305": "Account Name:",
+      "text_093adba7d4": "Account Number:",
+      "text_c95ecd1389": "Full settlement details are restricted to the private order link issued at checkout. Open the complete URL sent to you, or verify directly on WhatsApp quoting",
+      "text_d67a75eb81": "Confirm Settlement on WhatsApp",
+      "text_d2f9ecbf6c": "Return Home",
+      "copy_efd9df819a": "KR8 DIGITALS Engagement",
+      "copy_27f0d486b6": "your order"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Order Summary & Settlement | KR8 DIGITALS",
+        "robots": {
+          "index": false,
+          "follow": false
+        }
+      }
+    }
+  },
+  "app:page": {
+    "label": "app/page.tsx",
+    "texts": {
+      "field_3152e8ca94": "Core capabilities",
+      "text_a6e88f5444": "Websites & Apps",
+      "text_4f6a7fb8cb": "Branding & Design",
+      "text_c2b1ecea59": "Video & AI",
+      "text_9c9985381d": "Free Academy",
+      "field_049a550384": "KR8 Digitals in numbers",
+      "text_604dce445e": "Services",
+      "text_0df52fe9e4": "What we build for clients",
+      "field_c174fff9c4": "Great organisations lose opportunities quietly when their digital presence feels slow, generic, or disconnected. We engineer every layer of how the market finds, perceives, and buys from you — custom websites, category-defining brand identity, campaign design, high-retention video, search visibility, and intelligent automation under one roof.",
+      "field_0c77371319": "Six integrated studio capabilities engineered to get your brand found, trusted, and chosen on sight.",
+      "field_3b1aeccb74": "/services",
+      "text_9bf9122d26": "All services ",
+      "text_79c796457f": "Flagship Initiative · Free Digital Skills Training",
+      "text_1aaed248b3": "Empowering people to become ",
+      "text_4818331d9f": "creators of opportunities",
+      "text_8d5bcbf7f5": "— at zero cost.",
+      "text_efde5601b3": "Talent is everywhere, yet expensive bootcamps lock millions out of the digital economy. Through",
+      "text_ca538eaf54": "KR8 Academy",
+      "text_d2ad679b2e": ", we teach practical, high-income digital crafts completely free — equipping learners to build products, launch studios, win clients, and create opportunities rather than wait in line as job seekers.",
+      "text_41e944bfbc": "Learn high-income digital skills ",
+      "text_4e85762786": "100% tuition-free ($0 / ₦0)",
+      "text_737d26e744": "through 8-week live cohorts at ",
+      "field_0a4fc54588": "KR8 Academy learners collaborating during a free hands-on digital skills cohort",
+      "text_699fad4db3": "100% Tuition-Free Access",
+      "text_83428cef08": "Zero tuition, zero hidden charges, and zero graduation fees across every cohort.",
+      "text_3174cb5754": "Practical Craft Over Theory",
+      "text_e1c59ffe33": "8-week intensive cohorts led by practicing builders — you graduate with shipped work, not slides.",
+      "text_345fbe4831": "Verifiable KR8 Graduate Identity",
+      "text_21bb4e4d21": "Earn an official verifiable KR8 ID, portfolio review, and pathways into real client projects.",
+      "text_327bf5133a": "Start Learning Free ",
+      "field_70ea9c52a0": "/programs#free-training",
+      "text_4efa546c5d": "Explore 7 Tracks",
+      "text_75a1d5d506": "academy.kr8digitals.com",
+      "text_4092d8aee4": "₦0 · $0 TUITION",
+      "field_c62179466b": "/img/academy-home.jpg",
+      "field_8d99949e39": "KR8 Academy — tuition-free digital skills training platform by KR8 Digitals",
+      "field_5817074902": "Available free training tracks",
+      "text_b14b16f65b": "7 Practical Skill Tracks · Zero Tuition",
+      "field_541ec58199": "/img/work/p-grant.jpg",
+      "field_acc7bb7dda": "/img/work/p-elizabeth.jpg",
+      "field_ed0e204bb9": "/img/work/p-chinenye.jpg",
+      "text_d3d782baaa": "From Curious Learners to Working Creators",
+      "text_420b8c673a": "8-week hands-on cohorts · Senior mentorship · Plus WAEC & JAMB support via Next Gen Scholars",
+      "text_35461b7dd0": "KR8 Digitals' Tribe · The Creative Community",
+      "text_ba58126a6c": "Isolation kills craft.",
+      "text_c368f061a7": "Never build alone again.",
+      "text_2a0c7c293b": "Most learners finish a course and lose the room — left staring at Figma, Premiere, or VS Code alone with nobody to review their work or point them toward real opportunities.",
+      "text_485bc59846": "KR8 Digitals' Tribe",
+      "text_b5d9798753": "is our unbroken creative community where designers, web developers, video directors, and digital builders stay connected to sharpen their craft, collaborate across disciplines, and grow into financially independent creators together.",
+      "text_bb23428b65": "Join ",
+      "text_3524e3ed1f": "3,000+ designers, developers, and filmmakers",
+      "text_b9e527495b": "sharing honest critiques, cross-skill collaborations, and paid client gig flow — free.",
+      "text_8f814023a9": "Most learners finish a course and lose the room — left staring at Figma, Premiere, or VS Code alone. KR8 Digitals' Tribe keeps creators connected with senior reviews, cross-discipline team-ups, and real client overflow opportunities.",
+      "field_a1be62c2b9": "KR8 Digitals Tribe members reviewing creative work together in studio",
+      "field_27e3b280f8": "/img/work/p-peter.jpg",
+      "field_a22d62850b": "/img/work/p-maduka.jpg",
+      "text_2d295c4906": "Designers · Developers · Video Editors · Strategists · Founders building side by side.",
+      "text_64fb287699": "Critique Over Clout",
+      "field_c7550534d9": "Share messy work-in-progress drafts and receive honest, specific technical feedback from senior practitioners who care about raising your standard — without ego or judgment.",
+      "field_0ca73a115a": "Honest, ego-free technical feedback on your drafts from senior practitioners.",
+      "text_b33ab11dbd": "Internal Gig & Lead Flow",
+      "field_0942f94263": "When client projects expand or retainers overflow, opportunities go to trusted builders inside the Tribe room first — turning proven skill into real paid work.",
+      "field_4799b27751": "Overflow studio projects and client leads shared with trusted builders first.",
+      "text_c0ac1e82e3": "Cross-Skill Collaboration",
+      "field_387943cdd7": "Web developers partner with brand designers, motion artists, and writers to pitch, execute, and deliver complete client solutions none of them could ship alone.",
+      "field_47f62ae097": "Devs, designers, and editors team up to ship full client projects together.",
+      "text_207c07104b": "Accountability & Growth",
+      "field_773fc4dfcc": "Live teardowns on freelancing, client psychology, pricing, and staying consistent alongside ambitious peers walking the exact same road.",
+      "field_460a216cd0": "Live teardowns on pricing, client psychology, and consistent career growth.",
+      "text_61a630abdc": "Zero spam or guru hype",
+      "text_bd0b3c2183": "Actionable senior feedback",
+      "text_e99fce7902": "Shared leads & gigs",
+      "text_895eb68748": "Lift as you climb",
+      "field_3df0ed1318": "/tribe",
+      "text_49c100eb0d": "Step Into the Tribe ",
+      "field_0e277ad2ae": "/programs#tribe",
+      "text_212a0743cf": "How the Tribe Fits",
+      "text_9fb4826482": "Beyond Client Services · Ecosystem Initiatives",
+      "text_b5e3326dea": "Other things we do",
+      "field_afcdf0372e": "Alongside client delivery, tuition-free training, and the Tribe, we run two focused ecosystem initiatives — one designed to rewire how ambitious people think about growth and opportunity, and another opening a merit-based path onto our production team.",
+      "field_4467fb5b88": "Two focused pathways: live conversations on wealth & clarity, and merit-based entry onto our studio team.",
+      "field_271bdd2473": "/programs",
+      "text_f51743fdd1": "All initiatives ",
+      "field_71788b48fc": "Mindset Shift — KR8 Digitals twice-monthly live conversation forum",
+      "text_a94d9f0206": "Initiative 01 · Live Gathering Series",
+      "text_bb75ca0622": "Free Entry",
+      "text_7e4dd262de": "Mindset Shift",
+      "field_827ad6e7b5": "Technical skill is rarely the only gap — belief is. Mindset Shift is our recurring live conversation series bringing accomplished founders, authors, and strategists into the room to challenge limiting assumptions around money, career ceiling, business, and personal agency — so capable people stop holding themselves back.",
+      "field_80188903d1": "Twice-monthly live conversations with founders and strategists on money, career leverage, and business clarity — free for every profession.",
+      "text_d2836e02c3": "Candid, zero-hype conversations on wealth, business, and clarity",
+      "text_9a8dcfe86e": "Hosted live twice monthly with guest thinkers and practitioners",
+      "text_217ef94413": "Actionable takeaways you can apply the very same week",
+      "field_83281429bb": "/programs/mindset-shift/invite",
+      "text_da872d2840": "Register Interest ",
+      "field_5be18a86f0": "/programs#mindset-shift",
+      "text_219c5d7f0b": "About Mindset Shift ",
+      "field_53e8618567": "KR8 Digitals commercial production suite for web, design, and film specialists",
+      "text_da12783d9a": "Initiative 02 · Professional Studio Pathway",
+      "text_f8f28e372c": "Merit-Based",
+      "text_a24ec95fbf": "Join the Team",
+      "field_53ef234e55": "KR8 Digitals is built by practitioners who prove their craft through real output. Join the Team is our structured bridge from independent builder or standout Academy graduate into our core delivery team — collaborating on live client websites, brand systems, films, and AI builds held to commercial standards.",
+      "field_c019939eca": "Our merit-based bridge into the paid KR8 production studio — judged on shipped portfolio work, never paper degrees.",
+      "text_befb1fe07f": "Portfolio-first evaluation — judged by shipped work, not paper",
+      "text_0f904fb6de": "Hands-on collaboration with senior leads on real paid client briefs",
+      "text_43971b964b": "Open to standout KR8 graduates and disciplined external builders",
+      "field_78c2a55cd4": "/about/join-the-team",
+      "text_f0b70c974b": "How to Join ",
+      "field_8527bfb1db": "/about/join-the-team#roles",
+      "text_c45236aa8c": "See Open Roles ",
+      "text_5dab502bfb": "Partners",
+      "text_f7d3f95f34": "We do not build alone",
+      "field_a0f237f79c": "Enduring impact is built through shared standards and complementary strengths. Our partner organisations co-create commercial design and film alongside KR8 Digitals, lead specialised instruction across our free training cohorts, and expand what every client and learner gains from our ecosystem.",
+      "field_994cbf0dcb": "Allied studios and academic partners co-producing commercial work and powering our free cohorts.",
+      "field_6d0f8c425c": "/partners",
+      "text_29f63c45e7": "See all partners ",
+      "text_0601c766cb": "Your Logo Here",
+      "text_e22e76fe15": "Tell Us What You Can Bring →",
+      "text_012a283b46": "The team",
+      "text_f2ee5d751c": "Three founders. One company.",
+      "field_b97090f040": "Three complementary crafts united under one shared standard. Rather than working in isolated silos, our founders bring engineering, brand design, and film production onto the same table — collaborating directly across client engagements, free training cohorts, and the community we build together.",
+      "field_f3fa3308e8": "Engineering, brand design, and film production united under one roof by three practicing founders.",
+      "field_979bddc4a8": "/about",
+      "text_08dd5bc5aa": "About KR8 ",
+      "field_0f27e4e55e": "If you can build, we want to meet you.",
+      "text_0a25d217c4": "Whether you trained inside KR8 Academy or built your track record independently across web, design, video, SEO, or AI — we judge by shipped work, never résumé theatre.",
+      "text_e7e463b687": "Exceptional client work comes from practitioners who care deeply about the craft behind every pixel, frame, and line of code. Whether you sharpened your skills inside KR8 Academy or built your track record independently across web engineering, brand design, video production, SEO, or AI automation, there is a seat here for builders whose work speaks for itself.",
+      "text_2f723c555c": "We skip résumé theatre entirely. Show us what you have shipped, walk us through how you solve real problems, and collaborate directly with our founders and senior leads on paid commercial projects. Even when no role is publicly listed, strong portfolios always get read.",
+      "text_76ffc344c6": "Referrals",
+      "text_d4fd252886": "You may not have the skill.",
+      "text_f82c24a51b": "You have the people.",
+      "field_efd7ceaccb": "You know a school that needs a website. A bakery that needs a brand. A founder nobody can find on Google. Introduce them. When the work is paid, you are paid.",
+      "field_5d73369d45": "Know a clinic, hotel, school, or founder needing digital work? Introduce them — earn 8% to 12% cash once paid.",
+      "field_5c28ab56d1": "/referrals",
+      "text_172b9b4d08": "Become a referrer ",
+      "text_d4b55ad7cc": "10% on projects · 8% on creative · 12% after three",
+      "text_4dd022e291": "If you run a school, a business, or a brand, we should talk.",
+      "field_4eb9506365": "/contact",
+      "text_c6a53ce263": "Work with us ",
+      "text_6a40edf1fc": "WhatsApp",
+      "copy_bec8768fab": "Websites",
+      "copy_090ed4316f": "Brand",
+      "copy_d534be829e": "Video",
+      "copy_11fb682be0": "AI",
+      "copy_6bc4718fbb": "SEO",
+      "copy_36a798e3f3": "Training",
+      "copy_bb501d7877": "Community",
+      "copy_b61dd8f401": "Partnership",
+      "copy_6837aab9ca": "Website Development",
+      "copy_a95b7a5655": "Front-End Engineering",
+      "copy_b5fe7b887a": "Graphic Design",
+      "copy_e36b227a5e": "Video Editing & Motion",
+      "copy_2ca313baf1": "Content Creation",
+      "copy_1b286e778e": "Social Media Management",
+      "copy_29ff60a8ca": "Digital Marketing"
+    },
+    "blocks": {
+      "mainPartners": [
+        {
+          "slug": "motionverse",
+          "mark": "MV",
+          "name": "Motionverse",
+          "role": "Co-Founding Partner · Brand & Design",
+          "href": "/partners/motionverse"
+        },
+        {
+          "slug": "chigoma",
+          "mark": "CH",
+          "name": "Chigoma",
+          "role": "Co-Founding Partner · Video & Motion",
+          "href": "/partners/chigoma"
+        },
+        {
+          "slug": "next-gen-scholars",
+          "mark": "NG",
+          "name": "NextGen",
+          "role": "Academic Partner · STEM, Arts & Exams",
+          "href": "/partners/next-gen-scholars"
+        }
+      ],
+      "metadata": {
+        "title": "KR8 Digitals — Whoever you are, whatever you do, we exist because of you.",
+        "description": "KR8 Digitals designs and builds websites, brands, films, AI systems and SEO optimisation for organisations that need to be found, trusted and chosen."
+      }
+    }
+  },
+  "app:partners:[slug]:page": {
+    "label": "app/partners/[slug]/page.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "field_6d0f8c425c": "/partners",
+      "text_5dab502bfb": "Partners",
+      "text_e13b187903": "· KR8 DIGITALS Network",
+      "text_3f7d52ef9f": "Led by ",
+      "field_e97169a86c": "/partners#propose",
+      "text_24b4135735": "Partner Like ",
+      "text_78d7580d32": "× KR8 DIGITALS",
+      "text_773212890a": "ROLE INSIDE THE UMBRELLA",
+      "text_08418a26fc": "How ",
+      "text_f2b4a37ab6": "Collaborates With KR8 DIGITALS",
+      "text_9ba9a80c89": "COMMERCIAL & STRATEGIC CONTRIBUTION",
+      "text_d64fe61394": "Studio & Ecosystem Scope",
+      "text_e82c31fa36": "EDUCATION & MENTORSHIP TRACK",
+      "text_d6251b5319": "KR8 DIGITALS × Motionverse",
+      "text_2b52115757": "Published design & campaign work.",
+      "field_8bffa0643a": "/contact?service=graphic-design",
+      "text_20e08d19a1": "Commission Design ",
+      "text_75adce0e26": "KR8 DIGITALS × Chigoma",
+      "text_dbb6f5cc6c": "Published film & documentary cuts.",
+      "field_877fc4ac7b": "/contact?service=video-editing",
+      "text_97cb8b7eed": "Commission Video Editing ",
+      "text_d953222b38": "Other Active Partners",
+      "text_1902cdc703": "Read ",
+      "text_855d5a5345": "Chapter ",
+      "text_efe8b8f800": "Open Partner Applications",
+      "text_ba01b7f137": "Interested in building an alliance with KR8 DIGITALS?",
+      "field_16b8a57c71": "Submit a partnership proposal directly to our leadership team and explore how our organisations can create and teach together.",
+      "field_abc8bb9e8f": "Submit a proposal directly to our founding team to build and teach together.",
+      "text_1c8ed1d77f": "Propose a Partnership ",
+      "text_7894eddc23": "All Partners"
+    },
+    "blocks": {
+      "PARTNER_META": {
+        "motionverse": {
+          "heroImg": "/img/services/motionverse-studio.webp",
+          "heroAlt": "Motionverse × KR8 DIGITALS sunlit brand and graphic design studio",
+          "atmo": "founder-craft-design",
+          "founderHref": "/about/steveoking",
+          "founderBtn": "Read About Stevenson",
+          "highlights": [
+            "Co-Founding Brand & Visual Design Practice led by Steveoking (Stevenson)",
+            "Directs commercial brand identity systems, retail key art, and campaign flyers",
+            "Leads hands-on Graphic Design instruction inside KR8 Academy tuition-free cohorts",
+            "Publicly credited across joint KR8 DIGITALS × Motionverse client deliverables"
+          ]
+        },
+        "chigoma": {
+          "heroImg": "/img/services/video-editing-suite.webp",
+          "heroAlt": "Video editing and post-production studio Chigoma at KR8 DIGITALS",
+          "atmo": "founder-craft-film",
+          "founderHref": "/about/creative-expression",
+          "founderBtn": "Read About Creative Expression",
+          "highlights": [
+            "Co-Founding Video & Post-Production Practice led by Creative Expression (Daniel Akachukwu Augustine)",
+            "Produces retention-cut commercial reels, documentary stories, and social video campaigns",
+            "Leads Video Editing & Motion Storytelling mentorship inside KR8 Academy",
+            "Delivers multi-aspect masters with clean dialogue audio, captions, and color grading"
+          ]
+        },
+        "next-gen-scholars": {
+          "heroImg": "/img/programs/free-training-academy.webp",
+          "heroAlt": "Next Gen Scholars academic mentorship pathway with KR8 DIGITALS",
+          "atmo": "nextgen-scholars-cinema",
+          "founderHref": "/programs#free-training",
+          "founderBtn": "Explore Free Training Doors",
+          "highlights": [
+            "Official Academic Partner powering the academic arm of KR8 DIGITALS’ free training ecosystem",
+            "Equips secondary and pre-university students across Sciences and Arts",
+            "Focused WAEC and JAMB examination readiness taught with structured weekly accountability",
+            "Bridges strong academic foundations with KR8 Academy’s practical digital skill tracks"
+          ]
+        }
+      }
+    }
+  },
+  "app:partners:page": {
+    "label": "app/partners/page.tsx",
+    "texts": {
+      "field_1615da111e": "Whether you lead a specialist studio, school, foundation, or agency — partner with KR8 DIGITALS for full-stack execution and youth talent impact.",
+      "field_29a333b3c4": "#propose",
+      "text_1c8ed1d77f": "Propose a Partnership ",
+      "field_dc57395c1d": "#existing-partners",
+      "text_864e2bbd07": "Meet Active Partners",
+      "field_f1d162b5a5": "/img/partners/partnership-collaboration.webp",
+      "field_ba05bcd8cd": "Strategic partnership alignment session with KR8 DIGITALS leadership",
+      "text_ece787f674": "Active Partner Network",
+      "text_0110ec805c": "Motionverse · Chigoma · Next Gen Scholars",
+      "text_98a1472b4b": "Apply Now ",
+      "text_096dcd9f57": "The Strategic Case",
+      "text_c91fcbcecc": "Built for ",
+      "text_84a742cba9": "mutual leverage — never one-sided logos.",
+      "field_3457460659": "We do not collect decorative partner badges. Every organisation inside our network builds real commercial deliverables, teaches real learners, or expands real opportunity.",
+      "field_ec5c745e47": "Zero decorative badges. Every partner builds real work, mentors learners, or expands real opportunity.",
+      "text_3dea7ccb1a": "Ways We Collaborate",
+      "text_57fb4d5252": "Four structured ",
+      "text_6301de3936": "partnership pathways.",
+      "text_b99995922d": "Ideal for: ",
+      "text_7ac9762a6c": "Propose This Track ",
+      "text_94bccdb1d5": "STEP ",
+      "text_1c3e050f79": "Proof of the Umbrella in Action",
+      "text_8e9981b730": "Active organisations partnering ",
+      "text_fe25094921": "inside KR8 DIGITALS.",
+      "field_dc7f5b8c7b": "Explore how our co-founding studios and academic partner collaborate across commercial delivery and tuition-free education.",
+      "field_d1d04b56d3": "See how Motionverse, Chigoma, and Next Gen Scholars build and teach inside the umbrella.",
+      "text_495e7222ff": "Lead: ",
+      "text_de89663c45": "Academy Role:",
+      "text_1902cdc703": "Read ",
+      "text_855d5a5345": "Chapter ",
+      "text_425daaa648": "Start a Strategic Conversation",
+      "text_be4c6a7b97": "Let's build something neither of us could build ",
+      "text_72c2c9c19e": "alone.",
+      "field_359231eca4": "Whether you represent a creative studio ready to collaborate on larger commercial mandates, a school seeking digital & academic empowerment for students, or an organisation ready to sponsor tuition-free cohorts — we welcome thoughtful proposals.",
+      "field_2d793e8ccf": "Submit your proposal below — founding leadership reviews every studio, school, and sponsorship request directly.",
+      "text_831799fac9": "WHAT HAPPENS AFTER YOU SUBMIT",
+      "text_1dd8a77b98": "Your proposal is logged immediately in the KR8 DIGITALS Partnerships Dashboard.",
+      "text_3fe8f6f4ef": "Founding leadership reviews alignment across commercial, educational, and brand standards.",
+      "text_b4a2938483": "We reply directly via email or WhatsApp to schedule an executive discovery call.",
+      "copy_fc87585f9d": "Strategic Alliances · KR8 DIGITALS",
+      "copy_7c2606cf3f": "Why partner with",
+      "copy_215d4ea9cb": "KR8 DIGITALS?",
+      "copy_25a4538e41": "Ambitious outcomes move faster when complementary strengths share one roof. Whether you lead a specialist creative studio, an academic institution, a corporate impact initiative, or a growing company — partnering with KR8 DIGITALS connects your mission to full-stack digital execution and an active talent ecosystem.",
+      "copy_f1d162b5a5": "/img/partners/partnership-collaboration.webp",
+      "copy_11f2b02015": "{0} — {1} inside KR8 DIGITALS"
+    },
+    "blocks": {
+      "WHY_PARTNER": [
+        {
+          "num": "ADVANTAGE 01 · FULL-STACK EXECUTION POWER",
+          "title": "Plug Directly Into Engineering, Brand, Design & Film",
+          "body": "Instead of building isolated creative or technical teams from scratch, partners gain immediate collaboration with working full-stack developers, brand strategists, graphic designers, video editors, and AI engineers.",
+          "mobileBody": "Collaborate immediately with working web & AI engineers, brand strategists, graphic designers, and film editors."
+        },
+        {
+          "num": "ADVANTAGE 02 · PRESERVED BRAND IDENTITY & CREDIT",
+          "title": "Grow Under One Roof Without Losing Your Own Name",
+          "body": "KR8 DIGITALS operates as a transparent creative umbrella — never erasing partner studios. Practices like Motionverse and Chigoma retain full public credit and distinct brand equity on every joint deliverable.",
+          "mobileBody": "A transparent umbrella — partners like Motionverse and Chigoma keep full public credit and brand equity on every joint build."
+        },
+        {
+          "num": "ADVANTAGE 03 · VERIFIED HUMAN CAPACITY & REACH",
+          "title": "Access Motivated Learners, Builders & Youth Impact",
+          "body": "Educational institutions, sponsors, and NGOs connect directly with an active ecosystem of disciplined learners inside KR8 Academy, peer builders in KR8 DIGITALS TRIBE, and engaged audiences at Mindset Shift.",
+          "mobileBody": "Connect directly with disciplined learners in KR8 Academy, 3,000+ builders in KR8 Tribe, and Mindset Shift audiences."
+        }
+      ],
+      "COLLABORATION_TRACKS": [
+        {
+          "tag": "TRACK 01 · SPECIALIST STUDIOS",
+          "title": "Creative & Technical Practice Partners",
+          "image": "/img/partners/track-studios.webp",
+          "imageAlt": "Creative director crafting brand and campaign work inside a specialist partner studio",
+          "badge": "Studios & Agencies",
+          "who": "Design studios, production houses, copywriters, photographers, PR teams, and software specialists.",
+          "value": [
+            "Co-deliver larger multi-disciplinary commercial scopes under one unified client proposal",
+            "Retain public credit on portfolio pieces and partner chapters on the KR8 DIGITALS platform",
+            "Mentor future collaborators directly through specialist masterclasses and Academy tracks"
+          ]
+        },
+        {
+          "tag": "TRACK 02 · EDUCATION & SCHOOLS",
+          "title": "Academic & Institutional Partners",
+          "image": "/img/partners/track-schools.webp",
+          "imageAlt": "Students collaborating with digital tablets and textbooks inside an academic partner institution",
+          "badge": "Schools & STEM",
+          "who": "Secondary schools, tutorial colleges, universities, STEM initiatives, and educational bodies.",
+          "value": [
+            "Pair academic excellence (like Next Gen Scholars) with practical digital literacy for students",
+            "Co-host digital bootcamps, career readiness workshops, and verified certification cohorts",
+            "Modernize your institution’s own web platform, admissions visibility, and digital infrastructure"
+          ]
+        },
+        {
+          "tag": "TRACK 03 · SPONSORS & FOUNDATIONS",
+          "title": "Training Cohort & Social Impact Sponsors",
+          "image": "/img/partners/track-sponsors.webp",
+          "imageAlt": "Speaker addressing young African builders and scholars during a sponsored capacity forum",
+          "badge": "CSR & Foundations",
+          "who": "Corporate CSR programs, youth foundations, tech companies, diaspora donors, and civic leaders.",
+          "value": [
+            "Sponsor data stipends, learning equipment, or dedicated tuition-free seats inside KR8 Academy",
+            "Co-convene Mindset Shift editions reaching ambitious young builders and entrepreneurs",
+            "Receive transparent impact reporting grounded in shipped student portfolios — not vanity metrics"
+          ]
+        },
+        {
+          "tag": "TRACK 04 · AGENCIES & ENTERPRISES",
+          "title": "Commercial Delivery & White-Label Allies",
+          "image": "/img/partners/track-enterprise.webp",
+          "imageAlt": "Executive leads reviewing a multi-milestone commercial delivery roadmap in a sunlit boardroom",
+          "badge": "Enterprise & White-Label",
+          "who": "Consultancies, marketing agencies, venture studios, and enterprise teams.",
+          "value": [
+            "Reliable technical & creative execution partner for web builds, brand systems, SEO, and AI workflows",
+            "Predictable written scopes, clear milestone handoffs, and disciplined engineering standards",
+            "Flexible co-branded or white-label delivery structured around your client relationships"
+          ]
+        }
+      ],
+      "PROCESS_STEPS": [
+        {
+          "n": "01",
+          "t": "Submit Your Proposal",
+          "d": "Share your organisation, partnership track, and collaboration goals using the form below."
+        },
+        {
+          "n": "02",
+          "t": "Executive Alignment Call",
+          "d": "Meet directly with KR8 DIGITALS leadership to explore strategic fit, standards, and shared upside."
+        },
+        {
+          "n": "03",
+          "t": "Written Charter & Roles",
+          "d": "We document clear responsibilities, brand attribution rules, and measurable milestones in writing."
+        },
+        {
+          "n": "04",
+          "t": "Co-Branded Execution",
+          "d": "Launch joint client deliveries, academic cohorts, or community initiatives under one shared standard."
+        }
+      ]
+    }
+  },
+  "app:privacy:page": {
+    "label": "app/privacy/page.tsx",
+    "texts": {
+      "text_e824db131e": "Legal & Trust · KR8 DIGITALS",
+      "text_506ff39462": "Privacy Policy",
+      "text_2a46858950": "Clear, plain-English commitments on how KR8 DIGITALS handles inquiry data, partnership proposals, referral records, and digital assistant conversations.",
+      "field_2dda5c6b8e": "/terms",
+      "text_4afa55bf7a": "Terms of Service",
+      "field_8034008c1a": "/accessibility",
+      "text_78d4fc94c0": "Accessibility Statement",
+      "field_4eb9506365": "/contact",
+      "text_6bae6b2c4e": "Contact KR8 DIGITALS"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Privacy Policy | KR8 DIGITALS",
+        "description": "How KR8 DIGITALS collects, uses, safeguards, and respects personal information across our website, programs, and services.",
+        "alternates": {
+          "canonical": "/privacy"
+        }
+      },
+      "SECTIONS": [
+        {
+          "num": "01 · SCOPE & CONTROLLER",
+          "title": "Who We Are",
+          "body": "KR8 DIGITALS operates this website, commercial inquiry channels, partnership portals, and referrer tools. For any privacy question, data access request, or deletion request, contact kr8digitals01@gmail.com."
+        },
+        {
+          "num": "02 · INFORMATION WE COLLECT",
+          "title": "Only What You Share With Purpose",
+          "body": "When you submit a project brief, partnership proposal, team application, community registration, referral signup, or chat with our intelligent digital representative RIYA, we store the contact details and project context you voluntarily provide — alongside basic privacy-safe route analytics (with no third-party advertising trackers)."
+        },
+        {
+          "num": "03 · HOW INFORMATION IS USED",
+          "title": "Responding, Delivering & Attribution",
+          "body": "Your information is used strictly to respond to your inquiry, scope or deliver commissioned services, review partnership or career applications, coordinate program invitations, and credit verified referral commissions. We never sell or rent personal information to third parties."
+        },
+        {
+          "num": "04 · RETENTION & YOUR RIGHTS",
+          "title": "Access, Correction & Deletion",
+          "body": "Active assistant conversations can be cleared directly inside the chat panel at any time. To inspect, update, or permanently erase any submission or referral record associated with your email or phone number, write to kr8digitals01@gmail.com and our team will process your request promptly."
+        }
+      ]
+    }
+  },
+  "app:programs:mindset-shift:invite:page": {
+    "label": "app/programs/mindset-shift/invite/page.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "field_271bdd2473": "/programs",
+      "text_b6747064b2": "Programs",
+      "text_7e4dd262de": "Mindset Shift",
+      "text_9abfa4cbae": "Free Twice-Monthly Forum · 1st & 3rd Sundays at 9PM",
+      "text_79b1d41c3e": "Mindset Shift:",
+      "text_446e0ab530": "rethinking what you believe is possible.",
+      "text_cac0f8ae64": "Skill is rarely the only barrier holding talented young people back. Convened by",
+      "text_e490bfa3fb": "Timfire",
+      "text_9060608fbb": "and guest practitioners inside the ",
+      "text_0bbfb207b2": "KR8 DIGITALS",
+      "text_aa0bbe25a1": "ecosystem, Mindset Shift brings builders, students, and founders together for candid conversations on discipline, career architecture, and value creation.",
+      "text_d04444a24a": "Hosted by ",
+      "text_a853697c91": "and guest leaders on the ",
+      "text_2bfe5b550d": "1st & 3rd Sundays at 9PM",
+      "text_72728bfc67": "— candid conversations on discipline, career longevity, and ethical wealth. Open to any profession.",
+      "field_b6331134d3": "#register",
+      "text_e738102f13": "Join the Invitation List ",
+      "text_98361cccee": "All Ecosystem Programs",
+      "field_d70d13ab09": "/img/programs/mindset-shift-forum.webp",
+      "field_109d91dab8": "Mindset Shift leadership and career perspective forum hosted by KR8 DIGITALS",
+      "text_a85e446990": "Hosted by Timfire & Guest Practitioners",
+      "text_16ef89c1d1": "Leadership · Craft · Value Creation",
+      "text_4f9d559aa2": "Register ",
+      "text_a42a2ae92b": "Inside the Room",
+      "text_b47e126cc5": "Conversations built around ",
+      "text_a972334027": "honest execution.",
+      "field_a223f3c8e2": "Mindset Shift evening leadership stage with warm bokeh stage lighting",
+      "text_12ff3ffa08": "Direct Edition Notifications",
+      "text_354174b916": "Be first in the room when the ",
+      "text_bc7e1aab45": "next edition is confirmed.",
+      "field_2b5f32c671": "We publish Mindset Shift dates, guest speakers, and venue/livestream access details strictly once each edition is formally locked in. Register your email or WhatsApp below so your invitation arrives first.",
+      "field_812d2d4d6f": "Register your email or WhatsApp below to receive speaker lineups and direct livestream access before each session.",
+      "text_be5222812f": "SPEAKERS & SPONSORS",
+      "text_d9d3808a8d": "Want to co-sponsor an edition of Mindset Shift or propose an experienced practitioner speaker?",
+      "field_e97169a86c": "/partners#propose",
+      "text_d0c4037c00": "Submit a Partnership Proposal →"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Mindset Shift — Leadership & Perspective Forum | KR8 DIGITALS",
+        "description": "Register interest for Mindset Shift by KR8 DIGITALS — candid practitioner conversations challenging limiting beliefs around career, craft, value creation, and leadership.",
+        "alternates": {
+          "canonical": "/programs/mindset-shift/invite"
+        }
+      },
+      "THEMES": [
+        {
+          "num": "THEME 01 · CRAFT & EXCELLENCE",
+          "title": "Moving From Amateur Effort to Commercial Standards",
+          "body": "Why technical tutorials alone rarely create a career — and how reliability, communication, and taste separate trusted professionals.",
+          "mobileBody": "Why tutorials alone aren’t enough — and how reliability, taste, and execution separate trusted pros."
+        },
+        {
+          "num": "THEME 02 · VALUE & ECONOMICS",
+          "title": "Ethical Wealth Building & Pricing Real Solutions",
+          "body": "Understanding how businesses measure return on investment so young creatives and engineers build sustainable livelihoods.",
+          "mobileBody": "Understanding business ROI so young professionals price real value and build lasting wealth."
+        },
+        {
+          "num": "THEME 03 · LONG-TERM VISION",
+          "title": "Compounding Reputation, Discipline & Leadership",
+          "body": "Real stories from founders and operators who started with limited resources and stayed consistent long enough to build enduring work.",
+          "mobileBody": "Candid stories from founders who started lean and compounded discipline into enduring institutions."
+        }
+      ]
+    }
+  },
+  "app:programs:page": {
+    "label": "app/programs/page.tsx",
+    "texts": {
+      "field_cd82b8cefc": "Four 100% free human-capacity pathways ($0 / ₦0): KR8 Academy & Next Gen Scholars, our 3,000+ creator Tribe, Mindset Shift, and Join the Team.",
+      "field_fd6b7397b2": "https://academy.kr8digitals.com",
+      "text_9968032c97": "Explore KR8 Academy ",
+      "field_9373c53d9b": "#program-lineup",
+      "text_7eb3bade98": "Compare All 4 Programs",
+      "text_53c4eaa67f": "Zero Tuition Gatekeeping",
+      "text_327eed8eec": "KR8 Academy · Next Gen Scholars · KR8 Tribe",
+      "field_3df0ed1318": "/tribe",
+      "text_d6d8889112": "Join Tribe ",
+      "text_904b50db44": "HERE FOR HUMAN CAPACITY · PROGRAMS",
+      "text_8b77b2d0d0": "If you are here to learn, belong, or build with us",
+      "field_3e251053da": "Our four ecosystem programs exist for learners, creatives, students, and builders — offering tuition-free skill education, peer community, leadership conversations, and studio career pathways.",
+      "field_b482eb3fed": "For learners, students, and creatives: 100% free skill cohorts, WAEC/JAMB prep, peer critique, and studio roles.",
+      "text_3c6c122724": "HIRING FOR YOUR BUSINESS? · COMMERCIAL SERVICES",
+      "text_db0c93c2b6": "If you run an organisation commissioning digital work",
+      "field_7241b2f904": "Looking to hire KR8 DIGITALS for custom Website Design, Branding, Graphic Design, Video Editing, SEO Optimization, or AI Automation? Head directly to our commercial services hub.",
+      "field_39d4015790": "Need a custom website, brand identity, graphic suite, video edit, SEO, or AI agent? Explore our commercial studio.",
+      "field_3b1aeccb74": "/services",
+      "text_b5324b7b23": "Go to Commercial Services ",
+      "text_808eecfbbe": "Four Structured Initiatives",
+      "text_bb2531317a": "Every pathway inside the ",
+      "text_fa025140af": "KR8 DIGITALS ecosystem.",
+      "text_2e1e603e41": "PROGRAM ",
+      "text_8a3e07456b": "Who This Is Built For · ",
+      "text_c91fcbcecc": "Built for ",
+      "text_b2faf8eae9": "Program Standards",
+      "text_f0625cf8fa": "How every KR8 DIGITALS initiative is run.",
+      "text_af695005a0": "PRINCIPLE 0",
+      "text_45eb688745": "Institutional & Educational Sponsors",
+      "text_caec91ba1c": "Want to co-host a cohort, sponsor learners, or partner with KR8 Academy?",
+      "field_1f325b89c1": "Schools, NGOs, brands, and community organisations collaborate directly with KR8 DIGITALS to expand tuition-free training impact.",
+      "field_bacd01e85f": "Schools, NGOs, and organisations partner directly with us to expand free digital and academic training.",
+      "field_e97169a86c": "/partners#propose",
+      "text_1c8ed1d77f": "Propose a Partnership ",
+      "field_4eb9506365": "/contact",
+      "text_59d01e78d7": "Contact Our Team",
+      "copy_a0ae5e075a": "Human capacity built alongside",
+      "copy_fc281bf831": "commercial craft."
+    },
+    "blocks": {
+      "AUDIENCE_FIT": [
+        {
+          "slug": "free-training",
+          "who": "Aspiring Designers, Developers, Editors & Secondary Students",
+          "gain": "Structured practical mentorship across 7 digital tracks via KR8 Academy or WAEC/JAMB academic excellence via Next Gen Scholars — 100% tuition-free."
+        },
+        {
+          "slug": "tribe",
+          "who": "Working Creatives, Academy Alumni & Self-Taught Builders",
+          "gain": "Honest work-in-progress critique, interdisciplinary sprint teams, peer accountability, and shared creative opportunities."
+        },
+        {
+          "slug": "mindset-shift",
+          "who": "Young Founders, Freelancers, Students & Ambitious Professionals",
+          "gain": "Candid practitioner conversations on career longevity, discipline, ethical value creation, and execution habits."
+        },
+        {
+          "slug": "join-the-team",
+          "who": "Proven Engineers, Designers, Video Editors & SEO Specialists",
+          "gain": "Merit-based onboarding onto real commercial client deliveries inside the KR8 DIGITALS studio."
+        }
+      ]
+    }
+  },
+  "app:r:[code]:page": {
+    "label": "app/r/[code]/page.tsx",
+    "texts": {},
+    "blocks": {
+      "metadata": {
+        "robots": {
+          "index": false,
+          "follow": false
+        }
+      }
+    }
+  },
+  "app:referrals:dashboard:page": {
+    "label": "app/referrals/dashboard/page.tsx",
+    "texts": {
+      "text_47c24c6488": "Referrer Portal · KR8 DIGITALS",
+      "text_b3bde9b2bf": "Your Referral Ledger & Payouts",
+      "field_5c28ab56d1": "/referrals",
+      "text_56b1b215b8": "Program Overview "
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Referrer Ledger & Payout Portal | KR8 DIGITALS",
+        "robots": {
+          "index": false,
+          "follow": false
+        }
+      }
+    }
+  },
+  "app:referrals:page": {
+    "label": "app/referrals/page.tsx",
+    "texts": {
+      "text_8290f4eb2b": "KR8 DIGITALS Referral Network",
+      "text_7b9839e90b": "You may not build the code.",
+      "text_7a62989119": "You know the decision-maker.",
+      "field_0f493a4eca": "Introduce a school, clinic, hotel, retailer, or founder to KR8 DIGITALS and earn 8%–12% commission once their project invoice clears.",
+      "field_1cb17dd17e": "#signup",
+      "text_3e1438e80c": "Generate Your Referral Link ",
+      "field_ca3bd633b6": "/referrals/dashboard",
+      "text_1f7542748b": "Open Referrer Ledger",
+      "field_a0c40a426c": "/img/cinema/referrals-network-cinema-desk.webp",
+      "field_9c549b5607": "KR8 DIGITALS Referral Network partner connecting a decision-maker from smartphone",
+      "text_72762eb15d": "Open to Everyone · $0 Fee",
+      "text_ef26d616af": "WORKED COMMISSION EXAMPLE",
+      "text_dcc035b32e": "When you refer a client whose confirmed website scope closes at",
+      "text_c1aa3908a4": ", your",
+      "text_510e9d5ee7": "commission credits",
+      "text_b5bf0e2570": "(paid in NGN at settlement) directly to your ledger once the invoice clears.",
+      "text_98064a0414": "Websites & AI",
+      "text_fd51565eb8": "Brand, Design & Film",
+      "text_3029db7d50": "After ",
+      "text_145603eb8a": "Deals",
+      "text_94bccdb1d5": "STEP ",
+      "text_2a49527316": "Transparent Program Rules",
+      "text_6a4cc3d516": "Get your personal link ",
+      "text_d8452b6751": "in 30 seconds.",
+      "text_0e8e9a5dcf": "10% on Websites/AI · 8% on Brand/Design/Film/SEO · 12% loyalty bonus after 3 paid deals · $20 minimum payout.",
+      "text_b6086ea7e7": "Already registered? Open your Referrer Ledger "
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Referral Program — Introduce a Client, Earn Commission | KR8 DIGITALS",
+        "description": "Introduce an organisation to KR8 DIGITALS for Website Design, Branding, Graphic Design, Video Editing, SEO, or AI Automation — and earn transparent commission when the invoice is paid.",
+        "alternates": {
+          "canonical": "/referrals"
+        }
+      }
+    }
+  },
+  "app:services:[slug]:page": {
+    "label": "app/services/[slug]/page.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "field_3b1aeccb74": "/services",
+      "text_604dce445e": "Services",
+      "text_57dc8930b7": "Service 0",
+      "text_a95e56ac61": "· KR8 DIGITALS",
+      "field_3f5e93f798": "#live-proof",
+      "text_1c06746715": "Inspect Live Work",
+      "text_8267926758": "Commercial Delivery",
+      "text_6d560425ea": "Get Scope ",
+      "text_a62d21afd3": "01 · WHO THIS IS BUILT FOR",
+      "text_aeae31f3a9": "Organisations & Leaders We Serve",
+      "text_c99258c680": "02 · THE COMMERCIAL BOTTLENECK",
+      "text_520731a40b": "Why Generic Execution Costs Revenue",
+      "text_52cae1e20f": "OUR APPROACH",
+      "text_251e7b4a8c": "How We Engineer Results",
+      "text_e6f8e680da": "MEASURABLE OUTCOMES",
+      "text_79e8189834": "What Changes After Launch",
+      "text_5162f1bc34": "INCLUDED DELIVERABLES",
+      "text_08c3142ccc": "What You Receive",
+      "text_cc4522954f": "Execution Workflow",
+      "text_7bf2840ce7": "Four clear steps ",
+      "text_da6bcde3b4": "from brief to handover.",
+      "text_94bccdb1d5": "STEP ",
+      "text_a110fc1fc6": "Shipped Work & Proof",
+      "text_697547a35a": "Inspect real ",
+      "text_dc65230477": "deliverables.",
+      "text_dfbe4d437b": "Common Questions",
+      "text_b65c2b5de2": "— FAQs.",
+      "text_041ce3f2f6": "Explore Other KR8 DIGITALS Services",
+      "text_2cdae4a9f6": "SERVICE 0",
+      "copy_37d293a3e4": "{0} — KR8 DIGITALS"
+    },
+    "blocks": {}
+  },
+  "app:services:page": {
+    "label": "app/services/page.tsx",
+    "texts": {
+      "field_4b80f7092e": "Websites, brand identity, campaign design, video editing, SEO, and AI automation under one accountable roof — backed by 200+ shipped works.",
+      "field_4eb9506365": "/contact",
+      "text_98ee7ba71e": "Request a Written Scope ",
+      "field_b2db58732f": "#service-matrix",
+      "text_5b4c85d789": "Compare All 6 Services",
+      "field_ff837143d1": "/img/sites/afristem-full.webp",
+      "field_f7bd4fd15d": "Live commercial digital platform engineered by KR8 DIGITALS",
+      "text_9650bb7598": "Verified Live Portfolio",
+      "text_348471df26": "Live Web Builds · Brand Systems · Campaign Reels",
+      "text_429dc95d12": "Start Brief ",
+      "text_9a95dd348b": "Commercial Capabilities",
+      "text_bcac3e5d03": "Six distinct services. ",
+      "text_5f7d4ff28a": "Zero guesswork.",
+      "field_67bb4b813b": "Commission a single focused engagement — such as a website build, a complete brand identity, or a campaign graphic suite — or combine disciplines seamlessly on one project scope.",
+      "field_3c87f664ec": "Commission one focused build or combine web, brand, video, SEO, and AI into a single milestone scope.",
+      "text_9c4a4ad229": "SERVICE ",
+      "text_4c4e5f812f": "Service Details ",
+      "text_43fcf769a1": "See Proof ↓",
+      "text_c3a8a3f7f0": "Where Should We Start?",
+      "text_1a3f94a444": "Match the bottleneck you are facing ",
+      "text_ee39b96546": "to the right craft.",
+      "text_66036c01a0": "Full ",
+      "text_b073f6c68e": "Scope",
+      "field_8b058c1ad9": "/services/website-design",
+      "text_7618820c9b": "Explore All ",
+      "text_145a9bcc06": "Deployed Websites ",
+      "text_a83bc4dca1": "Transparent Fixed Scopes",
+      "text_c22f19fda2": "Tell us what your organisation needs to launch, fix, or scale.",
+      "field_8a37074238": "Every project is scoped clearly in writing with defined deliverables, timeline milestones, and a transparent fixed figure before work begins.",
+      "field_706baab178": "Defined deliverables, clear milestones, and a fixed written quote in USD or NGN within 1 business day.",
+      "text_807cb8165d": "Request a Project Quote ",
+      "field_6d0f8c425c": "/partners",
+      "text_c8e3d99e54": "Agency & Org Partnerships",
+      "copy_8fc76601be": "Six Commercial Disciplines · One Standard",
+      "copy_9734c89fc4": "Every digital layer that makes your organisation",
+      "copy_f0c5255537": "found, trusted, and chosen.",
+      "copy_186def940b": "KR8 DIGITALS brings engineering, brand strategy, graphic design, film editing, search visibility, and applied AI under one accountable roof. Explore our six commercial services below — each backed by real, inspectable client deliverables.",
+      "copy_b3e1e6cbcd": "{0} — KR8 DIGITALS commercial service"
+    },
+    "blocks": {
+      "DIAGNOSTIC_ROUTES": [
+        {
+          "problem": "“Our website feels outdated, loads slowly on mobile, or fails to convert visitors.”",
+          "service": "Website Design & Development",
+          "href": "/services/website-design"
+        },
+        {
+          "problem": "“Our logo, colors, and brand presence look inconsistent across touchpoints.”",
+          "service": "Branding & Identity Systems",
+          "href": "/services/branding"
+        },
+        {
+          "problem": "“Our campaign flyers and social graphics get scrolled past without action.”",
+          "service": "Commercial Graphic Design",
+          "href": "/services/graphic-design"
+        },
+        {
+          "problem": "“We have raw footage and client stories sitting unedited on camera rolls.”",
+          "service": "Video Editing & Post-Production",
+          "href": "/services/video-editing"
+        },
+        {
+          "problem": "“Buyers searching Google for what we offer find our competitors instead of us.”",
+          "service": "SEO Optimization",
+          "href": "/services/seo"
+        },
+        {
+          "problem": "“Our team spends hours answering repetitive enquiries and routing leads manually.”",
+          "service": "AI Agent & Automation",
+          "href": "/services/ai-automation"
+        }
+      ],
+      "MOBILE_SERVICE_SUMMARIES": {
+        "website-design": "Custom Next.js sites, client portals, e-commerce, and 18 ready-built launch sites ($450–$1,900) engineered for speed and conversion.",
+        "branding": "Complete brand positioning, vector logo suites, typography, color systems, and Brand Playbooks led by Motionverse.",
+        "graphic-design": "High-converting event flyers, product key art, pitch decks, and social design systems tailored for digital and print.",
+        "video-editing": "Retention-cut vertical reels, launch promos, documentary stories, and color-graded edits led by Chigoma.",
+        "seo": "Technical Core Web Vitals, schema markup, local search rankings, and intent-driven content architecture.",
+        "ai-automation": "Grounded 24/7 AI receptionists, WhatsApp/CRM lead routing, and custom workflow automations built by Timfire."
+      }
+    }
+  },
+  "app:terms:page": {
+    "label": "app/terms/page.tsx",
+    "texts": {
+      "text_182c2e12aa": "Legal & Governance · KR8 DIGITALS",
+      "text_4afa55bf7a": "Terms of Service",
+      "text_09bfae4836": "Straightforward operating terms governing commercial projects, intellectual property handover, ecosystem programs, and the KR8 DIGITALS referral network.",
+      "field_0ece7f7c30": "/privacy",
+      "text_506ff39462": "Privacy Policy",
+      "field_8034008c1a": "/accessibility",
+      "text_78d4fc94c0": "Accessibility Statement",
+      "field_4eb9506365": "/contact",
+      "text_6bae6b2c4e": "Contact KR8 DIGITALS"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "Terms of Service | KR8 DIGITALS",
+        "description": "Commercial engagement, program participation, referral attribution, and website usage terms for KR8 DIGITALS.",
+        "alternates": {
+          "canonical": "/terms"
+        }
+      },
+      "CLAUSES": [
+        {
+          "num": "01 · COMMERCIAL ENGAGEMENTS",
+          "title": "Written Scopes & Fixed Milestones",
+          "body": "Information on this website introduces KR8 DIGITALS capabilities and portfolio proof, and does not constitute a binding price commitment until a written project scope, milestone schedule, and invoice are mutually confirmed between KR8 DIGITALS and the commissioning client."
+        },
+        {
+          "num": "02 · INTELLECTUAL PROPERTY & OWNERSHIP",
+          "title": "Client Ownership Upon Settlement",
+          "body": "Upon full settlement of agreed project invoices, clients receive ownership of their custom deliverables, domain registrations, and final assets as specified in their written scope. Portfolio screenshots and co-founding studio credits (including Motionverse and Chigoma) remain protected intellectual property."
+        },
+        {
+          "num": "03 · ECOSYSTEM PROGRAMS",
+          "title": "Tuition-Free Training & Community Conduct",
+          "body": "KR8 Academy digital tracks, Next Gen Scholars academic pathways, KR8 DIGITALS TRIBE, and Mindset Shift operate on mutual respect, honest effort, and zero harassment. KR8 DIGITALS reserves the right to revoke community or cohort access for conduct that undermines fellow learners."
+        },
+        {
+          "num": "04 · REFERRAL NETWORK",
+          "title": "Commission Eligibility & Settlement",
+          "body": "Referral commissions accrue strictly on net client invoices confirmed paid in full, excluding self-referrals or pre-existing active client negotiations. Questions regarding commercial scopes or terms may be directed to kr8digitals01@gmail.com."
+        }
+      ]
+    }
+  },
+  "app:tribe:page": {
+    "label": "app/tribe/page.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "field_271bdd2473": "/programs",
+      "text_b6747064b2": "Programs",
+      "text_5c09b75136": "KR8 DIGITALS TRIBE",
+      "text_fa97e8b2c9": "KR8 DIGITALS TRIBE · Active Builder Community",
+      "text_87c8e303ca": "No builder grows to mastery",
+      "text_7345b95ce2": "in isolation.",
+      "text_d8e5e1ffdb": "is the creative family keeping the studio room open for KR8 Academy alumni and disciplined African designers, developers, video editors, and founders — built around honest critique, collaborative sprints, and shared momentum.",
+      "text_bb23428b65": "Join ",
+      "text_d3f013528b": "African designers, developers, video editors, and founders for honest critique, sprint collaborations, and shared gig flow — 100% free.",
+      "field_8262341aae": "#join-tribe",
+      "text_7db6e5513a": "Request Tribe Access ",
+      "field_fd6b7397b2": "https://academy.kr8digitals.com",
+      "text_cedabd18c9": "Start With KR8 Academy ",
+      "field_7c5e8e588a": "/img/programs/tribe-community.webp",
+      "field_479e660c52": "Designers, developers, and editors collaborating inside KR8 DIGITALS TRIBE",
+      "text_1a4e186fc9": "100% Free Community · 3,000+ Members",
+      "text_66e59bae7b": "Critique · Sprints · Accountability",
+      "text_f9a7f378c5": "Join List ",
+      "text_8ec006881b": "How the Room Works",
+      "text_09106d9c5a": "Four pillars of ",
+      "text_f22ccae13a": "KR8 DIGITALS TRIBE.",
+      "field_08185259cb": "Designers, developers, and editors reviewing live creative work inside KR8 DIGITALS TRIBE",
+      "text_050cedb55c": "Join the Community",
+      "text_c8a5057bf1": "Step into the room with builders ",
+      "text_696038739f": "who take craft seriously.",
+      "field_9e2ffab333": "Whether you graduated from a KR8 Academy cohort or have been sharpening your design, code, or editing skills independently, register below to receive your onboarding invitation into KR8 DIGITALS TRIBE.",
+      "field_56db656c74": "Academy alumni and self-taught designers, developers, and editors are welcome. Register below for your free onboarding invite.",
+      "text_7271df4e6b": "Zero membership fees — earned through active participation and respect for craft",
+      "text_947a0fa50a": "Open across Web Development, Brand/Graphic Design, Video Editing, Content & Marketing",
+      "text_1110ebcade": "Direct pathway to Mindset Shift sessions and studio talent consideration"
+    },
+    "blocks": {
+      "metadata": {
+        "title": "KR8 DIGITALS TRIBE — The Creative & Builder Community",
+        "description": "KR8 DIGITALS TRIBE is the judgment-free creative family where designers, developers, video editors, and founders critique work, team up on sprints, and grow together.",
+        "alternates": {
+          "canonical": "/tribe"
+        }
+      },
+      "TRIBE_PILLARS": [
+        {
+          "num": "PILLAR 01 · CRITIQUE OVER CLOUT",
+          "title": "Honest Work-in-Progress Reviews",
+          "body": "Share wireframes, brand sketches, rough cuts, and staging URLs in a constructive room where senior practitioners point out how to elevate typography, pacing, and code before a client sees it.",
+          "mobileBody": "Share wireframes, logos, rough cuts, and staging links for constructive senior feedback before client review."
+        },
+        {
+          "num": "PILLAR 02 · INTERDISCIPLINARY SPRINTS",
+          "title": "Designers + Developers + Editors on One Brief",
+          "body": "Great projects rarely belong to one skill alone. Inside the Tribe, web engineers team up with graphic designers and video editors to ship complete, portfolio-defining collaborations.",
+          "mobileBody": "Web engineers, graphic designers, and video editors team up on real portfolio-defining sprint briefs."
+        },
+        {
+          "num": "PILLAR 03 · ACCOUNTABILITY & CONSISTENCY",
+          "title": "Keep Momentum After the Cohort Ends",
+          "body": "Most learners stall in isolation once classes finish. Structured challenges, consistency drills, and peer check-ins keep your output sharp month after month.",
+          "mobileBody": "Structured creative challenges and peer check-ins keep your momentum sharp long after classes end."
+        },
+        {
+          "num": "PILLAR 04 · SHARED OPPORTUNITY FLOW",
+          "title": "Client Referrals & Overflow Collaborations",
+          "body": "When members outgrow their calendar or spot a brief outside their specialty, opportunities circulate inside a trusted circle of vetted builders.",
+          "mobileBody": "Overflow gigs and cross-discipline referrals circulate directly inside our vetted 3,000+ builder circle."
+        }
+      ]
+    }
+  },
+  "components:BuySite": {
+    "label": "components/BuySite.tsx",
+    "texts": {
+      "text_f4118aad2d": "Order created — taking you to the transfer instructions ",
+      "text_d297e206e6": "Name ",
+      "text_009557a4da": "Email ",
+      "text_6a40edf1fc": "WhatsApp",
+      "text_e87784a647": "Anything we should know?",
+      "field_9d6e358550": "Business name, colours, when you need it",
+      "text_c79ed9492e": "Creating…",
+      "text_27f24a3fcc": "Reserve for $",
+      "text_1d079b2e76": "Reserve this build ",
+      "copy_c8dcbd5cc1": "This creates an order with transfer instructions. Nothing is charged automatically.",
+      "copy_ae47e82ea9": "The team confirms the exact figure with you before anything is transferred. Nothing is charged automatically."
+    },
+    "blocks": {}
+  },
+  "components:ContactRouter": {
+    "label": "components/ContactRouter.tsx",
+    "texts": {
+      "field_797ecfc26d": "What is this about?",
+      "text_50d83f9694": "Referral ",
+      "text_947113dc63": "attached — the person who sent you here will be credited when this is paid."
+    },
+    "blocks": {
+      "TABS": [
+        {
+          "id": "quote",
+          "label": "A project",
+          "sub": "Website, brand, video, AI, search"
+        },
+        {
+          "id": "partner",
+          "label": "A partnership",
+          "sub": "Teach, fund, hire or host"
+        },
+        {
+          "id": "team",
+          "label": "A job application",
+          "sub": "Portfolio first, then live work"
+        },
+        {
+          "id": "contact",
+          "label": "Something else",
+          "sub": "Anything not covered above"
+        }
+      ]
+    }
+  },
+  "components:Footer": {
+    "label": "components/Footer.tsx",
+    "texts": {
+      "field_d51b34d3d9": "/img/brand/kr8-mark-256.webp",
+      "text_7dc3a67c4a": "— home",
+      "text_8c1558e77d": "WhatsApp Studio ↗",
+      "text_2e3c6f63d0": "KR8 Academy ↗",
+      "text_604dce445e": "Services",
+      "text_bc46b6cf16": "Programs & Network",
+      "field_70ea9c52a0": "/programs#free-training",
+      "text_83535fd257": "Free Digital Training",
+      "field_3df0ed1318": "/tribe",
+      "text_5c09b75136": "KR8 DIGITALS TRIBE",
+      "field_83281429bb": "/programs/mindset-shift/invite",
+      "text_7e4dd262de": "Mindset Shift",
+      "field_6d0f8c425c": "/partners",
+      "text_a6f43be0d6": "Partner / Sponsor",
+      "field_5c28ab56d1": "/referrals",
+      "text_13560c7a71": "Referral Network",
+      "text_4795c23261": "Verify Certificate ",
+      "text_766a467585": "Company & Founders",
+      "field_979bddc4a8": "/about",
+      "text_feb5329249": "About KR8 DIGITALS",
+      "field_78c2a55cd4": "/about/join-the-team",
+      "text_a24ec95fbf": "Join the Team",
+      "field_0ece7f7c30": "/privacy",
+      "text_506ff39462": "Privacy Policy",
+      "field_2dda5c6b8e": "/terms",
+      "text_208de98d62": "Terms of Engagement",
+      "field_8034008c1a": "/accessibility",
+      "text_d3368cbffe": "Accessibility",
+      "copy_df80ad4c3f": "A creative technology company engineering websites, brand systems, commercial graphics, films, SEO, and AI workflows — while empowering the next generation of digital builders for free.",
+      "copy_4eb9506365": "/contact",
+      "copy_c5f69a0611": "Work With Us",
+      "copy_e2429450bc": "Whoever you are, whatever you do, we exist because of you."
+    },
+    "blocks": {}
+  },
+  "components:Header": {
+    "label": "components/Header.tsx",
+    "texts": {
+      "field_efe10c80ec": "Primary",
+      "text_be3b4e8ce7": "KR8",
+      "text_0381a64b55": "Digitals",
+      "text_7dc3a67c4a": "— home",
+      "text_784aec5812": "KR8 network",
+      "text_a2c7490db5": "KR8 Digitals",
+      "text_c29ebcdd4b": "The company · you are here",
+      "text_ca538eaf54": "KR8 Academy",
+      "text_8fa3d0488a": "the school of KR8 Digitals",
+      "text_05bed7c2df": "Live ↗",
+      "field_3df0ed1318": "/tribe",
+      "text_5c09b75136": "KR8 DIGITALS TRIBE",
+      "text_d1c8f5f1b7": "the creative & builder community",
+      "text_cad1f8a29b": "Join →",
+      "text_8925a79f6c": "KR8 Ecosystem & Free Opportunities",
+      "text_2e3c6f63d0": "KR8 Academy ↗",
+      "text_3719a15571": "7 Free Skill Tracks",
+      "text_50b2c9d800": "KR8 Tribe →",
+      "text_9ee465e241": "3,000+ Creators",
+      "field_83281429bb": "/programs/mindset-shift/invite",
+      "text_bef7597d8d": "Mindset Shift →",
+      "text_8a5a1c71f2": "Free Live Forum",
+      "field_78c2a55cd4": "/about/join-the-team",
+      "text_c52693fc51": "Join the Team →",
+      "text_5f1984bef9": "Merit Studio Path",
+      "text_3907fa7f80": "Appearance",
+      "text_874a64168b": "Auto: Light by day · Dark by night",
+      "text_4206ac3f16": "WhatsApp ↗",
+      "copy_6ccd5c7856": "Close menu",
+      "copy_b40b3713b4": "Open menu"
+    },
+    "blocks": {}
+  },
+  "components:HeroCinema": {
+    "label": "components/HeroCinema.tsx",
+    "texts": {
+      "field_f3b8ba617d": "/img/brand/kr8-mark.webp",
+      "text_be3b4e8ce7": "KR8",
+      "text_0381a64b55": "Digitals",
+      "field_4555d9323a": "Hero chapters",
+      "copy_a4b1d0d574": "client artwork"
+    },
+    "blocks": {
+      "BEATS": [
+        {
+          "id": "welcome",
+          "ms": 3400,
+          "plate": "rays",
+          "title": "Welcome to KR8 Digitals",
+          "sub": "A creative company",
+          "href": "/about",
+          "cta": "Who we are"
+        },
+        {
+          "id": "mark",
+          "ms": 3000,
+          "plate": "glass",
+          "title": "KR8 Digitals",
+          "sub": "A creative company",
+          "href": "/about",
+          "cta": "Who we are"
+        },
+        {
+          "id": "built",
+          "ms": 3200,
+          "plate": "tunnel",
+          "title": "See what we've built for clients",
+          "sub": "Real work, running right now",
+          "href": "/services",
+          "cta": "All the work"
+        },
+        {
+          "id": "sites",
+          "ms": 16800,
+          "plate": "rays",
+          "title": "22 sites, live on their own domains",
+          "sub": "Every one open — this is the work, not a mock-up",
+          "href": "/services#websites",
+          "cta": "See the portfolio"
+        },
+        {
+          "id": "design",
+          "ms": 12600,
+          "plate": "bokeh",
+          "title": "Flyers and identity for named clients",
+          "sub": "KR8 Digitals in association with Motionverse",
+          "href": "/services#graphic-design",
+          "cta": "See the design work"
+        },
+        {
+          "id": "offers",
+          "ms": 16200,
+          "plate": "tunnel",
+          "title": "What should we do for you?",
+          "sub": "Five services, then three programmes",
+          "href": "/services",
+          "cta": "All services"
+        },
+        {
+          "id": "founders",
+          "ms": 8400,
+          "plate": "glass",
+          "title": "Meet the founders",
+          "sub": "Three practitioners. One company.",
+          "href": "/about",
+          "cta": "Read about them"
+        }
+      ],
+      "HERO_SITES": [
+        "afristem",
+        "cirenes",
+        "mcgettrick",
+        "rapha",
+        "monabliss",
+        "tastia",
+        "salt-lake",
+        "vegas",
+        "xenia",
+        "adig-suites"
+      ],
+      "FOUNDERS": [
+        {
+          "name": "Timfire",
+          "full": "Kenneth Timothy Iziogo",
+          "role": "Founder & Chief Executive",
+          "img": "/img/team/founder-timfire.jpg"
+        },
+        {
+          "name": "Steveoking",
+          "full": "Stevenson",
+          "role": "Co-Founder",
+          "img": "/img/team/stevenson.jpg"
+        },
+        {
+          "name": "Creative Expression",
+          "full": "Daniel Akachukwu Augustine",
+          "role": "Co-Founder",
+          "img": "/img/team/daniel.jpg"
+        }
+      ]
+    }
+  },
+  "components:Host": {
+    "label": "components/Host.tsx",
+    "texts": {
+      "field_9b49c8b6d8": "RIYA page question",
+      "field_0032f27178": "Close RIYA popup",
+      "field_7d9eb7acb1": "Close",
+      "text_7d9eb7acb1": "Close",
+      "text_8b83aa5cce": "Mute pop-up tips",
+      "field_b2202e1ccf": "Open RIYA — KR8 DIGITALS AI Representative",
+      "text_1e54860406": "Chat with RIYA",
+      "field_7211d51abf": "RIYA — KR8 DIGITALS Representative",
+      "text_e7932a8be5": "RIYA",
+      "field_9a6cc8a492": "Start fresh chat",
+      "field_1735e49e5a": "Toggle voice replies",
+      "field_38b8a80946": "Close RIYA chat",
+      "field_014372dcd1": "Close RIYA",
+      "text_296aeb8bc7": "· Live",
+      "text_81de0636d7": "Logged to KR8 Admin · Ref: ",
+      "text_f2082eaee3": "Thanks for your feedback!",
+      "text_03b310b916": "Helpful? ",
+      "field_21a0a39579": "Mark reply helpful",
+      "text_85a39ab345": "Yes",
+      "field_8405f0bafa": "Mark reply unhelpful",
+      "text_1ea442a134": "No",
+      "field_d219199740": "RIYA is typing",
+      "field_c18700f6ac": "Talk freely with RIYA…",
+      "field_f137002dc9": "Message RIYA",
+      "field_baf16278df": "Speak your message",
+      "field_8748f23993": "Voice input",
+      "field_93a26b1eaf": "Send message",
+      "text_3250b13cf3": "RIYA · KR8 DIGITALS · ",
+      "field_0ece7f7c30": "/privacy",
+      "text_54a57c3147": "Privacy",
+      "text_6a40edf1fc": "WhatsApp",
+      "copy_fde6973405": "Quick question",
+      "copy_b9a10f72be": "Reply to RIYA",
+      "copy_2a81a2a415": "KR8 Team notified · Live thread",
+      "copy_f848a203d7": "Online · Personal Guide",
+      "copy_2f084475a4": "Voice replies on",
+      "copy_70e09074f6": "Turn on voice replies",
+      "copy_28478a9c3f": "KR8 Team"
+    },
+    "blocks": {}
+  },
+  "components:LeadForm": {
+    "label": "components/LeadForm.tsx",
+    "texts": {
+      "text_ab0cedb8fb": "Reference ",
+      "text_de3d7d2792": "— quote it if you follow up on WhatsApp and the team will find your submission immediately.",
+      "text_21bcf56070": "WhatsApp the team",
+      "text_1d75e315ce": "Send another",
+      "text_8a980f9035": "Your name ",
+      "field_f50170ddd4": "Chidinma Okeke",
+      "text_969ccbd3cf": "Email",
+      "field_652740e1be": "you@company.com",
+      "text_b7cff7b013": "WhatsApp / phone",
+      "field_59be71333c": "Optional",
+      "text_52c6a4f683": "What do you need?",
+      "text_42ebd6c8ac": "Not sure yet",
+      "text_1c6225ec70": "Budget",
+      "text_51fcc57e9b": "Prefer not to say",
+      "text_e9bb68009e": "Under $500",
+      "text_e3f8f5ebc0": "Above $5,000",
+      "text_7c255a36c7": "Which role? ",
+      "text_a49c49b04c": "Choose a role",
+      "text_e28a236e6f": "Portfolio link",
+      "field_7f8c22fdb2": "behance.net/yourname · drive folder · website",
+      "text_e032b2f46f": "How would you like to work together?",
+      "text_6056d7ff0d": "Not decided yet",
+      "text_446d7f8c3a": "Teaching and skills",
+      "text_dc06c800c8": "Funding and sponsorship",
+      "text_c2970426eb": "Placement and hiring",
+      "text_c54e35f698": "School, hub or NGO",
+      "text_8009f9a731": "Tools and platforms",
+      "text_502b2e9e0f": "I agree that KR8 Digitals may store this and contact me about it. See the",
+      "field_0ece7f7c30": "/privacy",
+      "text_f18dccf66b": "privacy notice",
+      "text_568a700918": ". We do not sell data and you can ask for deletion at any time.",
+      "text_b8ed5279e8": "Sending…",
+      "text_80f6ac1699": "Chat on WhatsApp",
+      "text_5d6f8b62f0": "Replies come from a real person at KR8 Digitals — usually within a working day. Your details stay with us.",
+      "copy_350be3643c": "Organisation",
+      "copy_72fd11bdfa": "Business / organisation",
+      "copy_ce8b7dc6dc": "General Manager",
+      "copy_d46bb6b05b": "Tribe (Community) Manager",
+      "copy_13d5c8f436": "Social Media Manager",
+      "copy_d93937650f": "Video Editor",
+      "copy_7a092931c3": "Graphic Designer",
+      "copy_44d736bb91": "Website Designer / Developer",
+      "copy_cc72843144": "Something else",
+      "copy_a6ae479e31": "What are you trying to make happen?",
+      "copy_d88b8a737e": "Why you, and what you want to build",
+      "copy_2f77668a9d": "Message",
+      "copy_2ce339c014": "We run a school in Enugu with about 400 students. Our site is five years old and takes forever to load on a phone. Parents cannot find our fees page.",
+      "copy_9fdeba8d3a": "A short paragraph is plenty."
+    },
+    "blocks": {
+      "COPY": {
+        "quote": {
+          "title": "What are you trying to make happen?",
+          "blurb": "A sentence is enough to start. You will get a scope, a fixed figure and a date — from the person who would build it.",
+          "cta": "Send the brief",
+          "wa": "Hi KR8 Digitals — I would like a quote for a project."
+        },
+        "buy-site": {
+          "title": "Take this site",
+          "blurb": "Tell us which build you want and we will confirm availability, then rebrand it with your name, colours and content before it goes live.",
+          "cta": "Request this site",
+          "wa": "Hi KR8 Digitals — I want to buy one of your ready-built sites."
+        },
+        "partner": {
+          "title": "Start a partnership",
+          "blurb": "Tell us what you can bring — a craft, a budget, a room, a vacancy — and what you would want out of it.",
+          "cta": "Send the enquiry",
+          "wa": "Hi KR8 Digitals — I would like to explore a partnership."
+        },
+        "team": {
+          "title": "Apply to join the team",
+          "blurb": "We read every application, and you will hear back either way — even if the answer is not yet.",
+          "cta": "Submit application",
+          "wa": "Hi KR8 Digitals — I would like to apply to join the team."
+        },
+        "contact": {
+          "title": "Message the team",
+          "blurb": "Say what is going on and we will come back to you — by email, or on WhatsApp if you leave a number.",
+          "cta": "Send message",
+          "wa": "Hi KR8 Digitals — I have a question."
+        },
+        "mindshift": {
+          "title": "Register interest",
+          "blurb": "Leave your details and you will get the date, venue, speakers and joining details as soon as the next edition is confirmed.",
+          "cta": "Request invitation",
+          "wa": "Hi KR8 Digitals — I would like an invitation to Mindset Shift."
+        },
+        "tribe": {
+          "title": "Ask about the Tribe",
+          "blurb": "The Tribe lives at its own address. Leave your details if you would like an introduction.",
+          "cta": "Add me to the list",
+          "wa": "Hi KR8 Digitals — I would like to join the Tribe."
+        }
+      }
+    }
+  },
+  "components:MixedRail": {
+    "label": "components/MixedRail.tsx",
+    "texts": {
+      "field_324b134f57": "Preview",
+      "field_7d8ab36821": "Close preview",
+      "text_85e14e9b0b": "KR8 Digitals in association with Motionverse",
+      "copy_9618054c71": "{0} website",
+      "copy_ff1a696a93": "{0} — full size"
+    },
+    "blocks": {}
+  },
+  "components:MobileHero": {
+    "label": "components/MobileHero.tsx",
+    "texts": {
+      "field_cf2faa165c": "How KR8 serves you",
+      "text_c5fbc15e94": "$0 · ₦0 Tuition — Open to Everyone",
+      "text_ca538eaf54": "KR8 Academy",
+      "text_a515090a05": "Digital Skills",
+      "text_5a1cd259c6": "NextGen",
+      "text_21de0aaf79": "Academics",
+      "field_d51b34d3d9": "/img/brand/kr8-mark-256.webp",
+      "field_fa004fcde3": "KR8 Tribe Core",
+      "text_05f4d51c7d": "Free Academy "
+    },
+    "blocks": {
+      "ACTS": [
+        {
+          "id": "solutions",
+          "tab": "Problem Solvers",
+          "footerText": "Websites · Brand · Video · AI · SEO",
+          "footerCta": "Explore",
+          "footerHref": "/services",
+          "ms": 5100
+        },
+        {
+          "id": "academy",
+          "tab": "Free Academy",
+          "footerText": "Skills + Academics · 100% Free ($0)",
+          "footerCta": "Join Free",
+          "footerHref": "https://academy.kr8digitals.com",
+          "external": true,
+          "ms": 5100
+        },
+        {
+          "id": "tribe",
+          "tab": "The Tribe",
+          "footerText": "3,000+ Builders, Creatives & Scholars",
+          "footerCta": "Enter Tribe",
+          "footerHref": "/tribe",
+          "ms": 5100
+        }
+      ],
+      "SOLUTION_CARDS": [
+        {
+          "key": "web-ai",
+          "tag": "Web & AI Systems",
+          "domain": "afristem.org",
+          "stat": "Live Build",
+          "img": "/img/sites/afristem-card.webp",
+          "alt": "Live KR8 web and AI platform engineered for AfriSTEM"
+        },
+        {
+          "key": "brand",
+          "tag": "Brand & Design",
+          "domain": "Motionverse × KR8",
+          "stat": "Identity",
+          "img": "/img/brand/zoey-perfume-card.webp",
+          "alt": "KR8 brand identity and campaign visual design"
+        },
+        {
+          "key": "growth",
+          "tag": "Video & Search",
+          "domain": "Chigoma × KR8",
+          "stat": "4K & SEO",
+          "img": "/img/sites/cirenes-card.webp",
+          "alt": "KR8 commercial digital experience and storytelling"
+        }
+      ],
+      "SKILL_ITEMS": [
+        "Web & AI Systems",
+        "Brand & UI Design",
+        "Video & Motion"
+      ],
+      "ACADEMIC_ITEMS": [
+        "STEM Mastery",
+        "Arts & Writing",
+        "Exam Excellence"
+      ],
+      "TRIBE_NODES": [
+        {
+          "id": "nw",
+          "role": "Builders",
+          "sub": "Web & AI",
+          "pos": "nw"
+        },
+        {
+          "id": "ne",
+          "role": "Designers",
+          "sub": "Brand & Art",
+          "pos": "ne"
+        },
+        {
+          "id": "sw",
+          "role": "Creators",
+          "sub": "Film & Story",
+          "pos": "sw"
+        },
+        {
+          "id": "se",
+          "role": "Scholars",
+          "sub": "STEM & Peer",
+          "pos": "se"
+        }
+      ]
+    }
+  },
+  "components:PageHero": {
+    "label": "components/PageHero.tsx",
+    "texts": {
+      "field_2bd873d6c7": "Breadcrumb",
+      "text_3a78695388": "Home",
+      "text_298a9207a7": "Next step"
+    },
+    "blocks": {}
+  },
+  "components:PartnerProposalForm": {
+    "label": "components/PartnerProposalForm.tsx",
+    "texts": {
+      "text_d4a8c2fdda": "Partnership Proposal Logged",
+      "text_00062849b3": "Thank you, ",
+      "text_3d1b4b3905": ". Your proposal for ",
+      "text_84071ee7bb": "is with our executive team.",
+      "text_70815632e1": "Reference ID: ",
+      "text_58ce981aab": ". Founding leadership reviews partnership proposals directly and will reach out via ",
+      "text_199ede8f01": "to schedule an alignment conversation.",
+      "text_ca920fcec6": "Submit Another Proposal",
+      "text_8385f85431": "Direct Executive Review",
+      "text_42fee335b0": "Submit a Partnership Proposal",
+      "text_9c6ab64844": "Tell us about your organisation, the collaboration model you have in mind, and what we can build or teach together. Every proposal routes directly to the KR8 DIGITALS leadership dashboard.",
+      "text_5385eb1027": "Organisation / Brand Name *",
+      "field_8a6003e820": "e.g. Horizon Crest Academy",
+      "text_12e4aee36c": "Your Full Name *",
+      "field_538b411179": "Your full name",
+      "text_5a718ab96c": "Your Role / Title",
+      "field_0dcee1b9d4": "e.g. Founder, Principal, Head of Partnerships",
+      "text_1b72562c82": "Email Address *",
+      "field_e82b5491b0": "you@organisation.com",
+      "text_a75c8258e5": "Phone / WhatsApp Number",
+      "text_14cb640d85": "Website or Portfolio Link",
+      "field_e98a62ef23": "https://...",
+      "text_15a29eaf68": "Partnership Track *",
+      "text_124bca88f6": "Target Start Horizon",
+      "text_1186ba59a0": "Immediate (Next 2–4 weeks)",
+      "text_bc4c089b16": "Ready within 30–60 days",
+      "text_e9a71fe4fe": "Next Academic Term / Quarter",
+      "text_2f685f430e": "Exploratory Strategic Conversation",
+      "text_e23340bb65": "What would you like us to build, co-host, or achieve together? *",
+      "field_02774ea415": "Describe your organisation, the opportunity you see, and how a partnership with KR8 DIGITALS fits your goals...",
+      "text_5d0f09757d": "What strengths, audience, or resources does your organisation bring to the table?",
+      "field_0aca16b836": "e.g. Specialist creative craft, student community, sponsorship capacity, distribution reach, or venue infrastructure...",
+      "text_9a5eaad1dd": "Reviewed directly by KR8 DIGITALS leadership · Confidential handling",
+      "copy_ebe26e8b71": " or {0}",
+      "copy_e5788fda9c": "Submitting Proposal...",
+      "copy_4f0919423a": "Send Partnership Proposal"
+    },
+    "blocks": {
+      "TRACKS": [
+        "Creative & Specialist Studio Practice",
+        "School, University or Academic Institution",
+        "Free Training Cohort & Youth Impact Sponsor",
+        "Agency / Commercial Delivery Alliance",
+        "Community, Event or Mindset Shift Partner"
+      ]
+    }
+  },
+  "components:Pricing": {
+    "label": "components/Pricing.tsx",
+    "texts": {
+      "text_dfe95783ed": "Pricing",
+      "text_18e521c932": "Quoted per scope, in dollars, paid in naira",
+      "field_4eb9506365": "/contact",
+      "text_8967f97ea7": "Get a fixed quote ",
+      "text_fd5740bb7b": "Show a currency and we will quote in it: ",
+      "text_a40806a54b": "The bands we quote inside",
+      "text_6da4553c09": "Written milestone figures delivered within 1 business day.",
+      "text_68356db78d": "Fixed figures, published",
+      "text_86e8ccf0e4": "Start here ",
+      "copy_c9981479d0": "Every engagement is quoted as a transparent fixed figure against a written scope — {0}, never an open-ended hourly meter. Request a quote below to receive your tailored scope and fixed figure in writing.",
+      "copy_61f6a62793": "Transparent fixed milestone quotes ({0}) — never an hourly meter. Request your written scope below in USD or NGN.",
+      "copy_7d39432b12": " · 1 USD ≈ {0} {1}"
+    },
+    "blocks": {}
+  },
+  "components:RefCapture": {
+    "label": "components/RefCapture.tsx",
+    "texts": {
+      "text_739fb47cf2": "Introduction received",
+      "text_e463460eac": "Someone sent you here.",
+      "text_417eee96eb": "Your introduction is recorded under ",
+      "text_6367ce27d9": ". Taking you to the form now.",
+      "text_97bb80dea2": "Continue to the contact form →"
+    },
+    "blocks": {}
+  },
+  "components:ReferralCalc": {
+    "label": "components/ReferralCalc.tsx",
+    "texts": {
+      "text_4c27274474": "Worked example",
+      "text_a8e3312d86": "What one introduction is worth",
+      "text_43be73e204": "What is being bought?",
+      "text_17b9024b7f": "A website or a build — ",
+      "text_495cfed6a8": "Design, video or search — ",
+      "text_dd12c31a80": "A small job — ",
+      "text_692e4e5dec": "minimum",
+      "text_5c113981b2": "Project value · ",
+      "text_66ab05f970": "Paid referrals you have already made · ",
+      "text_3bf8bf1d12": "You earn",
+      "text_8a519b8f2d": "% of $",
+      "text_6a040335ef": "Paid once the client has paid in full. Rates and minimums are set by KR8 Digitals and shown here before you sign up.",
+      "field_d2cb032fb3": "#join",
+      "text_7e046f0696": "Get my link ",
+      "copy_04b4b73352": " · bonus rate unlocked after {0} paid referrals"
+    },
+    "blocks": {}
+  },
+  "components:ReferralDashboard": {
+    "label": "components/ReferralDashboard.tsx",
+    "texts": {
+      "text_0afdb9bcf8": "Your link",
+      "text_dbf362d4f2": "Copy link",
+      "text_32af3b73dc": "Bonus rate active: ",
+      "text_e7cf9dd98e": "% on every new referral.",
+      "text_99c40ab405": "Date",
+      "text_b605350bc0": "Introduction",
+      "text_d677190e0a": "Service",
+      "text_8e37953d23": "Value",
+      "text_3d41e1a66a": "Commission",
+      "text_920e413c7d": "Status",
+      "text_a85623a0e1": "No introductions yet. Share your link — the first one usually lands within a week.",
+      "field_5c28ab56d1": "/referrals",
+      "text_b3815df11a": "How referrals work",
+      "text_b4e09a6437": "Sign out of this device",
+      "text_bfd402b2f6": "Sign in",
+      "text_719eefb7a0": "Your code and private key",
+      "text_085851a073": "Both were shown when you created the account, and the key is stored on the device you signed up on. No password to forget.",
+      "text_64f124b1f0": "Referral code",
+      "field_b88d3ce662": "e.g. chidinma4f2a",
+      "text_477bf990a2": "Private key",
+      "field_2f644f33c0": "Shown when you signed up",
+      "text_ba3bbbe10d": "Loading…",
+      "text_ae038b75bb": "Open my ledger ",
+      "text_b8daa0a70d": "Lost your key? ",
+      "field_4eb9506365": "/contact",
+      "text_85e6c8fa30": "Message the team",
+      "text_f4f15ddebc": "from the email you signed up with and we will reissue it.",
+      "text_7316cc510f": "No account yet?",
+      "text_e6e8949d42": "Creating one takes thirty seconds and there is no approval step. You get the link and the ledger immediately.",
+      "field_3edf20c5af": "/referrals#join",
+      "text_ce5ae38e5f": "Create my link ",
+      "copy_28d4406919": "{0} introduction{1} to date",
+      "copy_64fdf1d123": "{0}/r/{1}",
+      "copy_0e3416f5f2": "Enquiry",
+      "copy_fb81b961af": "Paid",
+      "copy_fe00b67b6d": "Confirmed",
+      "copy_7c2788959f": "Awaiting payment"
+    },
+    "blocks": {}
+  },
+  "components:ReferralSignup": {
+    "label": "components/ReferralSignup.tsx",
+    "texts": {
+      "text_ad69958e61": "This is your link",
+      "text_d55aeb7003": "Anyone who reaches us through that link is credited to you for the life of their first project. Your ledger lives at",
+      "field_ca3bd633b6": "/referrals/dashboard",
+      "text_5f142b7c15": "the dashboard",
+      "text_21e2899364": "— it needs this device, or your code and key.",
+      "text_1064d6aef7": "Private key (kept on this device, shown once): ",
+      "text_a0d01c1659": "Share on WhatsApp",
+      "text_2ede437c87": "Open my dashboard",
+      "text_4b5e91cce4": "Free · no minimum followers",
+      "text_6448c4ef2b": "Create your referral account",
+      "text_3c0a4889f1": "Thirty seconds. You get a personal link and a ledger that shows every introduction, its status and what it is worth.",
+      "text_d297e206e6": "Name ",
+      "text_009557a4da": "Email ",
+      "text_6a40edf1fc": "WhatsApp",
+      "field_59be71333c": "Optional",
+      "text_5cd66a272c": "Who do you know?",
+      "text_a4d70ed9e8": "A bit of everything",
+      "text_25518b2753": "Schools and colleges",
+      "text_8949196fce": "Hospitals and clinics",
+      "text_0f9a7b9e89": "Retail and fashion",
+      "text_80c8130d24": "Churches and NGOs",
+      "text_f5f7c83807": "Founders and startups",
+      "text_79b41297f4": "I accept the referral terms below, and that KR8 Digitals may contact me about introductions.",
+      "text_c79ed9492e": "Creating…",
+      "text_ace851e865": "Create my account ",
+      "text_30874e5b26": "No card, no fee, no quota. You only earn on work that is actually paid for.",
+      "copy_8de208bb37": "You already had an account",
+      "copy_f63879fd69": "Account created",
+      "copy_8d525e5f15": "Copied",
+      "copy_e21f935f11": "Copy"
+    },
+    "blocks": {}
+  },
+  "components:ServiceCards": {
+    "label": "components/ServiceCards.tsx",
+    "texts": {},
+    "blocks": {
+      "HOME_SERVICES": [
+        {
+          "slug": "website-design",
+          "title": "Website Design & Development",
+          "description": "High-speed custom websites, portals, and booking platforms engineered to command instant trust on mobile and turn visitors into paying clients.",
+          "mobileDescription": "Fast custom websites, portals, and 18 ready-built sites engineered to convert mobile visitors into clients.",
+          "href": "/services#websites",
+          "cta": "Explore website builds",
+          "icon": "monitor",
+          "label": "Live build · AfriSTEM Global",
+          "img": "/img/sites/afristem-full.webp",
+          "alt": "AfriSTEM Global — responsive client website designed and deployed by KR8 Digitals"
+        },
+        {
+          "slug": "branding",
+          "title": "Branding",
+          "description": "Category positioning, distinctive logo architecture, typography, colour psychology, and complete visual identity guidelines so clients choose you on authority, not price.",
+          "mobileDescription": "Logo systems, brand positioning, and visual guidelines so buyers choose you on authority — not price.",
+          "href": "/services/branding",
+          "cta": "Explore brand strategy",
+          "icon": "layers",
+          "label": "Identity systems · Brand strategy",
+          "img": "/img/services/brand-identity.webp",
+          "alt": "KR8 Digitals brand identity guidelines book, colour swatches, and luxury collateral in warm studio daylight"
+        },
+        {
+          "slug": "graphic-design",
+          "title": "Graphic Design",
+          "description": "Scroll-stopping campaign flyers, product and retail promotions, event key visuals, and social creative suites crafted in association with Motionverse.",
+          "mobileDescription": "Scroll-stopping campaign flyers, product launches, and social visual suites crafted with Motionverse.",
+          "href": "/services#graphic-design",
+          "cta": "See graphic design work",
+          "icon": "palette",
+          "label": "Client campaigns · Motionverse × KR8",
+          "img": "/img/services/motionverse-studio.webp",
+          "alt": "Art director crafting vibrant campaign posters and commercial graphics inside Motionverse × KR8 Digitals studio"
+        },
+        {
+          "slug": "video-editing",
+          "title": "Video Editing",
+          "description": "High-retention short-form reels, commercial cuts, motion graphics, colour grading, and sound-designed stories built for how audiences actually watch.",
+          "mobileDescription": "Retention-cut reels, commercial edits, colour grading, and motion stories crafted with Chigoma.",
+          "href": "/services#video",
+          "cta": "Watch video edits",
+          "icon": "film",
+          "label": "Chigoma × KR8 · Post-Production",
+          "img": "/img/services/video-editing-suite.webp",
+          "alt": "Film director colour-grading documentary and commercial footage in a sunlit KR8 × Chigoma editing studio"
+        },
+        {
+          "slug": "seo",
+          "title": "SEO Optimization",
+          "description": "Technical site architecture, structured schema data, local search visibility, and intent-driven content systems that put your organisation first when buyers search.",
+          "mobileDescription": "Technical SEO, schema structure, and local search authority so buyers find you first on Google.",
+          "href": "/services#seo",
+          "cta": "See our SEO approach",
+          "icon": "search",
+          "label": "Search authority · Organic growth",
+          "img": "/img/services/seo-optimization.webp",
+          "alt": "Digital strategists reviewing organic search growth and ranking analytics in a bright strategy studio"
+        },
+        {
+          "slug": "ai-automation",
+          "title": "AI Agent & Automation",
+          "description": "Custom 24/7 AI customer agents, smart enquiry routing, automated booking pipelines, and real-time CRM workflows that remove repetitive work from your team.",
+          "mobileDescription": "24/7 AI customer agents, instant enquiry routing, and automated booking & CRM workflows.",
+          "href": "/services#ai",
+          "cta": "Explore AI systems",
+          "icon": "cpu",
+          "label": "Autonomous agents · 24/7 workflows",
+          "img": "/img/services/ai-automation.webp",
+          "alt": "Software engineers collaborating over a custom AI agent and workflow automation system at KR8 Digitals"
+        }
+      ]
+    }
+  },
+  "components:Showcase": {
+    "label": "components/Showcase.tsx",
+    "texts": {
+      "text_8f15e78aac": "Open live site ",
+      "text_934e792141": "Live Deployment",
+      "text_1bfd3e5c78": "Visit Live ",
+      "text_0a748c3040": "Inspect Build ",
+      "text_470225fab3": "Every platform above is a real, deployed web build engineered by KR8 DIGITALS — click any preview to test speed and responsiveness live in your browser.",
+      "field_8fd0572178": "/img/services/brand-identity.webp",
+      "field_7a938f6c5d": "KR8 DIGITALS × Motionverse Brand Identity Architecture and Guidelines",
+      "text_d1b746c2ea": "KR8 DIGITALS × MOTIONVERSE",
+      "text_a1885e0fa5": "Complete Brand Architecture — Built Beyond Just a Logo",
+      "text_e609efabe0": "Directed with Co-Founder ",
+      "text_d5b3fef0ee": "Steveoking",
+      "text_45d3aedae1": "(Stevenson) of",
+      "text_6271b13e79": "Motionverse",
+      "text_77951e7d33": ", every branding engagement delivers strategic market positioning, scalable vector mark suites, typographic rules, and practical brand guidelines so your entire organisation presents one unmistakable face.",
+      "field_0c3072e476": "/contact?service=branding",
+      "text_2d9bdf1793": "Request a Brand Identity Scope ",
+      "text_3fce40924f": "Inspect full artwork",
+      "text_d6251b5319": "KR8 DIGITALS × Motionverse",
+      "text_9740256464": "Commissioned client campaign artwork designed by KR8 DIGITALS in association with co-founding design partner Motionverse.",
+      "text_0ae6e514f6": "Streamed directly in browser — select any cut above to play pacing, captions, and sound design in place. Directed with Chigoma.",
+      "field_b9cdf20824": "/contact?service=ai-automation",
+      "field_8579b271bc": "Commission an AI agent",
+      "field_d9e4a9647c": "/img/services/ai-automation.webp",
+      "field_f38a16fd6f": "Custom AI Agent and operational automation architecture by KR8 DIGITALS",
+      "text_5fca73acb6": "Scope an AI Agent",
+      "text_6808ff36fa": "Live In Production",
+      "text_7f1b0406c6": "Grounded Assistant",
+      "text_0f7db721cf": "RIYA — KR8 DIGITALS Intelligent AI Representative",
+      "text_2c028acf04": "Running live across every page of this website: understands visitor intent, retrieves verified organizational knowledge, captures feedback, and routes conversations directly to our team.",
+      "field_f5c9198e2e": "https://jev-and-ai-sdk-zeta-seven.vercel.app",
+      "field_2806b7d135": "Open the Jev AI form router in a new tab",
+      "field_a6844162c7": "/img/sites/jev-card.webp",
+      "field_50da402b14": "Jev intelligent intake router engineered by KR8 DIGITALS",
+      "text_c4e90039f8": "Open live build ",
+      "text_64de1152ed": "Workflow Triage",
+      "text_634c2656a5": "Jev Intelligent Intake Router",
+      "text_84fbe2182d": "Classifies incoming submissions automatically across sales leads, general inquiries, and support escalations — routing each to the exact right desk without manual sorting.",
+      "text_58f471fb85": "Search Architecture Standard",
+      "text_84eee32be9": "Built into our own platform first.",
+      "text_dca792a95c": "Distinct canonical titles & descriptions on every route",
+      "text_c1cdb153c9": "Verified OpenGraph & social preview cards",
+      "text_8bf5c41ebd": "Automated XML sitemap & clean robots directives",
+      "text_f3fb779d9a": "Semantic heading hierarchy & JSON-LD Organization schema",
+      "text_88f9a66efc": "Mobile-first rendering & compressed WebP media delivery",
+      "field_7ec5152c33": "/contact?service=seo",
+      "text_0f2695fa8b": "Request an SEO Audit ",
+      "field_f5e76408ee": "Portfolio Preview",
+      "field_7d8ab36821": "Close preview",
+      "text_d269621cdb": "Open Live Website ",
+      "text_19fd78774d": "Request a Similar Build",
+      "text_80f6ac1699": "Chat on WhatsApp",
+      "field_8bffa0643a": "/contact?service=graphic-design",
+      "text_16888e1b41": "Commission Similar Design ",
+      "text_4e76b5306a": "View Full Resolution",
+      "field_877fc4ac7b": "/contact?service=video-editing",
+      "text_6ecf039e1f": "Start a Video Project ",
+      "copy_50ee55cd30": "Filter {0}",
+      "copy_1d801b3762": "Open {0} live deployment in a new tab",
+      "copy_356038a262": "{0} website engineered and deployed by KR8 DIGITALS",
+      "copy_86e97c04fc": "View {0} full size",
+      "copy_69ffb345a1": "{0} — commercial design by KR8 DIGITALS in association with Motionverse",
+      "copy_55952a001e": "Play {0} — {1}",
+      "copy_43e45be6f6": "Poster frame from {0}",
+      "copy_5624a80b66": "Technical Crawl",
+      "copy_c03d6ea035": "Comprehensive audit of indexing, sitemaps, speed, and schema health.",
+      "copy_d0f769e6c4": "Infrastructure Fix",
+      "copy_a1cece819a": "Metadata, OpenGraph, Core Web Vitals, and mobile usability remediation.",
+      "copy_3a86b6b5cf": "Intent Pages",
+      "copy_3ea144db3a": "Dedicated high-conversion landing routes for every service and market.",
+      "copy_e5682c9018": "Monthly Proof",
+      "copy_9ba966d517": "Transparent Search Console reporting tracking impressions, clicks, and queries.",
+      "copy_856b50b6c8": "{0} — full deployment preview",
+      "copy_f7d546f65f": "{0} — full-size campaign design",
+      "copy_0cf33ff228": " · Client: {0}"
+    },
+    "blocks": {
+      "BRAND_SYSTEM_DELIVERABLES": [
+        {
+          "num": "01 · POSITIONING & VOICE",
+          "title": "Category Definition & Brand Messaging",
+          "desc": "Clarifying who you serve, how your organisation speaks, and why discerning buyers choose you over generic alternatives."
+        },
+        {
+          "num": "02 · MARK ARCHITECTURE",
+          "title": "Primary, Secondary & Submark Logos",
+          "desc": "Precision vector marks engineered for razor-sharp legibility across a 24px mobile avatar, document letterhead, or physical signage."
+        },
+        {
+          "num": "03 · VISUAL LANGUAGE",
+          "title": "Typography, Color Psychology & Grid Systems",
+          "desc": "Structured font pairings, accessible contrast palettes, and compositional rules built for instant brand recognition."
+        },
+        {
+          "num": "04 · BRAND PLAYBOOK",
+          "title": "Comprehensive Brand Guidelines Book",
+          "desc": "A practical digital and print-ready Brand Book empowering internal teams and vendors to ship consistent work every time."
+        }
+      ]
+    }
+  },
+  "components:TribeWaitlist": {
+    "label": "components/TribeWaitlist.tsx",
+    "texts": {
+      "text_3e9aa25fac": "You are on the list",
+      "text_4250ad0359": "When the Tribe site opens you will get the first invitation — before it is posted anywhere public.",
+      "text_414700b996": "Join the first wave",
+      "text_d297e206e6": "Name ",
+      "field_2c6b2e253c": "Your name",
+      "text_009557a4da": "Email ",
+      "field_8d12b7f58c": "you@email.com",
+      "text_6a40edf1fc": "WhatsApp",
+      "field_a8e68c0396": "Optional, but we can reach you faster",
+      "text_14fa222a5f": "What do you make?",
+      "field_a92ec83bbd": "Design · video · code · writing · still learning",
+      "text_c6de6f45c8": "Adding…",
+      "text_929b93b84c": "Add me to the list "
+    },
+    "blocks": {}
+  },
+  "components:VisitorSelector": {
+    "label": "components/VisitorSelector.tsx",
+    "texts": {
+      "text_715a2231e1": "Pick a door",
+      "text_6e93d52935": "How can we help you?",
+      "text_93e1eb48ea": "Five ways in. Each one goes straight to the page that answers it — no menu hunting.",
+      "text_3346ca03b8": "Take me there "
+    },
+    "blocks": {
+      "OPTS": [
+        {
+          "id": "business",
+          "label": "I run a business or organisation",
+          "sub": "See what we build, then ask for a quote.",
+          "href": "/services",
+          "icon": "monitor"
+        },
+        {
+          "id": "learner",
+          "label": "I want to learn a skill",
+          "sub": "Free training in digital skills and academics.",
+          "href": "/programs",
+          "icon": "palette"
+        },
+        {
+          "id": "work",
+          "label": "I am looking for work",
+          "sub": "The route from training into the team.",
+          "href": "/about/join-the-team",
+          "icon": "check"
+        },
+        {
+          "id": "community",
+          "label": "I am looking for community",
+          "sub": "The Tribe: people building the same thing you are.",
+          "href": "/programs#tribe",
+          "icon": "film"
+        },
+        {
+          "id": "exploring",
+          "label": "I am just exploring",
+          "sub": "Start with who we are and who is behind it.",
+          "href": "/about",
+          "icon": "search"
+        }
+      ]
+    }
+  },
+  "components:WaysToPartner": {
+    "label": "components/WaysToPartner.tsx",
+    "texts": {
+      "field_9d438c81dd": "Four ways to partner",
+      "text_a9f38e9ae9": "with KR8 Digitals"
+    },
+    "blocks": {
+      "WAYS": [
+        {
+          "id": "teach",
+          "label": "Teach",
+          "line": "Bring a craft into the free training.",
+          "body": "If you do the work, you can teach it. A partner who teaches supplies a track, a practitioner to run it and a standard for the work — we supply the students, the structure and the logistics. Motionverse teaches graphic design; CHIGOMA teaches video editing; Next Gen Scholars teaches the academic door.",
+          "gives": [
+            "A track in the free training",
+            "A named practitioner teaching it",
+            "A brief the students build against"
+          ],
+          "cta": {
+            "label": "Offer to teach",
+            "href": "/contact?partner=teach"
+          },
+          "image": "/img/brand/zoey-perfume-full.webp",
+          "imageAlt": "Design work by Motionverse, a co-founding partner"
+        },
+        {
+          "id": "fund",
+          "label": "Fund",
+          "line": "Pay for the thing that has no invoice.",
+          "body": "Training is free, which means somebody pays for the room, the data, the equipment and the people teaching. Funding is named and it is specific: a cohort, a track, a set of laptops, a Mindset Shift edition. You get the record of what it paid for.",
+          "gives": [
+            "A named cohort or track",
+            "Equipment or data bundles",
+            "A Mindset Shift edition"
+          ],
+          "cta": {
+            "label": "Talk about funding",
+            "href": "/contact?partner=fund"
+          },
+          "image": "/img/sites/afristem-school-full.webp",
+          "imageAlt": "A learner-facing programme site built by KR8 Digitals"
+        },
+        {
+          "id": "hire",
+          "label": "Hire",
+          "line": "Take our people on when they are ready.",
+          "body": "The most useful thing a partner can do is hire. We will tell you who is ready, show you their work and their verification record, and you interview them like anyone else. No placement fee. The point is that the training ends in work.",
+          "gives": [
+            "Screened candidates with a portfolio",
+            "A verification record per person",
+            "No placement fee"
+          ],
+          "cta": {
+            "label": "Hire from KR8",
+            "href": "/contact?partner=hire"
+          },
+          "image": "/img/programs/join-team-studio.webp",
+          "imageAlt": "Engineers, designers, and editors collaborating inside the KR8 Digitals talent pipeline"
+        },
+        {
+          "id": "host",
+          "label": "Host",
+          "line": "Give the room a room.",
+          "body": "A hall for a cohort, a venue for Mindset Shift, a site for a shoot, connectivity for a class. If you have a space that sits empty when it could be full of people learning, that is a partnership.",
+          "gives": [
+            "A venue for an edition",
+            "A classroom for a cohort",
+            "A location or production space for a shoot"
+          ],
+          "cta": {
+            "label": "Offer a space",
+            "href": "/contact?partner=host"
+          },
+          "image": "/img/sites/mcgettrick-full.webp",
+          "imageAlt": "The McGettrick Pastoral Centre site — a venue booking build"
+        }
+      ]
+    }
+  }
+}

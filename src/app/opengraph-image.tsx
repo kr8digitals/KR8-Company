@@ -1,3 +1,5 @@
+import { getHomeContent } from '@/lib/site-content';
+import { getPublicContent } from '@/lib/public-content';
 import { ImageResponse } from 'next/og';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -8,6 +10,7 @@ export const contentType = 'image/png';
 export const alt = 'KR8 Digitals — whoever you are, whatever you do, we exist because of you';
 
 export default async function OG() {
+  const [hero, { site }] = await Promise.all([getHomeContent(), getPublicContent()]);
   const [display, body, markFile] = await Promise.all([
     readFile(path.join(process.cwd(), 'public/fonts/montserrat-800.ttf')),
     readFile(path.join(process.cwd(), 'public/fonts/sora-600.ttf')),
@@ -38,16 +41,16 @@ export default async function OG() {
             Websites · brand · film · AI · SEO
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'Montserrat', fontSize: 62, lineHeight: 1.06, fontWeight: 800, color: '#d9d2ec', letterSpacing: '-0.03em', marginTop: 22, maxWidth: 1000 }}>
-            <div style={{ display: 'flex' }}>Whoever you are, whatever you do,</div>
-            <div style={{ display: 'flex', color: '#ff5cab', fontSize: 78, marginTop: 8 }}>we exist because of you.</div>
+            <div style={{ display: 'flex' }}>{hero.title}</div>
+            <div style={{ display: 'flex', color: '#ff5cab', fontSize: 78, marginTop: 8 }}>{hero.highlight}</div>
           </div>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
           <div style={{ fontSize: 23, color: '#b9aece' }}>
-            200+ Client Works · Websites · Branding · Design · Film · SEO · AI
+            {site.company.tagline}
           </div>
-          <div style={{ fontSize: 24, color: '#b9aece' }}>kr8company.vercel.app</div>
+          <div style={{ fontSize: 24, color: '#b9aece' }}>{new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kr8digitals.com').host}</div>
         </div>
       </div>
     ),

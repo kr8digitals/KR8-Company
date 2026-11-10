@@ -23,7 +23,8 @@ export async function POST(req: Request) {
     );
   }
 
-  const { password } = await req.json().catch(() => ({ password: '' }));
+  const body = await req.json().catch(() => null);
+  const password = body?.password;
   const expected = process.env.ADMIN_PASSWORD!;
   const a = Buffer.from(String(password || ''));
   const b = Buffer.from(expected);

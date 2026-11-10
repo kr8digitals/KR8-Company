@@ -1,4 +1,5 @@
 'use client';
+import { useEditableContent } from '@/components/EditableContentProvider';
 
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -85,17 +86,28 @@ export default function MobileHero({
   primaryHref,
   primaryLabel,
   secondaryHref,
+  title = 'We exist',
+  highlight = 'because of you.',
 }: {
   primaryHref: string;
   primaryLabel: string;
   secondaryHref: string;
+  title?: string;
+  highlight?: string;
 }) {
+  const editableContent = useEditableContent("components:MobileHero");
+  const ACTS = editableContent.blocks.ACTS as EditableBlockTypes["ACTS"];
+  const SOLUTION_CARDS = editableContent.blocks.SOLUTION_CARDS as EditableBlockTypes["SOLUTION_CARDS"];
+  const SKILL_ITEMS = editableContent.blocks.SKILL_ITEMS as EditableBlockTypes["SKILL_ITEMS"];
+  const ACADEMIC_ITEMS = editableContent.blocks.ACADEMIC_ITEMS as EditableBlockTypes["ACADEMIC_ITEMS"];
+  const TRIBE_NODES = editableContent.blocks.TRIBE_NODES as EditableBlockTypes["TRIBE_NODES"];
+
   const [actIdx, setActIdx] = useState(0);
   const [subStep, setSubStep] = useState(0);
   const [paused, setPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  const activeAct = ACTS[actIdx];
+  const activeAct = ACTS[actIdx % ACTS.length];
 
   const selectAct = useCallback((next: number) => {
     const normalized = ((next % ACTS.length) + ACTS.length) % ACTS.length;
@@ -128,8 +140,8 @@ export default function MobileHero({
       {/* 1. Pure, Uncluttered Manifesto Headline (Zero Badge, Zero Description) */}
       <div className="mhero-v3__intro">
         <h1 className="mhero-v3__title">
-          <span className="mhero-v3__title-top">We exist</span>
-          <span className="mhero-v3__title-accent">because of you.</span>
+          <span className="mhero-v3__title-top">{title}</span>
+          <span className="mhero-v3__title-accent">{highlight}</span>
         </h1>
       </div>
 
@@ -154,7 +166,7 @@ export default function MobileHero({
         <div className="mhero-v3__specular" aria-hidden />
 
         {/* Clean 3-Act Segmented Rail with Integrated Live Progress */}
-        <div className="mhero-v3__rail" role="tablist" aria-label="How KR8 serves you">
+        <div className="mhero-v3__rail" role="tablist" aria-label={editableContent.texts.field_cf2faa165c}>
           {ACTS.map((act, i) => {
             const isActive = i === actIdx;
             return (
@@ -199,7 +211,7 @@ export default function MobileHero({
                 {SOLUTION_CARDS.map((card, i) => {
                   const total = SOLUTION_CARDS.length;
                   const diff = (i - activeCardIdx + total) % total;
-                  const slot = diff === 0 ? 'center' : diff === 1 ? 'right' : 'left';
+                  const slot = diff === 0 ? "center" : diff === 1 ? "right" : "left";
                   return (
                     <button
                       key={card.key}
@@ -241,14 +253,14 @@ export default function MobileHero({
             <div className="mhero-v3__scene mhero-v3__scene--academy" key="academy">
               <div className="mhero-v3__free-crown">
                 <span className="mhero-v3__free-dot" aria-hidden />
-                <span>$0 · ₦0 Tuition — Open to Everyone</span>
+                <span>{editableContent.texts.text_c5fbc15e94}</span>
               </div>
 
               <div className="mhero-v3__acad-grid">
                 <div className="mhero-v3__acad-wing">
                   <div className="mhero-v3__acad-head">
-                    <span className="mhero-v3__acad-kicker">KR8 Academy</span>
-                    <strong>Digital Skills</strong>
+                    <span className="mhero-v3__acad-kicker">{editableContent.texts.text_ca538eaf54}</span>
+                    <strong>{editableContent.texts.text_a515090a05}</strong>
                   </div>
                   <ul className="mhero-v3__acad-list">
                     {SKILL_ITEMS.map((item, idx) => (
@@ -266,8 +278,8 @@ export default function MobileHero({
 
                 <div className="mhero-v3__acad-wing">
                   <div className="mhero-v3__acad-head">
-                    <span className="mhero-v3__acad-kicker">NextGen</span>
-                    <strong>Academics</strong>
+                    <span className="mhero-v3__acad-kicker">{editableContent.texts.text_5a1cd259c6}</span>
+                    <strong>{editableContent.texts.text_21de0aaf79}</strong>
                   </div>
                   <ul className="mhero-v3__acad-list">
                     {ACADEMIC_ITEMS.map((item, idx) => (
@@ -305,7 +317,7 @@ export default function MobileHero({
                   <span className="mhero-v3__hub-ring mhero-v3__hub-ring--inner" aria-hidden />
                   <div className="mhero-v3__hub-core">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/img/brand/kr8-mark-256.webp" alt="KR8 Tribe Core" width={36} height={36} />
+                    <img src={editableContent.texts.field_d51b34d3d9} alt={editableContent.texts.field_fa004fcde3} width={36} height={36} />
                   </div>
                 </div>
 
@@ -355,9 +367,11 @@ export default function MobileHero({
           rel="noopener noreferrer"
           className="btn-ghost mhero-v3__cta-sec"
         >
-          Free Academy <span aria-hidden>↗</span>
+          {editableContent.texts.text_05f4d51c7d}<span aria-hidden>↗</span>
         </a>
       </div>
     </div>
   );
 }
+
+type EditableBlockTypes = { ACTS: typeof ACTS; SOLUTION_CARDS: typeof SOLUTION_CARDS; SKILL_ITEMS: typeof SKILL_ITEMS; ACADEMIC_ITEMS: typeof ACADEMIC_ITEMS; TRIBE_NODES: typeof TRIBE_NODES };

@@ -1,3 +1,4 @@
+import { getEditableDocument } from '@/lib/editable-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import ReferralDashboard from '@/components/ReferralDashboard';
@@ -6,12 +7,13 @@ import { SectionAtmosphere } from '@/components/MobileExperience';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Referrer Ledger & Payout Portal | KR8 DIGITALS',
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:referrals:dashboard:page")).blocks.metadata as Metadata;
+}
 
 export default async function ReferrerDashboardPage() {
+  const editableContent = await getEditableDocument("app:referrals:dashboard:page");
+
   return (
     <section className="kr8-subhero" style={{ minHeight: '78vh' }}>
       <SectionAtmosphere name="referrals-network-cinema" deskOpacity={0.16} mobOpacity={0.28} flare />
@@ -28,14 +30,12 @@ export default async function ReferrerDashboardPage() {
         >
           <div>
             <span className="kr8-pill">
-              <i className="kr8-pill__dot" /> Referrer Portal · KR8 DIGITALS
-            </span>
+              <i className="kr8-pill__dot" /> {editableContent.texts.text_47c24c6488}</span>
             <h1 className="kr8-subhero__title" style={{ fontSize: 'clamp(26px, 3.6vw, 46px)' }}>
-              Your Referral Ledger &amp; Payouts
-            </h1>
+              {editableContent.texts.text_b3bde9b2bf}</h1>
           </div>
-          <Link href="/referrals" className="btn-ghost btn-sm">
-            Program Overview <Icon name="arrow" size={14} />
+          <Link href={editableContent.texts.field_5c28ab56d1} className="btn-ghost btn-sm">
+            {editableContent.texts.text_56b1b215b8}<Icon name="arrow" size={14} />
           </Link>
         </div>
 

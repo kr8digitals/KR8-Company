@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { isAuthed } from '@/lib/auth';
+import { assertSafeContent } from '@/lib/content-validation';
 import { store, newId, type Collection } from '@/lib/store';
 import {
   getCmsPages,
@@ -140,6 +141,7 @@ export async function POST(req: Request) {
     }
 
     if (action === 'save' && data) {
+      assertSafeContent(data);
       const payload = { ...data };
 
       // Preserve exact display names for team/founders (trim outer spaces only, never split or mutate characters)

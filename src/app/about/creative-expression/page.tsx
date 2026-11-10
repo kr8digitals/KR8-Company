@@ -1,3 +1,5 @@
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import sitesData from '../../../../data/sites.json';
@@ -8,12 +10,9 @@ import {
   SectionAtmosphere,
 } from '@/components/MobileExperience';
 
-export const metadata: Metadata = {
-  title: 'Creative Expression (Daniel Akachukwu Augustine) — Co-Founder & Video Editor | KR8 DIGITALS',
-  description:
-    'Profile of Creative Expression (Daniel Akachukwu Augustine) — Professional Video Editor, Founder of Chigoma, and Co-Founder of KR8 DIGITALS.',
-  alternates: { canonical: '/about/creative-expression' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return (await getEditableDocument("app:about:creative-expression:page")).blocks.metadata as Metadata;
+}
 
 const FILM_PILLARS = [
   {
@@ -39,7 +38,13 @@ const FILM_PILLARS = [
   },
 ];
 
-export default function CreativeExpressionProfilePage() {
+export default async function CreativeExpressionProfilePage() {
+  const editableContent = await getEditableDocument("app:about:creative-expression:page");
+  const FILM_PILLARS = editableContent.blocks.FILM_PILLARS as EditableBlockTypes["FILM_PILLARS"];
+
+  const publicData = await getPublicContent();
+  const sitesData = publicData.catalog;
+
   const videos = sitesData.videos;
 
   return (
@@ -48,20 +53,19 @@ export default function CreativeExpressionProfilePage() {
       <section className="kr8-subhero">
         <SectionAtmosphere name="founder-craft-film" deskOpacity={0.32} mobOpacity={0.42} flare />
         <div className="wrap">
-          <nav className="kr8-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className="kr8-breadcrumb" aria-label={editableContent.texts.field_2bd873d6c7}>
+            <Link href="/">{editableContent.texts.text_3a78695388}</Link>
             <span>/</span>
-            <Link href="/about">About</Link>
+            <Link href={editableContent.texts.field_979bddc4a8}>{editableContent.texts.text_4efca0d10c}</Link>
             <span>/</span>
-            <span style={{ color: 'var(--t-strong)' }}>Creative Expression</span>
+            <span style={{ color: 'var(--t-strong)' }}>{editableContent.texts.text_ebb49eeed8}</span>
           </nav>
 
           <div className="kr8-subhero__grid">
             <div>
               <span className="kr8-pill">
-                <i className="kr8-pill__dot" /> Co-Founder · KR8 DIGITALS &amp; Chigoma
-              </span>
-              <h1 className="kr8-subhero__title">Creative Expression</h1>
+                <i className="kr8-pill__dot" /> {editableContent.texts.text_134217c4bc}</span>
+              <h1 className="kr8-subhero__title">{editableContent.texts.text_ebb49eeed8}</h1>
               <p
                 style={{
                   marginTop: 8,
@@ -72,24 +76,18 @@ export default function CreativeExpressionProfilePage() {
                   color: 'var(--magenta)',
                 }}
               >
-                Daniel Akachukwu Augustine · Professional Video Editor &amp; Founder of Chigoma
-              </p>
+                {editableContent.texts.text_1baca3f7ac}</p>
 
               <ResponsiveCopy
                 as="p"
                 className="kr8-subhero__lede"
                 desktop={
                   <>
-                    <strong>Creative Expression</strong> (Daniel Akachukwu Augustine) is a professional video editor,
-                    Founder of <strong>Chigoma</strong>, and Co-Founder of <strong>KR8 DIGITALS</strong>. He directs
-                    video post-production, narrative pacing, commercial film cuts, and hands-on editing mentorship
-                    across KR8 DIGITALS.
-                  </>
+                    <strong>{editableContent.texts.text_ebb49eeed8}</strong> {editableContent.texts.text_78b3f28cc3}<strong>{editableContent.texts.text_b24de82168}</strong>{editableContent.texts.text_1dafab9f6e}<strong>{editableContent.texts.text_0bbfb207b2}</strong>{editableContent.texts.text_d69c50e919}</>
                 }
                 mobile={
                   <>
-                    <strong>Creative Expression</strong> (Daniel Akachukwu Augustine) is a professional video editor,
-                    Founder of <strong>Chigoma</strong>, and Co-Founder of <strong>KR8 DIGITALS</strong>.
+                    <strong>{editableContent.texts.text_ebb49eeed8}</strong> {editableContent.texts.text_78b3f28cc3}<strong>{editableContent.texts.text_b24de82168}</strong>{editableContent.texts.text_1dafab9f6e}<strong>{editableContent.texts.text_0bbfb207b2}</strong>.
                   </>
                 }
               />
@@ -106,32 +104,29 @@ export default function CreativeExpressionProfilePage() {
                   color: 'var(--t-body)',
                 }}
               >
-                &ldquo;Raw footage is only potential. Deliberate pacing, sound, and clarity turn a recording into
-                proof people stay to watch.&rdquo;
-              </blockquote>
+                {editableContent.texts.text_45d6c33c70}</blockquote>
 
               <div className="kr8-subhero__actions">
-                <Link href="/contact?service=video-editing" className="btn-primary">
-                  Commission a Video Edit <Icon name="arrow" size={17} />
+                <Link href={editableContent.texts.field_877fc4ac7b} className="btn-primary">
+                  {editableContent.texts.text_20d9dda017}<Icon name="arrow" size={17} />
                 </Link>
-                <Link href="/partners/chigoma" className="btn-ghost">
-                  Explore Chigoma
-                </Link>
+                <Link href={editableContent.texts.field_35435b9b43} className="btn-ghost">
+                  {editableContent.texts.text_f15047b9c5}</Link>
               </div>
             </div>
 
             <div className="kr8-subhero__frame kr8-subhero__frame--portrait">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/team/daniel.jpg"
-                alt="Creative Expression (Daniel Akachukwu Augustine), Co-Founder of KR8 DIGITALS and Founder of Chigoma"
+                src={editableContent.texts.field_154028babb}
+                alt={editableContent.texts.field_6a413ff1ac}
               />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>Founder 03 · Video &amp; Post-Production</span>
-                  <strong>Creative Expression · Daniel Akachukwu Augustine</strong>
+                  <span>{editableContent.texts.text_bd2d484b0a}</span>
+                  <strong>{editableContent.texts.text_2c5ec94b78}</strong>
                 </div>
-                <span style={{ color: 'var(--t-lilac-strong)' }}>Chigoma</span>
+                <span style={{ color: 'var(--t-lilac-strong)' }}>{editableContent.texts.text_b24de82168}</span>
               </div>
             </div>
           </div>
@@ -143,48 +138,32 @@ export default function CreativeExpressionProfilePage() {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ alignItems: 'center', gap: 36 }}>
             <div>
-              <div className="eyebrow">Post-Production Craft &amp; Story</div>
+              <div className="eyebrow">{editableContent.texts.text_69c49613e7}</div>
               <h2 className="section-title" style={{ marginTop: 10 }}>
-                Turning unshaped footage into <span className="text-grad">stories that earn trust.</span>
+                {editableContent.texts.text_b6f7fe6828}<span className="text-grad">{editableContent.texts.text_7fb0222cb2}</span>
               </h2>
 
               <div className="prose-lg kr8-desk-only" style={{ marginTop: 18, display: 'grid', gap: 16 }}>
                 <p>
-                  In an attention economy where viewers decide within three seconds whether to stay or scroll past,
-                  video editing is no longer an afterthought — it is where commercial persuasion happens. Working
-                  under his creative moniker <strong>Creative Expression</strong> and as Founder of{' '}
-                  <strong>Chigoma</strong>, Daniel Akachukwu Augustine co-founded <strong>KR8 DIGITALS</strong> to
-                  anchor the studio&apos;s moving-image standard.
-                </p>
+                  {editableContent.texts.text_f6e7fb4976}<strong>{editableContent.texts.text_ebb49eeed8}</strong> {editableContent.texts.text_61d8ee2d14}{' '}
+                  <strong>{editableContent.texts.text_b24de82168}</strong>{editableContent.texts.text_7f64505efc}<strong>{editableContent.texts.text_0bbfb207b2}</strong> {editableContent.texts.text_23f5f47337}</p>
                 <p>
-                  Whether shaping vertical campaign reels, documentary testimonials, event films, or product
-                  walkthroughs, his editing philosophy prioritizes human truth, rhythmic clarity, clean dialogue
-                  mixes, and mobile-first framing that communicates clearly even before sound is turned on.
-                </p>
+                  {editableContent.texts.text_db5b201ecf}</p>
                 <p>
-                  Inside <strong>KR8 Academy</strong>, he brings that exact commercial edit-bay discipline into the
-                  classroom — training emerging video editors free of tuition so they graduate with watchable client
-                  reels rather than abstract exercises.
-                </p>
+                  {editableContent.texts.text_8379295e03}<strong>{editableContent.texts.text_ca538eaf54}</strong>{editableContent.texts.text_efe8930e10}</p>
               </div>
 
               <div className="kr8-mob-only" style={{ marginTop: 12 }}>
                 <p className="kr8-card__body">
-                  As Founder of <strong>Chigoma</strong> and Co-Founder of <strong>KR8 DIGITALS</strong>,{' '}
-                  <strong>Creative Expression</strong> (Daniel Akachukwu Augustine) anchors our commercial edit bay
-                  — shaping vertical reels, brand documentaries, and tuition-free Video Editing mentorship inside{' '}
-                  <strong>KR8 Academy</strong>.
+                  {editableContent.texts.text_f64e02d51d}<strong>{editableContent.texts.text_b24de82168}</strong> {editableContent.texts.text_b646bd6843}<strong>{editableContent.texts.text_0bbfb207b2}</strong>,{' '}
+                  <strong>{editableContent.texts.text_ebb49eeed8}</strong> {editableContent.texts.text_8df98b3e62}{' '}
+                  <strong>{editableContent.texts.text_ca538eaf54}</strong>.
                 </p>
                 <MobileDisclosure label="Read Creative Expression's full story">
                   <p>
-                    Whether shaping vertical campaign reels, documentary testimonials, event films, or product
-                    walkthroughs, his editing prioritizes human truth, rhythmic clarity, clean dialogue mixes, and
-                    mobile-first framing.
-                  </p>
+                    {editableContent.texts.text_aca1ca10e4}</p>
                   <p>
-                    Inside KR8 Academy, he brings that exact commercial edit-bay discipline into the classroom so
-                    students graduate with real client-grade reels at zero tuition cost.
-                  </p>
+                    {editableContent.texts.text_7a8e094253}</p>
                 </MobileDisclosure>
               </div>
             </div>
@@ -192,13 +171,13 @@ export default function CreativeExpressionProfilePage() {
             <div className="kr8-subhero__frame">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/services/video-editing-suite.webp"
-                alt="Commercial film editing and colour-grading studio at KR8 DIGITALS with Chigoma"
+                src={editableContent.texts.field_fcee33f6ef}
+                alt={editableContent.texts.field_8386ca2f6a}
               />
               <div className="kr8-subhero__badge">
                 <div>
-                  <span>KR8 DIGITALS × Chigoma</span>
-                  <strong>Narrative Pacing · Color · Sound · Motion</strong>
+                  <span>{editableContent.texts.text_75adce0e26}</span>
+                  <strong>{editableContent.texts.text_18af9ec313}</strong>
                 </div>
               </div>
             </div>
@@ -212,9 +191,9 @@ export default function CreativeExpressionProfilePage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Production Leadership</div>
+              <div className="eyebrow">{editableContent.texts.text_00b370dd5f}</div>
               <h2 className="section-title">
-                What Creative Expression leads <span className="text-grad">at KR8 DIGITALS.</span>
+                {editableContent.texts.text_05359d3e4a}<span className="text-grad">{editableContent.texts.text_13b7efeb17}</span>
               </h2>
             </div>
           </div>
@@ -251,17 +230,17 @@ export default function CreativeExpressionProfilePage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Selected Cuts &amp; Stories</div>
-              <h2 className="section-title">Published documentary &amp; vertical cuts.</h2>
+              <div className="eyebrow">{editableContent.texts.text_7f993faa62}</div>
+              <h2 className="section-title">{editableContent.texts.text_b6dd9344df}</h2>
               <ResponsiveCopy
                 as="p"
                 className="section-lede"
-                desktop="Play any of the films below directly in place — real stories and vertical edits published across the KR8 DIGITALS ecosystem."
-                mobile="Tap any film below to play real vertical reels and documentary cuts in place."
+                desktop={editableContent.texts.field_a09c273be6}
+                mobile={editableContent.texts.field_67bc2c31a7}
               />
             </div>
-            <Link href="/services/video-editing" className="btn-link">
-              Explore Video Editing Service <Icon name="arrow" size={15} />
+            <Link href={editableContent.texts.field_be2f7496d9} className="btn-link">
+              {editableContent.texts.text_15072e4e09}<Icon name="arrow" size={15} />
             </Link>
           </div>
 
@@ -301,38 +280,35 @@ export default function CreativeExpressionProfilePage() {
         <div className="wrap">
           <div className="sec-head reveal up">
             <div>
-              <div className="eyebrow">Founding Leadership</div>
-              <h2 className="section-title">Meet the rest of the founding team.</h2>
+              <div className="eyebrow">{editableContent.texts.text_65612a9656}</div>
+              <h2 className="section-title">{editableContent.texts.text_c7f2918bb5}</h2>
             </div>
-            <Link href="/about#founders" className="btn-link">
-              Back to About KR8 DIGITALS <Icon name="arrow" size={15} />
+            <Link href={editableContent.texts.field_6cbb86594e} className="btn-link">
+              {editableContent.texts.text_b1dbcb4a65}<Icon name="arrow" size={15} />
             </Link>
           </div>
 
           <div className="kr8-grid-2" style={{ marginTop: 24 }}>
-            <Link href="/about/timfire" className="kr8-card" style={{ textDecoration: 'none' }}>
-              <div className="kr8-card__num">FOUNDER &amp; CHIEF EXECUTIVE</div>
-              <h3 className="kr8-card__title">Timfire (Kenneth Timothy Iziogo)</h3>
+            <Link href={editableContent.texts.field_9fa8f30927} className="kr8-card" style={{ textDecoration: 'none' }}>
+              <div className="kr8-card__num">{editableContent.texts.text_049fc61799}</div>
+              <h3 className="kr8-card__title">{editableContent.texts.text_0ce53ad94a}</h3>
               <p className="kr8-card__body">
-                Website developer, AI agent developer, and Founder &amp; Chief Executive of KR8 DIGITALS.
-              </p>
+                {editableContent.texts.text_025bca27c5}</p>
               <div className="kr8-card__foot">
                 <span className="btn-link">
-                  Read About Timfire <Icon name="arrow" size={14} />
+                  {editableContent.texts.text_c2976959e0}<Icon name="arrow" size={14} />
                 </span>
               </div>
             </Link>
 
-            <Link href="/about/steveoking" className="kr8-card" style={{ textDecoration: 'none' }}>
-              <div className="kr8-card__num">CO-FOUNDER · MOTIONVERSE</div>
-              <h3 className="kr8-card__title">Steveoking (Stevenson)</h3>
+            <Link href={editableContent.texts.field_a3b5a1f01c} className="kr8-card" style={{ textDecoration: 'none' }}>
+              <div className="kr8-card__num">{editableContent.texts.text_df01a8efa8}</div>
+              <h3 className="kr8-card__title">{editableContent.texts.text_cf3cd9881e}</h3>
               <p className="kr8-card__body">
-                Professional graphic designer, brand designer, Founder of Motionverse, and Co-Founder of KR8
-                DIGITALS.
-              </p>
+                {editableContent.texts.text_446b653f17}</p>
               <div className="kr8-card__foot">
                 <span className="btn-link">
-                  Read About Stevenson <Icon name="arrow" size={14} />
+                  {editableContent.texts.text_0fb5cd0e3f}<Icon name="arrow" size={14} />
                 </span>
               </div>
             </Link>
@@ -341,22 +317,18 @@ export default function CreativeExpressionProfilePage() {
           <div className="kr8-cta-banner reveal up" style={{ marginTop: 34 }}>
             <SectionAtmosphere name="cta-horizon-flare" deskOpacity={0.45} mobOpacity={0.55} flare />
             <div>
-              <span className="kr8-pill">Work With Creative Expression &amp; Chigoma</span>
+              <span className="kr8-pill">{editableContent.texts.text_a481cbf2d2}</span>
               <h2 className="section-title" style={{ marginTop: 14 }}>
-                Have raw footage or an upcoming campaign that needs sharp video editing?
-              </h2>
+                {editableContent.texts.text_2be0596b37}</h2>
               <p className="section-lede" style={{ marginTop: 10 }}>
-                Send us your brief — we deliver paced, captioned, color-graded cuts built for real viewer
-                retention.
-              </p>
+                {editableContent.texts.text_78cf3bc458}</p>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-              <Link href="/contact?service=video-editing" className="btn-primary">
-                Start a Video Project <Icon name="arrow" size={17} />
+              <Link href={editableContent.texts.field_877fc4ac7b} className="btn-primary">
+                {editableContent.texts.text_6ecf039e1f}<Icon name="arrow" size={17} />
               </Link>
-              <Link href="/services/video-editing" className="btn-ghost">
-                Video Editing Service
-              </Link>
+              <Link href={editableContent.texts.field_be2f7496d9} className="btn-ghost">
+                {editableContent.texts.text_9d451e807a}</Link>
             </div>
           </div>
         </div>
@@ -364,3 +336,5 @@ export default function CreativeExpressionProfilePage() {
     </>
   );
 }
+
+type EditableBlockTypes = { FILM_PILLARS: typeof FILM_PILLARS };

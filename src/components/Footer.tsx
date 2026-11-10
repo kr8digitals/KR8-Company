@@ -1,9 +1,17 @@
+import { formatEditableText } from '@/lib/content-format';
+import { getEditableDocument } from '@/lib/editable-content';
+import { getPublicContent } from '@/lib/public-content';
 import Link from 'next/link';
 import site from '../../data/site.json';
 import { getCmsNavigation, getCmsServices, getCmsTeam } from '@/lib/cms';
 import ThemeToggle from './ThemeToggle';
 
 export default async function Footer() {
+  const editableContent = await getEditableDocument("components:Footer");
+
+  const publicData = await getPublicContent();
+  const site = publicData.site;
+
   const [navCfg, services, teamBundle] = await Promise.all([
     getCmsNavigation(),
     getCmsServices(),
@@ -27,7 +35,7 @@ export default async function Footer() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 className="logo__mark"
-                src="/img/brand/kr8-mark-256.webp"
+                src={editableContent.texts.field_d51b34d3d9}
                 alt=""
                 width={38}
                 height={38}
@@ -38,23 +46,23 @@ export default async function Footer() {
                   {site.company.wordmark.b}
                 </span>
               </span>
-              <span className="sr-only"> — home</span>
+              <span className="sr-only"> {editableContent.texts.text_7dc3a67c4a}</span>
             </Link>
 
             <p>
               {navCfg.shortDescription ||
-                'A creative technology company engineering websites, brand systems, commercial graphics, films, SEO, and AI workflows — while empowering the next generation of digital builders for free.'}
+                editableContent.texts.copy_df80ad4c3f}
             </p>
 
             <div style={{ marginTop: 18, display: 'grid', gap: 6, fontSize: 13.5 }}>
               <a
-                href={`mailto:${email}`}
+                href={formatEditableText("mailto:{0}", [email])}
                 style={{ color: 'var(--t-strong)', fontWeight: 600, textDecoration: 'none' }}
               >
                 {email}
               </a>
               <a
-                href={`tel:${phone.replace(/\s+/g, '')}`}
+                href={formatEditableText("tel:{0}", [phone.replace(/\s+/g, '')])}
                 style={{ color: 'var(--t-muted)', textDecoration: 'none' }}
               >
                 {phone}
@@ -78,7 +86,7 @@ export default async function Footer() {
             ) : (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 18 }}>
                 <a
-                  href={`https://wa.me/${whatsapp}`}
+                  href={formatEditableText("https://wa.me/{0}", [whatsapp])}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -90,8 +98,7 @@ export default async function Footer() {
                     color: 'var(--t-body)',
                   }}
                 >
-                  WhatsApp Studio ↗
-                </a>
+                  {editableContent.texts.text_8c1558e77d}</a>
                 <a
                   href={eco.academy.url}
                   target="_blank"
@@ -105,17 +112,16 @@ export default async function Footer() {
                     color: 'var(--t-body)',
                   }}
                 >
-                  KR8 Academy ↗
-                </a>
+                  {editableContent.texts.text_2e3c6f63d0}</a>
               </div>
             )}
           </div>
 
           {/* Column 2: Commercial Services */}
           <div className="foot-col">
-            <h4>Services</h4>
+            <h4>{editableContent.texts.text_604dce445e}</h4>
             {services.map((s: any) => (
-              <Link key={s.slug} href={`/services/${s.slug}`}>
+              <Link key={s.slug} href={formatEditableText("/services/{0}", [s.slug])}>
                 {s.short || s.nav || s.name}
               </Link>
             ))}
@@ -123,44 +129,44 @@ export default async function Footer() {
 
           {/* Column 3: Ecosystem Programs & Network */}
           <div className="foot-col">
-            <h4>Programs &amp; Network</h4>
+            <h4>{editableContent.texts.text_bc46b6cf16}</h4>
             <a href={eco.academy.url} target="_blank" rel="noopener noreferrer">
               {eco.academy.name} <span className="out">↗</span>
             </a>
-            <Link href="/programs#free-training">Free Digital Training</Link>
-            <Link href="/tribe">KR8 DIGITALS TRIBE</Link>
-            <Link href="/programs/mindset-shift/invite">Mindset Shift</Link>
-            <Link href="/partners">Partner / Sponsor</Link>
-            <Link href="/referrals">Referral Network</Link>
+            <Link href={editableContent.texts.field_70ea9c52a0}>{editableContent.texts.text_83535fd257}</Link>
+            <Link href={editableContent.texts.field_3df0ed1318}>{editableContent.texts.text_5c09b75136}</Link>
+            <Link href={editableContent.texts.field_83281429bb}>{editableContent.texts.text_7e4dd262de}</Link>
+            <Link href={editableContent.texts.field_6d0f8c425c}>{editableContent.texts.text_a6f43be0d6}</Link>
+            <Link href={editableContent.texts.field_5c28ab56d1}>{editableContent.texts.text_13560c7a71}</Link>
             <a href={eco.academy.verifyUrl} target="_blank" rel="noopener noreferrer">
-              Verify Certificate <span className="out">↗</span>
+              {editableContent.texts.text_4795c23261}<span className="out">↗</span>
             </a>
           </div>
 
           {/* Column 4: Company & Leadership */}
           <div className="foot-col">
-            <h4>Company &amp; Founders</h4>
-            <Link href="/about">About KR8 DIGITALS</Link>
+            <h4>{editableContent.texts.text_766a467585}</h4>
+            <Link href={editableContent.texts.field_979bddc4a8}>{editableContent.texts.text_feb5329249}</Link>
             {teamBundle.founders.map((f: any) => (
-              <Link key={f.slug} href={f.readAbout || `/about/${f.slug}`}>
+              <Link key={f.slug} href={f.readAbout || formatEditableText("/about/{0}", [f.slug])}>
                 {f.name}
               </Link>
             ))}
-            <Link href="/about/join-the-team">Join the Team</Link>
-            <Link href={navCfg.ctaHref || '/contact'}>{navCfg.ctaLabel || 'Work With Us'}</Link>
+            <Link href={editableContent.texts.field_78c2a55cd4}>{editableContent.texts.text_a24ec95fbf}</Link>
+            <Link href={navCfg.ctaHref || editableContent.texts.copy_4eb9506365}>{navCfg.ctaLabel || editableContent.texts.copy_c5f69a0611}</Link>
           </div>
         </div>
 
         <div className="foot-bottom" style={{ paddingBottom: 36 }}>
           <span>
             © {year} {site.company.legalName}.{' '}
-            {navCfg.tagline || 'Whoever you are, whatever you do, we exist because of you.'}
+            {navCfg.tagline || editableContent.texts.copy_e2429450bc}
           </span>
           <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', alignItems: 'center' }}>
             <ThemeToggle variant="segmented" />
-            <Link href="/privacy">Privacy Policy</Link>
-            <Link href="/terms">Terms of Engagement</Link>
-            <Link href="/accessibility">Accessibility</Link>
+            <Link href={editableContent.texts.field_0ece7f7c30}>{editableContent.texts.text_506ff39462}</Link>
+            <Link href={editableContent.texts.field_2dda5c6b8e}>{editableContent.texts.text_208de98d62}</Link>
+            <Link href={editableContent.texts.field_8034008c1a}>{editableContent.texts.text_d3368cbffe}</Link>
           </div>
         </div>
       </div>
@@ -168,7 +174,12 @@ export default async function Footer() {
   );
 }
 
-function SocialIcon({ name }: { name: string }) {
+async function SocialIcon({ name }: { name: string }) {
+  const editableContent = await getEditableDocument("components:Footer");
+
+  const publicData = await getPublicContent();
+  const site = publicData.site;
+
   const p = { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'currentColor', 'aria-hidden': true as const };
   switch (name) {
     case 'instagram':
