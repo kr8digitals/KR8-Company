@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { isAuthed } from '@/lib/auth';
-import { store } from '@/lib/store';
+import { store, databaseConfigured } from '@/lib/store';
 import { getHomeContent, getSiteCatalog, getSiteContent, getPricingContent, getProgramContent, HOME_DEFAULTS } from '@/lib/site-content';
 import { EDITABLE_DEFAULTS, getEditableBundle } from '@/lib/editable-content';
 import { validShape, assertSafeContent } from '@/lib/content-validation';
@@ -12,8 +12,19 @@ import pricingSeed from '../../../../../data/pricing.json';
 import programmesSeed from '../../../../../data/programmes.json';
 
 export const runtime = 'nodejs';
+
+// Readiness endpoint: confirms the production database is reachable without exposing data.
+async function databaseReady() {
+  if (!databaseConfigured()) return false;
+  try { await store.findOne('settings', { id: 'content-site' }); return true; } catch { return false; }
+}
 export async function GET(req: Request) {
-  if (!isAuthed(req)) return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
+  if (!isAuthed(req)) {
+    if (new URL(req.url).searchParams.get('status') === '1') {
+      return NextResponse.json({ ok: true, database: databaseConfigured(), reachable: await databaseReady() });
+    }
+    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
+  }
   try {
     const [home, site, catalog, pricing, programmeData, copy] = await Promise.all([
       getHomeContent(), getSiteContent(), getSiteCatalog(), getPricingContent(), getProgramContent(), getEditableBundle(),
