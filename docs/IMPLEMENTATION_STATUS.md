@@ -6,11 +6,12 @@ Updated 2026-11-10. This document supersedes the initial audit's implementation 
 
 - Existing Supabase project: `bqxxieesjgacjqrzivcm` (`kr8 digitals company`, eu-west-1).
 - Installed two PostgreSQL migrations: document storage and commission transition notification flags.
-- Created a dedicated server API key named `kr8_website_server`. The connector masks its value, including on retrieval. A masked prefix is NOT a usable credential and has not been placed in Vercel.
+- Created a dedicated server API key named `kr8_website_server`. The connector masks its value, including on retrieval, so the owner supplied a usable dedicated secret directly.
+- Vercel production environment now holds: `NEXT_PUBLIC_SITE_URL`, `SUPABASE_URL`, `KR8_REQUIRE_DATABASE=true`, `SUPABASE_SERVICE_KEY` (sensitive, server-only), `ADMIN_PASSWORD` (encrypted, generated), `ORDER_SECRET` (sensitive, generated), `RESEND_API_KEY` (sensitive), `RESEND_FROM` and `KR8_ADMIN_EMAILS`. Generated secrets are visible only in the Vercel dashboard. Public/publishable Supabase keys are intentionally not installed: nothing in this app needs browser access to Supabase.
 - Created Vercel project `kr8digitals`, ID `prj_IkEVlIrVAaZ7oUtYkU5Xg8AKLuhD`, in team `kr8digitals02-8705`.
 - Set canonical site URL, production Supabase URL and durable-storage requirement in Vercel. Preview deliberately has no production database credentials: configure a separate database before preview deployments.
 - Domain `kr8digitals.com` is owned/verified in that Vercel account with Vercel nameservers. It is not yet assigned to this undeployed project. Domain config currently reports `misconfigured: true` with no A/CNAME values. No DNS edits were performed.
-- No website deployment, Git repository migration, Git integration, Resend verification, production data import or domain cutover has been completed.
+- No deployment, Git integration, Resend verification, production data import or domain cutover has been completed yet. Vercel Git connection is disabled on the project and this toolset has no Git-link update operation; a first deployment through the deployment API is also blocked by Vercel's first-deployment projectSettings requirement and (at the time of writing) a GitHub API rate limit. Connect the repository in the Vercel dashboard (Project → Settings → Git) to enable automatic deployments.
 - No credentials posted in chat were stored in files, git remotes or repository history.
 
 ## Database implementation
@@ -47,11 +48,13 @@ No real customer documents have been imported. SQL tests used a rolled-back tran
 
 Existing editors for pages, services, programs, team, partners, media, navigation, SEO and RIYA now have working database persistence. Custom pages already support a limited section builder.
 
-This is NOT yet a WordPress-equivalent universal editor:
+Current coverage (admin → Overview → Site Content): 44 editable documents holding 1,300+ text fields and 50 structured JSON blocks, covering every public route's prose, homepage service cards, the mobile interactive stage, legal pages, footer/header/host copy, gallery captions, pricing and programme data, plus the live site/catalog documents. Saves persist in PostgreSQL (`settings`, `kind: editable_content`), take a revision snapshot first, revalidate the whole layout, and feed the public pages, metadata/OpenGraph image, organisation schema, and RIYA's knowledge index (a content edit changes the sync fingerprint, so RIYA re-indexes administrator copy).
 
-- Much of the public route/component prose, homepage service-card copy, mobile interactive stage copy, legal content, footer/ecosystem copy, profile details, pricing tables, motion/visual assets and RIYA seed knowledge still has hardcoded or JSON-imported sources.
-- Editing a site data field does not necessarily affect every place that imports the shipped seed. The global editor describes its scope.
-- Core page section overrides and all publication-state behavior need route-by-route review.
+Known limits that remain:
+
+- Purely technical strings (CSS classes, image plate names, `mailto:`/`wa.me` URL templates, route builders) stay in reviewed source, as do type/compiler-level configuration and new interactive components. New *content* is editable; new *software* is still reviewed code.
+- RIYA referral-commission figures and automated-email bodies are sourced from settings/CMS where possible, but final legal/marketing wording should still be reviewed by the owner.
+- Core page section overrides and publication-state behavior still need route-by-route review; the section builder supports existing section types only.
 - The section builder supports existing section types; it cannot securely create arbitrary new server code or database schemas from the dashboard.
 - New software features and schema changes require reviewed code, migrations, tests and deployment. New custom content pages do not require a schema change because the PostgreSQL JSONB model stores their nested sections.
 - Automated account recovery/verified referral email ownership, shared serverless rate limiting, request/origin hardening, transactional lead/referral linking, comprehensive content validation, object storage, audit completeness, retention/backups and durable email outbox remain launch work.
@@ -62,6 +65,7 @@ Do not describe this phase as a complete launch or as error-free.
 
 - `npm run lint`: passes (TypeScript).
 - `npm run build`: passes after dependency/storage/CMS changes; rerun after any further modifications.
+- Post-migration production-server HTTP checks (isolated local JSON store): 13 routes including `/`, all top-level pages, sitemap, robots and OpenGraph returned 200; an authenticated content save of a gallery caption and a pricing tier appeared on the public page and in the editor; empty interactive-panel arrays and out-of-range commission rates were rejected; RIYA `kb.sync` returned 110 records including 21 generated from the editable documents.
 - `npm test`: seven suites pass, covering local CRUD/seeding, JSONB mapping, production fail-closed behavior, database predicate/pagination/error paths, admin tokens/cookies and order signing/privacy.
 - `npm audit`: zero reported vulnerabilities.
 - Added GitHub Actions checks for installation, TypeScript, tests, build and high-severity dependency audit (not yet run on GitHub).
@@ -72,17 +76,10 @@ Do not describe this phase as a complete launch or as error-free.
 
 ## Owner actions required
 
-1. Revoke the GitHub token and rotate the Resend key posted in chat. Use secure account connections/environment settings going forward.
-2. Provide the destination GitHub username and reconnect GitHub to that account. Secure `gh` is currently signed in as `kr8digitals`; no repository was created in an assumed account. The session branch must remain `arena/ef02ac12-kr8-company`.
-3. In Vercel project Settings → Environment Variables, add server-only production credentials directly:
-   - `SUPABASE_SERVICE_KEY`: usable Supabase secret/service-role key; not the anonymous/publishable key or a masked prefix.
-   - `ADMIN_PASSWORD`: strong unique password.
-   - `ORDER_SECRET`: at least 32 cryptographically random characters, separate from the password.
-   - `RESEND_API_KEY`: rotated key.
-   - `RESEND_FROM`: sender on the verified domain.
-   - `KR8_ADMIN_EMAILS`: actual destination inbox(es).
-   - Bank details if manual settlement instructions should display an account.
-4. Supply the exact DNS records from Resend's domain page (record name, type, value, MX priority). These are DNS records, not API secrets. Available Vercel tools do not expose DNS record CRUD; an owner must add them in Vercel DNS. Do not guess DKIM/SPF values or overwrite mailbox MX records. No extra SPF record at the same hostname if one already exists; merge per provider instructions.
+1. Rotate the Supabase secret keys and the Resend/GitHub tokens posted in chat after setup; they were shared in a message log. Do not post secrets in chat again — enter future values directly in Vercel.
+2. Production environment variables are configured. Bank details still need adding if manual settlement instructions should display an account.
+3. Connect `kr8digitals/KR8-Company` in Vercel (Settings → Git) so pushes to the production branch deploy automatically; then verify a commit triggers a deployment.
+4. Add the Resend DNS records (values supplied by the owner; this toolset has no DNS write operation). These are DNS records, not API secrets. Available Vercel tools do not expose DNS record CRUD; an owner must add them in Vercel DNS. Do not guess DKIM/SPF values or overwrite mailbox MX records. No extra SPF record at the same hostname if one already exists; merge per provider instructions.
 5. Confirm any customer-data exports requiring import, and preserve academy/other subdomain and existing mailbox records.
 6. Finish remaining CMS/security scope, then connect the destination repository through Vercel's GitHub App. A GitHub PAT does not grant Vercel's separate installation access. Configure intended production branch and separate preview data; verify that a commit triggers a deployment.
 7. The Vercel deployment connector cannot supply the first-deployment `projectSettings` controls if the API requests them. In that case, complete the first import/deployment in the Vercel dashboard. Never bypass the API's confirmation requirement through invented git_source parameters.
