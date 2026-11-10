@@ -2085,3 +2085,75 @@ span.kr8-desk-only {
     animation: none !important;
   }
 }
+
+/* Final narrow-viewport safeguards: allow grid/flex content to shrink instead of
+   widening the document, and let segmented controls wrap their labels. */
+@media (max-width: 767px) {
+  #main,
+  #main .wrap,
+  #main .wrap-narrow,
+  #main .section,
+  #main .page-hero,
+  #main .kr8-subhero,
+  #main .kr8-grid-2,
+  #main .kr8-grid-3,
+  #main .kr8-grid-4,
+  #main .grid,
+  #main .form-row {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  #main :is(.wrap, .wrap-narrow, .kr8-grid-2, .kr8-grid-3, .kr8-grid-4, .grid, .form-row) > * {
+    min-width: 0;
+  }
+
+  #main :is(h1, h2, h3, p, li, a, label, button, code, pre) {
+    overflow-wrap: anywhere;
+  }
+
+  .mhero-v3__rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3px;
+  }
+
+  .mhero-v3__tab {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.15;
+  }
+
+  .mhero-v3__tab-label {
+    display: block;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-title .line,
+  .kr8-subhero__title,
+  .page-hero h1 {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 374px) {
+  .mhero-v3__rail { gap: 2px; padding: 5px; }
+  .mhero-v3__tab { padding-inline: 1px !important; font-size: 9.6px !important; }
+}
+
+@media (max-width: 767px) {
+  /* Keep large decorative glows inexpensive on phones; their look is preserved
+     while reducing the painted area and blur radius. */
+  .blob-1,
+  .blob-2 {
+    width: min(82vw, 360px);
+    height: min(82vw, 360px);
+    filter: blur(58px);
+    animation-duration: 24s;
+  }
+
+  .mhero-v3__atmo-orb {
+    filter: blur(24px);
+  }
+}

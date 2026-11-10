@@ -4,7 +4,7 @@ import './mobile-experience.css';
 import './light-theme.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Host from '@/components/Host';
+import DeferredHost from '@/components/DeferredHost';
 import ChromeGuard from '@/components/ChromeGuard';
 import CtaAttribution from '@/components/CtaAttribution';
 import RevealProvider from '@/components/RevealProvider';
@@ -107,7 +107,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <ChromeGuard
             header={<Header navConfig={navConfig} />}
             footer={<Footer />}
-            host={<Host />}
+            host={<DeferredHost />}
           >
             {children}
           </ChromeGuard>
