@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getCmsServices } from '@/lib/cms';
+import { SITE_URL } from '@/lib/site-url';
 import { Icon } from '@/components/ui';
 import Showcase, { type ShowcaseMode } from '@/components/Showcase';
 import Pricing from '@/components/Pricing';
@@ -52,9 +53,32 @@ export default async function ServiceDetailPage({ params }: Props) {
 
   const others = services.filter((x: any) => x.slug !== service.slug);
   const heroAtmo = SERVICE_ATMO[service.slug] || 'services-atmosphere';
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.name,
+    serviceType: service.categories,
+    description: service.summary,
+    provider: { '@type': 'Organization', name: 'KR8 Digitals', url: SITE_URL },
+    areaServed: ['Nigeria', 'Africa', 'Worldwide'],
+    url: `${SITE_URL}/services/${service.slug}`,
+  };
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE_URL}/services` },
+      { '@type': 'ListItem', position: 3, name: service.name, item: `${SITE_URL}/services/${service.slug}` },
+    ],
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([serviceSchema, breadcrumbSchema]).replace(/</g, '\\u003c') }}
+      />
       {/* ============================================================ HERO */}
       <section className="kr8-subhero">
         <SectionAtmosphere name={heroAtmo} deskOpacity={0.16} mobOpacity={0.28} flare />
