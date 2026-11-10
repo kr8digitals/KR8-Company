@@ -35,8 +35,8 @@ export function Counter({ value, suffix = '', duration = 1500 }: { value: number
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) { setN(value); return; }
+    const reduce = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || typeof IntersectionObserver === 'undefined') { setN(value); return; }
     const io = new IntersectionObserver((ents) => {
       if (!ents[0].isIntersecting || done.current) return;
       done.current = true;
