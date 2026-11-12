@@ -14,10 +14,10 @@ export default function RevealProvider({ children }: { children: React.ReactNode
 
   useEffect(() => {
     document.documentElement.classList.remove('no-js');
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduce = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
-    if (reduce) {
+    if (reduce || typeof IntersectionObserver === 'undefined') {
       els.forEach((el) => el.classList.add('is-in'));
       return;
     }

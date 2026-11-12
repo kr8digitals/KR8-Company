@@ -6,7 +6,7 @@ import settings from '../../data/site.json';
 import { CurrencyPicker, Icon, Price, useCurrency } from './ui';
 import { ResponsiveCopy } from './MobileExperience';
 
-export default function Pricing({ slug }: { slug: string }) {
+export default function Pricing({ slug, intakeSlug }: { slug: string; intakeSlug?: string }) {
   const { code, rates, setCode, ready } = useCurrency();
   const block = (pricing.services as any)[slug];
   const published = settings.settings.publicPriceDisplay === true;
@@ -28,7 +28,7 @@ export default function Pricing({ slug }: { slug: string }) {
                   mobile={`Transparent fixed milestone quotes (${block.unit}) — never an hourly meter. Request your written scope below in USD or NGN.`}
                 />
                 <div style={{ display: 'flex', gap: 12, marginTop: 20, flexWrap: 'wrap', alignItems: 'center' }}>
-                  <Link href="/contact" className="btn-primary btn-sm">
+                  <Link href={`/contact?service=${intakeSlug || slug}`} className="btn-primary btn-sm">
                     Get a fixed quote <Icon name="arrow" size={15} />
                   </Link>
                   {ready && <CurrencyPicker code={code} setCode={setCode} />}
@@ -83,7 +83,7 @@ export default function Pricing({ slug }: { slug: string }) {
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" className="btn-primary btn-sm" style={{ marginTop: 18 }}>
+              <Link href={`/contact?service=${intakeSlug || slug}`} className="btn-primary btn-sm" style={{ marginTop: 18 }}>
                 Start here <Icon name="arrow" size={14} />
               </Link>
             </div>

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import site from '../../../data/site.json';
 import services from '../../../data/services.json';
-import LeadForm from '@/components/LeadForm';
+import ContactRouter from '@/components/ContactRouter';
 import { Icon } from '@/components/ui';
 import { ResponsiveCopy, SectionAtmosphere } from '@/components/MobileExperience';
 
@@ -15,14 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/contact' },
 };
 
-type Props = {
-  searchParams: Promise<{ service?: string; site?: string; ref?: string }>;
-};
-
-export default async function ContactPage({ searchParams }: Props) {
-  const sp = await searchParams;
-  const matchedService = services.find((s) => s.slug === sp.service);
-
+export default function ContactPage() {
   return (
     <>
       {/* ============================================================ HERO */}
@@ -121,11 +114,7 @@ export default async function ContactPage({ searchParams }: Props) {
         <div className="wrap">
           <div className="kr8-grid-2" style={{ alignItems: 'start', gap: 32 }}>
             <div className="panel" style={{ padding: 'clamp(18px, 3.2vw, 40px)' }}>
-              <LeadForm
-                variant="quote"
-                defaultService={matchedService?.name || sp.service}
-                siteId={sp.site || sp.ref}
-              />
+              <ContactRouter />
             </div>
 
             <div style={{ display: 'grid', gap: 18 }}>

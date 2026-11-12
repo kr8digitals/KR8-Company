@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Icon } from './ui';
+import { getCtaAttribution } from '@/lib/cta-attribution';
 
 const TRACKS = [
   'Creative & Specialist Studio Practice',
@@ -45,6 +46,7 @@ export default function PartnerProposalForm() {
           timeline,
           summary,
           mutualValue,
+          cta: getCtaAttribution('partnership-proposal:/partners#propose'),
         }),
       });
       const data = await res.json();

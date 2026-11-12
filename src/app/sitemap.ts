@@ -1,12 +1,10 @@
 import type { MetadataRoute } from 'next';
 import { getCmsPages, getCmsPartners, getCmsServices } from '@/lib/cms';
+import { SITE_URL } from '@/lib/site-url';
 
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://kr8company.vercel.app';
-  const now = new Date();
-
   const [services, partners, pages] = await Promise.all([
     getCmsServices(),
     getCmsPartners(),
@@ -32,34 +30,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/accessibility',
   ];
 
+  const knownRoutes = new Set(staticRoutes);
   const customPages = pages
-    .filter((p) => !p.isSystem && !p.noindex)
-    .map((p) => `/${p.slug.replace(/^\/+/, '')}`);
+    .filter((page) => !page.isSystem && !page.noindex && page.status === 'published')
+    .map((page) => `/${page.slug.replace(/^\/+|\/+$/g, '')}`)
+    .filter((path) => !knownRoutes.has(path));
 
-  return [
-    ...staticRoutes.map((p) => ({
-      url: `${base}${p}`,
-      lastModified: now,
-      changeFrequency: 'weekly' as const,
-      priority: p === '' ? 1 : 0.85,
-    })),
-    ...services.map((s: any) => ({
-      url: `${base}/services/${s.slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    })),
-    ...partners.map((p: any) => ({
-      url: `${base}/partners/${p.slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    })),
-    ...customPages.map((p) => ({
-      url: `${base}${p}`,
-      lastModified: now,
-      changeFrequency: 'weekly' as const,
-      priority: 0.75,
-    })),
+  const urls = [
+    ...staticRoutes.map((path) => ({ path, priority: path === '' ? 1 : 0.75, changeFrequency: 'monthly' as const })),
+    ...services.map((service: any) => ({ path: `/services/${service.slug}`, priority: 0.8, changeFrequency: 'monthly' as const })),
+    ...partners.map((partner: any) => ({ path: `/partners/${partner.slug}`, priority: 0.65, changeFrequency: 'monthly' as const })),
+    ...customPages.map((path) => ({ path, priority: 0.6, changeFrequency: 'monthly' as const })),
   ];
+
+  return urls.map(({ path, priority, changeFrequency }) => ({
+    url: new URL(path.replace(/^\/+/, ''), `${SITE_URL}/`).toString(),
+    changeFrequency,
+    priority,
+  }));
 }

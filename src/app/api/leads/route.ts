@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { store, newId } from '@/lib/store';
 import { sendMail, forwardWhatsApp, row, shell } from '@/lib/notify';
+import { SERVICE_INTAKES } from '@/lib/service-intake';
 
 export const runtime = 'nodejs';
 
@@ -27,6 +28,17 @@ function clean(v: unknown, max = 2000) {
 
 function validEmail(v: string) {
   return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v);
+}
+
+function attribution(value: unknown) {
+  const c = value && typeof value === 'object' ? value as Record<string, unknown> : {};
+  return {
+    ctaId: clean(c.ctaId, 180),
+    sourcePath: clean(c.sourcePath, 240),
+    destination: clean(c.destination, 400),
+    label: clean(c.label, 120),
+    capturedAt: clean(c.capturedAt, 40),
+  };
 }
 
 const LABEL: Record<LeadType, string> = {
@@ -78,6 +90,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Please accept the privacy notice so we can store and reply to this.' }, { status: 422 });
   }
 
+  const cta = attribution(body.cta);
+  const intakeKeys = new Set(Object.values(SERVICE_INTAKES).flatMap((intake) => intake.fields.map((field) => field.key)));
+  const intakeAnswers = Object.fromEntries(
+    [...intakeKeys].filter((key) => typeof body[key] === 'string' && body[key].trim()).map((key) => [key, clean(body[key], 1200)]),
+  );
   const record = {
     id: newId('ld_'),
     type,
@@ -90,7 +107,21 @@ export async function POST(req: Request) {
     role: clean(body.role, 120),
     portfolio: clean(body.portfolio, 300),
     partnerType: clean(body.partnerType, 80),
+    partnershipGoal: clean(body.partnershipGoal, 160),
+    partnershipTiming: clean(body.partnershipTiming, 100),
+    partnershipContribution: clean(body.partnershipContribution, 2000),
+    intakeAnswers,
     siteId: clean(body.siteId, 80),
+    projectTiming: clean(body.projectTiming, 80),
+    experienceLevel: clean(body.experienceLevel, 80),
+    availability: clean(body.availability, 80),
+    location: clean(body.location, 120),
+    interest: clean(body.interest, 180),
+    ctaId: cta.ctaId || `${type}:${clean(body.siteId, 80) || 'direct'}`,
+    ctaSourcePath: cta.sourcePath || clean(body.source, 80) || 'site',
+    ctaDestination: cta.destination,
+    ctaLabel: cta.label,
+    ctaCapturedAt: cta.capturedAt,
     message,
     status: 'new' as const,
     assignee: '',
@@ -135,6 +166,10 @@ export async function POST(req: Request) {
     row('Role', record.role),
     row('Portfolio', record.portfolio),
     row('Partner type', record.partnerType),
+    row('Partnership goal', record.partnershipGoal),
+    row('Partnership timing', record.partnershipTiming),
+    row('Partnership contribution', record.partnershipContribution),
+    ...Object.entries(intakeAnswers).map(([key, value]) => row(key, value)),
     row('Referring site', record.siteId),
     row('Referral code', refCode),
     row('Message', message),

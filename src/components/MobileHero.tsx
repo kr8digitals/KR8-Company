@@ -90,6 +90,7 @@ export default function MobileHero({
   primaryLabel: string;
   secondaryHref: string;
 }) {
+  const [isMobile, setIsMobile] = useState(false);
   const [actIdx, setActIdx] = useState(0);
   const [subStep, setSubStep] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -103,21 +104,29 @@ export default function MobileHero({
     setSubStep(0);
   }, []);
 
-  /* Advance across the 3 core acts */
   useEffect(() => {
-    if (paused) return;
+    const media = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 1023px)') : null;
+    const update = () => setIsMobile(media?.matches ?? window.innerWidth <= 1023);
+    update();
+    media?.addEventListener?.('change', update);
+    return () => media?.removeEventListener?.('change', update);
+  }, []);
+
+  /* Advance across the 3 core acts, only while the mobile hero is visible. */
+  useEffect(() => {
+    if (paused || !isMobile) return;
     const timer = setTimeout(() => selectAct(actIdx + 1), activeAct.ms);
     return () => clearTimeout(timer);
-  }, [actIdx, paused, activeAct.ms, selectAct]);
+  }, [actIdx, paused, isMobile, activeAct.ms, selectAct]);
 
   /* Internal micro-choreography within each act (every 1.65s) */
   useEffect(() => {
-    if (paused) return;
+    if (paused || !isMobile) return;
     const interval = setInterval(() => {
       setSubStep((s) => (s + 1) % 12);
     }, 1650);
     return () => clearInterval(interval);
-  }, [actIdx, paused]);
+  }, [actIdx, paused, isMobile]);
 
   const activeCardIdx = subStep % SOLUTION_CARDS.length;
   const activeTrackRow = subStep % 3;

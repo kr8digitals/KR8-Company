@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/track';
+import { getCtaAttribution } from '@/lib/cta-attribution';
 import { Icon } from './ui';
 
 export default function ReferralSignup() {
@@ -24,6 +25,7 @@ export default function ReferralSignup() {
         body: JSON.stringify({
           name: fd.get('name'), email: fd.get('email'), phone: fd.get('phone'),
           focus: fd.get('focus'), consent: fd.get('consent') === 'on',
+          cta: getCtaAttribution('referral-signup:/referrals#join'),
         }),
       });
       const data = await res.json();

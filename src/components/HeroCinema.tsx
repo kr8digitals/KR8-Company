@@ -90,6 +90,7 @@ const OFFERS = [
 const OFFER_MS = 1900;
 
 export default function HeroCinema() {
+  const [isDesktop, setIsDesktop] = useState(false);
   const [beat, setBeat] = useState(0);
   const [paused, setPaused] = useState(false);
   const [slide, setSlide] = useState(0);
@@ -101,33 +102,42 @@ export default function HeroCinema() {
 
   const go = useCallback((i: number) => setBeat(((i % BEATS.length) + BEATS.length) % BEATS.length), []);
 
-  /* beat clock */
   useEffect(() => {
-    if (paused) return;
+    const media = typeof window.matchMedia === 'function' ? window.matchMedia('(min-width: 1024px)') : null;
+    const update = () => setIsDesktop(media?.matches ?? window.innerWidth >= 1024);
+    update();
+    media?.addEventListener?.('change', update);
+    return () => media?.removeEventListener?.('change', update);
+  }, []);
+
+  /* beat clock: the desktop show should not run in the hidden mobile layout. */
+  useEffect(() => {
+    if (paused || !isDesktop) return;
     const t = setTimeout(() => go(beat + 1), current.ms);
     return () => clearTimeout(t);
-  }, [beat, paused, current.ms, go]);
+  }, [beat, paused, isDesktop, current.ms, go]);
 
   /* reset the slide whenever the beat changes */
   useEffect(() => { setSlide(0); setOffer(0); }, [beat]);
 
   /* carousel advance */
   useEffect(() => {
-    if (paused) return;
+    if (paused || !isDesktop) return;
     if (current.id !== 'sites' && current.id !== 'design') return;
     const len = current.id === 'sites' ? sites.length : flyers.length;
+    if (!len) return;
     const step = current.id === 'sites' ? 2600 : 2400;
     const t = setInterval(() => setSlide((s) => (s + 1) % len), step);
     return () => clearInterval(t);
-  }, [current.id, paused, sites.length, flyers.length]);
+  }, [current.id, paused, isDesktop, sites.length, flyers.length]);
 
   /* offers advance */
   useEffect(() => {
-    if (paused || current.id !== 'offers') return;
+    if (paused || !isDesktop || current.id !== 'offers') return;
     const start = Date.now();
     const t = setInterval(() => setOffer(Math.floor((Date.now() - start) / OFFER_MS) % OFFERS.length), 150);
     return () => clearInterval(t);
-  }, [current.id, paused]);
+  }, [current.id, paused, isDesktop]);
 
   const words = current.id === 'welcome'
     ? ['Welcome', 'to', 'KR8\u00A0Digitals']
@@ -196,6 +206,7 @@ export default function HeroCinema() {
                 const n = items.length;
                 const rel = ((off + n) % n) > n / 2 ? ((off + n) % n) - n : ((off + n) % n);
                 const isActive = rel === 0;
+                if (Math.abs(rel) > 1) return null;
                 return (
                   <Link
                     key={it.name + i}
@@ -212,7 +223,7 @@ export default function HeroCinema() {
                       <span className="cine__url">{it.kind === 'site' ? (it.href || '').replace(/^https?:\/\//, '').replace(/\/$/, '') : 'client artwork'}</span>
                     </div>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={it.img} alt={it.name} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+                    <img src={isActive ? it.img : it.thumb} alt={it.name} loading={isActive ? 'eager' : 'lazy'} decoding="async" fetchPriority={isActive ? 'high' : 'low'} />
                   </Link>
                 );
               })}

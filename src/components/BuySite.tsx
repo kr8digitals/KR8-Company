@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Icon } from './ui';
+import { getCtaAttribution } from '@/lib/cta-attribution';
 
 export default function BuySite({ siteId, name, priceUsd, approved = false }: { siteId: string; name: string; priceUsd: number; approved?: boolean }) {
   const [state, setState] = useState<'idle' | 'busy' | 'done'>('idle');
@@ -18,6 +19,7 @@ export default function BuySite({ siteId, name, priceUsd, approved = false }: { 
         body: JSON.stringify({
           item: `${name} — ready-built site`, amountUsd: priceUsd, siteId,
           name: fd.get('name'), email: fd.get('email'), phone: fd.get('phone'), note: fd.get('note'),
+          cta: getCtaAttribution(`buy-site:${siteId}`),
         }),
       });
       const data = await res.json();

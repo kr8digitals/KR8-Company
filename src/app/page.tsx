@@ -39,9 +39,10 @@ const mainPartners = [
 ];
 
 export const metadata = {
-  title: 'KR8 Digitals — Whoever you are, whatever you do, we exist because of you.',
+  title: 'KR8 Digitals Nigeria | Websites, Branding, Video & Free Training',
   description:
-    'KR8 Digitals designs and builds websites, brands, films, AI systems and SEO optimisation for organisations that need to be found, trusted and chosen.',
+    'KR8 Digitals is a Nigerian digital studio building websites, brand identities, commercial video and AI systems, alongside tuition-free digital skills training for African talent.',
+  alternates: { canonical: '/' },
 };
 
 export default function Home() {

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import LeadForm from './LeadForm';
+import { resolveServiceIntake } from '@/lib/service-intake';
 
 type V = 'quote' | 'partner' | 'team' | 'contact';
 
@@ -18,12 +19,22 @@ export default function ContactRouter() {
   const [tab, setTab] = useState<V>('quote');
   const [ref, setRef] = useState('');
   const [service, setService] = useState('');
+  const [partnerType, setPartnerType] = useState('');
+  const [siteId, setSiteId] = useState('');
 
   useEffect(() => {
     const q = params.get('type');
-    if (q === 'partner' || q === 'team' || q === 'quote' || q === 'contact') setTab(q);
-    const s = params.get('service');
-    if (s) setService(s);
+    const validType = q === 'partner' || q === 'team' || q === 'quote' || q === 'contact';
+    const s = params.get('service') || '';
+    setService(s);
+    setSiteId(params.get('site') || '');
+    const partner = params.get('partner') || '';
+    const partnerTypes: Record<string, string> = {
+      teach: 'Teaching & skills', fund: 'Funding & sponsors', hire: 'Placement & employers',
+      host: 'Schools, hubs & NGOs', tools: 'Tools & platforms',
+    };
+    setPartnerType(partnerTypes[partner] || partner);
+    setTab(partner ? 'partner' : validType ? q : 'quote');
     let r = params.get('ref') || '';
     if (!r) { try { r = localStorage.getItem('kr8.ref') || ''; } catch { /* noop */ } }
     setRef(r);
@@ -53,8 +64,8 @@ export default function ContactRouter() {
       )}
 
       <div style={{ marginTop: 26 }}>
-        {tab === 'quote' && <LeadForm key="q" variant="quote" siteId={service || 'contact'} defaultService={service} />}
-        {tab === 'partner' && <LeadForm key="p" variant="partner" siteId="contact-partner" />}
+        {tab === 'quote' && <LeadForm key={`q-${service}`} variant="quote" siteId={siteId || service || 'contact'} defaultService={service} intake={resolveServiceIntake(service)} />}
+        {tab === 'partner' && <LeadForm key={`p-${partnerType}`} variant="partner" siteId="contact-partner" defaultPartnerType={partnerType} />}
         {tab === 'team' && <LeadForm key="t" variant="team" siteId="contact-team" />}
         {tab === 'contact' && <LeadForm key="c" variant="contact" siteId="contact-general" />}
       </div>

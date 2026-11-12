@@ -1,13 +1,13 @@
 import type { MetadataRoute } from 'next';
-
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://kr8digitals.com';
+import { SITE_URL } from '@/lib/site-url';
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: '*', allow: '/', disallow: ['/admin', '/api/', '/referrals/dashboard', '/r/'] },
+      // Keep noindex pages crawlable so bots can see the directives in their HTML.
+      { userAgent: '*', allow: '/', disallow: ['/admin', '/api/'] },
     ],
-    sitemap: `${BASE}/sitemap.xml`,
-    host: BASE,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }
